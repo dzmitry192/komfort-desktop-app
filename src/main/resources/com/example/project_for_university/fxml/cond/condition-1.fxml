@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="775.0" prefWidth="804.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.FConditionController">
+   <children>
+      <Label layoutX="39.0" layoutY="47.0" text="Знак при минимальной температуре: " />
+      <RadioButton fx:id="rad_btn_plus" layoutX="255.0" layoutY="47.0" mnemonicParsing="false" onMouseClicked="#rad_btn_plus_clicked" text="+" />
+      <RadioButton fx:id="rad_btn_minus" layoutX="302.0" layoutY="47.0" mnemonicParsing="false" onMouseClicked="#rad_btn_minus_clicked" text="-" />
+      <Label layoutX="39.0" layoutY="91.0" text="Минимальная температура воздуха:" />
+      <Slider fx:id="scroll_min_temp_one" blockIncrement="1.0" layoutX="248.0" layoutY="85.0" majorTickUnit="10.0" max="30.0" min="-30.0" minorTickCount="1" onMouseDragged="#scroll_min_temp_one_dragged" showTickLabels="true" />
+      <Slider fx:id="scroll_min_temp_sec" blockIncrement="1.0" layoutX="472.0" layoutY="83.0" majorTickUnit="5.0" max="30.0" min="-30.0" minorTickCount="1" onMouseDragged="#scroll_min_temp_sec_dragged" showTickLabels="true" />
+      <Label layoutX="39.0" layoutY="151.0" text="Максимальная влажность воздуха:" />
+      <Slider fx:id="scroll_max_air_one" blockIncrement="1.0" layoutX="248.0" layoutY="143.0" majorTickUnit="20.0" max="99.0" min="20.0" minorTickCount="1" onMouseDragged="#scroll_max_air_one_dragged" showTickLabels="true" />
+      <Slider fx:id="scroll_max_air_sec" blockIncrement="1.0" layoutX="472.0" layoutY="143.0" majorTickUnit="10.0" max="99.0" min="20.0" minorTickCount="1" onMouseDragged="#scroll_max_air_sec_dragged" showTickLabels="true" />
+      <Label layoutX="39.0" layoutY="203.0" text="Средняя скорость движения:" />
+      <Slider fx:id="scroll_av_speed" blockIncrement="1.0" layoutX="248.0" layoutY="196.0" majorTickUnit="10.0" max="50.0" minorTickCount="1" onMouseDragged="#scroll_av_speed_dragged" showTickLabels="true" />
+      <Label layoutX="39.0" layoutY="261.0" text="Уровень физической активности носчика:" />
+      <ComboBox fx:id="lev_phys" layoutX="355.0" layoutY="257.0" prefWidth="150.0" promptText="Выберите" />
+      <Label layoutX="39.0" layoutY="301.0" text="Время непрерывного пребывания в заданных условиях:" />
+      <ComboBox fx:id="time_cond" layoutX="355.0" layoutY="297.0" prefWidth="150.0" promptText="Выберите" />
+      <Label layoutX="39.0" layoutY="340.0" text="Тип преобладающей нагрузки:" />
+      <CheckBox fx:id="check_bend" layoutX="39.0" layoutY="378.0" mnemonicParsing="false" onMouseClicked="#check_bend_clicked" text="Изгиб" />
+      <CheckBox fx:id="check_abrasion" layoutX="39.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#check_abrasion_clicked" text="Истирание" />
+      <CheckBox fx:id="check_stretch_compress" layoutX="39.0" layoutY="447.0" mnemonicParsing="false" onMouseClicked="#check_stretch_compress_clicked" text="Растяжение-сжатие" />
+      <CheckBox fx:id="check_torsion" layoutX="39.0" layoutY="485.0" mnemonicParsing="false" onMouseClicked="#check_torsion_clicked" text="Кручение" />
+      <CheckBox fx:id="check_wash" layoutX="39.0" layoutY="528.0" mnemonicParsing="false" onMouseClicked="#check_wash_clicked" text="Стирка" />
+      <ComboBox fx:id="bend_type" layoutX="195.0" layoutY="374.0" prefWidth="150.0" promptText="Выберите" />
+      <ComboBox fx:id="abrasion_type" layoutX="195.0" layoutY="408.0" prefWidth="150.0" promptText="Выберите" />
+      <Slider fx:id="scroll_stretching" blockIncrement="5.0" layoutX="195.0" layoutY="449.0" majorTickUnit="20.0" min="5.0" minorTickCount="5" onMouseDragged="#scroll_stretching_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="5.0" />
+      <Slider fx:id="scroll_torsion_angle" layoutX="195.0" layoutY="484.0" majorTickUnit="40.0" max="180.0" min="20.0" minorTickCount="10" onMouseDragged="#scroll_torsion_angle_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="5.0" />
+      <ComboBox fx:id="wash_type" layoutX="195.0" layoutY="526.0" prefWidth="150.0" promptText="Выберите" />
+      <Label fx:id="lab_temp" layoutX="34.0" layoutY="572.0" text="Температура:" />
+      <Slider fx:id="scroll_temp_washing" layoutX="121.0" layoutY="571.0" majorTickUnit="10.0" max="60.0" min="30.0" minorTickCount="10" onMouseDragged="#scroll_temp_washing_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
+      <Label fx:id="lab_wash_time" layoutX="35.0" layoutY="606.0" text="Время стирки:" />
+      <Slider fx:id="scroll_time_washing" layoutX="121.0" layoutY="605.0" majorTickUnit="10.0" max="60.0" min="20.0" minorTickCount="10" onMouseDragged="#scroll_time_washing_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
+      <Label fx:id="lab_spin" layoutX="355.0" layoutY="568.0" text="Отжим:" />
+      <RadioButton fx:id="rad_btn_yes" layoutX="339.0" layoutY="602.0" mnemonicParsing="false" onMouseClicked="#rad_btn_yes_clicked" text="Да" />
+      <RadioButton fx:id="rad_btn_no" layoutX="386.0" layoutY="602.0" mnemonicParsing="false" onMouseClicked="#rad_btn_no_clicked" text="Нет" />
+      <TextField fx:id="inp_min_temp_sec" editable="false" layoutX="627.0" layoutY="79.0" prefHeight="26.0" prefWidth="50.0" />
+      <TextField fx:id="inp_max_air_sec" editable="false" layoutX="627.0" layoutY="139.0" prefHeight="26.0" prefWidth="50.0" />
+      <TextField fx:id="inp_av_speed" editable="false" layoutX="403.0" layoutY="201.0" prefHeight="26.0" prefWidth="50.0" />
+      <TextField fx:id="inp_stretching" editable="false" layoutX="358.0" layoutY="445.0" prefHeight="26.0" prefWidth="50.0" />
+      <TextField fx:id="inp_torsion_angle" editable="false" layoutX="358.0" layoutY="481.0" prefHeight="26.0" prefWidth="50.0" />
+      <Button fx:id="btn_cond_back" layoutX="267.0" layoutY="690.0" mnemonicParsing="false" onMouseClicked="#btn_cond_back_clicked" prefHeight="40.0" prefWidth="100.0" text="Назад" />
+      <TextField fx:id="inp_temp_washing" editable="false" layoutX="280.0" layoutY="568.0" prefHeight="26.0" prefWidth="50.0" />
+      <TextField fx:id="inp_time_washing" editable="false" layoutX="281.0" layoutY="600.0" prefHeight="26.0" prefWidth="50.0" />
+      <Button fx:id="btn_cond_next" layoutX="385.0" layoutY="690.0" mnemonicParsing="false" onMouseClicked="#btn_cond_next_clicked" prefHeight="40.0" prefWidth="100.0" text="Далее" />
+      <TextField fx:id="inp_min_temp_one" editable="false" layoutX="403.0" layoutY="81.0" prefHeight="26.0" prefWidth="50.0" />
+      <TextField fx:id="inp_max_air_one" editable="false" layoutX="403.0" layoutY="140.0" prefHeight="26.0" prefWidth="50.0" />
+      <ListView fx:id="layers_list" layoutX="489.0" layoutY="392.0" prefHeight="158.0" prefWidth="244.0" />
+      <ComboBox fx:id="choose_layer_cb" layoutX="489.0" layoutY="358.0" prefWidth="150.0" promptText="Выберите слой" />
+      <Button fx:id="btn_add_layer" layoutX="651.0" layoutY="358.0" mnemonicParsing="false" onMouseClicked="#btn_add_layer_clicked" prefHeight="26.0" prefWidth="82.0" text="Добавить" />
+      <TextField fx:id="inp_cycles_cnt" editable="false" layoutX="155.0" layoutY="645.0" prefHeight="26.0" prefWidth="50.0" />
+      <Label fx:id="lab_temp1" layoutX="34.0" layoutY="650.0" text="Количество циклов:" />
+   </children>
+</AnchorPane>

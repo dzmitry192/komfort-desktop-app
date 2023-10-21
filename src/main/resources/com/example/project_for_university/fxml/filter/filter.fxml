@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.FilterController">
+   <children>
+      <ScrollPane prefHeight="579.0" prefWidth="280.0">
+         <content>
+            <VBox prefHeight="754.0" prefWidth="263.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Фильтры">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="9.0" left="95.0" top="9.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+                  <Separator prefHeight="2.0" prefWidth="289.0" />
+                  <CheckBox fx:id="check_own_materials" mnemonicParsing="false" onMouseClicked="#check_name_clicked" text="Только свои материалы">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="check_name" mnemonicParsing="false" onMouseClicked="#check_name_clicked" text="Имя материала">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <TextField fx:id="name_inp" disable="true" prefHeight="26.0" prefWidth="243.0">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="check_type_memb" mnemonicParsing="false" onMouseClicked="#check_type_memb_clicked" text="Тип мембраны">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <ComboBox fx:id="typeMemb_cb" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="Выберите">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <CheckBox fx:id="check_way_prod" mnemonicParsing="false" onMouseClicked="#check_way_prod_clicked" text="Способ производства">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <ComboBox fx:id="way_prod_cb" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="Выберите">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <CheckBox fx:id="check_num_layers" mnemonicParsing="false" onMouseClicked="#check_num_layers_clicked" text="Количество слоев">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <ComboBox fx:id="num_layers_cb" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="Выберите">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <CheckBox fx:id="check_depth" mnemonicParsing="false" onMouseClicked="#check_depth_clicked" text="Толщина">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <TextField fx:id="depth_inp_1" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="От">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="depth_inp_2" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="До">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="check_blotting_pressure" mnemonicParsing="false" onMouseClicked="#check_blotting_pressure_clicked" text="Давление промокания">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <TextField fx:id="blotting_pressure_inp_1" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="От">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="blotting_pressure_inp_2" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="До">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="check_time" mnemonicParsing="false" onMouseClicked="#check_time_clicked" text="Время промокания">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <TextField fx:id="time_inp_1" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="От">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="time_inp_2" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="До">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="check_water_vapor_perm" mnemonicParsing="false" onMouseClicked="#check_water_vapor_perm_clicked" text="Водопаропроницаемость">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <TextField fx:id="water_vapor_perm_inp_1" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="От">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="water_vapor_perm_inp_2" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="До">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="check_resistance" mnemonicParsing="false" onMouseClicked="#check_resistance_clicked" text="Тепловое сопротивление">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <TextField fx:id="resistance_inp_1" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="От">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="resistance_inp_2" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="До">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="check_relative_pressure" mnemonicParsing="false" onMouseClicked="#check_relative_pressure_clicked" text="Относительное давление промокания">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <TextField fx:id="relative_pressure_inp_1" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="От">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="relative_pressure_inp_2" disable="true" prefHeight="26.0" prefWidth="243.0" promptText="До">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <VBox layoutX="280.0" prefHeight="94.0" prefWidth="605.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="605.0">
+               <children>
+                  <Button fx:id="btn_search" mnemonicParsing="false" onMouseClicked="#btn_search_clicked" prefHeight="26.0" prefWidth="140.0" text="Поиск">
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btn_reset_filters" mnemonicParsing="false" onMouseClicked="#btn_reset_filters_clicked" prefHeight="26.0" prefWidth="140.0" text="Сбросить фильтры">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btn_back" mnemonicParsing="false" onMouseClicked="#btn_back_clicked" prefHeight="26.0" prefWidth="140.0" text="&lt;Назад">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <Separator prefHeight="3.0" prefWidth="600.0" />
+            <HBox alignment="CENTER" prefHeight="38.0" prefWidth="605.0">
+               <children>
+                  <Label prefWidth="125.0" text="Изображение" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Label contentDisplay="CENTER" prefWidth="420.0" text="Наименование">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <Separator prefHeight="3.0" prefWidth="600.0" />
+         </children>
+      </VBox>
+      <ScrollPane layoutX="280.0" layoutY="90.0" prefHeight="488.0" prefWidth="604.0">
+         <content>
+            <VBox fx:id="list_materials" prefHeight="539.0" prefWidth="587.0">
+               <children>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

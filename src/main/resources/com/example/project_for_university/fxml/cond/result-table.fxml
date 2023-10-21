@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="473.0" prefWidth="804.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.ResultTableController">
+  <tabs>
+    <Tab fx:id="tab_water_protection" text="Водозащита">
+         <content>
+            <AnchorPane prefHeight="340.0" prefWidth="804.0">
+               <children>
+                  <Separator layoutY="7.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Separator layoutY="45.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutX="47.0" layoutY="24.0" text="Наименование показателя" />
+                  <Separator layoutX="230.0" layoutY="14.0" orientation="VERTICAL" prefHeight="263.0" prefWidth="20.0" />
+                  <Label layoutX="249.0" layoutY="24.0" text="Введите экспериментальные данные" />
+                  <Label layoutX="473.0" layoutY="24.0" text="Расчетное значение" />
+                  <Label layoutX="605.0" layoutY="24.0" text="Базовое значение" />
+                  <Label layoutX="731.0" layoutY="24.0" text="Весомость" />
+                  <Label layoutX="9.0" layoutY="62.0" text="Рп – давление промокания материалов" />
+                  <Separator layoutY="82.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" />
+                  <Label layoutX="9.0" layoutY="99.0" text="В– водонепроницаемость" />
+                  <Separator layoutY="120.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" />
+                  <Label layoutX="11.0" layoutY="137.0" text="tп – время промокания материала" />
+                  <Label layoutX="11.0" layoutY="175.0" text="Кв – критерий полноты реализации" />
+                  <Label layoutX="12.0" layoutY="193.0" text="водозащитной функции" />
+                  <Label layoutX="7.0" layoutY="231.0" text="Квд – динамический критерий уровня" />
+                  <Label layoutX="9.0" layoutY="249.0" text="водозащитной функции" />
+                  <Separator layoutY="158.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" />
+                  <Separator layoutY="214.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.rightAnchor="0.0" />
+                  <Separator layoutY="270.0" prefHeight="15.0" prefWidth="804.0" />
+                  <Separator layoutX="454.0" layoutY="15.0" orientation="VERTICAL" prefHeight="263.0" prefWidth="20.0" />
+                  <Separator layoutX="586.0" layoutY="14.0" orientation="VERTICAL" prefHeight="263.0" prefWidth="20.0" />
+                  <Separator layoutX="706.0" layoutY="14.0" orientation="VERTICAL" prefHeight="263.0" prefWidth="20.0" />
+                  <TextField fx:id="materialBlottingPressure_experimental_1" layoutX="251.0" layoutY="58.0" prefHeight="26.0" prefWidth="200.0" />
+                  <TextField fx:id="waterproof_experimental_1" layoutX="251.0" layoutY="94.0" prefHeight="26.0" prefWidth="200.0" />
+                  <TextField fx:id="materialBlottingTime_experimental_1" layoutX="251.0" layoutY="132.0" prefHeight="26.0" prefWidth="200.0" />
+                  <TextField fx:id="waterproofRealizationCriteria_experimental_1" layoutX="249.0" layoutY="180.0" prefHeight="26.0" prefWidth="95.0" />
+                  <TextField fx:id="dynamicWaterproofCriteria_experimental_1" layoutX="245.0" layoutY="235.0" prefHeight="26.0" prefWidth="45.0" />
+                  <TextField fx:id="waterproofRealizationCriteria_experimental_2" layoutX="354.0" layoutY="180.0" prefHeight="26.0" prefWidth="95.0" />
+                  <TextField fx:id="dynamicWaterproofCriteria_experimental_2" layoutX="299.0" layoutY="235.0" prefHeight="26.0" prefWidth="45.0" />
+                  <TextField fx:id="dynamicWaterproofCriteria_experimental_3" layoutX="356.0" layoutY="235.0" prefHeight="26.0" prefWidth="45.0" />
+                  <TextField fx:id="dynamicWaterproofCriteria_experimental_4" layoutX="408.0" layoutY="235.0" prefHeight="26.0" prefWidth="45.0" />
+                  <Label alignment="CENTER" layoutX="473.0" layoutY="168.0" prefHeight="0.0" prefWidth="111.0" text="-">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="473.0" layoutY="223.0" prefHeight="0.0" prefWidth="111.0" text="-">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="materialBlottingPressure_calculated" layoutX="473.0" layoutY="57.0" prefHeight="26.0" prefWidth="112.0" />
+                  <TextField fx:id="waterproof_calculated" layoutX="473.0" layoutY="94.0" prefHeight="26.0" prefWidth="112.0" />
+                  <TextField fx:id="materialBlottingTime_calculated" layoutX="473.0" layoutY="133.0" prefHeight="26.0" prefWidth="112.0" />
+                  <TextField fx:id="materialBlottingPressure_base" layoutX="599.0" layoutY="57.0" prefHeight="26.0" prefWidth="112.0" />
+                  <TextField fx:id="waterproof_base" layoutX="599.0" layoutY="94.0" prefHeight="26.0" prefWidth="112.0" />
+                  <TextField fx:id="materialBlottingTime_base" layoutX="599.0" layoutY="133.0" prefHeight="26.0" prefWidth="112.0" />
+                  <TextField fx:id="waterproofRealizationCriteria_base" layoutX="599.0" layoutY="180.0" prefHeight="26.0" prefWidth="112.0" />
+                  <TextField fx:id="dynamicWaterproofCriteria_base" layoutX="599.0" layoutY="236.0" prefHeight="26.0" prefWidth="112.0" />
+                  <TextField fx:id="materialBlottingPressure_weight" layoutX="725.0" layoutY="57.0" prefHeight="26.0" prefWidth="69.0" />
+                  <TextField fx:id="waterproof_weight" layoutX="725.0" layoutY="94.0" prefHeight="26.0" prefWidth="69.0" />
+                  <TextField fx:id="materialBlottingTime_weight" layoutX="725.0" layoutY="133.0" prefHeight="26.0" prefWidth="69.0" />
+                  <TextField fx:id="waterproofRealizationCriteria_weight" layoutX="725.0" layoutY="179.0" prefHeight="26.0" prefWidth="69.0" />
+                  <TextField fx:id="dynamicWaterproofCriteria_weight" layoutX="725.0" layoutY="236.0" prefHeight="26.0" prefWidth="69.0" />
+                  <Button layoutX="35.0" layoutY="285.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="80.0" text="&lt;Назад" />
+               </children>
+            </AnchorPane>
+         </content></Tab>
+    <Tab fx:id="tab_homeostasis" text="Гомеостаз">
+         <content>
+            <AnchorPane prefHeight="374.0" prefWidth="814.0">
+               <children>
+                  <Separator layoutY="7.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Separator layoutY="45.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutX="45.0" layoutY="24.0" text="Наименование показателя" />
+                  <Separator layoutX="230.0" layoutY="14.0" orientation="VERTICAL" prefHeight="150.0" prefWidth="20.0" />
+                  <Label layoutX="339.0" layoutY="22.0" text="Введите экспериментальные данные" />
+                  <Label layoutX="638.0" layoutY="17.0" text="Базовое" />
+                  <Label layoutX="722.0" layoutY="24.0" text="Весомость" />
+                  <Label layoutX="9.0" layoutY="62.0" text="WVPc – водопаропроницаемость" />
+                  <Separator layoutY="82.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" />
+                  <Label layoutX="9.0" layoutY="99.0" text="Kв– динам. крит. водопаропрониц." />
+                  <Separator layoutY="120.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" />
+                  <Label layoutX="9.0" layoutY="138.0" text="Rсум – сумм. тепловое сопротивление" />
+                  <Separator layoutY="158.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" />
+                  <Separator layoutX="613.0" layoutY="15.0" orientation="VERTICAL" prefHeight="150.0" prefWidth="20.0" />
+                  <Separator layoutX="693.0" layoutY="15.0" orientation="VERTICAL" prefHeight="150.0" prefWidth="20.0" />
+                  <TextField fx:id="m1s" alignment="CENTER" layoutX="286.0" layoutY="57.0" prefHeight="26.0" prefWidth="70.0" promptText="M1c" />
+                  <TextField fx:id="tos" alignment="CENTER" layoutX="311.0" layoutY="132.0" prefHeight="26.0" prefWidth="80.0" promptText="tос" />
+                  <TextField fx:id="waterPermeability_base" layoutX="631.0" layoutY="58.0" prefHeight="26.0" prefWidth="60.0" />
+                  <TextField fx:id="waterPermeability_weight" layoutX="717.0" layoutY="56.0" prefHeight="26.0" prefWidth="69.0" />
+                  <TextField fx:id="waterPermeabilityDynamicCriteria_weight" layoutX="716.0" layoutY="93.0" prefHeight="26.0" prefWidth="69.0" />
+                  <TextField fx:id="totalThermalResistance_weight" layoutX="717.0" layoutY="132.0" prefHeight="26.0" prefWidth="69.0" />
+                  <TextField fx:id="m1min" alignment="CENTER" layoutX="242.0" layoutY="94.0" prefHeight="26.0" prefWidth="60.0" promptText="M1мин" />
+                  <TextField fx:id="m2min" alignment="CENTER" layoutX="305.0" layoutY="94.0" prefHeight="26.0" prefWidth="60.0" promptText="M2мин" />
+                  <TextField fx:id="m1max" alignment="CENTER" layoutX="368.0" layoutY="94.0" prefHeight="26.0" prefWidth="60.0" promptText="M1макс" />
+                  <TextField fx:id="m2max" alignment="CENTER" layoutX="431.0" layoutY="94.0" prefHeight="26.0" prefWidth="60.0" promptText="M2макс" />
+                  <TextField fx:id="s0_2" alignment="CENTER" layoutX="495.0" layoutY="94.0" prefHeight="26.0" prefWidth="60.0" promptText="C0" />
+                  <TextField fx:id="m2s" alignment="CENTER" layoutX="366.0" layoutY="57.0" prefHeight="26.0" prefWidth="70.0" promptText="M2c" />
+                  <TextField fx:id="s0_1" alignment="CENTER" layoutX="446.0" layoutY="57.0" prefHeight="26.0" prefWidth="70.0" promptText="C0" />
+                  <TextField fx:id="t_1" alignment="CENTER" layoutX="525.0" layoutY="57.0" prefHeight="26.0" prefWidth="70.0" promptText="t" />
+                  <TextField fx:id="waterPermeabilityDynamicCriteria_base" layoutX="631.0" layoutY="94.0" prefHeight="26.0" prefWidth="60.0" />
+                  <TextField fx:id="totalThermalResistance_base" layoutX="631.0" layoutY="133.0" prefHeight="26.0" prefWidth="60.0" />
+                  <Label layoutX="635.0" layoutY="30.0" text="значение" />
+                  <TextField fx:id="t_2" alignment="CENTER" layoutX="558.0" layoutY="94.0" prefHeight="26.0" prefWidth="60.0" promptText="t" />
+                  <TextField fx:id="s" alignment="CENTER" layoutX="401.0" layoutY="132.0" prefHeight="26.0" prefWidth="80.0" promptText="c" />
+                  <TextField fx:id="m" alignment="CENTER" layoutX="490.0" layoutY="133.0" prefHeight="26.0" prefWidth="80.0" promptText="m" />
+                  <Label layoutX="9.0" layoutY="176.0" text="Комфортная темепература внутри одежды" />
+                  <Label layoutX="9.0" layoutY="213.0" text="Комфортная влажность внутри одежды" />
+                  <Label layoutX="9.0" layoutY="290.0" text="Минимальная температура наружной среды" />
+                  <Label layoutX="9.0" layoutY="252.0" text="Минимальная влажность наружной среды" />
+                  <Label layoutX="400.0" layoutY="175.0" text="Максимальная температура наружной среды" />
+                  <Label layoutX="400.0" layoutY="213.0" text="Максимальная влажность наружной среды" />
+                  <Label layoutX="401.0" layoutY="252.0" text="Средняя скорость движения наружного воздуха" />
+                  <Separator layoutX="262.0" layoutY="165.0" orientation="VERTICAL" prefHeight="151.0" prefWidth="20.0" />
+                  <Separator layoutY="196.0" prefHeight="15.0" prefWidth="804.0" />
+                  <TextField fx:id="comfTempInsideClothes" alignment="CENTER" layoutX="281.0" layoutY="171.0" prefHeight="26.0" prefWidth="100.0" />
+                  <Separator layoutX="-8.0" layoutY="234.0" prefHeight="15.0" prefWidth="814.0" AnchorPane.rightAnchor="0.0" />
+                  <Separator layoutY="273.0" prefHeight="15.0" prefWidth="804.0" />
+                  <TextField fx:id="comfHumidityInsideClothes" alignment="CENTER" layoutX="281.0" layoutY="208.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="minOutdoorHumidity" alignment="CENTER" layoutX="281.0" layoutY="246.0" prefHeight="26.0" prefWidth="100.0" />
+                  <Separator layoutX="382.0" layoutY="166.0" orientation="VERTICAL" prefHeight="150.0" prefWidth="20.0" />
+                  <Separator layoutX="669.0" layoutY="165.0" orientation="VERTICAL" prefHeight="151.0" prefWidth="20.0" />
+                  <TextField fx:id="maxOutdoorTemp" alignment="CENTER" layoutX="691.0" layoutY="171.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="maxOutdoorHumidity" alignment="CENTER" layoutX="691.0" layoutY="208.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="avgOutdoorAirSpeed" alignment="CENTER" layoutX="691.0" layoutY="246.0" prefHeight="26.0" prefWidth="100.0" />
+                  <Separator layoutX="-1.0" layoutY="310.0" prefHeight="15.0" prefWidth="391.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" />
+                  <TextField fx:id="minOutdoorTemp" alignment="CENTER" layoutX="281.0" layoutY="285.0" prefHeight="26.0" prefWidth="100.0" />
+                  <Label layoutX="400.0" layoutY="291.0" text="Площадь поверхности пробы" />
+                  <TextField fx:id="sampleSurfaceArea" alignment="CENTER" layoutX="690.0" layoutY="285.0" prefHeight="26.0" prefWidth="100.0" />
+               </children>
+            </AnchorPane>
+         </content></Tab>
+      <Tab fx:id="tab_reliability" text="Надежность">
+         <content>
+            <AnchorPane prefHeight="340.0" prefWidth="804.0">
+               <children>
+                  <Separator layoutY="7.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Separator layoutY="45.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutX="47.0" layoutY="24.0" text="Наименование показателя" />
+                  <Separator layoutX="406.0" layoutY="14.0" orientation="VERTICAL" prefHeight="319.0" prefWidth="20.0" />
+                  <Label layoutX="481.0" layoutY="16.0" text="Введите" />
+                  <Label layoutX="598.0" layoutY="16.0" text="Расчетное" />
+                  <Label layoutX="675.0" layoutY="15.0" text="Базовое" AnchorPane.leftAnchor="675.0" AnchorPane.rightAnchor="83.39999999999998" />
+                  <Label layoutX="740.0" layoutY="24.0" text="Весомость" />
+                  <Label layoutX="9.0" layoutY="62.0" text="Рпо - относительное давление промокания после нагрузок" />
+                  <Separator layoutY="82.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" />
+                  <Label layoutX="9.0" layoutY="99.0" text="Во – относительная водонепроницаемость после нагрузок" />
+                  <Separator layoutY="120.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" />
+                  <Label layoutX="11.0" layoutY="137.0" text="tпо – относительное время промокания материала после нагрузок" />
+                  <Label layoutX="11.0" layoutY="175.0" text="Кво – относителный критерий полноты реализации водозащитной" />
+                  <Label layoutX="11.0" layoutY="195.0" text="функции после нагрузок" />
+                  <Label layoutX="12.0" layoutY="231.0" text="Рес – ресурс водозащитной функции материала" />
+                  <Separator layoutY="158.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.leftAnchor="0.0" />
+                  <Separator layoutY="214.0" prefHeight="15.0" prefWidth="804.0" AnchorPane.rightAnchor="0.0" />
+                  <Separator layoutY="253.0" prefHeight="15.0" prefWidth="804.0" />
+                  <Separator layoutX="582.0" layoutY="14.0" orientation="VERTICAL" prefHeight="320.0" prefWidth="20.0" />
+                  <Separator layoutX="653.0" layoutY="14.0" orientation="VERTICAL" prefHeight="246.0" prefWidth="20.0" />
+                  <Separator layoutX="725.0" layoutY="14.0" orientation="VERTICAL" prefHeight="245.0" prefWidth="20.0" />
+                  <TextField fx:id="relativeBlottingPressureAfterLoad_experimental_1" layoutX="438.0" layoutY="57.0" prefHeight="26.0" prefWidth="135.0" />
+                  <TextField fx:id="relativeWaterResistanceAfterLoad_experimental_1" layoutX="438.0" layoutY="95.0" prefHeight="26.0" prefWidth="135.0" />
+                  <TextField fx:id="relativeBlottingTimeAfterLoad_experimental_1" layoutX="438.0" layoutY="133.0" prefHeight="26.0" prefWidth="135.0" />
+                  <TextField fx:id="waterproofRealizationCriteriaAfterLoad_experimental_1" layoutX="426.0" layoutY="180.0" prefHeight="26.0" prefWidth="70.0" />
+                  <TextField fx:id="waterproofRealizationCriteriaAfterLoad_experimental_2" layoutX="511.0" layoutY="180.0" prefHeight="26.0" prefWidth="70.0" />
+                  <Label alignment="CENTER" layoutX="669.0" layoutY="167.0" prefHeight="0.0" prefWidth="55.0" text="-">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="616.0" layoutY="167.0" prefHeight="21.0" prefWidth="18.0" text="-">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="relativeBlottingPressureAfterLoad_calculated" layoutX="601.0" layoutY="56.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="relativeWaterResistanceAfterLoad_calculated" layoutX="601.0" layoutY="93.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="relativeBlottingTimeAfterLoad_calculated" layoutX="601.0" layoutY="132.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="relativeBlottingPressureAfterLoad_base" layoutX="673.0" layoutY="56.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="relativeWaterResistanceAfterLoad_base" layoutX="672.0" layoutY="93.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="relativeBlottingTimeAfterLoad_base" layoutX="672.0" layoutY="132.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="waterproofFunctionResource_base" layoutX="671.0" layoutY="227.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="relativeBlottingPressureAfterLoad_weight" layoutX="744.0" layoutY="56.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="relativeWaterResistanceAfterLoad_weight" layoutX="744.0" layoutY="93.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="relativeBlottingTimeAfterLoad_weight" layoutX="744.0" layoutY="132.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="waterproofRealizationCriteriaAfterLoad_weight" layoutX="744.0" layoutY="179.0" prefHeight="26.0" prefWidth="50.0" />
+                  <TextField fx:id="waterproofFunctionResource_weight" layoutX="744.0" layoutY="227.0" prefHeight="26.0" prefWidth="50.0" AnchorPane.rightAnchor="9.600000000000001" />
+                  <Label layoutX="9.0" layoutY="267.0" text="Предельно допустимый уровень водонепроницаемости" />
+                  <Label layoutX="672.0" layoutY="30.0" text="значение" />
+                  <Label alignment="CENTER" layoutX="617.0" layoutY="215.0" prefHeight="21.0" prefWidth="18.0" text="-">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="600.0" layoutY="31.0" text="значение" />
+                  <Label layoutX="424.0" layoutY="30.0" text="экспериментальные данные" />
+                  <Separator layoutX="4.0" layoutY="288.0" prefHeight="15.0" prefWidth="587.0" />
+                  <TextField fx:id="maxWaterResistanceLvl" layoutX="438.0" layoutY="263.0" prefHeight="26.0" prefWidth="135.0" />
+                  <Label layoutX="6.0" layoutY="369.0" text="Оборудование" />
+                  <Separator layoutX="4.0" layoutY="326.0" prefHeight="15.0" prefWidth="588.0" />
+                  <Label alignment="CENTER" layoutX="492.0" layoutY="215.0" prefHeight="21.0" prefWidth="18.0" text="-">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="9.0" layoutY="303.0" text="Количество циклов воздействий" />
+                  <TextField fx:id="impactCyclesCnt" layoutX="438.0" layoutY="301.0" prefHeight="26.0" prefWidth="135.0" />
+                  <TextArea fx:id="equipment" layoutX="98.0" layoutY="341.0" prefHeight="74.0" prefWidth="697.0" />
+               </children>
+            </AnchorPane>
+         </content></Tab>
+      <Tab fx:id="tab_rating" text="Оценка">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Весомость функции водозащиты" />
+                  <Label layoutX="14.0" layoutY="49.0" text="Весомость функции гомеостаза" />
+                  <Label layoutX="14.0" layoutY="85.0" text="Весомость функции гомеостаза" />
+                  <TextField fx:id="waterproofFunction_weight" layoutX="210.0" layoutY="9.0" prefHeight="26.0" prefWidth="128.0" />
+                  <TextField fx:id="homeostasisFunction_weight" layoutX="210.0" layoutY="45.0" prefHeight="26.0" prefWidth="128.0" />
+                  <TextField fx:id="reliabilityFunction_weight" layoutX="210.0" layoutY="81.0" prefHeight="26.0" prefWidth="128.0" />
+               </children>
+            </AnchorPane>
+         </content></Tab>
+  </tabs>
+</TabPane>

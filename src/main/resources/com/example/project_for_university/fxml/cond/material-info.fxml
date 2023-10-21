@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="454.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.MaterialInfoController">
+   <children>
+      <TextArea fx:id="comments_area" layoutX="10.0" layoutY="229.0" prefHeight="210.0" prefWidth="501.0" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Label layoutX="176.0" layoutY="204.0" text="Примечания к материалу:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ListView fx:id="photos_names_list" editable="true" layoutX="236.0" layoutY="10.0" prefHeight="139.0" prefWidth="274.0" />
+      <Button fx:id="upload_photo_btn" layoutX="49.00000000000003" layoutY="102.0" mnemonicParsing="false" onMouseClicked="#upload_photo_btn_clicked" prefHeight="35.0" prefWidth="145.0" text="Загрузить фото" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="325.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="next_btn" layoutX="49.00000000000003" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#next_btn_clicked" prefHeight="35.0" prefWidth="145.0" text="Далее" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="325.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="back_btn" layoutX="49.00000000000003" layoutY="62.0" mnemonicParsing="false" onMouseClicked="#back_btn_clicked" prefHeight="35.0" prefWidth="145.0" text="&lt;Назад" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="325.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="14.0" layoutY="168.0" text="Название материала: ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="name_field" layoutX="160.0" layoutY="165.0" prefHeight="26.0" prefWidth="350.0" />
+   </children>
+</AnchorPane>
