@@ -1,0 +1,82 @@
+
+/*buttons*/
+
+.btn-blue-filled {
+  -fx-min-height: 30;
+  -fx-background-color: rgb(56, 149, 255);
+  -fx-background-radius: 4px;
+  -fx-text-fill: white;
+}
+
+.btn-blue-outlined {
+  -fx-min-height: 30;
+  -fx-border-color: rgb(56, 149, 255);
+  -fx-background-color:  transparent;
+  -fx-text-fill: rgb(56, 149, 255);
+  -fx-border-radius: 4px;
+}
+
+
+
+.btn-red-filled {
+  -fx-min-height: 30;
+  -fx-background-color: rgb(248, 53, 53);
+  -fx-background-radius: 4px;
+  -fx-text-fill: white;
+}
+
+.btn-red-outlined {
+  -fx-min-height: 30;
+  -fx-border-color: rgb(248, 53, 53);
+  -fx-text-fill: rgb(248, 53, 53);
+  -fx-background-color:  transparent;
+  -fx-border-radius: 4px;
+}
+
+/*---------*/
+
+.page-wrapper {
+  -fx-pref-width: 1100px;
+  -fx-max-width: 1100px;
+  -fx-min-height: 750px;
+}
+
+.bold-text {
+  -fx-font-family: Arial, Helvetica, sans-serif;
+  -fx-font-weight: 900;
+  -fx-font-size: 21px
+}
+
+.box-shadow {
+  -fx-background-color: white;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+}
+
+.error-text {
+  -fx-text-fill: rgb(248, 53, 53);
+}
+
+.form-wrapper {
+  -fx-background-color: white;
+  -fx-background-radius: 8px;
+  -fx-padding: 40px;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+}
+
+.sky-blue-background {
+  -fx-background-color: rgb(184, 217, 255);
+}
+
+.default-gray-background {
+  -fx-background-color: #e5e5e5;
+  -fx-background: #e5e5e5;
+}
+
+.white-scroll-pane {
+  -fx-background: white;
+  -fx-background-color: white;
+}
+
+.table-header-cell {
+  -fx-background-color: rgb(184, 217, 255);
+}

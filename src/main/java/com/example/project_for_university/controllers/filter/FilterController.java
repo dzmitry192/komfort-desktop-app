@@ -17,7 +17,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
 public class FilterController implements Initializable {
 
@@ -28,6 +30,9 @@ public class FilterController implements Initializable {
 
     @FXML
     private URL location;
+
+    @FXML
+    private CheckBox check_own_materials;
 
     @FXML
     private TextField blotting_pressure_inp_1;
@@ -44,12 +49,6 @@ public class FilterController implements Initializable {
     private CheckBox check_depth;
 
     @FXML
-    private CheckBox check_name;
-
-    @FXML
-    private CheckBox check_num_layers;
-
-    @FXML
     private CheckBox check_relative_pressure;
 
     @FXML
@@ -59,16 +58,7 @@ public class FilterController implements Initializable {
     private CheckBox check_time;
 
     @FXML
-    private CheckBox check_type_memb;
-
-    @FXML
     private CheckBox check_water_vapor_perm;
-
-    @FXML
-    private CheckBox check_way_prod;
-
-    @FXML
-    private CheckBox check_own_materials;
 
     @FXML
     private TextField depth_inp_1;
@@ -119,6 +109,11 @@ public class FilterController implements Initializable {
     private ComboBox<?> way_prod_cb;
 
     @FXML
+    void check_own_materials(MouseEvent event) {
+
+    }
+
+    @FXML
     void check_blotting_pressure_clicked(MouseEvent event) {
         if(check_blotting_pressure.isSelected()) {
             blotting_pressure_inp_1.setDisable(false);
@@ -141,25 +136,6 @@ public class FilterController implements Initializable {
             depth_inp_2.setDisable(true);
             depth_inp_1.setText("");
             depth_inp_2.setText("");
-        }
-    }
-
-    @FXML
-    void check_name_clicked(MouseEvent event) {
-        if(check_name.isSelected()) {
-            name_inp.setDisable(false);
-        } else {
-            name_inp.setDisable(true);
-            name_inp.setText("");
-        }
-    }
-
-    @FXML
-    void check_num_layers_clicked(MouseEvent event) {
-        if(check_num_layers.isSelected()) {
-            num_layers_cb.setDisable(false);
-        } else {
-            num_layers_cb.setDisable(true);
         }
     }
 
@@ -203,15 +179,6 @@ public class FilterController implements Initializable {
     }
 
     @FXML
-    void check_type_memb_clicked(MouseEvent event) {
-        if(check_type_memb.isSelected()) {
-            typeMemb_cb.setDisable(false);
-        } else {
-            typeMemb_cb.setDisable(true);
-        }
-    }
-
-    @FXML
     void check_water_vapor_perm_clicked(MouseEvent event) {
         if(check_water_vapor_perm.isSelected()) {
             water_vapor_perm_inp_1.setDisable(false);
@@ -225,29 +192,16 @@ public class FilterController implements Initializable {
     }
 
     @FXML
-    void check_way_prod_clicked(MouseEvent event) {
-        if(check_way_prod.isSelected()) {
-            way_prod_cb.setDisable(false);
-        } else {
-            way_prod_cb.setDisable(true);
-        }
-    }
-
-    @FXML
     void btn_search_clicked(MouseEvent event) {
 
     }
 
     @FXML
     void btn_reset_filters_clicked(MouseEvent event) {
-        check_way_prod.setSelected(false);
-        check_type_memb.setSelected(false);
         check_time.setSelected(false);
         check_resistance.setSelected(false);
-        check_name.setSelected(false);
         check_water_vapor_perm.setSelected(false);
         check_relative_pressure.setSelected(false);
-        check_num_layers.setSelected(false);
         check_depth.setSelected(false);
         check_blotting_pressure.setSelected(false);
 
@@ -293,13 +247,14 @@ public class FilterController implements Initializable {
         List<Material> materials = new ArrayList<>(materials());
         for(int i = 0; i < materials.size(); i++) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/com/example/project_for_university/fxml/filter/filter-material.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/com/example/project_for_university/fxml/filter/material_item/filter-material.fxml"));
 
             try {
-                VBox vBox = fxmlLoader.load();
+                HBox materialItem = fxmlLoader.load();
                 MaterialController materialController = fxmlLoader.getController();
                 materialController.setMaterial(materials.get(i));
-                list_materials.getChildren().add(vBox);
+                list_materials.getChildren().add(materialItem);
+//                anchorPane.maxWidthProperty().bind(list_materials.maxWidthProperty());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -313,7 +268,7 @@ public class FilterController implements Initializable {
         materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
         materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
         materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
+        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы ЫЫЫЫЫЫЫЫЫЫЫЫЫ ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ ЫЫЫЫЫЫЫЫЫ ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
         materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
         materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
         materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));

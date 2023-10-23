@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.MaterialController">
+   <children>
+      <HBox alignment="CENTER" spacing="20.0" styleClass="material-inner-wrapper" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fx:id="image" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <image>
+                  <Image url="@../../../img/image1.jpg" />
+               </image>
+            </ImageView>
+            <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <children>
+                  <Label fx:id="name" styleClass="bold-text" text="Название_Материала">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="desc" text="Какое то описание блв бла бла бла бла блааааа ваыв ыва ыва ыва ывава" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <Button fx:id="btn_moreDetails" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_moreDetails_clicked" styleClass="btn-blue-filled" text="Подробнее" HBox.hgrow="NEVER" />
+         </children>
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+         </padding>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="7.0" right="7.0" top="10.0" />
+   </padding>
+   <stylesheets>
+      <URL value="@material_item.css" />
+      <URL value="@../../../styles/shared.css" />
+   </stylesheets>
+</HBox>

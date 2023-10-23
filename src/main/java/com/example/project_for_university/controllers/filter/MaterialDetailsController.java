@@ -1,6 +1,7 @@
 package com.example.project_for_university.controllers.filter;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -8,9 +9,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-public class MaterialDetailsController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MaterialDetailsController implements Initializable {
     @FXML
     private Button back_btn;
 
@@ -91,6 +96,11 @@ public class MaterialDetailsController {
 
     @FXML
     void image_next_btn_clicked(MouseEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 }

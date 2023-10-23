@@ -214,13 +214,13 @@ public class FConditionController extends Node {
     void check_abrasion_clicked(MouseEvent event) {
         if (!check_abrasion.isSelected()) {
             cnt_type_of_load--;
-            abrasion_type.setVisible(false);
+            abrasion_type.setDisable(true);
         } else {
             if (cnt_type_of_load == 2) {
                 check_abrasion.setSelected(false);
             } else {
                 cnt_type_of_load++;
-                abrasion_type.setVisible(true);
+                abrasion_type.setDisable(false);
             }
         }
     }
@@ -229,13 +229,13 @@ public class FConditionController extends Node {
     void check_bend_clicked(MouseEvent event) {
         if (!check_bend.isSelected()) {
             cnt_type_of_load--;
-            bend_type.setVisible(false);
+            bend_type.setDisable(true);
         } else {
             if (cnt_type_of_load == 2) {
                 check_bend.setSelected(false);
             } else {
                 cnt_type_of_load++;
-                bend_type.setVisible(true);
+                bend_type.setDisable(false);
             }
         }
     }
@@ -244,15 +244,15 @@ public class FConditionController extends Node {
     void check_stretch_compress_clicked(MouseEvent event) {
         if (!check_stretch_compress.isSelected()) {
             cnt_type_of_load--;
-            scroll_stretching.setVisible(false);
-            inp_stretching.setVisible(false);
+            scroll_stretching.setDisable(true);
+            inp_stretching.setDisable(true);
         } else {
             if (cnt_type_of_load == 2) {
                 check_stretch_compress.setSelected(false);
             } else {
                 cnt_type_of_load++;
-                scroll_stretching.setVisible(true);
-                inp_stretching.setVisible(true);
+                scroll_stretching.setDisable(false);
+                inp_stretching.setDisable(false);
             }
         }
     }
@@ -261,15 +261,15 @@ public class FConditionController extends Node {
     void check_torsion_clicked(MouseEvent event) {
         if (!check_torsion.isSelected()) {
             cnt_type_of_load--;
-            scroll_torsion_angle.setVisible(false);
-            inp_torsion_angle.setVisible(false);
+            scroll_torsion_angle.setDisable(true);
+            inp_torsion_angle.setDisable(true);
         } else {
             if (cnt_type_of_load == 2) {
                 check_torsion.setSelected(false);
             } else {
                 cnt_type_of_load++;
-                scroll_torsion_angle.setVisible(true);
-                inp_torsion_angle.setVisible(true);
+                scroll_torsion_angle.setDisable(false);
+                inp_torsion_angle.setDisable(false);
             }
         }
     }
@@ -278,31 +278,27 @@ public class FConditionController extends Node {
     void check_wash_clicked(MouseEvent event) {
         if (!check_wash.isSelected()) {
             cnt_type_of_load--;
-            wash_type.setVisible(false);
-            lab_temp.setVisible(false);
-            lab_wash_time.setVisible(false);
-            lab_spin.setVisible(false);
-            scroll_temp_washing.setVisible(false);
-            scroll_time_washing.setVisible(false);
-            inp_temp_washing.setVisible(false);
-            inp_time_washing.setVisible(false);
-            rad_btn_yes.setVisible(false);
-            rad_btn_no.setVisible(false);
+            wash_type.setDisable(true);
+            scroll_temp_washing.setDisable(true);
+            scroll_time_washing.setDisable(true);
+            inp_temp_washing.setDisable(true);
+            inp_time_washing.setDisable(true);
+            rad_btn_yes.setDisable(true);
+            rad_btn_no.setDisable(true);
+            inp_cycles_cnt.setDisable(true);
         } else {
             if (cnt_type_of_load == 2) {
                 check_wash.setSelected(false);
             } else {
                 cnt_type_of_load++;
-                wash_type.setVisible(true);
-                lab_temp.setVisible(true);
-                lab_wash_time.setVisible(true);
-                lab_spin.setVisible(true);
-                scroll_temp_washing.setVisible(true);
-                scroll_time_washing.setVisible(true);
-                inp_temp_washing.setVisible(true);
-                inp_time_washing.setVisible(true);
-                rad_btn_yes.setVisible(true);
-                rad_btn_no.setVisible(true);
+                wash_type.setDisable(false);
+                scroll_temp_washing.setDisable(false);
+                scroll_time_washing.setDisable(false);
+                inp_temp_washing.setDisable(false);
+                inp_time_washing.setDisable(false);
+                rad_btn_yes.setDisable(false);
+                rad_btn_no.setDisable(false);
+                inp_cycles_cnt.setDisable(false);
             }
         }
     }

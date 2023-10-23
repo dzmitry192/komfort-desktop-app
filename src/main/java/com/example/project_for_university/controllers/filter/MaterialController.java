@@ -38,7 +38,7 @@ public class MaterialController implements Initializable {
         Stage stage = (Stage) btn_moreDetails.getScene().getWindow();
         stage.close();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(MaterialController.class.getResource("/com/example/project_for_university/fxml/filter/filter-material-details.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MaterialController.class.getResource("/com/example/project_for_university/fxml/filter/material_details/filter-material-details.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         Stage window = new Stage();
