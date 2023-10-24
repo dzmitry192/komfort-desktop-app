@@ -6,11 +6,12 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -30,7 +31,7 @@
                   <Separator />
                </children>
             </VBox>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="1.0" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
+            <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
                <content>
                   <VBox spacing="60.0">
                      <children>
@@ -364,7 +365,7 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <VBox maxWidth="400.0">
+                                          <VBox maxWidth="500.0">
                                              <children>
                                                 <VBox spacing="10.0">
                                                    <children>
@@ -375,7 +376,12 @@
                                                             <Button fx:id="remove_layer_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#remove_layer_btn_clicked" prefWidth="1000.0" styleClass="btn-red-outlined" text="Удалить" />
                                                          </children>
                                                       </HBox>
-                                                      <ListView fx:id="layers_list" prefHeight="200.0" VBox.vgrow="NEVER" />
+                                                      <TableView prefWidth="500.0" VBox.vgrow="NEVER">
+                                                        <columns>
+                                                          <TableColumn editable="false" prefWidth="95.0" resizable="false" sortable="false" text="Позиция" />
+                                                          <TableColumn editable="false" prefWidth="403.0" resizable="false" sortable="false" text="Название слоя" />
+                                                        </columns>
+                                                      </TableView>
                                                    </children>
                                                 </VBox>
                                              </children>

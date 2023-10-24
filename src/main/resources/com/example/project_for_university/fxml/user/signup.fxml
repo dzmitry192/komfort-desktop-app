@@ -10,7 +10,7 @@
 
 <VBox alignment="CENTER" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.SignupController">
    <children>
-      <VBox maxWidth="360.0" prefWidth="360.0" styleClass="form-wrapper" stylesheets="@../../styles/shared.css">
+      <VBox maxWidth="-Infinity" prefWidth="420.0" styleClass="form-wrapper" stylesheets="@../../styles/shared.css">
          <children>
             <Label styleClass="bold-text" stylesheets="@../../styles/shared.css" text="Регистрация">
                <font>
@@ -45,8 +45,8 @@
             </VBox>
             <VBox spacing="10.0">
                <children>
-                  <Button fx:id="signup_btn" mnemonicParsing="false" onMouseClicked="#signup_btn_clicked" prefHeight="30.0" prefWidth="300.0" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Зарегистрироваться" />
-                  <Button fx:id="back_btn" mnemonicParsing="false" onMouseClicked="#back_btn_clicked" prefHeight="30.0" prefWidth="300.0" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Войти в аккаунт" />
+                  <Button fx:id="signup_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#signup_btn_clicked" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Зарегистрироваться" />
+                  <Button fx:id="back_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#back_btn_clicked" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Войти в аккаунт" />
                </children>
             </VBox>
          </children>

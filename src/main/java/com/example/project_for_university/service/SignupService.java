@@ -35,19 +35,19 @@ public class SignupService {
         CloseableHttpResponse response = httpClient.execute(httpPost);
         switch (response.getStatusLine().getStatusCode()) {
             case 401:
-                status_lbl.setText("Пользователь с таким email уже существует!");
+                status_lbl.setText("Пользователь с таким email уже существует");
                 break;
             case 400:
-                status_lbl.setText("Вы ввели некорректный email!");
+                status_lbl.setText("Некорректный email");
                 break;
             case 201:
                 status_lbl.setTextFill(Color.GREEN);
-                status_lbl.setText("Регистрация прошла успешно!");
+                status_lbl.setText("Регистрация прошла успешно");
                 allValues.setUser(JsonToClass.parseToObject(UserEntity.class, response));
                 allValues.getUser().setPassword(password);
                 break;
             default:
-                status_lbl.setText("Произошла ошибка, попробуйте ещё раз!");
+                status_lbl.setText("Непредвиденная ошибка");
         }
     }
 }

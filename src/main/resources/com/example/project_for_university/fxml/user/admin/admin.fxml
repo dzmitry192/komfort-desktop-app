@@ -36,9 +36,9 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_lev_activ_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_lev_activ_type_clicked" prefWidth="90.0" styleClass="btn-blue-filled" text="Управление">
+                                          <Button fx:id="btn_lev_activ_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_lev_activ_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
                                              <HBox.margin>
-                                                <Insets left="35.0" />
+                                                <Insets left="10.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
@@ -60,9 +60,9 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_memr_lay_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_memr_lay_type_clicked" prefWidth="90.0" styleClass="btn-blue-filled" text="Управление">
+                                          <Button fx:id="btn_memr_lay_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_memr_lay_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
                                              <HBox.margin>
-                                                <Insets left="35.0" />
+                                                <Insets left="10.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
@@ -84,9 +84,9 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_production_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_production_type_clicked" prefWidth="90.0" styleClass="btn-blue-filled" text="Управление">
+                                          <Button fx:id="btn_production_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_production_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
                                              <HBox.margin>
-                                                <Insets left="35.0" />
+                                                <Insets left="10.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
@@ -108,9 +108,9 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_abrasion_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_abrasion_type_clicked" prefWidth="90.0" styleClass="btn-blue-filled" text="Управление">
+                                          <Button fx:id="btn_abrasion_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_abrasion_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
                                              <HBox.margin>
-                                                <Insets left="35.0" />
+                                                <Insets left="10.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
@@ -128,9 +128,9 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_bend_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_bend_type_clicked" prefWidth="90.0" styleClass="btn-blue-filled" text="Управление">
+                                          <Button fx:id="btn_bend_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_bend_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
                                              <HBox.margin>
-                                                <Insets left="35.0" />
+                                                <Insets left="10.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
@@ -152,9 +152,9 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_washing_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_washing_type_clicked" prefWidth="90.0" styleClass="btn-blue-filled" text="Управление">
+                                          <Button fx:id="btn_washing_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_washing_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
                                              <HBox.margin>
-                                                <Insets left="35.0" />
+                                                <Insets left="10.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
@@ -176,9 +176,9 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_lay_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_lay_type_clicked" prefWidth="90.0" styleClass="btn-blue-filled" text="Управление">
+                                          <Button fx:id="btn_lay_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_lay_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
                                              <HBox.margin>
-                                                <Insets left="35.0" />
+                                                <Insets left="10.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
@@ -198,9 +198,9 @@
                                        </HBox.margin>
                                     </Label>
                                     <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                    <Button fx:id="btn_glue_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_glue_type_clicked" prefWidth="90.0" styleClass="btn-blue-filled" text="Управление">
+                                    <Button fx:id="btn_glue_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_glue_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
                                        <HBox.margin>
-                                          <Insets left="35.0" />
+                                          <Insets left="10.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>

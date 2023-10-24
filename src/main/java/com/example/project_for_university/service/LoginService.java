@@ -34,20 +34,20 @@ public class LoginService {
         CloseableHttpResponse response = httpClient.execute(httpPost);
         switch (response.getStatusLine().getStatusCode()) {
             case 404:
-                status_lbl.setText("Пользователь с таким email не найден!");
+                status_lbl.setText("Пользователь с таким email не найден");
                 break;
             case 401:
-                status_lbl.setText("Вы ввели неверный пароль, попробуйте ещё раз!");
+                status_lbl.setText("Неверный пароаль");
                 break;
             case 400:
-                status_lbl.setText("Вы ввели некорректный email!");
+                status_lbl.setText("Некорректный email");
                 break;
             case 201:
                 allValues.setUser(JsonToClass.parseToObject(UserEntity.class, response));
                 allValues.getUser().setPassword(password);
                 return true;
             default:
-                status_lbl.setText("Произошла ошибка, попробуйте ещё раз!");
+                status_lbl.setText("Непредвиденная ошибка");
         }
 
         return false;

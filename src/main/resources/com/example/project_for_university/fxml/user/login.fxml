@@ -10,7 +10,7 @@
 
 <VBox fx:id="main_box" alignment="CENTER" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.LoginController">
    <children>
-      <VBox fx:id="sec_main_box" maxWidth="360.0" styleClass="form-wrapper" stylesheets="@../../styles/shared.css">
+      <VBox fx:id="sec_main_box" maxWidth="420.0" styleClass="form-wrapper" stylesheets="@../../styles/shared.css">
          <children>
             <Label styleClass="bold-text" stylesheets="@../../styles/shared.css" text="Вход в аккаунт">
                <font>
