@@ -1,0 +1,15 @@
+
+.loader { 
+  -fx-pref-width: 35px;
+  -fx-pref-height: 35px;
+  -fx-max-width: 35px;
+  -fx-max-height: 35px;
+  -fx-min-width: 35px;
+  -fx-min-height: 35px;
+
+  -fx-background-color: transparent;
+  -fx-border-style: solid none solid solid;
+  -fx-border-width: 4px;
+  -fx-border-radius: 15px;
+  -fx-border-color: -fx-blue-accent;
+}

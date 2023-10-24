@@ -7,9 +7,10 @@ module com.example.project_for_university {
     requires com.google.gson;
     requires json.lib;
 
-
     opens com.example.project_for_university to javafx.fxml;
     exports com.example.project_for_university;
+    exports com.example.project_for_university.controllers.loader;
+    opens com.example.project_for_university.controllers.loader to javafx.fxml;
     exports com.example.project_for_university.controllers.user;
     opens com.example.project_for_university.controllers.user to javafx.fxml;
     exports com.example.project_for_university.http to com.fasterxml.jackson.databind;
