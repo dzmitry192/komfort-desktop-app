@@ -29,7 +29,7 @@
                   <HBox fillHeight="false" spacing="10.0">
                      <children>
                         <TextField fx:id="name_field" prefHeight="30.0" prefWidth="373.0" promptText="артикул" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="upload_photo_btn" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#upload_photo_btn_clicked" prefWidth="118.0" styleClass="btn-blue-outlined" text="Загрузить фото">
+                        <Button fx:id="upload_photo_btn" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#upload_photo_btn_clicked" prefWidth="120.0" styleClass="btn-blue-outlined" text="Загрузить фото">
                            <font>
                               <Font size="14.0" />
                            </font>

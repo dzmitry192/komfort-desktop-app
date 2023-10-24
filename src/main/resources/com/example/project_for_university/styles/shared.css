@@ -6,11 +6,11 @@
 
 /*----font----*/
 
-Text, Label { 
+.root {
+  -fx-font-family: Arial, Helvetica, sans-serif;
   -fx-fill: rgb(0, 0, 0);
   -fx-font-size: 14px;
 }
-
 
 /*------buttons------*/
 
@@ -71,13 +71,11 @@ Text, Label {
 }
 
 .bold-text {
-  -fx-font-family: Arial, Helvetica, sans-serif;
   -fx-font-weight: 900;
   -fx-font-size: 21px
 }
 
 .bold-medium-text {
-  -fx-font-family: Arial, Helvetica, sans-serif;
   -fx-font-weight: 900;
   -fx-font-size: 16px
 }
