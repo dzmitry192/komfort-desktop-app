@@ -1,65 +1,77 @@
-/*----window----*/
-.min-window-height {
-  -fx-pref-height: 750px;
-}
-
-
-/*----font----*/
-
 .root {
   -fx-font-family: Arial, Helvetica, sans-serif;
   -fx-fill: rgb(0, 0, 0);
   -fx-font-size: 14px;
+
+  -fx-blue-accent: rgb(69, 156, 255);
+  -fx-blue-dark: rgb(57, 133, 219);
+  -fx-red-accent: rgb(255, 73, 73);
+  -fx-red-dark: rgb(225, 60, 60);
+
+  -fx-gray-color: rgb(241, 241, 241);
+  -fx-app-background-color: rgb(196, 223, 255);
+  -fx-table-header-color: rgb(184, 217, 255);
+}
+
+/*----window----*/
+.min-window-height {
+  -fx-pref-height: 750px;
 }
 
 /*------buttons------*/
 
 .btn-blue-filled {
   -fx-min-height: 30;
-  -fx-background-color: rgb(56, 149, 255);
+  -fx-background-color: -fx-blue-accent;
   -fx-background-radius: 4px;
   -fx-text-fill: white;
+  -fx-font-weight: 700;
 }
 
 .btn-blue-filled:hover {
-  -fx-background-color:  rgb(48, 127, 218);
+  -fx-background-color:  -fx-blue-dark;
 }
 
 .btn-blue-outlined {
   -fx-min-height: 30;
-  -fx-border-color: rgb(56, 149, 255);
+  -fx-border-color: -fx-blue-accent;
   -fx-background-color:  transparent;
-  -fx-text-fill: rgb(56, 149, 255);
+  -fx-text-fill: -fx-blue-accent;
+  -fx-border-width: 1.5px;
   -fx-border-radius: 4px;
+  -fx-font-weight: 700;
 }
 
 .btn-blue-outlined:hover {
-  -fx-background-color:  rgb(56, 149, 255);
+  -fx-background-color:  -fx-blue-accent;
   -fx-text-fill: white;
 }
 
 
 .btn-red-filled {
   -fx-min-height: 30;
-  -fx-background-color: rgb(248, 53, 53);
+  -fx-background-color: -fx-red-accent;
   -fx-background-radius: 4px;
   -fx-text-fill: white;
+  -fx-font-weight: 700;
 }
 
 .btn-red-filled:hover {
-  -fx-background-color:  rgb(223, 45, 45);
+  -fx-background-color: -fx-red-dark;
 }
 
 .btn-red-outlined {
   -fx-min-height: 30;
-  -fx-border-color: rgb(248, 53, 53);
-  -fx-text-fill: rgb(248, 53, 53);
+  -fx-border-color: -fx-red-accent;
+  -fx-text-fill: -fx-red-accent;
   -fx-background-color:  transparent;
+  -fx-border-width: 1.5px;
   -fx-border-radius: 4px;
+  -fx-font-weight: 700;
 }
 
 .btn-red-outlined:hover {
-  -fx-background-color:  rgb(248, 53, 53);
+  -fx-background-color:  -fx-red-accent;
   -fx-text-fill: white;
 }
 
@@ -86,7 +98,7 @@
 }
 
 .error-text {
-  -fx-text-fill: rgb(248, 53, 53);
+  -fx-text-fill: -fx-red-accent;
 }
 
 .form-wrapper {
@@ -97,12 +109,12 @@
 }
 
 .sky-blue-background {
-  -fx-background-color: rgb(184, 217, 255);
+  -fx-background-color: -fx-app-background-color;
 }
 
 .default-gray-background {
-  -fx-background-color: rgb(241, 241, 241);
-  -fx-background: rgb(241, 241, 241);
+  -fx-background-color: -fx-gray-color;
+  -fx-background: -fx-gray-color;
 }
 
 .white-scroll-pane {
@@ -111,7 +123,7 @@
 }
 
 .table-header-cell {
-  -fx-background-color: rgb(184, 217, 255);
+  -fx-background-color: -fx-table-header-color;
 }
 
 /*----table-view----*/
@@ -123,7 +135,7 @@
 }
 
 .table-view .column-header-background {
-  -fx-background-color: rgb(184, 217, 255);
+  -fx-background-color: -fx-table-header-color;
   -fx-background-insets: 0 0 0 0;
   -fx-padding: 3;
 }
@@ -167,8 +179,8 @@
   }
   
 .check-box:selected .box {
-  -fx-border-color: rgb(56, 149, 255);
-  -fx-background-color: rgb(56, 149, 255);
+  -fx-border-color: -fx-blue-accent;
+  -fx-background-color: -fx-blue-accent;
 }
 
 /*----combo-box----*/
@@ -195,8 +207,8 @@
 
 .combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover 
 {
-  -fx-background: rgb(56, 149, 255);
-  -fx-background-color: rgb(56, 149, 255);
+  -fx-background: -fx-blue-accent;
+  -fx-background-color: -fx-blue-accent;
   -fx-text-fill: white;
 }
 
@@ -225,7 +237,7 @@
 }
 
 .radio-button:selected .radio {
-  -fx-background-color: rgb(56, 149, 255);
+  -fx-background-color: -fx-blue-accent;
   -fx-border-color: white;
 }
 
@@ -234,7 +246,7 @@
 }
 
 .radio-button -radio:determinate {
-  -fx-background-color: rgb(56, 149, 255);
+  -fx-background-color: -fx-blue-accent;
   -fx-background-image: null;
 }
 .radio-button -radio:indeterminate {
@@ -254,7 +266,7 @@
 /*-----slider------*/
 
 .slider {
-  -default-track-color: rgb(56, 149, 255);
+  -default-track-color: -fx-blue-accent;
   -track-color: -default-track-color ;
 }
 

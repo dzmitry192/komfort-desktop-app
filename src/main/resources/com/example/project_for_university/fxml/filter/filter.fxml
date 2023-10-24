@@ -24,7 +24,7 @@
                      <children>
                         <VBox HBox.hgrow="ALWAYS">
                            <children>
-                              <VBox alignment="CENTER" spacing="5.0">
+                              <VBox alignment="CENTER" spacing="5.0" styleClass="default-gray-background">
                                  <children>
                                     <Label alignment="CENTER" contentDisplay="CENTER" styleClass="bold-text" text="Фильтры">
                                        <font>
@@ -204,7 +204,7 @@
                                     </VBox>
                                  </content>
                               </ScrollPane>
-                              <VBox prefHeight="51.0" spacing="10.0" VBox.vgrow="NEVER">
+                              <VBox prefHeight="51.0" spacing="10.0" styleClass="default-gray-background" VBox.vgrow="NEVER">
                                  <children>
                                     <Separator rotate="180.0" />
                                     <VBox spacing="10.0">
@@ -212,7 +212,7 @@
                                           <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                              <children>
                                                 <Button fx:id="btn_search" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_search_clicked" prefHeight="30.0" prefWidth="10000.0" styleClass="btn-blue-filled" text="Поиск" />
-                                                <Button fx:id="btn_reset_filters" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_reset_filters_clicked" prefHeight="26.0" prefWidth="10000.0" styleClass="btn-red-outlined" text="Сбросить фильтры" />
+                                                <Button fx:id="btn_reset_filters" mnemonicParsing="false" onMouseClicked="#btn_reset_filters_clicked" prefHeight="26.0" prefWidth="10000.0" styleClass="btn-red-outlined" text="Сбросить" />
                                              </children>
                                           </HBox>
                                           <Button fx:id="btn_back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_back_clicked" prefHeight="26.0" styleClass="btn-red-filled" text="&lt; Назад" />
