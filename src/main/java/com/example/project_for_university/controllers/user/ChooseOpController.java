@@ -39,17 +39,18 @@ public class ChooseOpController extends Node {
     @FXML
     private Text user_fio_lbl;
 
-
     @FXML
     void calculation_btn_clicked(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ControllerUtils.firstCondRoute));
         Scene scene = new Scene(fxmlLoader.load());
 
         ((FConditionController) fxmlLoader.getController()).setData(allValues);
+        ((FConditionController) fxmlLoader.getController()).getValuesForCB();
 
         Stage window = (Stage) back_btn.getScene().getWindow();
         window.setTitle("Ввод первых условий");
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 
@@ -63,6 +64,7 @@ public class ChooseOpController extends Node {
         Stage window = (Stage) back_btn.getScene().getWindow();
         window.setTitle("Администратор");
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 
@@ -76,11 +78,12 @@ public class ChooseOpController extends Node {
         FXMLLoader loader = new FXMLLoader(ChooseOpController.class.getResource(ControllerUtils.filterRoute));
         Scene scene = new Scene(loader.load());
 
+        ((FilterController) loader.getController()).setData(allValues);
+
         Stage window = (Stage) back_btn.getScene().getWindow();
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
-
-        ((FilterController) loader.getController()).setData(allValues);
     }
 
     @FXML
@@ -92,6 +95,7 @@ public class ChooseOpController extends Node {
 
         Stage window = (Stage) back_btn.getScene().getWindow();
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 

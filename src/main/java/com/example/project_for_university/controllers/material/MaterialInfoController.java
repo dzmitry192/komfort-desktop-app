@@ -55,6 +55,7 @@ public class MaterialInfoController {
 
         Stage window = (Stage) back_btn.getScene().getWindow();
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 
@@ -75,6 +76,7 @@ public class MaterialInfoController {
 
             Stage window = (Stage) back_btn.getScene().getWindow();
             window.setScene(scene);
+            window.setFullScreen(true);
             window.show();
         }
     }

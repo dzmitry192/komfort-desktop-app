@@ -60,6 +60,7 @@ public class LoginController extends Node {
 
                 Stage window = (Stage) login_btn.getScene().getWindow();
                 window.setScene(scene);
+                window.setFullScreen(true);
                 window.show();
             }
         }
@@ -73,6 +74,7 @@ public class LoginController extends Node {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setTitle("Регистрация");
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 

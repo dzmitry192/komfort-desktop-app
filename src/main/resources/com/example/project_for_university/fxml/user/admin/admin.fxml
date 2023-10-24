@@ -219,7 +219,7 @@
                <children>
                   <VBox>
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="btn-red-filled" text="&lt; Назад" />
+                        <Button fx:id="back_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#back_btn_clicked" styleClass="btn-red-filled" text="&lt; Назад" />
                      </children>
                   </VBox>
                </children>

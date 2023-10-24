@@ -1,6 +1,7 @@
 package com.example.project_for_university.controllers.user.admin;
 
 import com.example.project_for_university.Main;
+import com.example.project_for_university.controllers.user.ChooseOpController;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.ReturnAllTypesDto;
 import com.example.project_for_university.dto.forBackend.entity.ProductionMethodEntity;
@@ -43,6 +44,9 @@ public class AdminController {
     private Button btn_abrasion_type;
 
     @FXML
+    private Button back_btn;
+
+    @FXML
     private Button btn_production_type;
 
     @FXML
@@ -62,6 +66,19 @@ public class AdminController {
 
     @FXML
     private Button btn_washing_type;
+
+    @FXML
+    void back_btn_clicked(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource(ControllerUtils.welcomeRoute));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
+
+        Stage window = (Stage) back_btn.getScene().getWindow();
+        window.setScene(scene);
+        window.setFullScreen(true);
+        window.show();
+    }
 
     @FXML
     void btn_abrasion_type_clicked(MouseEvent event) throws IOException {
@@ -120,6 +137,7 @@ public class AdminController {
         Stage window = (Stage) btn_abrasion_type.getScene().getWindow();
         window.setTitle("Управление типом");
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 
@@ -167,7 +185,6 @@ public class AdminController {
                 .setHeader(AuthUtils.header, AuthUtils.getAuth(allValues.getUser().getEmail(), allValues.getUser().getPassword()))
                 .build();
         CloseableHttpResponse response = httpClient.execute(httpGet);
-        System.out.println(response.getStatusLine().getStatusCode());
         return FXCollections.observableArrayList(JsonToClass.parseToListObject(tClass, response));
     }
 

@@ -251,6 +251,7 @@ public class FilterController implements Initializable {
 
         Stage window = (Stage) btn_search.getScene().getWindow();
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 

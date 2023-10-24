@@ -85,8 +85,8 @@ public class SConditionController extends Node {
 
         Stage window = (Stage) btn_back.getScene().getWindow();
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
-        ((SConditionController) fxmlLoader.getController()).setData(allValues);
     }
 
     @FXML
@@ -98,6 +98,7 @@ public class SConditionController extends Node {
 
         Stage window = (Stage) btn_back.getScene().getWindow();
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 

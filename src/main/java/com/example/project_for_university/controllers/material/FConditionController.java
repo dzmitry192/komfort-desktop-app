@@ -63,6 +63,9 @@ public class FConditionController implements Initializable {
     private Button btn_cond_next;
 
     @FXML
+    private Button remove_layer_btn;
+
+    @FXML
     private CheckBox check_abrasion;
 
     @FXML
@@ -212,6 +215,11 @@ public class FConditionController implements Initializable {
     }
 
     @FXML
+    void remove_layer_btn_clicked(MouseEvent event) {
+
+    }
+
+    @FXML
     void check_abrasion_clicked(MouseEvent event) {
         if (!check_abrasion.isSelected()) {
             cnt_type_of_load--;
@@ -331,8 +339,9 @@ public class FConditionController implements Initializable {
 
         ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
 
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = (Stage) btn_add_layer.getScene().getWindow();
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 
@@ -390,6 +399,7 @@ public class FConditionController implements Initializable {
 
         Stage window = (Stage) btn_add_layer.getScene().getWindow();
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
     }
 

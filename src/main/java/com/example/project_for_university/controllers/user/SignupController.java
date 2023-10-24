@@ -45,10 +45,14 @@ public class SignupController extends Node {
     void back_btn_clicked(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ControllerUtils.loginRoute));
         Scene scene = new Scene(fxmlLoader.load());
+
+
+        ((LoginController) fxmlLoader.getController()).setData(allValues);
+
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
+        window.setFullScreen(true);
         window.show();
-        ((LoginController) fxmlLoader.getController()).setData(allValues);
     }
 
     @FXML
