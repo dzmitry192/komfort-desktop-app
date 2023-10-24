@@ -1,113 +1,104 @@
 package com.example.project_for_university.controllers.user;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
-import com.example.project_for_university.controllers.filter.MaterialController;
+import com.example.project_for_university.controllers.filter.FilterController;
 import com.example.project_for_university.controllers.material.FConditionController;
 import com.example.project_for_university.controllers.material.MaterialInfoController;
 import com.example.project_for_university.controllers.user.admin.AdminController;
 import com.example.project_for_university.dto.AllValues;
-import com.example.project_for_university.dto.Material;
 import com.example.project_for_university.utils.ControllerUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ChooseOpController extends Node implements Initializable {
+public class ChooseOpController extends Node {
 
     private AllValues allValues;
 
     @FXML
-    private ResourceBundle resources;
+    private Button admin_btn;
 
     @FXML
-    private URL location;
+    private Button back_btn;
 
     @FXML
-    private Button btn_calc;
+    private Button calculation_btn;
 
     @FXML
-    private Button btn_exit;
+    private Button exit_btn;
 
     @FXML
-    private Button btn_back;
-
-    @FXML
-    private Button btn_search;
-
-    @FXML
-    private Button btn_admin;
+    private Button search_btn;
 
     @FXML
     private Text user_fio_lbl;
 
-    @FXML
-    void btn_calc_clicked(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/project_for_university/fxml/cond/material-info.fxml"));
+    @FXML
+    void calculation_btn_clicked(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ControllerUtils.firstCondRoute));
         Scene scene = new Scene(fxmlLoader.load());
 
-        ((MaterialInfoController) fxmlLoader.getController()).setData(allValues);
+        ((FConditionController) fxmlLoader.getController()).setData(allValues);
 
-        Stage window = new Stage();
-        window.setTitle("Ифнформация о материале");
+        Stage window = (Stage) back_btn.getScene().getWindow();
+        window.setTitle("Ввод первых условий");
         window.setScene(scene);
         window.show();
     }
 
     @FXML
-    void btn_admin_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/project_for_university/fxml/user/admin/admin.fxml"));
+    void admin_btn_clicked(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ControllerUtils.adminRoute));
         Scene scene = new Scene(fxmlLoader.load());
 
         ((AdminController) fxmlLoader.getController()).setData(allValues);
 
-        Stage window = new Stage();
+        Stage window = (Stage) back_btn.getScene().getWindow();
         window.setTitle("Администратор");
         window.setScene(scene);
         window.show();
     }
 
     @FXML
-    void btn_exit_clicked(MouseEvent event) {
+    void exit_btn_clicked(MouseEvent event) {
         System.exit(0);
     }
 
     @FXML
-    void btn_search_clicked(MouseEvent event) throws IOException {
-        ControllerUtils.changeWindow(this, 4 , event, "Поиск материалов");
+    void search_btn_clicked(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(ChooseOpController.class.getResource(ControllerUtils.filterRoute));
+        Scene scene = new Scene(loader.load());
+
+        Stage window = (Stage) back_btn.getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+
+        ((FilterController) loader.getController()).setData(allValues);
     }
 
     @FXML
-    void btn_back_clicked(MouseEvent event) throws IOException {
-        ControllerUtils.changeWindow(this, 1, event, "Вход");
-    }
+    void back_btn_clicked(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(ChooseOpController.class.getResource(ControllerUtils.loginRoute));
+        Scene scene = new Scene(loader.load());
 
-    @Override()
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        user_fio_lbl.setText(allValues.getUser().getFio());
-    }
+        ((LoginController) loader.getController()).setData(allValues);
 
-// admin@yandex.by
-// adminDlyaDimki9182_gay
+        Stage window = (Stage) back_btn.getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
 
     public void setData(AllValues allValues) throws IOException {
         this.allValues = allValues;
         if(allValues.getUser().isAdmin()) {
-            btn_admin.setVisible(true);
+            admin_btn.setVisible(true);
             new AdminController().setData(allValues);
         }
     }

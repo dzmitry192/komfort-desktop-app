@@ -35,13 +35,10 @@ public class MaterialController implements Initializable {
 
     @FXML
     void btn_moreDetails_clicked(MouseEvent event) throws IOException {
-        Stage stage = (Stage) btn_moreDetails.getScene().getWindow();
-        stage.close();
-
         FXMLLoader fxmlLoader = new FXMLLoader(MaterialController.class.getResource("/com/example/project_for_university/fxml/filter/material_details/filter-material-details.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        Stage window = new Stage();
+        Stage window = (Stage) btn_moreDetails.getScene().getWindow();
         window.setTitle("Подробная информация о материале");
         window.setScene(scene);
         window.show();

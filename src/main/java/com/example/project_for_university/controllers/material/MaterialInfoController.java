@@ -53,7 +53,7 @@ public class MaterialInfoController {
 
         ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
 
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = (Stage) back_btn.getScene().getWindow();
         window.setScene(scene);
         window.show();
     }
@@ -67,16 +67,13 @@ public class MaterialInfoController {
             materialInformationDto.setDescription(comments_area.getText());
             this.allValues.setMaterialInformationDto(materialInformationDto);
 
-            Stage stage = (Stage) back_btn.getScene().getWindow();
-            stage.close();
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/project_for_university/fxml/cond/condition-1.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
 
             ((FConditionController) fxmlLoader.getController()).setData(allValues);
             ((FConditionController) fxmlLoader.getController()).getValuesForCB();
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage window = (Stage) back_btn.getScene().getWindow();
             window.setScene(scene);
             window.show();
         }

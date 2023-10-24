@@ -104,9 +104,6 @@ public class AdminController {
     }
 
     private <T> void changeWindow(int btnTypeNum, List<String> names) throws IOException {
-        Stage stage = (Stage) btn_abrasion_type.getScene().getWindow();
-        stage.close();
-
         Scene scene;
         if(btnTypeNum == 1) {
             FXMLLoader fxmlLoader = new FXMLLoader(AdminController.class.getResource("/com/example/project_for_university/fxml/user/admin/type.fxml"));
@@ -120,7 +117,7 @@ public class AdminController {
             ((PhTypeController) fxmlLoader.getController()).setData(allValues);
         }
 
-        Stage window = new Stage();
+        Stage window = (Stage) btn_abrasion_type.getScene().getWindow();
         window.setTitle("Управление типом");
         window.setScene(scene);
         window.show();

@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="CENTER" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.SignupController">
    <children>
       <VBox maxWidth="360.0" prefWidth="360.0" styleClass="form-wrapper" stylesheets="@../../styles/shared.css">
@@ -23,22 +22,22 @@
                   <VBox spacing="5.0">
                      <children>
                         <Label text="ФИО" />
-                        <TextField fx:id="text_field_fio" prefHeight="42.0" promptText="Иван Иванович Иванов" />
+                        <TextField fx:id="fio_tf" prefHeight="42.0" promptText="Иван Иванович Иванов" />
                      </children>
                   </VBox>
                   <VBox spacing="5.0">
                      <children>
                         <Label text="Электронная почта" />
-                        <TextField fx:id="text_field_email_reg" prefHeight="42.0" promptText="example@gmail.com" />
+                        <TextField fx:id="email_tf" prefHeight="42.0" promptText="example@gmail.com" />
                      </children>
                   </VBox>
                   <VBox spacing="5.0">
                      <children>
                         <Label text="Пароль" />
-                        <TextField fx:id="text_field_pass_reg" prefHeight="42.0" promptText="password123" />
+                        <TextField fx:id="password_tf" prefHeight="42.0" promptText="password123" />
                      </children>
                   </VBox>
-                  <Label fx:id="lab_info" styleClass="error-text" stylesheets="@../../styles/shared.css" />
+                  <Label fx:id="status_lbl" styleClass="error-text" stylesheets="@../../styles/shared.css" />
                </children>
                <padding>
                   <Insets bottom="18.0" top="35.0" />
@@ -46,8 +45,8 @@
             </VBox>
             <VBox spacing="10.0">
                <children>
-                  <Button fx:id="btn_signup_reg" mnemonicParsing="false" onMouseClicked="#btn_signup_reg_click" prefHeight="30.0" prefWidth="300.0" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Зарегистрироваться" />
-                  <Button fx:id="btn_back_reg" mnemonicParsing="false" onMouseClicked="#btn_back_reg_click" prefHeight="30.0" prefWidth="300.0" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Войти в аккаунт" />
+                  <Button fx:id="signup_btn" mnemonicParsing="false" onMouseClicked="#signup_btn_clicked" prefHeight="30.0" prefWidth="300.0" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Зарегистрироваться" />
+                  <Button fx:id="back_btn" mnemonicParsing="false" onMouseClicked="#back_btn_clicked" prefHeight="30.0" prefWidth="300.0" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Войти в аккаунт" />
                </children>
             </VBox>
          </children>

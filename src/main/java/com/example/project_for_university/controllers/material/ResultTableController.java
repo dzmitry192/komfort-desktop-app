@@ -1,10 +1,13 @@
 package com.example.project_for_university.controllers.material;
 
+import com.example.project_for_university.dto.AllValues;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 
 public class ResultTableController {
+
+    private AllValues allValues;
 
     @FXML
     private TextField avgOutdoorAirSpeed;
@@ -233,5 +236,9 @@ public class ResultTableController {
 
     @FXML
     private TextField waterproof_weight;
+
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
+    }
 
 }

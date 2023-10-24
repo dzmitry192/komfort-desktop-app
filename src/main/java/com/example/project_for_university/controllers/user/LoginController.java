@@ -1,34 +1,21 @@
 package com.example.project_for_university.controllers.user;
 
-import com.example.project_for_university.Main;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.service.LoginService;
 import com.example.project_for_university.utils.ControllerUtils;
-import com.google.gson.JsonObject;
+import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Value;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-
 
 @Data
 public class LoginController extends Node {
@@ -37,37 +24,56 @@ public class LoginController extends Node {
     private LoginService loginService = new LoginService();
 
     @FXML
-    private Label lab_info;
+    private TextField email_tf;
 
     @FXML
-    private ResourceBundle resources;
+    private VBox main_box;
 
     @FXML
-    private URL location;
+    private VBox sec_main_box;
 
     @FXML
-    private TextField inp_email;
+    private Button login_btn;
 
     @FXML
-    private TextField inp_pass;
+    private TextField password_tf;
 
     @FXML
-    private Button btn_login;
+    private Button signup_btn;
 
     @FXML
-    private Button btn_signup;
+    private Label status_lbl;
 
     @FXML
-    void btn_login_click(MouseEvent event) throws IOException {
-        String email = inp_email.getText();
-        String password = inp_pass.getText();
+    void login_btn_clicked(MouseEvent event) throws IOException {
+        String email = email_tf.getText();
+        String password = password_tf.getText();
 
-        loginService.login(email, password, lab_info, event, allValues);
+        if (email.isEmpty() || password.isEmpty()) {
+            status_lbl.setText("Ошибка! Вы не заполнили все поля");
+        } else {
+            if(loginService.login(email, password, status_lbl, allValues)) {
+                FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/com/example/project_for_university/fxml/user/choose-operation.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
+
+                Stage window = (Stage) login_btn.getScene().getWindow();
+                window.setScene(scene);
+                window.show();
+            }
+        }
     }
 
     @FXML
-    void btn_signup_click(MouseEvent event) throws IOException {
-        ControllerUtils.changeWindow(this, 2, event, "Регистрация");
+    void signup_btn_clicked(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ControllerUtils.signupRoute));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setTitle("Регистрация");
+        window.setScene(scene);
+        window.show();
     }
 
     public void setData(AllValues allValues) {

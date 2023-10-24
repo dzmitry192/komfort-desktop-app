@@ -1,15 +1,18 @@
 package com.example.project_for_university.controllers.material;
 
+import com.example.project_for_university.controllers.user.LoginController;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.utils.ControllerUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,16 +78,27 @@ public class SConditionController extends Node {
 
     @FXML
     void btn_back_clicked(MouseEvent event) throws IOException {
-        ControllerUtils.changeWindow(this, 5, event, "Ввод первых условий");
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ControllerUtils.firstCondRoute));
+        Scene scene = new Scene(fxmlLoader.load());
 
-        FXMLLoader fxmlLoader = new FXMLLoader(FConditionController.class.getResource("/com/example/project_for_university/fxml/cond/condition-1.fxml"));
-        FConditionController FConditionController = fxmlLoader.getController();
-        FConditionController.setData(allValues);
+        ((FConditionController) fxmlLoader.getController()).setData(allValues);
+
+        Stage window = (Stage) btn_back.getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+        ((SConditionController) fxmlLoader.getController()).setData(allValues);
     }
 
     @FXML
     void btn_next_clicked(MouseEvent event) throws IOException {
-        ControllerUtils.changeWindow(this, 7, event, "Таблица для ввода экспериментальных данных");
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ControllerUtils.firstCondRoute));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        ((ResultTableController) fxmlLoader.getController()).setData(allValues);
+
+        Stage window = (Stage) btn_back.getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 
     @FXML

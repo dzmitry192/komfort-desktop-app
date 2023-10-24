@@ -1,5 +1,7 @@
 package com.example.project_for_university.controllers.filter;
 
+import com.example.project_for_university.controllers.user.ChooseOpController;
+import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.FilterValues;
 import com.example.project_for_university.dto.Material;
 import com.example.project_for_university.utils.ControllerUtils;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -20,9 +24,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class FilterController implements Initializable {
 
+    private AllValues allValues;
     private FilterValues filterValues;
 
     @FXML
@@ -238,7 +244,14 @@ public class FilterController implements Initializable {
 
     @FXML
     void btn_back_clicked(MouseEvent event) throws IOException {
-        ControllerUtils.changeWindow(this, 3, event, "Программа для расчётов");
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource(ControllerUtils.welcomeRoute));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
+
+        Stage window = (Stage) btn_search.getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 
     @Override
@@ -280,5 +293,9 @@ public class FilterController implements Initializable {
         materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
 
         return materials;
+    }
+
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
     }
 }

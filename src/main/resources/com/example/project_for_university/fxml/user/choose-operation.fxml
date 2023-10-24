@@ -22,19 +22,19 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btn_admin" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_admin_clicked" prefHeight="36.0" prefWidth="150.0" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Управление" visible="false" />
+                        <Button fx:id="admin_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#admin_btn_clicked" prefHeight="36.0" prefWidth="150.0" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Управление" visible="false" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btn_calc" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_calc_clicked" prefHeight="0.0" prefWidth="150.0" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Расчет артикула" />
-                        <Button fx:id="btn_search" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_search_clicked" prefHeight="0.0" prefWidth="150.0" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Поиск артикулов" />
+                        <Button fx:id="calculation_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#calculation_btn_clicked" prefHeight="0.0" prefWidth="150.0" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Расчет артикула" />
+                        <Button fx:id="search_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#search_btn_clicked" prefHeight="0.0" prefWidth="150.0" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Поиск артикулов" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btn_back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_back_clicked" prefHeight="0.0" prefWidth="150.0" styleClass="btn-red-outlined" stylesheets="@../../styles/shared.css" text="Сменить аккаунт" />
-                        <Button fx:id="btn_exit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_exit_clicked" prefHeight="0.0" prefWidth="150.0" styleClass="btn-red-filled" stylesheets="@../../styles/shared.css" text="Выход" />
+                        <Button fx:id="back_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#back_btn_clicked" prefHeight="0.0" prefWidth="150.0" styleClass="btn-red-outlined" stylesheets="@../../styles/shared.css" text="Сменить аккаунт" />
+                        <Button fx:id="exit_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#exit_btn_clicked" prefHeight="0.0" prefWidth="150.0" styleClass="btn-red-filled" stylesheets="@../../styles/shared.css" text="Выход" />
                      </children>
                   </VBox>
                </children>

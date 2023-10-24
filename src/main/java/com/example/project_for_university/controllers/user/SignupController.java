@@ -2,6 +2,7 @@ package com.example.project_for_university.controllers.user;
 
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.service.SignupService;
+import com.example.project_for_university.utils.ControllerUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import lombok.Data;
 
@@ -22,29 +24,26 @@ public class SignupController extends Node {
     private SignupService signupService = new SignupService();
 
     @FXML
-    private Button btn_back_reg;
+    private Button back_btn;
 
     @FXML
-    private Button btn_signup_reg;
+    private TextField email_tf;
 
     @FXML
-    private Label label_signup;
+    private TextField fio_tf;
 
     @FXML
-    private TextField text_field_email_reg;
+    private TextField password_tf;
 
     @FXML
-    private TextField text_field_fio;
+    private Button signup_btn;
 
     @FXML
-    private TextField text_field_pass_reg;
+    private Label status_lbl;
 
     @FXML
-    void btn_back_reg_click(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("/com/example/project_for_university/fxml/user/login.fxml"));
+    void back_btn_clicked(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ControllerUtils.loginRoute));
         Scene scene = new Scene(fxmlLoader.load());
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
@@ -53,12 +52,19 @@ public class SignupController extends Node {
     }
 
     @FXML
-    void btn_signup_reg_click(MouseEvent event) throws IOException {
-        String fio = text_field_fio.getText();
-        String email = text_field_email_reg.getText();
-        String password = text_field_pass_reg.getText();
+    void signup_btn_clicked(MouseEvent event) throws IOException {
+        String fio = fio_tf.getText();
+        String email = email_tf.getText();
+        String password = password_tf.getText();
 
-        signupService.signup(fio, email, password, label_signup, allValues);
+        status_lbl.setTextFill(Color.RED);
+        if(fio.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            status_lbl.setText("Ошибка! Вы не заполнили все поля");
+        } else if(password.length() < 4) {
+            status_lbl.setText("Минимальная длина пароля 6 символов!");
+        } else {
+            signupService.signup(fio, email, password, status_lbl, allValues);
+        }
     }
 }
 

@@ -45,15 +45,12 @@ public class TypeController {
 
     @FXML
     void btn_back_clicked(MouseEvent event) throws IOException {
-        Stage stage = (Stage) btn_add.getScene().getWindow();
-        stage.close();
-
         FXMLLoader fxmlLoader = new FXMLLoader(AdminController.class.getResource("/com/example/project_for_university/fxml/user/admin/admin.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         ((AdminController) fxmlLoader.getController()).setData(allValues);
 
-        Stage window = new Stage();
+        Stage window = (Stage) btn_add.getScene().getWindow();
         window.setTitle("Администратор");
         window.setScene(scene);
         window.show();

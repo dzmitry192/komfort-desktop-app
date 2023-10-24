@@ -1,6 +1,7 @@
 package com.example.project_for_university.controllers.material;
 
 import com.example.project_for_university.Main;
+import com.example.project_for_university.controllers.user.ChooseOpController;
 import com.example.project_for_university.controllers.user.LoginController;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.FConditionValues;
@@ -13,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -32,7 +34,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Data
-public class FConditionController extends Node {
+public class FConditionController implements Initializable {
 
     private AllValues allValues;
     private FConditionValues FConditionValues = new FConditionValues();
@@ -40,25 +42,16 @@ public class FConditionController extends Node {
     private boolean isReadyToChange;
 
     private ObservableList<BendingTypeEntity> bendingTypeList = FXCollections.observableArrayList();
-    private ObservableList<AbrasionTypeEntity> abrasionTypeList= FXCollections.observableArrayList();
-    private ObservableList<PhysicalActivityTypeEntity> physicalActivityTypeList= FXCollections.observableArrayList();
-    private ObservableList<WashingTypeEntity> washingTypeList= FXCollections.observableArrayList();
-    private ObservableList<LayerTypeEntity> layerTypeList= FXCollections.observableArrayList();
+    private ObservableList<AbrasionTypeEntity> abrasionTypeList = FXCollections.observableArrayList();
+    private ObservableList<PhysicalActivityTypeEntity> physicalActivityTypeList = FXCollections.observableArrayList();
+    private ObservableList<WashingTypeEntity> washingTypeList = FXCollections.observableArrayList();
+    private ObservableList<LayerTypeEntity> layerTypeList = FXCollections.observableArrayList();
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
-
-    @FXML
-    private ComboBox<String> abrasion_type;
-
-    @FXML
-    private ComboBox<String> bend_type;
-
-    @FXML
-    private ComboBox<String> choose_layer_cb;
 
     @FXML
     private Button btn_add_layer;
@@ -124,7 +117,22 @@ public class FConditionController extends Node {
     private Label lab_wash_time;
 
     @FXML
-    private ComboBox<String> lev_phys = new ComboBox<>();
+    private ComboBox<String> lev_phys;
+
+    @FXML
+    private ComboBox<String> abrasion_type;
+
+    @FXML
+    private ComboBox<String> bend_type;
+
+    @FXML
+    private ComboBox<String> choose_layer_cb;
+
+    @FXML
+    private ComboBox<Integer> time_cond;
+
+    @FXML
+    private ComboBox<String> wash_type = new ComboBox<>();
 
     @FXML
     private RadioButton rad_btn_minus;
@@ -165,15 +173,8 @@ public class FConditionController extends Node {
     @FXML
     private Slider scroll_torsion_angle;
 
-    @FXML
-    private ComboBox<Integer> time_cond = new ComboBox<>(FXCollections.observableArrayList(2, 4));
-
-    @FXML
-    private ComboBox<String> wash_type = new ComboBox<>();
-
     public void setData(AllValues allValues) {
         this.allValues = allValues;
-        System.out.println(allValues.getMaterialInformationDto().toString());
     }
 
     private void setValuesToCB() {
@@ -325,13 +326,10 @@ public class FConditionController extends Node {
 
     @FXML
     void btn_cond_back_clicked(MouseEvent event) throws IOException {
-        Stage stage = (Stage) btn_cond_back.getScene().getWindow();
-        stage.close();
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/project_for_university/fxml/cond/material-info.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ControllerUtils.welcomeRoute));
         Scene scene = new Scene(fxmlLoader.load());
 
-        ((MaterialInfoController) fxmlLoader.getController()).setData(allValues);
+        ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
@@ -379,21 +377,20 @@ public class FConditionController extends Node {
             Optional<ButtonType> option = alert.showAndWait();
             isReadyToChange = false;
         }
-        if(isReadyToChange) {
+        if (isReadyToChange) {
             changeWindow(event);
         }
     }
 
     private void changeWindow(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("/com/example/project_for_university/fxml/cond/condition-2.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        ((SConditionController) fxmlLoader.getController()).setData(allValues);
+
+        Stage window = (Stage) btn_add_layer.getScene().getWindow();
         window.setScene(scene);
         window.show();
-        ((SConditionController) fxmlLoader.getController()).setData(allValues);
     }
 
     @FXML
@@ -439,5 +436,10 @@ public class FConditionController extends Node {
     @FXML
     void scroll_time_washing_dragged(MouseEvent event) {
         inp_time_washing.setText(String.valueOf((int) scroll_time_washing.getValue()));
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        time_cond = new ComboBox<>(FXCollections.observableArrayList(2, 4));
     }
 }
