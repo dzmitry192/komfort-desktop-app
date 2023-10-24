@@ -17,8 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox alignment="TOP_CENTER" styleClass="sky-blue-background" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.ResultTableController">
+<VBox alignment="TOP_CENTER" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.ResultTableController">
    <children>
       <AnchorPane VBox.vgrow="ALWAYS">
          <children>
@@ -772,4 +771,8 @@
          </styleClass>
       </AnchorPane>
    </children>
+   <styleClass>
+      <String fx:value="sky-blue-background" />
+      <String fx:value="min-window-height" />
+   </styleClass>
 </VBox>

@@ -225,7 +225,6 @@ public class FilterController implements Initializable {
         time_inp_2.setDisable(true);
         resistance_inp_1.setDisable(true);
         resistance_inp_2.setDisable(true);
-        name_inp.setDisable(true);
         water_vapor_perm_inp_1.setDisable(true);
         water_vapor_perm_inp_2.setDisable(true);
         relative_pressure_inp_1.setDisable(true);

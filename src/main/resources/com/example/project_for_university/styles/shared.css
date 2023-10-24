@@ -1,11 +1,28 @@
+/*----window----*/
+.min-window-height {
+  -fx-pref-height: 750px;
+}
 
-/*buttons*/
+
+/*----font----*/
+
+Text, Label { 
+  -fx-fill: rgb(0, 0, 0);
+  -fx-font-size: 14px;
+}
+
+
+/*------buttons------*/
 
 .btn-blue-filled {
   -fx-min-height: 30;
   -fx-background-color: rgb(56, 149, 255);
   -fx-background-radius: 4px;
   -fx-text-fill: white;
+}
+
+.btn-blue-filled:hover {
+  -fx-background-color:  rgb(48, 127, 218);
 }
 
 .btn-blue-outlined {
@@ -16,6 +33,10 @@
   -fx-border-radius: 4px;
 }
 
+.btn-blue-outlined:hover {
+  -fx-background-color:  rgb(56, 149, 255);
+  -fx-text-fill: white;
+}
 
 
 .btn-red-filled {
@@ -23,6 +44,10 @@
   -fx-background-color: rgb(248, 53, 53);
   -fx-background-radius: 4px;
   -fx-text-fill: white;
+}
+
+.btn-red-filled:hover {
+  -fx-background-color:  rgb(223, 45, 45);
 }
 
 .btn-red-outlined {
@@ -33,18 +58,28 @@
   -fx-border-radius: 4px;
 }
 
-/*---------*/
+.btn-red-outlined:hover {
+  -fx-background-color:  rgb(248, 53, 53);
+  -fx-text-fill: white;
+}
+
+/*---------------*/
 
 .page-wrapper {
   -fx-pref-width: 1100px;
   -fx-max-width: 1100px;
-  -fx-min-height: 750px;
 }
 
 .bold-text {
   -fx-font-family: Arial, Helvetica, sans-serif;
   -fx-font-weight: 900;
   -fx-font-size: 21px
+}
+
+.bold-medium-text {
+  -fx-font-family: Arial, Helvetica, sans-serif;
+  -fx-font-weight: 900;
+  -fx-font-size: 16px
 }
 
 .box-shadow {
@@ -68,8 +103,8 @@
 }
 
 .default-gray-background {
-  -fx-background-color: #e5e5e5;
-  -fx-background: #e5e5e5;
+  -fx-background-color: rgb(241, 241, 241);
+  -fx-background: rgb(241, 241, 241);
 }
 
 .white-scroll-pane {
@@ -79,4 +114,219 @@
 
 .table-header-cell {
   -fx-background-color: rgb(184, 217, 255);
+}
+
+/*----table-view----*/
+
+.table-view { 
+  -fx-background-color: transparent;
+  -fx-border-color: grey;
+  -fx-border-radius: 4px; 
+}
+
+.table-view .column-header-background {
+  -fx-background-color: rgb(184, 217, 255);
+  -fx-background-insets: 0 0 0 0;
+  -fx-padding: 3;
+}
+
+.table-view .column-header, .filter {
+  -fx-background-color: transparent;
+}
+
+.table-row-cell {
+  -fx-background-color: white;
+  -fx-border-color: rgb(210, 210, 210);
+  -fx-border-width: 0.5;
+  -fx-padding: 3px;
+}
+
+.table-row-cell:selected {
+  -fx-background-color: rgb(227, 240, 255);
+}
+
+.table-row-cell:not(.table-row-cell:selected) {
+  -fx-background-color: white;
+}
+
+.table-cell {
+  -fx-text-fill: black;
+}
+
+/*----check-box----*/
+
+.check-box .box {
+
+  -fx-background-color: white;
+  -fx-border-color: grey;
+  -fx-border-radius: 4px; 
+  
+  }
+  
+.check-box:selected .mark {
+  -fx-background-color: white;
+  
+  }
+  
+.check-box:selected .box {
+  -fx-border-color: rgb(56, 149, 255);
+  -fx-background-color: rgb(56, 149, 255);
+}
+
+/*----combo-box----*/
+
+.combo-box .list-cell 
+{
+  -fx-background: white;
+  -fx-background-color: white; 
+  -fx-background-radius: 4px;
+}
+
+.combo-box-popup .list-view 
+{
+  -fx-background-color: white, white;
+  -fx-background-insets: 0, 1;
+  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+  -fx-background-radius: 4px;
+}    
+
+.combo-box-popup .list-view .list-cell 
+{
+  -fx-background-color: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover 
+{
+  -fx-background: rgb(56, 149, 255);
+  -fx-background-color: rgb(56, 149, 255);
+  -fx-text-fill: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover 
+{
+  -fx-background-color: rgb(187, 219, 255);
+}
+
+.combo-box-base  
+{
+  -fx-min-height: 30;
+  -fx-background-color: white;
+  -fx-border-color: grey;
+  -fx-border-radius: 4px;
+}
+
+/*-----radio-button-----*/
+
+.radio-button .radio {
+    -fx-border-color: grey;
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-background-insets: 0 0 0 0;
+    -fx-padding:5;
+}
+
+.radio-button:selected .radio {
+  -fx-background-color: rgb(56, 149, 255);
+  -fx-border-color: white;
+}
+
+.radio-button:selected .dot {
+  -fx-background-color: white;
+}
+
+.radio-button -radio:determinate {
+  -fx-background-color: rgb(56, 149, 255);
+  -fx-background-image: null;
+}
+.radio-button -radio:indeterminate {
+    -fx-background-color: rgb(126, 55, 55);
+    -fx-background-image: null;
+}
+
+
+/*-----text-field------*/
+
+.text-field {
+  -fx-min-height: 30;
+  -fx-border-radius: 4px;
+  -fx-border-color: grey;
+}
+
+/*-----slider------*/
+
+.slider {
+  -default-track-color: rgb(56, 149, 255);
+  -track-color: -default-track-color ;
+}
+
+.slider Text {
+  -fx-font-size: 11px;
+}
+
+.slider .track {
+  -fx-background-color: -fx-shadow-highlight-color,
+        linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+        -track-color;
+}
+
+/*----separator------*/
+
+.separator *.line {
+  -fx-border-style: solid;
+  -fx-border-width: 0 0 1.2 1.2; 
+  -fx-border-color: rgb(181, 181, 181);
+}
+
+/*----scroll-----*/
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+  -fx-background-color :transparent;
+  -fx-border-color :transparent;
+  -fx-background-radius : 0.0em;
+  -fx-border-radius :2.0em;
+}
+
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+  -fx-background-color :transparent;
+  -fx-background-radius : 0.0em;
+  -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+  -fx-background-color :transparent;
+  -fx-background-radius : 0.0em;
+  -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+ .scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow{
+  -fx-shape : " ";    
+  -fx-padding :0.15em 0.0;
+}
+
+ .scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow{
+  -fx-shape : " ";    
+  -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+  -fx-background-color :derive(rgb(236, 236, 236),90.0%);
+  -fx-background-insets : 2.0, 0.0, 0.0;
+  -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+  -fx-background-color :derive(rgb(176, 176, 176),90.0%);
+  -fx-background-insets : 2.0, 0.0, 0.0;
+  -fx-background-radius : 2.0em;
 }

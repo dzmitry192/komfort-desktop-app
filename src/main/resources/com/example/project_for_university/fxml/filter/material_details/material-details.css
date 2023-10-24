@@ -1,4 +1,15 @@
 .slider-btn {
-   -fx-background-color: rgba(203, 203, 203, 0.589);
-   -fx-background-radius: 8px
+   -fx-background-color: rgb(255, 255, 255);
+}
+
+.slider-btn:hover {
+   -fx-background-color: rgb(235, 235, 235);
+}
+
+.slider-btn.slider-btn-right {
+   -fx-background-radius: 0 4 4 0;
+}
+
+.slider-btn.slider-btn-left {
+   -fx-background-radius: 4 0 0 4;
 }

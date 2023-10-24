@@ -25,21 +25,6 @@ import java.io.IOException;
 public class LoginService {
 
     public void login(String email, String password, Label label, MouseEvent event, AllValues allValues) throws IOException {
-//        if (true) {
-//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            stage.close();
-//            FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/com/example/project_for_university/fxml/user/choose-operation.fxml"));
-//            Scene scene = new Scene(fxmlLoader.load());
-//            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            window.setScene(scene);
-//            window.show();
-//
-//            allValues.setUser(new UserEntity(1, "rummo d s", "dfsf@aynd.by", "123", true));
-//
-//            ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
-//            return;
-//        }
-
         if(email != "" && password != "") {
             CloseableHttpClient httpClient = HttpClients.createDefault();
             JsonObject jsonObject = new JsonObject();

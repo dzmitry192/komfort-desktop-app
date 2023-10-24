@@ -16,18 +16,18 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" styleClass="sky-blue-background" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.FConditionController">
+<VBox alignment="TOP_CENTER" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.FConditionController">
    <children>
       <VBox VBox.vgrow="ALWAYS">
          <children>
-            <VBox alignment="CENTER" styleClass="default-gray-background">
+            <VBox alignment="CENTER" styleClass="default-gray-background" VBox.vgrow="NEVER">
                <children>
                   <Label styleClass="bold-text" text="Ввод условий" VBox.vgrow="NEVER">
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Separator rotate="180.0" />
+                  <Separator />
                </children>
             </VBox>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="1.0" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
@@ -395,7 +395,7 @@
             </ScrollPane>
             <VBox styleClass="default-gray-background">
                <children>
-                  <Separator prefWidth="200.0" />
+                  <Separator prefWidth="200.0" rotate="180.0" />
                   <HBox alignment="CENTER" spacing="10.0">
                      <children>
                         <Button fx:id="btn_cond_back" mnemonicParsing="false" onMouseClicked="#btn_cond_back_clicked" prefWidth="120.0" styleClass="btn-red-filled" text="&lt; Назад" />
@@ -414,4 +414,8 @@
          </styleClass>
       </VBox>
    </children>
+   <styleClass>
+      <String fx:value="sky-blue-background" />
+      <String fx:value="min-window-height" />
+   </styleClass>
 </VBox>

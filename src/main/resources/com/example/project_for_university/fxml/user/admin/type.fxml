@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="CENTER" fillWidth="false" stylesheets="@../../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.admin.TypeController">
    <children>
       <VBox prefWidth="500.0" spacing="10.0" styleClass="form-wrapper">
@@ -66,5 +65,6 @@
    <styleClass>
       <String fx:value="sky-blue-background" />
       <String fx:value="page-wrapper" />
+      <String fx:value="min-window-height" />
    </styleClass>
 </VBox>

@@ -5,58 +5,55 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.LoginController">
+
+<VBox alignment="CENTER" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.LoginController">
    <children>
-      <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox maxWidth="360.0" styleClass="form-wrapper" stylesheets="@../../styles/shared.css">
          <children>
-            <VBox maxWidth="360.0" styleClass="form-wrapper" stylesheets="@../../styles/shared.css">
+            <Label styleClass="bold-text" stylesheets="@../../styles/shared.css" text="Вход в аккаунт">
+               <font>
+                  <Font name="Arial Bold" size="21.0" />
+               </font>
+            </Label>
+            <VBox spacing="10.0">
                <children>
-                  <Label styleClass="bold-text" stylesheets="@../../styles/shared.css" text="Вход в аккаунт">
-                     <font>
-                        <Font name="Arial Bold" size="21.0" />
-                     </font>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Электронная почта" />
+                        <TextField fx:id="inp_email" prefHeight="42.0" prefWidth="225.0" promptText="example@gmail.com" text="admin@yandex.by" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label accessibleRoleDescription="pass" text="Пароль" />
+                        <TextField fx:id="inp_pass" prefHeight="42.0" prefWidth="226.0" promptText="password123" text="adminDlyaDimki9182_gay" />
+                     </children>
+                  </VBox>
+                  <Label fx:id="lab_info" styleClass="error-text" stylesheets="@../../styles/shared.css">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </Label>
-                  <VBox spacing="10.0">
-                     <children>
-                        <VBox spacing="5.0">
-                           <children>
-                              <Label text="Электронная почта" />
-                              <TextField fx:id="inp_email" prefHeight="42.0" prefWidth="225.0" promptText="example@gmail.com" />
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0">
-                           <children>
-                              <Label accessibleRoleDescription="pass" text="Пароль" />
-                              <TextField fx:id="inp_pass" prefHeight="42.0" prefWidth="226.0" promptText="password123" />
-                           </children>
-                        </VBox>
-                        <Label fx:id="lab_info" styleClass="error-text" stylesheets="@../../styles/shared.css">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="18.0" top="35.0" />
-                     </padding>
-                  </VBox>
-                  <VBox alignment="CENTER" prefWidth="250.0" spacing="10.0">
-                     <children>
-                        <Button fx:id="btn_login" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_login_click" prefHeight="0.0" prefWidth="180.0" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Войти" />
-                        <Button fx:id="btn_signup" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_signup_click" prefHeight="0.0" prefWidth="180.0" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Зарегистрироваться" />
-                     </children>
-                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="18.0" top="35.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" prefWidth="250.0" spacing="10.0">
+               <children>
+                  <Button fx:id="btn_login" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_login_click" prefHeight="0.0" prefWidth="180.0" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Войти" />
+                  <Button fx:id="btn_signup" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_signup_click" prefHeight="0.0" prefWidth="180.0" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Зарегистрироваться" />
                </children>
             </VBox>
          </children>
       </VBox>
    </children>
    <styleClass>
-      <String fx:value="sky-blue-background" />
+      <String fx:value="min-window-height" />
       <String fx:value="page-wrapper" />
+      <String fx:value="sky-blue-background" />
    </styleClass>
-</AnchorPane>
+</VBox>

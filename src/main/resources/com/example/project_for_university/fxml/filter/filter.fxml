@@ -14,13 +14,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="white-scroll-pane" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.FilterController">
+<AnchorPane stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.FilterController">
    <children>
       <VBox alignment="TOP_CENTER" styleClass="sky-blue-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0">
+                  <HBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="330.0">
                      <children>
                         <VBox HBox.hgrow="ALWAYS">
                            <children>
@@ -31,10 +31,10 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets bottom="5.0" top="5.0" />
+                                          <Insets bottom="5.0" top="7.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Separator prefWidth="200.0" rotate="180.0" />
+                                    <Separator prefWidth="200.0" />
                                  </children>
                               </VBox>
                               <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="1.0" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
@@ -194,16 +194,19 @@
                                                 </VBox>
                                              </children>
                                              <VBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </VBox>
                                        </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
                                     </VBox>
                                  </content>
                               </ScrollPane>
                               <VBox prefHeight="51.0" spacing="10.0" VBox.vgrow="NEVER">
                                  <children>
-                                    <Separator />
+                                    <Separator rotate="180.0" />
                                     <VBox spacing="10.0">
                                        <children>
                                           <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
@@ -218,7 +221,7 @@
                                           <Insets />
                                        </VBox.margin>
                                        <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" />
+                                          <Insets bottom="15.0" left="15.0" right="15.0" />
                                        </padding>
                                     </VBox>
                                  </children>
@@ -255,4 +258,8 @@
          </children>
       </VBox>
    </children>
+   <styleClass>
+      <String fx:value="white-scroll-pane" />
+      <String fx:value="min-window-height" />
+   </styleClass>
 </AnchorPane>

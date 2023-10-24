@@ -21,7 +21,7 @@
             </VBox>
             <VBox>
                <children>
-                  <Separator rotate="180.0" />
+                  <Separator />
                   <ScrollPane fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
                      <content>
                         <VBox spacing="10.0">
@@ -212,7 +212,7 @@
                         </VBox>
                      </content>
                   </ScrollPane>
-                  <Separator prefWidth="200.0" />
+                  <Separator prefWidth="200.0" rotate="180.0" />
                </children>
             </VBox>
             <VBox>
@@ -233,5 +233,6 @@
    <styleClass>
       <String fx:value="sky-blue-background" />
       <String fx:value="page-wrapper" />
+      <String fx:value="min-window-height" />
    </styleClass>
 </VBox>

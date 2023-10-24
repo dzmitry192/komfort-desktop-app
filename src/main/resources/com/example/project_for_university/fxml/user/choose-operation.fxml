@@ -46,8 +46,8 @@
       </VBox>
    </children>
    <styleClass>
-      <String fx:value="btn-blue-filled" />
       <String fx:value="sky-blue-background" />
+      <String fx:value="min-window-height" />
       <String fx:value="page-wrapper" />
    </styleClass>
 </AnchorPane>
