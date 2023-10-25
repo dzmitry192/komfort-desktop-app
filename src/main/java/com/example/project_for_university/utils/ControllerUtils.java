@@ -1,9 +1,14 @@
 package com.example.project_for_university.utils;
 
+import com.example.project_for_university.controllers.user.ChooseOpController;
+import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.enums.Page;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,50 +16,10 @@ import java.util.Objects;
 
 public class ControllerUtils {
 
-    public static final String loginRoute = "/com/example/project_for_university/fxml/user/login.fxml";
-    public static final String signupRoute = "/com/example/project_for_university/fxml/user/signup.fxml";
-    public static final String welcomeRoute = "/com/example/project_for_university/fxml/user/choose-operation.fxml";
-    public static final String filterRoute = "/com/example/project_for_university/fxml/filter/filter.fxml";
-    public static final String firstCondRoute = "/com/example/project_for_university/fxml/cond/condition-1.fxml";
-    public static final String secCondRoute = "/com/example/project_for_university/fxml/cond/condition-2.fxml";
-    public static final String tableRoute = "/com/example/project_for_university/fxml/cond/result-table.fxml";
-    public static final String adminRoute = "/com/example/project_for_university/fxml/user/admin/admin.fxml";
-    public static final String typeRoute = "/com/example/project_for_university/fxml/user/admin/type.fxml";
-    public static final String phTypeRoute = "/com/example/project_for_university/fxml/user/admin/physical-type.fxml";
-    public static final String loader = "/com/example/project_for_university/fxml/loader/loader.fxml";
-
-    private static String getRoute(int num) {
-        switch (num) {
-            case 1:
-                return loginRoute;
-            case 2:
-                return signupRoute;
-            case 3:
-                return welcomeRoute;
-            case 4:
-                return filterRoute;
-            case 5:
-                return firstCondRoute;
-            case 6:
-                return secCondRoute;
-            case 7:
-                return tableRoute;
-            case 8:
-                return adminRoute;
-            case 9:
-                return typeRoute;
-            case 10:
-                return phTypeRoute;
-        }
-        return null;
-    }
-
-    public static void changeWindow(Object obj, int num, MouseEvent event, String title) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(obj.getClass().getResource(Objects.requireNonNull(getRoute(num))));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setTitle(title);
-        window.setScene(scene);
-        window.show();
+    public static void changePage(Page page, StackPane contentArea, AllValues allValues, Node node) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(node.getClass().getResource(Objects.requireNonNull(page.getPath())));
+        fxmlLoader.setUserData(allValues);
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxmlLoader);
     }
 }

@@ -7,6 +7,7 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.FConditionValues;
 import com.example.project_for_university.dto.forBackend.entity.WashingEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
+import com.example.project_for_university.enums.Page;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.utils.AuthUtils;
 import com.example.project_for_university.utils.ControllerUtils;
@@ -334,15 +335,6 @@ public class FConditionController implements Initializable {
 
     @FXML
     void btn_cond_back_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ControllerUtils.welcomeRoute));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
-
-        Stage window = (Stage) btn_add_layer.getScene().getWindow();
-        window.setScene(scene);
-        window.setFullScreen(true);
-        window.show();
     }
 
     @FXML
@@ -399,7 +391,6 @@ public class FConditionController implements Initializable {
 
         Stage window = (Stage) btn_add_layer.getScene().getWindow();
         window.setScene(scene);
-        window.setFullScreen(true);
         window.show();
     }
 

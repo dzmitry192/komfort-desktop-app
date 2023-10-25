@@ -41,7 +41,6 @@ public class MaterialController implements Initializable {
         Stage window = (Stage) btn_moreDetails.getScene().getWindow();
         window.setTitle("Подробная информация о материале");
         window.setScene(scene);
-        window.setFullScreen(true);
         window.show();
     }
 

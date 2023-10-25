@@ -1,6 +1,7 @@
 package com.example.project_for_university.controllers.user;
 
 import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.enums.Page;
 import com.example.project_for_university.service.LoginService;
 import com.example.project_for_university.utils.ControllerUtils;
 import javafx.beans.property.DoubleProperty;
@@ -19,7 +20,6 @@ import lombok.Data;
 
 @Data
 public class LoginController extends Node {
-
     private AllValues allValues = new AllValues();
     private LoginService loginService = new LoginService();
 
@@ -52,6 +52,7 @@ public class LoginController extends Node {
         if (email.isEmpty() || password.isEmpty()) {
             status_lbl.setText("Ошибка! Вы не заполнили все поля");
         } else {
+
             if(loginService.login(email, password, status_lbl, allValues)) {
                 FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/com/example/project_for_university/fxml/user/choose-operation.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
@@ -60,7 +61,6 @@ public class LoginController extends Node {
 
                 Stage window = (Stage) login_btn.getScene().getWindow();
                 window.setScene(scene);
-                window.setFullScreen(true);
                 window.show();
             }
         }
@@ -68,14 +68,6 @@ public class LoginController extends Node {
 
     @FXML
     void signup_btn_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ControllerUtils.signupRoute));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setTitle("Регистрация");
-        window.setScene(scene);
-        window.setFullScreen(true);
-        window.show();
     }
 
     public void setData(AllValues allValues) {

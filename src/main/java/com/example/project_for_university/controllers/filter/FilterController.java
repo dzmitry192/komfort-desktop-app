@@ -4,6 +4,7 @@ import com.example.project_for_university.controllers.user.ChooseOpController;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.FilterValues;
 import com.example.project_for_university.dto.Material;
+import com.example.project_for_university.enums.Page;
 import com.example.project_for_university.utils.ControllerUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -225,8 +226,6 @@ public class FilterController implements Initializable {
         blotting_pressure_inp_1.setText("");
         blotting_pressure_inp_2.setText("");
 
-        way_prod_cb.setDisable(true);
-        typeMemb_cb.setDisable(true);
         time_inp_1.setDisable(true);
         time_inp_2.setDisable(true);
         resistance_inp_1.setDisable(true);
@@ -235,7 +234,6 @@ public class FilterController implements Initializable {
         water_vapor_perm_inp_2.setDisable(true);
         relative_pressure_inp_1.setDisable(true);
         relative_pressure_inp_2.setDisable(true);
-        num_layers_cb.setDisable(true);
         depth_inp_1.setDisable(true);
         depth_inp_2.setDisable(true);
         blotting_pressure_inp_1.setDisable(true);
@@ -244,15 +242,6 @@ public class FilterController implements Initializable {
 
     @FXML
     void btn_back_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource(ControllerUtils.welcomeRoute));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
-
-        Stage window = (Stage) btn_search.getScene().getWindow();
-        window.setScene(scene);
-        window.setFullScreen(true);
-        window.show();
     }
 
     @Override
@@ -260,14 +249,13 @@ public class FilterController implements Initializable {
         List<Material> materials = new ArrayList<>(materials());
         for(int i = 0; i < materials.size(); i++) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/com/example/project_for_university/fxml/filter/material_item/filter-material.fxml"));
+            fxmlLoader.setLocation(getClass().getResource(Page.MATERIAL_DETAILS.getPath()));
 
             try {
                 HBox materialItem = fxmlLoader.load();
                 MaterialController materialController = fxmlLoader.getController();
                 materialController.setMaterial(materials.get(i));
                 list_materials.getChildren().add(materialItem);
-//                anchorPane.maxWidthProperty().bind(list_materials.maxWidthProperty());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

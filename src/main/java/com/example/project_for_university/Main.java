@@ -1,5 +1,6 @@
 package com.example.project_for_university;
 
+import com.example.project_for_university.enums.Page;
 import com.example.project_for_university.utils.ControllerUtils;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,11 +17,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(ControllerUtils.loginRoute));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(Page.LOGIN.getPath()));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Вход");
+        stage.setTitle("Расчет материалов");
         stage.setScene(scene);
-        stage.setFullScreen(true);
         stage.show();
     }
 

@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.ReturnAllTypesDto;
 import com.example.project_for_university.dto.forBackend.entity.ProductionMethodEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
+import com.example.project_for_university.enums.Page;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.utils.AuthUtils;
 import com.example.project_for_university.utils.ControllerUtils;
@@ -69,15 +70,6 @@ public class AdminController {
 
     @FXML
     void back_btn_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource(ControllerUtils.welcomeRoute));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
-
-        Stage window = (Stage) back_btn.getScene().getWindow();
-        window.setScene(scene);
-        window.setFullScreen(true);
-        window.show();
     }
 
     @FXML
@@ -123,21 +115,20 @@ public class AdminController {
     private <T> void changeWindow(int btnTypeNum, List<String> names) throws IOException {
         Scene scene;
         if(btnTypeNum == 1) {
-            FXMLLoader fxmlLoader = new FXMLLoader(AdminController.class.getResource("/com/example/project_for_university/fxml/user/admin/type.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(AdminController.class.getResource(Page.TYPE.getPath()));
             scene = new Scene(fxmlLoader.load());
 
             ((TypeController) fxmlLoader.getController()).setData(allValues, names);
         } else {
-            FXMLLoader fxmlLoader = new FXMLLoader(AdminController.class.getResource("/com/example/project_for_university/fxml/user/admin/physical-type.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(AdminController.class.getResource(Page.TYPE.getPath()));
             scene = new Scene(fxmlLoader.load());
 
             ((PhTypeController) fxmlLoader.getController()).setData(allValues);
         }
 
         Stage window = (Stage) btn_abrasion_type.getScene().getWindow();
-        window.setTitle("Управление типом");
+        window.setTitle("Расчет материалов");
         window.setScene(scene);
-        window.setFullScreen(true);
         window.show();
     }
 

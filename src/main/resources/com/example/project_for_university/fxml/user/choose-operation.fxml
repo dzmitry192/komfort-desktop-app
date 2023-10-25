@@ -12,17 +12,17 @@
    <children>
       <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox maxWidth="360.0" prefHeight="277.0" prefWidth="360.0" spacing="35.0" style="-fx-background-color: white;" styleClass="form-wrapper" stylesheets="@../../styles/shared.css">
+            <VBox maxWidth="-Infinity" prefHeight="277.0" prefWidth="420.0" spacing="35.0" style="-fx-background-color: white;" styleClass="form-wrapper" stylesheets="@../../styles/shared.css" VBox.vgrow="NEVER">
                <children>
                   <VBox maxWidth="-Infinity" prefHeight="128.0" prefWidth="334.0">
                      <children>
                         <Label styleClass="bold-text" text="Здравствуйте," />
-                        <Text fx:id="user_fio_lbl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bold-text" text="Сиваченко Дмирий Сергеевич" wrappingWidth="273.8236083984375" />
+                        <Text fx:id="user_fio_lbl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bold-text" text="Сиваченко Дмирий Сергеевич" wrappingWidth="338.8236083984375" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                  <VBox spacing="10.0">
                      <children>
-                        <Button fx:id="admin_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#admin_btn_clicked" prefHeight="36.0" prefWidth="150.0" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Управление" visible="false" />
+                        <Button fx:id="admin_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#admin_btn_clicked" prefHeight="36.0" prefWidth="150.0" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Панель администратора" visible="false" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -41,6 +41,9 @@
                <padding>
                   <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
             </VBox>
          </children>
       </VBox>

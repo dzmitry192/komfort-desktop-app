@@ -53,7 +53,6 @@ public class TypeController {
         Stage window = (Stage) btn_add.getScene().getWindow();
         window.setTitle("Администратор");
         window.setScene(scene);
-        window.setFullScreen(true);
         window.show();
     }
 

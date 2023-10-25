@@ -1,6 +1,8 @@
 package com.example.project_for_university.controllers.user;
 
+import com.example.project_for_university.controllers.user.admin.AdminController;
 import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.enums.Page;
 import com.example.project_for_university.service.SignupService;
 import com.example.project_for_university.utils.ControllerUtils;
 import javafx.fxml.FXML;
@@ -43,16 +45,6 @@ public class SignupController extends Node {
 
     @FXML
     void back_btn_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ControllerUtils.loginRoute));
-        Scene scene = new Scene(fxmlLoader.load());
-
-
-        ((LoginController) fxmlLoader.getController()).setData(allValues);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.setFullScreen(true);
-        window.show();
     }
 
     @FXML
@@ -65,7 +57,7 @@ public class SignupController extends Node {
         if(fio.isEmpty() || email.isEmpty() || password.isEmpty()) {
             status_lbl.setText("Ошибка! Вы не заполнили все поля");
         } else if(password.length() < 4) {
-            status_lbl.setText("Минимальная длина пароля 6 символов!");
+            status_lbl.setText("Минимальная длина пароля 6 символов");
         } else {
             signupService.signup(fio, email, password, status_lbl, allValues);
         }

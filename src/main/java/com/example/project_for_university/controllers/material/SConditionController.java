@@ -1,7 +1,9 @@
 package com.example.project_for_university.controllers.material;
 
 import com.example.project_for_university.controllers.user.LoginController;
+import com.example.project_for_university.controllers.user.admin.AdminController;
 import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.enums.Page;
 import com.example.project_for_university.utils.ControllerUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,28 +80,10 @@ public class SConditionController extends Node {
 
     @FXML
     void btn_back_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ControllerUtils.firstCondRoute));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ((FConditionController) fxmlLoader.getController()).setData(allValues);
-
-        Stage window = (Stage) btn_back.getScene().getWindow();
-        window.setScene(scene);
-        window.setFullScreen(true);
-        window.show();
     }
 
     @FXML
     void btn_next_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ControllerUtils.firstCondRoute));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ((ResultTableController) fxmlLoader.getController()).setData(allValues);
-
-        Stage window = (Stage) btn_back.getScene().getWindow();
-        window.setScene(scene);
-        window.setFullScreen(true);
-        window.show();
     }
 
     @FXML
