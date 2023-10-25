@@ -9,6 +9,8 @@ module com.example.project_for_university {
 
     opens com.example.project_for_university to javafx.fxml;
     exports com.example.project_for_university;
+    exports com.example.project_for_university.controllers;
+    opens com.example.project_for_university.controllers to javafx.fxml;
     exports com.example.project_for_university.controllers.loader;
     opens com.example.project_for_university.controllers.loader to javafx.fxml;
     exports com.example.project_for_university.controllers.user;

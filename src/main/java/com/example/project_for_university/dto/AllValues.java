@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AllValues {
+    private ContentPanes contentPanes;
     private UserEntity user;
     private ReturnAllTypesDto returnAllTypesDto;
     private MaterialInformationDto materialInformationDto;

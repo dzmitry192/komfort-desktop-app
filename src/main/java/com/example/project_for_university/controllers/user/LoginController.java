@@ -50,9 +50,8 @@ public class LoginController extends Node {
         String password = password_tf.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
-            status_lbl.setText("Ошибка! Вы не заполнили все поля");
+            status_lbl.setText("Вы не заполнили все поля");
         } else {
-
             if(loginService.login(email, password, status_lbl, allValues)) {
                 FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/com/example/project_for_university/fxml/user/choose-operation.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
@@ -68,6 +67,7 @@ public class LoginController extends Node {
 
     @FXML
     void signup_btn_clicked(MouseEvent event) throws IOException {
+//        ControllerUtils.changePage(Page.LOGIN, );
     }
 
     public void setData(AllValues allValues) {

@@ -1,6 +1,8 @@
 package com.example.project_for_university.enums;
 
 public enum Page {
+    MAIN ("/com/example/project_for_university/fxml/main.fxml"),
+    LOGGED_IN ("/com/example/project_for_university/fxml/loggedInPage/logged-in-page.fxml"),
     LOGIN ("/com/example/project_for_university/fxml/user/login.fxml"),
     SIGNUP ("/com/example/project_for_university/fxml/user/signup.fxml"),
     CHOOSE_OPERATION ("/com/example/project_for_university/fxml/user/choose-operation.fxml"),

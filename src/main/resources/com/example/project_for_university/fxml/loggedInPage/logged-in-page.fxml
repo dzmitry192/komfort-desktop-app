@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox fx:controller="com.example.project_for_university.controllers.LoggedInPageController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@logged-in-page.css" />
+      <URL value="@../../styles/shared.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="app-background" />
+      <String fx:value="min-window-height" />
+   </styleClass>
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="page-wrapper" VBox.vgrow="ALWAYS">
+         <children>
+            <ScrollPane maxWidth="-Infinity" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <content>
+                  <VBox>
+                     <children>
+                        <VBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                           </children>
+                        </VBox>
+                        <HBox maxWidth="1.7976931348623157E308">
+                           <children>
+                              <Label text="Панель администратора" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <HBox maxWidth="1.7976931348623157E308">
+                           <children>
+                              <Label text="Новый артикул" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <HBox maxWidth="1.7976931348623157E308">
+                           <children>
+                              <Label text="Все артикулы" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <HBox maxWidth="1.7976931348623157E308">
+                           <children>
+                              <Label text="Выход из аккаунта" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+   </children>
+</VBox>

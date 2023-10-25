@@ -18,6 +18,12 @@
   -fx-pref-height: 750px;
 }
 
+.main-window {
+  -fx-pref-height: 750px;
+  -fx-pref-width: 1100px;
+  -fx-max-width: 1100px;
+}
+
 /*------buttons------*/
 
 .btn-blue-filled {
@@ -108,7 +114,7 @@
   -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
 }
 
-.sky-blue-background {
+.app-background {
   -fx-background-color: -fx-app-background-color;
 }
 
