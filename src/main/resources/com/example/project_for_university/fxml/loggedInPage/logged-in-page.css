@@ -1,7 +1,87 @@
-.side-bar {
 
+.side-bar Label, .side-bar Text {
+  -fx-font-weight: 700;
+  -fx-fill: white;
+  -fx-text-fill: white;
+}
+
+.side-bar {
+  -fx-background-color: -fx-dark-accent;
+}
+
+.side-bar-user-info {
+  -fx-padding: 30 20;
+}
+
+.side-bar-user-info Text {
+  -fx-font-size: 16;
 }
 
 .side-bar-button {
-  
+  -fx-padding: 20 20;
+  -fx-background-radius: 4;
+}
+
+.side-bar-button.active {
+  -fx-background-color: -fx-side-bar-btn-active-color;
+  -fx-effect: dropshadow(three-pass-box, rgb(0, 0, 0), 5, 0, 0, 0);
+}
+
+.side-bar-button:hover {
+  -fx-background-color: -fx-side-bar-btn-hover-color;
+}
+
+
+
+/*----scroll-----*/
+
+.side-bar .scroll-bar:horizontal .track,
+.side-bar .scroll-bar:vertical .track{
+  -fx-background-color :-fx-dark-accent;
+  -fx-border-color :-fx-dark-accent;
+  -fx-background-radius : 0.0em;
+  -fx-border-radius :2.0em;
+}
+
+
+.side-bar .scroll-bar:horizontal .increment-button ,
+.side-bar .scroll-bar:horizontal .decrement-button {
+  -fx-background-color :transparent;
+  -fx-background-radius : 0.0em;
+  -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.side-bar .scroll-bar:vertical .increment-button ,
+.side-bar .scroll-bar:vertical .decrement-button {
+  -fx-background-color :transparent;
+  -fx-background-radius : 0.0em;
+  -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+ .side-bar .scroll-bar .increment-arrow,
+ .side-bar .scroll-bar .decrement-arrow{
+  -fx-shape : " ";    
+  -fx-padding :0.15em 0.0;
+}
+
+ .side-bar .scroll-bar:vertical .increment-arrow,
+ .side-bar .scroll-bar:vertical .decrement-arrow{
+  -fx-shape : " ";    
+  -fx-padding :0.0 0.15em;
+}
+
+.side-bar .scroll-bar:horizontal .thumb,
+.side-bar .scroll-bar:vertical .thumb {
+  -fx-background-color : derive(-fx-dark-accent, 30.0%);
+  -fx-background-insets : 2.0, 0.0, 0.0;
+  -fx-background-radius : 2.0em;
+}
+
+.side-bar .scroll-bar:horizontal .thumb:hover,
+.side-bar .scroll-bar:vertical .thumb:hover {
+  -fx-background-color : derive(-fx-dark-accent, 30.0%);
+  -fx-background-insets : 2.0, 0.0, 0.0;
+  -fx-background-radius : 2.0em;
 }

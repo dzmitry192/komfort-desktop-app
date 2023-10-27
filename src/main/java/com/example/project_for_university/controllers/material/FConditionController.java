@@ -1,16 +1,17 @@
 package com.example.project_for_university.controllers.material;
 
 import com.example.project_for_university.Main;
-import com.example.project_for_university.controllers.user.ChooseOpController;
 import com.example.project_for_university.controllers.user.LoginController;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.FConditionValues;
 import com.example.project_for_university.dto.forBackend.entity.WashingEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
-import com.example.project_for_university.enums.Page;
+import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.http.JsonToClass;
+import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.AuthUtils;
-import com.example.project_for_university.utils.ControllerUtils;
+import com.example.project_for_university.utils.ComponentUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import lombok.Data;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -30,13 +32,11 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Data
-public class FConditionController implements Initializable {
-
+public class FConditionController implements Initializable, DataProvider {
     private AllValues allValues;
     private FConditionValues FConditionValues = new FConditionValues();
     private int cnt_type_of_load = 0;
@@ -55,16 +55,13 @@ public class FConditionController implements Initializable {
     private URL location;
 
     @FXML
-    private Button btn_add_layer;
+    private HBox btn_add_layer;
 
     @FXML
-    private Button btn_cond_back;
+    private HBox btn_cond_next;
 
     @FXML
-    private Button btn_cond_next;
-
-    @FXML
-    private Button remove_layer_btn;
+    private HBox remove_layer_btn;
 
     @FXML
     private CheckBox check_abrasion;
@@ -177,6 +174,7 @@ public class FConditionController implements Initializable {
     @FXML
     private Slider scroll_torsion_angle;
 
+    @Override
     public void setData(AllValues allValues) {
         this.allValues = allValues;
     }
@@ -334,10 +332,6 @@ public class FConditionController implements Initializable {
     }
 
     @FXML
-    void btn_cond_back_clicked(MouseEvent event) throws IOException {
-    }
-
-    @FXML
     void btn_cond_next_clicked(MouseEvent event) throws IOException {
         isReadyToChange = true;
         try {
@@ -369,29 +363,11 @@ public class FConditionController implements Initializable {
                         washingTypeList.stream().filter(el -> el.getName().equals(wash_type.getValue())).findFirst().get()));
             }
             allValues.setFConditionValues(FConditionValues);
+
+            ComponentUtil.mount(Component.CONDITION_2, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         } catch (NullPointerException e) {
-            System.out.println("works");
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Предупреждение");
-            alert.setHeaderText("Вы не заполнили все поля!");
-            alert.setContentText("Закройте это окно и дозаполните всё необходимые поля!");
-            Optional<ButtonType> option = alert.showAndWait();
-            isReadyToChange = false;
+            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         }
-        if (isReadyToChange) {
-            changeWindow(event);
-        }
-    }
-
-    private void changeWindow(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("/com/example/project_for_university/fxml/cond/condition-2.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ((SConditionController) fxmlLoader.getController()).setData(allValues);
-
-        Stage window = (Stage) btn_add_layer.getScene().getWindow();
-        window.setScene(scene);
-        window.show();
     }
 
     @FXML

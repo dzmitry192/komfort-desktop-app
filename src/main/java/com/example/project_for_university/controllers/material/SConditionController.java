@@ -1,26 +1,22 @@
 package com.example.project_for_university.controllers.material;
 
-import com.example.project_for_university.controllers.user.LoginController;
-import com.example.project_for_university.controllers.user.admin.AdminController;
 import com.example.project_for_university.dto.AllValues;
-import com.example.project_for_university.enums.Page;
-import com.example.project_for_university.utils.ControllerUtils;
+import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SConditionController extends Node {
+public class SConditionController implements DataProvider {
 
     private AllValues allValues;
 
@@ -31,10 +27,10 @@ public class SConditionController extends Node {
     private URL location;
 
     @FXML
-    private Button btn_back;
+    private HBox btn_back;
 
     @FXML
-    private Button btn_next;
+    private HBox btn_next;
 
     @FXML
     private TextField homeo_capacity_inp;
@@ -78,12 +74,19 @@ public class SConditionController extends Node {
     @FXML
     private TextField water_time_protect;
 
+    @Override
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
+    }
+
     @FXML
     void btn_back_clicked(MouseEvent event) throws IOException {
+        ComponentUtil.mount(Component.CONDITION_1, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     void btn_next_clicked(MouseEvent event) throws IOException {
+        ComponentUtil.mount(Component.WATERPROOF_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
@@ -94,9 +97,5 @@ public class SConditionController extends Node {
     @FXML
     void water_scroll_dragged(MouseEvent event) {
         water_scroll_inp.setText(String.valueOf((int) water_scroll.getValue()));
-    }
-
-    public void setData(AllValues allValues) {
-        this.allValues = allValues;
     }
 }

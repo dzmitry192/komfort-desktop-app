@@ -1,6 +1,11 @@
 package com.example.project_for_university.controllers.filter;
 
+import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.Material;
+import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
+import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,9 +22,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MaterialController implements Initializable {
+public class MaterialController implements Initializable, DataProvider {
+
+    private AllValues allValues;
+    private PartialMaterialEntity partialMaterialEntity;
+
     @FXML
-    private Button btn_moreDetails;
+    private HBox btn_moreDetails;
 
     @FXML
     private Label desc;
@@ -33,23 +42,25 @@ public class MaterialController implements Initializable {
     @FXML
     private Label name;
 
-    @FXML
-    void btn_moreDetails_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MaterialController.class.getResource("/com/example/project_for_university/fxml/filter/material_details/filter-material-details.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage window = (Stage) btn_moreDetails.getScene().getWindow();
-        window.setTitle("Подробная информация о материале");
-        window.setScene(scene);
-        window.show();
+    @Override
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
     }
 
-    public void setMaterial(Material material) {
-        Image img = new Image(getClass().getResourceAsStream(material.getImageSrc()));
+    @FXML
+    void btn_moreDetails_clicked(MouseEvent event) throws IOException {
+        ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, partialMaterialEntity);
+    }
 
-        image.setImage(img);
-        name.setText(material.getName());
-        desc.setText(material.getDesc());
+    public void setMaterial(PartialMaterialEntity partialMaterialEntity) {
+        this.partialMaterialEntity = partialMaterialEntity;
+        Image img;
+//        if (partialMaterialEntity.getImages().length > 0) {
+//            img = new Image(getClass().getResourceAsStream(partialMaterialEntity.getImages()[1]));
+//            image.setImage(img);
+//        }
+        name.setText(partialMaterialEntity.getName());
+        desc.setText(partialMaterialEntity.getDescription());
     }
 
     @Override

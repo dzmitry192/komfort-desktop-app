@@ -1,32 +1,28 @@
 package com.example.project_for_university.controllers.user;
 
-import com.example.project_for_university.controllers.user.admin.AdminController;
 import com.example.project_for_university.dto.AllValues;
-import com.example.project_for_university.enums.Page;
+import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.SignupService;
-import com.example.project_for_university.utils.ControllerUtils;
+import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import lombok.Data;
 
 import java.io.IOException;
 
 @Data
-public class SignupController extends Node {
+public class SignupController implements DataProvider {
 
     private AllValues allValues = new AllValues();
     private SignupService signupService = new SignupService();
 
     @FXML
-    private Button back_btn;
+    private Button login_btn;
 
     @FXML
     private TextField email_tf;
@@ -43,8 +39,9 @@ public class SignupController extends Node {
     @FXML
     private Label status_lbl;
 
-    @FXML
-    void back_btn_clicked(MouseEvent event) throws IOException {
+    @Override
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
     }
 
     @FXML
@@ -61,6 +58,11 @@ public class SignupController extends Node {
         } else {
             signupService.signup(fio, email, password, status_lbl, allValues);
         }
+    }
+
+    @FXML
+    void login_btn_clicked(MouseEvent event) throws IOException {
+        ComponentUtil.mount(Component.LOGIN, allValues.getContentPanes().getMainContentPane(), allValues);
     }
 }
 

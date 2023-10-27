@@ -8,6 +8,7 @@ import com.example.project_for_university.dto.forBackend.calculate.CalculateReli
 import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.dto.forBackend.entity.UserEntity;
+import javafx.stage.Stage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AllValues {
+    private Stage rootStage;
+    private Stage loaderStage;
     private ContentPanes contentPanes;
     private UserEntity user;
     private ReturnAllTypesDto returnAllTypesDto;

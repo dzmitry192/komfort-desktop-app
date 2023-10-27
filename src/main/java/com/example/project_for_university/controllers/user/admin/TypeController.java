@@ -1,41 +1,38 @@
 package com.example.project_for_university.controllers.user.admin;
 
-import com.example.project_for_university.controllers.user.admin.models.PhType;
 import com.example.project_for_university.controllers.user.admin.models.Type;
 import com.example.project_for_university.dto.AllValues;
-import com.example.project_for_university.utils.ControllerUtils;
+import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.utils.ComponentUtil;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class TypeController {
+public class TypeController implements DataProvider {
 
     private AllValues allValues;
     private List<String> typesNames;
 
     @FXML
-    private Button btn_back;
+    private HBox btn_add;
 
     @FXML
-    private Button btn_add;
+    private HBox btn_change;
 
     @FXML
-    private Button btn_change;
-
-    @FXML
-    private Button btn_delete;
+    private HBox btn_delete;
 
     @FXML
     private TableColumn<Type, String> col_name;
@@ -43,17 +40,14 @@ public class TypeController {
     @FXML
     private TableView<Type> table_types;
 
+    @Override
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
+    }
+
     @FXML
     void btn_back_clicked(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(AdminController.class.getResource("/com/example/project_for_university/fxml/user/admin/admin.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ((AdminController) fxmlLoader.getController()).setData(allValues);
-
-        Stage window = (Stage) btn_add.getScene().getWindow();
-        window.setTitle("Администратор");
-        window.setScene(scene);
-        window.show();
+        ComponentUtil.mount(Component.ADMIN_PANEL, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
 

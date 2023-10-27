@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -13,212 +12,250 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<VBox alignment="TOP_CENTER" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.SConditionController">
+<VBox stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.SConditionController">
    <children>
-      <VBox VBox.vgrow="ALWAYS">
+      <VBox alignment="CENTER" spacing="10.0" styleClass="default-gray-background" VBox.vgrow="NEVER">
          <children>
-            <VBox alignment="CENTER" styleClass="default-gray-background" VBox.vgrow="NEVER">
+            <HBox>
                <children>
-                  <Label styleClass="bold-text" text="Ввод функций" VBox.vgrow="NEVER">
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Separator />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label styleClass="bold-text" text="Ввод функций" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label styleClass="bold-text" text="2/6" />
                </children>
-            </VBox>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="1.0" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
-               <content>
-                  <VBox spacing="50.0">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Separator />
+         </children>
+      </VBox>
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox spacing="50.0">
+               <children>
+                  <VBox spacing="10.0">
                      <children>
-                        <VBox spacing="10.0" VBox.vgrow="NEVER">
+                        <VBox spacing="5.0" VBox.vgrow="NEVER">
                            <children>
-                              <VBox spacing="5.0" VBox.vgrow="NEVER">
-                                 <children>
-                                    <Label styleClass="bold-text" text="Водозащита" />
-                                    <Separator prefWidth="200.0" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="7.0" VBox.vgrow="NEVER">
-                                 <children>
-                                    <VBox maxWidth="600.0" spacing="10.0">
-                                       <children>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label text="Cкорость увеличения гидростатического давления:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <HBox spacing="10.0">
-                                                   <children>
-                                                      <Slider fx:id="hydrostaticPressureIncreaseSpeed" blockIncrement="1.0" majorTickUnit="5.0" max="30.0" min="1.0" onMouseDragged="#water_scroll_dragged" prefHeight="14.0" prefWidth="166.0" showTickLabels="true" />
-                                                      <TextField fx:id="water_scroll_inp" minWidth="-Infinity" prefHeight="0.0" prefWidth="70.0" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label text="Стадия промокания:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <ComboBox fx:id="water_combo" prefWidth="150.0" promptText="Выберите" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label text="Гидростатическое давление:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="hydrostaticPressure" minWidth="-Infinity" prefHeight="0.0" prefWidth="70.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label text="Время защиты от воды:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="waterproofTime" minWidth="-Infinity" prefHeight="0.0" prefWidth="70.0" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets left="50.0" />
-                                       </VBox.margin>
-                                    </VBox>
-                                 </children>
-                              </VBox>
+                              <Label styleClass="bold-text" text="Водозащита" />
+                              <Separator prefWidth="200.0" />
                            </children>
                         </VBox>
-                        <VBox spacing="10.0" VBox.vgrow="NEVER">
+                        <VBox maxWidth="650.0" spacing="10.0" VBox.vgrow="NEVER">
                            <children>
-                              <VBox spacing="5.0" VBox.vgrow="NEVER">
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
                                  <children>
-                                    <Label styleClass="bold-text" text="Гомеостаз" />
-                                    <Separator prefWidth="200.0" />
-                                 </children>
-                              </VBox>
-                              <VBox>
-                                 <children>
-                                    <VBox maxWidth="500.0" spacing="10.0">
+                                    <TextFlow>
                                        <children>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label text="Cредняя скорость движения воздуха:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <HBox spacing="10.0">
-                                                   <children>
-                                                      <Slider fx:id="homeo_scroll" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" onMouseDragged="#homeo_scroll_dragged" showTickLabels="true" />
-                                                      <TextField fx:id="homeo_scroll_inp" minWidth="70.0" prefWidth="70.0" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label text="Площадь поверхности пробы:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="homeo_square_inp" prefWidth="70.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label text="Удельная теплоемкость нагревательного элемента:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="homeo_capacity_inp" prefWidth="70.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label text="Масса нагревательного элемента:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="homeo_weight_inp" prefWidth="70.0" />
-                                             </children>
-                                          </HBox>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Cкорость увеличения гидростатического давления:" wrappingWidth="377.0344543457031" />
                                        </children>
-                                       <VBox.margin>
-                                          <Insets left="50.0" />
-                                       </VBox.margin>
-                                    </VBox>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Slider fx:id="hydrostaticPressureIncreaseSpeed" blockIncrement="1.0" majorTickUnit="5.0" max="30.0" min="1.0" onMouseDragged="#water_scroll_dragged" prefHeight="14.0" prefWidth="166.0" showTickLabels="true" />
+                                          <TextField fx:id="water_scroll_inp" minWidth="-Infinity" prefHeight="0.0" prefWidth="70.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </VBox>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Стадия промокания:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <ComboBox fx:id="water_combo" prefWidth="180.0" promptText="Выберите" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Гидростатическое давление:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="hydrostaticPressure" minWidth="-Infinity" prefHeight="0.0" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Время защиты от воды:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="waterproofTime" minWidth="-Infinity" prefHeight="0.0" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
-                        <VBox spacing="10.0" VBox.vgrow="NEVER">
+                     </children>
+                  </VBox>
+                  <VBox spacing="10.0">
+                     <children>
+                        <VBox spacing="5.0" VBox.vgrow="NEVER">
                            <children>
-                              <VBox spacing="5.0">
-                                 <children>
-                                    <Label styleClass="bold-text" text="Надежность" />
-                                    <Separator prefWidth="200.0" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="7.0">
-                                 <children>
-                                    <VBox maxWidth="580.0" spacing="10.0">
-                                       <children>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label text="Относительная водонепроницаемость после моделирования эксплуатации:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="rel_watRes_inp" minWidth="70.0" prefWidth="70.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label text="Относительное давление промокания:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="rel_pressure_inp" prefWidth="70.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label text="Относительное время промокания:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="rel_time_inp" prefWidth="70.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Относительный критерий полноты реализации водозащитной функции после моделирования эксплуатации:" wrappingWidth="377.0344543457031" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="rel_implCriteria_inp" minWidth="70.0" prefWidth="70.0" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets left="50.0" />
-                                       </VBox.margin>
-                                    </VBox>
-                                 </children>
-                              </VBox>
+                              <Label styleClass="bold-text" text="Гомеостаз" />
+                              <Separator prefWidth="200.0" />
                            </children>
                         </VBox>
+                        <VBox maxWidth="650.0" spacing="10.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Cредняя скорость движения воздуха:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Slider fx:id="homeo_scroll" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" onMouseDragged="#homeo_scroll_dragged" showTickLabels="true" />
+                                          <TextField fx:id="homeo_scroll_inp" minWidth="70.0" prefWidth="70.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Площадь поверхности пробы:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="homeo_square_inp" minWidth="-Infinity" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Удельная теплоемкость нагревательного элемента:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="homeo_capacity_inp" minWidth="-Infinity" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Масса нагревательного элемента:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="homeo_weight_inp" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox spacing="10.0">
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label styleClass="bold-text" text="Надежность" />
+                              <Separator prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox maxWidth="650.0" spacing="10.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Относительная водонепроницаемость после моделирования эксплуатации:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="rel_watRes_inp" minWidth="70.0" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Относительное давление промокания:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="rel_pressure_inp" minWidth="-Infinity" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Относительное время промокания:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="rel_time_inp" minWidth="-Infinity" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Относительный критерий полноты реализации водозащитной функции после моделирования эксплуатации:" wrappingWidth="377.0344543457031" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="rel_implCriteria_inp" minWidth="70.0" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <VBox styleClass="default-gray-background">
+         <children>
+            <Separator rotate="180.0" />
+            <HBox alignment="CENTER" spacing="10.0" VBox.vgrow="NEVER">
+               <children>
+                  <HBox fx:id="btn_back" alignment="CENTER" onMouseClicked="#btn_back_clicked" spacing="5.0" styleClass="btn-red-filled">
+                     <children>
+                        <FontAwesomeIconView glyphName="CHEVRON_LEFT" />
+                        <Label text="Назад" />
                      </children>
                      <padding>
-                        <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
+                        <Insets left="15.0" right="15.0" />
                      </padding>
-                  </VBox>
-               </content>
-            </ScrollPane>
-            <VBox styleClass="default-gray-background">
-               <children>
-                  <Separator rotate="180.0" />
-                  <HBox alignment="CENTER" spacing="10.0" VBox.vgrow="NEVER">
+                  </HBox>
+                  <HBox fx:id="btn_next" alignment="CENTER" onMouseClicked="#btn_next_clicked" spacing="5.0" styleClass="btn-blue-filled">
                      <children>
-                        <Button fx:id="btn_back" mnemonicParsing="false" onMouseClicked="#btn_back_clicked" prefWidth="120.0" styleClass="btn-red-filled" text="&lt; Назад" />
-                        <Button fx:id="btn_next" mnemonicParsing="false" onMouseClicked="#btn_next_clicked" prefWidth="120.0" styleClass="btn-blue-filled" text="Далее &gt;" />
+                        <Label text="Далее" />
+                        <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
                      </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
                   </HBox>
                </children>
-            </VBox>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
          </children>
-         <styleClass>
-            <String fx:value="page-wrapper" />
-            <String fx:value="box-shadow" />
-         </styleClass>
       </VBox>
    </children>
-   <styleClass>
-      <String fx:value="sky-blue-background" />
-      <String fx:value="min-window-height" />
-   </styleClass>
 </VBox>

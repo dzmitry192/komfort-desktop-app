@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.admin.AdminController">
+<VBox alignment="CENTER" fillWidth="false" styleClass="white-scroll-pane" stylesheets="@../../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.admin.AdminController">
    <children>
-      <VBox prefWidth="500.0" spacing="20.0" styleClass="form-wrapper" VBox.vgrow="NEVER">
+      <VBox prefWidth="450.0" spacing="20.0" VBox.vgrow="NEVER">
          <children>
             <VBox alignment="CENTER">
                <children>
@@ -28,7 +28,7 @@
                            <children>
                               <VBox spacing="10.0">
                                  <children>
-                                    <HBox alignment="CENTER">
+                                    <HBox alignment="CENTER" spacing="10.0">
                                        <children>
                                           <Label contentDisplay="TOP" text="Уровень физической активности" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
@@ -36,11 +36,14 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_lev_activ_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_lev_activ_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
+                                          <HBox fx:id="btn_lev_activ_type" alignment="CENTER" onMouseClicked="#btn_lev_activ_type_clicked" spacing="10.0" styleClass="btn-blue-filled">
+                                             <children>
+                                                <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="15.0" right="15.0" />
+                                             </padding>
+                                          </HBox>
                                        </children>
                                     </HBox>
                                     <Separator>
@@ -52,7 +55,7 @@
                               </VBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <HBox alignment="CENTER">
+                                    <HBox alignment="CENTER" spacing="10.0">
                                        <children>
                                           <Label contentDisplay="TOP" text="Тип полимера мембранного слоя" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
@@ -60,11 +63,14 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_memr_lay_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_memr_lay_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
+                                          <HBox fx:id="btn_membr_lay_type" alignment="CENTER" onMouseClicked="#btn_membr_lay_type_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                             <children>
+                                                <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="15.0" right="15.0" />
+                                             </padding>
+                                          </HBox>
                                        </children>
                                     </HBox>
                                     <Separator>
@@ -76,7 +82,7 @@
                               </VBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <HBox alignment="CENTER">
+                                    <HBox alignment="CENTER" spacing="10.0">
                                        <children>
                                           <Label contentDisplay="TOP" text="Cпособ производства" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
@@ -84,11 +90,14 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_production_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_production_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
+                                          <HBox fx:id="btn_production_type" alignment="CENTER" onMouseClicked="#btn_production_type_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                             <children>
+                                                <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="15.0" right="15.0" />
+                                             </padding>
+                                          </HBox>
                                        </children>
                                     </HBox>
                                     <Separator>
@@ -100,7 +109,7 @@
                               </VBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <HBox alignment="CENTER">
+                                    <HBox alignment="CENTER" spacing="10.0">
                                        <children>
                                           <Label contentDisplay="TOP" text="Тип истирания" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
@@ -108,11 +117,14 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_abrasion_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_abrasion_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
+                                          <HBox fx:id="btn_abrasion_type" alignment="CENTER" onMouseClicked="#btn_abrasion_type_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                             <children>
+                                                <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="15.0" right="15.0" />
+                                             </padding>
+                                          </HBox>
                                        </children>
                                     </HBox>
                                     <Separator />
@@ -120,7 +132,7 @@
                               </VBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <HBox alignment="CENTER">
+                                    <HBox alignment="CENTER" spacing="10.0">
                                        <children>
                                           <Label contentDisplay="TOP" text="Тип изгиба" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
@@ -128,11 +140,14 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_bend_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_bend_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
+                                          <HBox fx:id="btn_bend_type" alignment="CENTER" onMouseClicked="#btn_bend_type_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                             <children>
+                                                <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="15.0" right="15.0" />
+                                             </padding>
+                                          </HBox>
                                        </children>
                                     </HBox>
                                     <Separator>
@@ -144,7 +159,7 @@
                               </VBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <HBox alignment="CENTER">
+                                    <HBox alignment="CENTER" spacing="10.0">
                                        <children>
                                           <Label contentDisplay="TOP" text="Тип стирки" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
@@ -152,11 +167,14 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_washing_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_washing_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
+                                          <HBox fx:id="btn_washing_type" alignment="CENTER" onMouseClicked="#btn_washing_type_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                             <children>
+                                                <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="15.0" right="15.0" />
+                                             </padding>
+                                          </HBox>
                                        </children>
                                     </HBox>
                                     <Separator>
@@ -168,7 +186,7 @@
                               </VBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <HBox alignment="CENTER">
+                                    <HBox alignment="CENTER" spacing="10.0">
                                        <children>
                                           <Label contentDisplay="TOP" text="Тип слоя" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
@@ -176,11 +194,14 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btn_lay_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_lay_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Button>
+                                          <HBox fx:id="btn_lay_type" alignment="CENTER" onMouseClicked="#btn_lay_type_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                             <children>
+                                                <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="15.0" right="15.0" />
+                                             </padding>
+                                          </HBox>
                                        </children>
                                     </HBox>
                                     <Separator>
@@ -190,7 +211,7 @@
                                     </Separator>
                                  </children>
                               </VBox>
-                              <HBox alignment="CENTER">
+                              <HBox alignment="CENTER" spacing="10.0">
                                  <children>
                                     <Label contentDisplay="TOP" text="Тип клея" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
@@ -198,11 +219,14 @@
                                        </HBox.margin>
                                     </Label>
                                     <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                                    <Button fx:id="btn_glue_type" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#btn_glue_type_clicked" prefWidth="110.0" styleClass="btn-blue-filled" text="Управление">
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                    </Button>
+                                    <HBox fx:id="btn_glue_type" alignment="CENTER" onMouseClicked="#btn_glue_type_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                       <children>
+                                          <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="15.0" right="15.0" />
+                                       </padding>
+                                    </HBox>
                                  </children>
                               </HBox>
                            </children>
@@ -215,24 +239,15 @@
                   <Separator prefWidth="200.0" rotate="180.0" />
                </children>
             </VBox>
-            <VBox>
-               <children>
-                  <VBox>
-                     <children>
-                        <Button fx:id="back_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#back_btn_clicked" styleClass="btn-red-filled" text="&lt; Назад" />
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
+            <VBox />
          </children>
          <VBox.margin>
             <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
          </VBox.margin>
+         <styleClass>
+            <String fx:value="form-wrapper" />
+            <String fx:value="box-shadow" />
+         </styleClass>
       </VBox>
    </children>
-   <styleClass>
-      <String fx:value="sky-blue-background" />
-      <String fx:value="page-wrapper" />
-      <String fx:value="min-window-height" />
-   </styleClass>
 </VBox>

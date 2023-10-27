@@ -25,6 +25,8 @@ module com.example.project_for_university {
     opens com.example.project_for_university.controllers.user.admin.models to javafx.base;
     exports com.example.project_for_university.controllers.material;
     opens com.example.project_for_university.controllers.material to javafx.fxml;
+    exports com.example.project_for_university.controllers.material.tables;
+    opens com.example.project_for_university.controllers.material.tables to javafx.fxml;
     exports com.example.project_for_university.dto.forBackend.entity to com.google.gson, json.lib;
     opens com.example.project_for_university.dto.forBackend.entity to com.google.gson;
     opens com.example.project_for_university.dto.forBackend.entity.types to com.google.gson;

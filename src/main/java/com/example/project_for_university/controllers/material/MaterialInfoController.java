@@ -1,9 +1,11 @@
 package com.example.project_for_university.controllers.material;
 
-import com.example.project_for_university.controllers.user.ChooseOpController;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.MaterialInformationDto;
-import com.example.project_for_university.dto.forBackend.MaterialInfoDto;
+import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.utils.AlertUtil;
+import com.example.project_for_university.utils.ComponentUtil;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,17 +13,18 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextFormatter.Change;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaterialInfoController {
+public class MaterialInfoController implements DataProvider {
     private AllValues allValues;
     private static List<File> files = new ArrayList<>();
     private MaterialInformationDto materialInformationDto = new MaterialInformationDto();
@@ -32,50 +35,35 @@ public class MaterialInfoController {
     private TextField name_field;
 
     @FXML
-    private ListView<String> photos_names_list;
+    private HBox upload_photo_btn;
 
     @FXML
-    private Button upload_photo_btn;
+    private HBox back_btn;
 
     @FXML
-    private Button back_btn;
+    private HBox next_btn;
 
-    @FXML
-    private Button next_btn;
-
-    @FXML
-    void back_btn_clicked(MouseEvent event) throws IOException {
-        Stage stage = (Stage) back_btn.getScene().getWindow();
-        stage.close();
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/project_for_university/fxml/user/choose-operation.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
-
-        Stage window = (Stage) back_btn.getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+    @Override
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
     }
 
     @FXML
-    void next_btn_clicked(MouseEvent event) throws IOException {
+    void back_btn_clicked(MouseEvent event) throws IOException {
+        ComponentUtil.mount(Component.ESTIMATION_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+    }
+
+    @FXML
+    @SneakyThrows()
+    void next_btn_clicked(MouseEvent event) {
         if(name_field.getText().isEmpty() || comments_area.getText().isEmpty()) {
-            throwAlert(4);
+            AlertUtil.show("Заполните все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         } else {
             materialInformationDto.setName(name_field.getText());
             materialInformationDto.setDescription(comments_area.getText());
             this.allValues.setMaterialInformationDto(materialInformationDto);
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/project_for_university/fxml/cond/condition-1.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-
-            ((FConditionController) fxmlLoader.getController()).setData(allValues);
-            ((FConditionController) fxmlLoader.getController()).getValuesForCB();
-
-            Stage window = (Stage) back_btn.getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            ComponentUtil.mount(Component.MATERIAL_DETAILS, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }
     }
 
@@ -89,40 +77,29 @@ public class MaterialInfoController {
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.tif"));
         List<File> selectedFiles = fileChooser.showOpenMultipleDialog(stage); // stage - текущее окно приложения
         if (selectedFiles.size() > 5) {
-            throwAlert(1);
-        } else if ((5 - photos_names_list.getItems().size()) >= selectedFiles.size()) {
-            files.addAll(selectedFiles);
-            ObservableList<String> filesNames = photos_names_list.getItems();
-            filesNames.addAll(selectedFiles.stream().map(File::getName).toList());
-            photos_names_list.setItems(filesNames);
-//            materialInformationDto.setImages(files);
+            AlertUtil.show("Превышен лимит", "Максимальное количетсов фотографий - 5", allValues.getRootStage());
         } else {
-            throwAlert(1);
-        }
-    }
 
-    private Change throwAlert(int num) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Предупреждение");
-        switch (num) {
-            case 1: alert.setContentText("Максимальное количетсов фоток - 5!"); break;
-            case 2: alert.setContentText("Максимальная длинна примечания - 800!"); break;
-            case 3: alert.setContentText("Максимальная длинна названия - 40!"); break;
-            case 4: alert.setContentText("Вы не заполнили все нужные поля!");
         }
-        alert.showAndWait();
-        return null;
-    }
-
-    public void setData(AllValues allValues) {
-        this.allValues = allValues;
     }
 
     @FXML
     void initialize() {
-        comments_area.setTextFormatter(new TextFormatter<String>(change ->
-                change.getControlNewText().length() <= 800 ? change : throwAlert(2)));
-        name_field.setTextFormatter(new TextFormatter<String>(change ->
-                change.getControlNewText().length() <= 40 ? change : throwAlert(3)));
+
+        name_field.setTextFormatter(new TextFormatter<String>(change -> {
+            if (change.getControlNewText().length() >= 40) {
+                AlertUtil.show("Превышен лимит", "Максимальная длинна названия - 40", allValues.getRootStage());
+                return null;
+            }
+            return change;
+        }));
+
+        comments_area.setTextFormatter(new TextFormatter<String>(change -> {
+            if (change.getControlNewText().length() >= 800) {
+                AlertUtil.show("Превышен лимит", "Максимальная примечания названия - 800", allValues.getRootStage());
+                return null;
+            }
+            return change;
+        }));
     }
 }

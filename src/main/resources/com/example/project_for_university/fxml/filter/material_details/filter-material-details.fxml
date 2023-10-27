@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -14,317 +14,326 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.MaterialDetailsController">
+<VBox xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.MaterialDetailsController">
    <children>
-      <AnchorPane VBox.vgrow="ALWAYS">
+      <HBox>
          <children>
-            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox styleClass="default-gray-background" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox>
+                  <HBox alignment="CENTER" spacing="20.0" VBox.vgrow="NEVER">
                      <children>
-                        <VBox styleClass="default-gray-background" HBox.hgrow="ALWAYS">
+                        <Label fx:id="material_name_label" styleClass="bold-text" text="НазваниеМатериала123" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <Separator prefHeight="0.0" prefWidth="450.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox spacing="25.0" styleClass="white-scroll-pane">
+               <children>
+                  <HBox fillHeight="false" spacing="25.0" VBox.vgrow="NEVER">
+                     <children>
+                        <HBox HBox.hgrow="NEVER">
                            <children>
-                              <HBox alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="NEVER">
+                              <HBox fx:id="image_back_btn" alignment="CENTER" maxWidth="155.0" onMouseClicked="#image_back_btn_clicked" spacing="5.0" HBox.hgrow="NEVER">
                                  <children>
-                                    <Button fx:id="back_btn" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#back_btn_clicked" prefWidth="120.0" styleClass="btn-red-filled" text="&lt; Назад">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Region HBox.hgrow="ALWAYS" />
-                                    <Label fx:id="material_name_label" styleClass="bold-text" text="НазваниеМатериала123" HBox.hgrow="ALWAYS">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Region HBox.hgrow="ALWAYS" />
-                                    <Button fx:id="download_report_btn" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#download_report_btn_clicked" prefWidth="120.0" styleClass="btn-blue-filled" text="Скачать отчет">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Button>
+                                    <FontAwesomeIconView glyphName="CHEVRON_LEFT" />
                                  </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
                                  <padding>
-                                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                    <Insets left="15.0" right="15.0" />
                                  </padding>
+                                 <styleClass>
+                                    <String fx:value="slider-btn" />
+                                    <String fx:value="slider-btn-left" />
+                                 </styleClass>
                               </HBox>
-                              <Separator prefHeight="0.0" prefWidth="450.0" rotate="180.0" />
+                              <AnchorPane prefHeight="320.0" prefWidth="320.0">
+                                 <children>
+                                    <ImageView fx:id="image_view" fitHeight="320.0" fitWidth="320.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <image>
+                                          <Image url="@../../../img/image1.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                              <HBox fx:id="image_next_btn" alignment="CENTER" maxWidth="155.0" onMouseClicked="#image_next_btn_clicked" spacing="5.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" right="15.0" />
+                                 </padding>
+                                 <styleClass>
+                                    <String fx:value="slider-btn" />
+                                    <String fx:value="slider-btn-right" />
+                                 </styleClass>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox spacing="30.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <VBox spacing="10.0" VBox.vgrow="NEVER">
+                                       <children>
+                                          <VBox spacing="5.0">
+                                             <children>
+                                                <Label styleClass="bold-medium-text" text="Описание">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Separator />
+                                             </children>
+                                          </VBox>
+                                          <HBox VBox.vgrow="NEVER">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <TextFlow>
+                                                   <children>
+                                                      <Text fx:id="material_desc_label" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Сиваченко Дмитрий Сергеевич Сиваченко Дмитрий Сергеевич Сиваченко Дмитрий Сергеевич Сиваченко Дмитрий Сергеевич мСиваченко Дмитрий Сергеевич" textAlignment="JUSTIFY" textOrigin="TOP" wrappingWidth="620.0">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </TextFlow>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </VBox>
+                                    <VBox spacing="5.0" VBox.vgrow="NEVER">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="NEVER">
+                                             <children>
+                                                <Label styleClass="bold-medium-text" text="Инженер:">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextFlow HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Text fx:id="engineer_name_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Сиваченко Дмитрий Сергеевич">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </TextFlow>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <Separator />
+                                          <HBox alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Email:">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Hyperlink fx:id="email_label" text="syvachenkoDima@yandex.by">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Hyperlink>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </VBox>
+                                    <HBox fx:id="download_report_btn" alignment="CENTER" maxWidth="155.0" onMouseClicked="#download_report_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                       <children>
+                                          <FontAwesomeIconView glyphName="DOWNLOAD" />
+                                          <Label text="Скачать отчет" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="15.0" right="15.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox spacing="20.0" VBox.vgrow="NEVER" />
+                                 </children>
+                              </VBox>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="1.0" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
-                     <content>
-                        <VBox spacing="25.0" styleClass="white-scroll-pane">
+                  <VBox spacing="45.0" VBox.vgrow="NEVER">
+                     <children>
+                        <VBox spacing="10.0" VBox.vgrow="NEVER">
                            <children>
-                              <HBox spacing="25.0" VBox.vgrow="NEVER">
+                              <VBox spacing="5.0" VBox.vgrow="NEVER">
                                  <children>
-                                    <HBox HBox.hgrow="NEVER">
-                                       <children>
-                                          <Button fx:id="image_back_btn" cache="true" mnemonicParsing="false" onMouseClicked="#image_back_btn_clicked" prefHeight="300.0" prefWidth="25.0" text="&lt;">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <styleClass>
-                                                <String fx:value="slider-btn" />
-                                                <String fx:value="slider-btn-left" />
-                                             </styleClass>
-                                          </Button>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                             <children>
-                                                <ImageView fx:id="image_view" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <image>
-                                                      <Image url="@../../../img/image1.jpg" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </AnchorPane>
-                                          <Button fx:id="image_next_btn" cache="true" mnemonicParsing="false" onMouseClicked="#image_next_btn_clicked" prefHeight="300.0" prefWidth="23.0" text="&gt;">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <styleClass>
-                                                <String fx:value="slider-btn" />
-                                                <String fx:value="slider-btn-right" />
-                                             </styleClass>
-                                          </Button>
-                                       </children>
-                                    </HBox>
-                                    <VBox HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <VBox spacing="40.0" VBox.vgrow="NEVER">
-                                             <children>
-                                                <VBox spacing="10.0" VBox.vgrow="NEVER">
-                                                   <children>
-                                                      <VBox spacing="5.0">
-                                                         <children>
-                                                            <Label styleClass="bold-medium-text" text="Описание">
-                                                               <font>
-                                                                  <Font size="18.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Separator />
-                                                         </children>
-                                                      </VBox>
-                                                      <HBox VBox.vgrow="NEVER">
-                                                         <VBox.margin>
-                                                            <Insets />
-                                                         </VBox.margin>
-                                                         <children>
-                                                            <Text fx:id="material_desc_label" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text=" 10 10 sdfsdfdsfsd sdf asd fasfdsf asdf asdf as  10 10 sdfsdfdsfsd sdf asd fasfdsf asdf asdf as  10 10 sdfsdfdsfsd sdf asd fasfdsf asdf asdf as  10 10 sdfsdfdsfsd sdf asd fasfdsf asdf asdf as  10 10 sdfsdfdsfsd sdf asd fasfdsf asdf asdf as  10 10 sdfsdfdsfsd sdf asd fasfdsf asdf asdf as  10 10 sdfsdfdsfsd sdf asd fasfdsf asdf asdf as  10 10 sdfsdfdsfsd sdf asd fasfdsf asdf asdf as  10 10 sdfsdfdsfsd sdf asd fasfdsf asdf asdf as " textAlignment="JUSTIFY" textOrigin="TOP" wrappingWidth="620.0" HBox.hgrow="ALWAYS">
-                                                               <font>
-                                                                  <Font size="16.0" />
-                                                               </font>
-                                                            </Text>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                </VBox>
-                                                <VBox spacing="5.0" VBox.vgrow="NEVER">
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="NEVER">
-                                                         <children>
-                                                            <Label styleClass="bold-medium-text" text="Инженер:">
-                                                               <font>
-                                                                  <Font size="18.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label fx:id="engineer_name_label" text="Сиваченко Дмитрий Сергеевич">
-                                                               <font>
-                                                                  <Font name="System Bold" size="18.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                         <VBox.margin>
-                                                            <Insets />
-                                                         </VBox.margin>
-                                                      </HBox>
-                                                      <Separator />
-                                                      <HBox alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="ALWAYS">
-                                                         <children>
-                                                            <Label text="Email:">
-                                                               <font>
-                                                                  <Font size="15.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Hyperlink fx:id="email_label" text="syvachenkoDima@yandex.by">
-                                                               <font>
-                                                                  <Font size="15.0" />
-                                                               </font>
-                                                            </Hyperlink>
-                                                         </children>
-                                                         <VBox.margin>
-                                                            <Insets />
-                                                         </VBox.margin>
-                                                      </HBox>
-                                                   </children>
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                </VBox>
-                                                <HBox spacing="20.0" VBox.vgrow="NEVER" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </VBox>
+                                    <Label styleClass="bold-medium-text" text="Слои артикула">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
                                  </children>
-                              </HBox>
-                              <VBox spacing="25.0" VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
+                              <TableView fx:id="layers_table" VBox.vgrow="NEVER">
+                                 <columns>
+                                    <TableColumn fx:id="index_layer_column" editable="false" maxWidth="395.1208095550537" minWidth="323.15334129333496" prefWidth="323.15334129333496" sortable="false" styleClass="column-header-background" text="Позиция" />
+                                    <TableColumn fx:id="type_layer_column" editable="false" maxWidth="876.8467712402344" minWidth="800.0" prefWidth="876.8467712402344" resizable="false" sortable="false" styleClass="column-header-background" text="Тип слоя" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0" VBox.vgrow="NEVER">
+                           <children>
+                              <VBox spacing="5.0" VBox.vgrow="NEVER">
                                  <children>
-                                    <VBox spacing="10.0" VBox.vgrow="NEVER">
-                                       <children>
-                                          <VBox spacing="5.0" VBox.vgrow="NEVER">
-                                             <children>
-                                                <Label styleClass="bold-medium-text" text="Слои артикула">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Separator prefHeight="0.0" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </VBox>
-                                          <TableView fx:id="layers_table" VBox.vgrow="NEVER">
-                                             <columns>
-                                                <TableColumn fx:id="index_layer_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" styleClass="column-header-background" text="Порядковый номер слоя" />
-                                                <TableColumn fx:id="type_layer_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" resizable="false" sortable="false" styleClass="column-header-background" text="Тип слоя" />
-                                             </columns>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </TableView>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="10.0" VBox.vgrow="NEVER">
-                                       <children>
-                                          <VBox spacing="5.0" VBox.vgrow="NEVER">
-                                             <children>
-                                                <Label styleClass="bold-medium-text" text="Подробная ифнормация об артикуле">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Separator prefHeight="0.0" prefWidth="850.0" />
-                                             </children>
-                                          </VBox>
-                                          <TableView fx:id="material_params_table" VBox.vgrow="NEVER">
-                                            <columns>
-                                              <TableColumn fx:id="name_material_param_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" text="Наименование параметра" />
-                                              <TableColumn fx:id="value_material_param_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" sortable="false" text="Значение" />
-                                            </columns>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </TableView>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="10.0" VBox.vgrow="NEVER">
-                                       <children>
-                                          <VBox spacing="5.0" VBox.vgrow="NEVER">
-                                             <children>
-                                                <Label styleClass="bold-medium-text" text="Условия испытаний">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Separator prefHeight="0.0" prefWidth="850.0" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </VBox>
-                                          <TableView fx:id="condition_params_table" VBox.vgrow="NEVER">
-                                             <columns>
-                                                <TableColumn fx:id="name_condition_param_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" text="Наименование параметра" />
-                                                <TableColumn fx:id="value_condition_param_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" sortable="false" text="Значение" />
-                                             </columns>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </TableView>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="10.0" VBox.vgrow="NEVER">
-                                       <children>
-                                          <VBox spacing="10.0" VBox.vgrow="NEVER">
-                                             <children>
-                                                <Label styleClass="bold-medium-text" text="Типы преобладающей нагрузки">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Separator prefHeight="0.0" prefWidth="850.0" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </VBox>
-                                          <TableView fx:id="load_type_table" VBox.vgrow="NEVER">
-                                             <columns>
-                                                <TableColumn fx:id="type_name_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" text="Тип нагрузки" />
-                                                <TableColumn fx:id="values_type_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" sortable="false" text="Условия" />
-                                             </columns>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </TableView>
-                                       </children>
-                                    </VBox>
+                                    <Label styleClass="bold-medium-text" text="Подробная ифнормация об артикуле">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
                                  </children>
                               </VBox>
+                              <TableView fx:id="material_params_table" VBox.vgrow="NEVER">
+                                <columns>
+                                  <TableColumn fx:id="name_material_param_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" text="Наименование параметра" />
+                                  <TableColumn fx:id="value_material_param_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" sortable="false" text="Значение" />
+                                </columns>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TableView>
                            </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
                         </VBox>
-                     </content>
-                  </ScrollPane>
+                        <VBox spacing="10.0" VBox.vgrow="NEVER">
+                           <children>
+                              <VBox spacing="10.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <Label styleClass="bold-medium-text" text="Типы преобладающей нагрузки">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
+                              <TableView fx:id="load_type_table" VBox.vgrow="NEVER">
+                                 <columns>
+                                    <TableColumn fx:id="type_name_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" text="Тип нагрузки" />
+                                    <TableColumn fx:id="values_type_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" sortable="false" text="Условия" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0" VBox.vgrow="NEVER">
+                           <children>
+                              <VBox spacing="5.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <Label styleClass="bold-medium-text" text="Условия испытаний">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
+                              <TableView fx:id="condition_params_table" VBox.vgrow="NEVER">
+                                 <columns>
+                                    <TableColumn fx:id="name_condition_param_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" text="Наименование параметра" />
+                                    <TableColumn fx:id="value_condition_param_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" sortable="false" text="Значение" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
                </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
             </VBox>
+         </content>
+      </ScrollPane>
+      <VBox styleClass="default-gray-background">
+         <children>
+            <Separator prefHeight="0.0" prefWidth="450.0" rotate="180.0" />
+            <HBox alignment="CENTER" VBox.vgrow="NEVER">
+               <children>
+                  <HBox fx:id="back_btn" alignment="CENTER" onMouseClicked="#back_btn_clicked" spacing="5.0" styleClass="btn-red-filled">
+                     <children>
+                        <FontAwesomeIconView glyphName="CHEVRON_LEFT" />
+                        <Label text="Назад" />
+                     </children>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </HBox>
          </children>
-         <styleClass>
-            <String fx:value="box-shadow" />
-            <String fx:value="page-wrapper" />
-         </styleClass>
-      </AnchorPane>
+      </VBox>
    </children>
    <stylesheets>
-      <URL value="@material-details.css" />
       <URL value="@../../../styles/shared.css" />
+      <URL value="@material-details.css" />
    </stylesheets>
-   <styleClass>
-      <String fx:value="sky-blue-background" />
-      <String fx:value="min-window-height" />
-   </styleClass>
 </VBox>

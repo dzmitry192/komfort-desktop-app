@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -16,374 +15,454 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<VBox alignment="TOP_CENTER" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.FConditionController">
+<VBox stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.FConditionController">
    <children>
-      <VBox VBox.vgrow="ALWAYS">
+      <VBox alignment="CENTER" spacing="10.0" styleClass="default-gray-background" VBox.vgrow="NEVER">
          <children>
-            <VBox alignment="CENTER" styleClass="default-gray-background" VBox.vgrow="NEVER">
+            <HBox>
                <children>
-                  <Label styleClass="bold-text" text="Ввод условий" VBox.vgrow="NEVER">
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Separator />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label styleClass="bold-text" text="Ввод условий" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label styleClass="bold-text" text="1/6" />
                </children>
-            </VBox>
-            <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
-               <content>
-                  <VBox spacing="60.0">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Separator />
+         </children>
+      </VBox>
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox spacing="50.0">
+               <children>
+                  <VBox spacing="20.0">
                      <children>
-                        <VBox spacing="20.0" VBox.vgrow="NEVER">
+                        <VBox spacing="10.0">
                            <children>
-                              <VBox spacing="10.0">
-                                 <children>
-                                    <Label styleClass="bold-text" text="Основные условия" />
-                                    <Separator prefWidth="200.0" />
-                                 </children>
-                              </VBox>
-                              <VBox maxWidth="450.0" spacing="10.0" VBox.vgrow="NEVER">
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Знак при минимальной температуре: " />
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <HBox spacing="10.0">
-                                             <children>
-                                                <RadioButton fx:id="rad_btn_plus" mnemonicParsing="false" onMouseClicked="#rad_btn_plus_clicked" text="+" />
-                                                <RadioButton fx:id="rad_btn_minus" mnemonicParsing="false" onMouseClicked="#rad_btn_minus_clicked" text="-" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Уровень физической активности носчика:" />
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="lev_phys" prefWidth="150.0" promptText="Выберите" />
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Время непрерывного пребывания:" />
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="time_cond" prefWidth="150.0" promptText="Выберите" />
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Средняя скорость движения:" />
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <HBox spacing="10.0">
-                                             <children>
-                                                <Slider fx:id="scroll_av_speed" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" minorTickCount="1" onMouseDragged="#scroll_av_speed_dragged" showTickLabels="true" />
-                                                <TextField fx:id="inp_av_speed" editable="false" prefHeight="26.0" prefWidth="50.0" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </HBox>
-                                    <VBox spacing="10.0">
-                                       <children>
-                                          <VBox spacing="5.0">
-                                             <children>
-                                                <Label text="Температура воздуха" />
-                                                <Separator prefWidth="200.0" />
-                                             </children>
-                                          </VBox>
-                                          <VBox spacing="10.0">
-                                             <children>
-                                                <HBox alignment="CENTER_LEFT">
-                                                   <children>
-                                                      <Label text="Минимальная:" />
-                                                      <Region HBox.hgrow="ALWAYS" />
-                                                      <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                                         <children>
-                                                            <Slider fx:id="scroll_min_temp_one" blockIncrement="1.0" majorTickUnit="10.0" max="30.0" min="-30.0" minorTickCount="1" onMouseDragged="#scroll_min_temp_one_dragged" showTickLabels="true" />
-                                                            <TextField fx:id="inp_min_temp_one" editable="false" prefHeight="26.0" prefWidth="50.0" />
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT">
-                                                   <children>
-                                                      <Label text="Максимальная:" />
-                                                      <Region HBox.hgrow="ALWAYS" />
-                                                      <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                                         <children>
-                                                            <Slider fx:id="scroll_min_temp_sec" blockIncrement="1.0" majorTickUnit="5.0" max="30.0" min="-30.0" minorTickCount="1" onMouseDragged="#scroll_min_temp_sec_dragged" showTickLabels="true" />
-                                                            <TextField fx:id="inp_min_temp_sec" editable="false" prefHeight="26.0" prefWidth="50.0" />
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
-                                          </VBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="10.0">
-                                       <children>
-                                          <VBox spacing="5.0">
-                                             <children>
-                                                <Label text="Влажность воздуха" />
-                                                <Separator prefWidth="200.0" />
-                                             </children>
-                                          </VBox>
-                                          <VBox spacing="10.0">
-                                             <children>
-                                                <HBox alignment="CENTER_LEFT">
-                                                   <children>
-                                                      <Label text="Минимальная:" />
-                                                      <Region HBox.hgrow="ALWAYS" />
-                                                      <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                                         <children>
-                                                            <Slider fx:id="scroll_max_air_one" blockIncrement="1.0" majorTickUnit="20.0" max="99.0" min="20.0" minorTickCount="1" onMouseDragged="#scroll_max_air_one_dragged" showTickLabels="true" />
-                                                            <TextField fx:id="inp_max_air_one" editable="false" prefHeight="26.0" prefWidth="50.0" />
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT">
-                                                   <children>
-                                                      <Label text="Максимальная:" />
-                                                      <Region HBox.hgrow="ALWAYS" />
-                                                      <HBox spacing="10.0">
-                                                         <children>
-                                                            <Slider fx:id="scroll_max_air_sec" blockIncrement="1.0" majorTickUnit="10.0" max="99.0" min="20.0" minorTickCount="1" onMouseDragged="#scroll_max_air_sec_dragged" showTickLabels="true" />
-                                                            <TextField fx:id="inp_max_air_sec" editable="false" prefHeight="26.0" prefWidth="50.0" />
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                             <padding>
-                                                <Insets left="50.0" />
-                                             </padding>
-                                          </VBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets left="50.0" />
-                                 </VBox.margin>
-                              </VBox>
+                              <Label styleClass="bold-text" text="Основные условия" />
+                              <Separator prefWidth="200.0" />
                            </children>
                         </VBox>
-                        <VBox spacing="20.0">
+                        <VBox maxWidth="650.0" spacing="10.0" VBox.vgrow="NEVER">
                            <children>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Знак при минимальной температуре: " />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <RadioButton fx:id="rad_btn_plus" mnemonicParsing="false" onMouseClicked="#rad_btn_plus_clicked" text="+" />
+                                          <RadioButton fx:id="rad_btn_minus" mnemonicParsing="false" onMouseClicked="#rad_btn_minus_clicked" text="-" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Уровень физической активности носчика:" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <ComboBox fx:id="lev_phys" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Время непрерывного пребывания:" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <ComboBox fx:id="time_cond" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Средняя скорость движения:" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Slider fx:id="scroll_av_speed" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" minorTickCount="1" onMouseDragged="#scroll_av_speed_dragged" showTickLabels="true" />
+                                          <TextField fx:id="inp_av_speed" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <Label styleClass="bold-text" text="Тип преобладающей нагрузки" />
-                                    <Separator prefWidth="200.0" />
-                                 </children>
-                              </VBox>
-                              <VBox maxWidth="400.0" spacing="25.0">
-                                 <children>
-                                    <VBox spacing="10.0">
+                                    <VBox spacing="5.0">
                                        <children>
-                                          <VBox spacing="5.0">
-                                             <children>
-                                                <CheckBox fx:id="check_bend" mnemonicParsing="false" onMouseClicked="#check_bend_clicked" text="Изгиб" />
-                                                <Separator prefWidth="200.0" />
-                                             </children>
-                                          </VBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label text="Тип изгиба:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <ComboBox fx:id="bend_type" disable="true" prefWidth="150.0" promptText="Выберите" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
-                                          </HBox>
+                                          <Label styleClass="bold-medium-text" text="Температура воздуха" />
+                                          <Separator prefWidth="200.0" />
                                        </children>
                                     </VBox>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <VBox spacing="5.0">
+                                          <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
                                              <children>
-                                                <CheckBox fx:id="check_abrasion" mnemonicParsing="false" onMouseClicked="#check_abrasion_clicked" text="Истирание" />
-                                                <Separator prefWidth="200.0" />
-                                             </children>
-                                          </VBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label text="Тип истирания:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <ComboBox fx:id="abrasion_type" disable="true" prefWidth="150.0" promptText="Выберите" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="10.0">
-                                       <children>
-                                          <VBox spacing="5.0">
-                                             <children>
-                                                <CheckBox fx:id="check_stretch_compress" mnemonicParsing="false" onMouseClicked="#check_stretch_compress_clicked" text="Растяжение-сжатие" />
-                                                <Separator prefWidth="200.0" />
-                                             </children>
-                                          </VBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Slider fx:id="scroll_stretching" blockIncrement="5.0" disable="true" majorTickUnit="20.0" min="5.0" minorTickCount="5" onMouseDragged="#scroll_stretching_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="5.0" />
-                                                <TextField fx:id="inp_stretching" disable="true" editable="false" prefHeight="26.0" prefWidth="50.0" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="10.0">
-                                       <children>
-                                          <VBox>
-                                             <children>
-                                                <VBox spacing="5.0">
+                                                <TextFlow>
                                                    <children>
-                                                      <CheckBox fx:id="check_torsion" mnemonicParsing="false" onMouseClicked="#check_torsion_clicked" text="Кручение" />
-                                                      <Separator prefWidth="200.0" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная:" />
                                                    </children>
-                                                </VBox>
-                                             </children>
-                                          </VBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Slider fx:id="scroll_torsion_angle" disable="true" majorTickUnit="40.0" max="180.0" min="20.0" minorTickCount="10" onMouseDragged="#scroll_torsion_angle_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="5.0" />
-                                                <TextField fx:id="inp_torsion_angle" disable="true" editable="false" prefHeight="26.0" prefWidth="50.0" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="10.0">
-                                       <children>
-                                          <VBox spacing="5.0">
-                                             <children>
-                                                <CheckBox fx:id="check_wash" mnemonicParsing="false" onMouseClicked="#check_wash_clicked" text="Стирка" />
-                                                <Separator prefWidth="200.0" />
-                                             </children>
-                                          </VBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label text="Тип стирки:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <ComboBox fx:id="wash_type" disable="true" prefWidth="150.0" promptText="Выберите" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label fx:id="lab_temp" text="Температура:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <HBox spacing="10.0">
-                                                   <children>
-                                                      <Slider fx:id="scroll_temp_washing" disable="true" majorTickUnit="10.0" max="60.0" min="30.0" minorTickCount="10" onMouseDragged="#scroll_temp_washing_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
-                                                      <TextField fx:id="inp_temp_washing" disable="true" editable="false" prefHeight="26.0" prefWidth="50.0" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label fx:id="lab_wash_time" text="Время стирки:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <HBox spacing="10.0">
-                                                   <children>
-                                                      <Slider fx:id="scroll_time_washing" disable="true" majorTickUnit="10.0" max="60.0" min="20.0" minorTickCount="10" onMouseDragged="#scroll_time_washing_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
-                                                      <TextField fx:id="inp_time_washing" disable="true" editable="false" prefHeight="26.0" prefWidth="50.0" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label fx:id="lab_temp1" text="Количество циклов:" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="inp_cycles_cnt" disable="true" prefHeight="26.0" prefWidth="132.0" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                             <children>
-                                                <Label fx:id="lab_spin" text="Отжим:" />
+                                                </TextFlow>
                                                 <Region HBox.hgrow="ALWAYS" />
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                    <children>
-                                                      <HBox spacing="10.0">
-                                                         <children>
-                                                            <RadioButton fx:id="rad_btn_yes" disable="true" mnemonicParsing="false" onMouseClicked="#rad_btn_yes_clicked" text="Да" />
-                                                            <RadioButton fx:id="rad_btn_no" disable="true" mnemonicParsing="false" onMouseClicked="#rad_btn_no_clicked" text="Нет" />
-                                                         </children>
-                                                      </HBox>
+                                                      <Slider fx:id="scroll_min_temp_one" blockIncrement="1.0" majorTickUnit="10.0" max="30.0" min="-30.0" minorTickCount="1" onMouseDragged="#scroll_min_temp_one_dragged" showTickLabels="true" />
+                                                      <TextField fx:id="inp_min_temp_one" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                                    </children>
                                                 </HBox>
                                              </children>
-                                             <VBox.margin>
-                                                <Insets left="50.0" />
-                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                             <children>
+                                                <TextFlow>
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная:" />
+                                                   </children>
+                                                </TextFlow>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <Slider fx:id="scroll_min_temp_sec" blockIncrement="1.0" majorTickUnit="5.0" max="30.0" min="-30.0" minorTickCount="1" onMouseDragged="#scroll_min_temp_sec_dragged" showTickLabels="true" />
+                                                      <TextField fx:id="inp_min_temp_sec" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
                                           </HBox>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
                                     </VBox>
                                  </children>
-                                 <VBox.margin>
-                                    <Insets left="50.0" />
-                                 </VBox.margin>
+                              </VBox>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label styleClass="bold-medium-text" text="Влажность воздуха" />
+                                          <Separator prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                             <children>
+                                                <TextFlow>
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная:" />
+                                                   </children>
+                                                </TextFlow>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <Slider fx:id="scroll_max_air_one" blockIncrement="1.0" majorTickUnit="20.0" max="99.0" min="20.0" minorTickCount="1" onMouseDragged="#scroll_max_air_one_dragged" showTickLabels="true" />
+                                                      <TextField fx:id="inp_max_air_one" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                             <children>
+                                                <TextFlow>
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная:" />
+                                                   </children>
+                                                </TextFlow>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <HBox spacing="10.0">
+                                                   <children>
+                                                      <Slider fx:id="scroll_max_air_sec" blockIncrement="1.0" majorTickUnit="10.0" max="99.0" min="20.0" minorTickCount="1" onMouseDragged="#scroll_max_air_sec_dragged" showTickLabels="true" />
+                                                      <TextField fx:id="inp_max_air_sec" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="50.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
                               </VBox>
                            </children>
+                           <VBox.margin>
+                              <Insets left="50.0" />
+                           </VBox.margin>
                         </VBox>
-                        <VBox spacing="20.0">
+                     </children>
+                  </VBox>
+                  <VBox spacing="20.0">
+                     <children>
+                        <VBox spacing="10.0">
+                           <children>
+                              <Label styleClass="bold-text" text="Тип преобладающей нагрузки" />
+                              <Separator prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox maxWidth="650.0" spacing="25.0">
                            <children>
                               <VBox spacing="10.0">
                                  <children>
-                                    <Label styleClass="bold-text" text="Слои" />
-                                    <Separator prefWidth="200.0" />
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <CheckBox fx:id="check_bend" mnemonicParsing="false" onMouseClicked="#check_bend_clicked" text="Изгиб" />
+                                          <Separator prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                       <children>
+                                          <TextFlow>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Тип изгиба:" />
+                                             </children>
+                                          </TextFlow>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <ComboBox fx:id="bend_type" disable="true" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
                                  </children>
                               </VBox>
-                              <VBox>
-                                 <VBox.margin>
-                                    <Insets left="50.0" />
-                                 </VBox.margin>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <CheckBox fx:id="check_abrasion" mnemonicParsing="false" onMouseClicked="#check_abrasion_clicked" text="Истирание" />
+                                          <Separator prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                       <children>
+                                          <TextFlow>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Тип истирания:" />
+                                             </children>
+                                          </TextFlow>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <ComboBox fx:id="abrasion_type" disable="true" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <CheckBox fx:id="check_stretch_compress" mnemonicParsing="false" onMouseClicked="#check_stretch_compress_clicked" text="Растяжение-сжатие" />
+                                          <Separator prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Slider fx:id="scroll_stretching" blockIncrement="5.0" disable="true" majorTickUnit="20.0" min="5.0" minorTickCount="5" onMouseDragged="#scroll_stretching_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="5.0" />
+                                          <TextField fx:id="inp_stretching" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="10.0">
                                  <children>
                                     <VBox>
                                        <children>
-                                          <VBox maxWidth="500.0">
+                                          <VBox spacing="5.0">
                                              <children>
-                                                <VBox spacing="10.0">
+                                                <CheckBox fx:id="check_torsion" mnemonicParsing="false" onMouseClicked="#check_torsion_clicked" text="Кручение" />
+                                                <Separator prefWidth="200.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Slider fx:id="scroll_torsion_angle" disable="true" majorTickUnit="40.0" max="180.0" min="20.0" minorTickCount="10" onMouseDragged="#scroll_torsion_angle_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="5.0" />
+                                          <TextField fx:id="inp_torsion_angle" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <CheckBox fx:id="check_wash" mnemonicParsing="false" onMouseClicked="#check_wash_clicked" text="Стирка" />
+                                          <Separator prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                       <children>
+                                          <TextFlow>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Тип стирки:" />
+                                             </children>
+                                          </TextFlow>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <ComboBox fx:id="wash_type" disable="true" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                       <children>
+                                          <TextFlow>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Температура:" />
+                                             </children>
+                                          </TextFlow>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <HBox spacing="10.0">
+                                             <children>
+                                                <Slider fx:id="scroll_temp_washing" disable="true" majorTickUnit="10.0" max="60.0" min="30.0" minorTickCount="10" onMouseDragged="#scroll_temp_washing_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
+                                                <TextField fx:id="inp_temp_washing" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                       <children>
+                                          <TextFlow>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Время стирки:" />
+                                             </children>
+                                          </TextFlow>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <HBox spacing="10.0">
+                                             <children>
+                                                <Slider fx:id="scroll_time_washing" disable="true" majorTickUnit="10.0" max="60.0" min="20.0" minorTickCount="10" onMouseDragged="#scroll_time_washing_dragged" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
+                                                <TextField fx:id="inp_time_washing" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                       <children>
+                                          <TextFlow>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Количество циклов:" />
+                                             </children>
+                                          </TextFlow>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="inp_cycles_cnt" disable="true" minWidth="-Infinity" prefHeight="26.0" prefWidth="132.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                       <children>
+                                          <TextFlow>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Отжим:" />
+                                             </children>
+                                          </TextFlow>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                             <children>
+                                                <HBox spacing="10.0">
                                                    <children>
-                                                      <ComboBox fx:id="choose_layer_cb" maxWidth="1.7976931348623157E308" promptText="Выберите слой" />
-                                                      <HBox spacing="10.0">
-                                                         <children>
-                                                            <Button fx:id="btn_add_layer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_add_layer_clicked" prefWidth="1000.0" styleClass="btn-blue-outlined" text="Добавить" />
-                                                            <Button fx:id="remove_layer_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#remove_layer_btn_clicked" prefWidth="1000.0" styleClass="btn-red-outlined" text="Удалить" />
-                                                         </children>
-                                                      </HBox>
-                                                      <TableView prefWidth="500.0" VBox.vgrow="NEVER">
-                                                        <columns>
-                                                          <TableColumn editable="false" prefWidth="95.0" resizable="false" sortable="false" text="Позиция" />
-                                                          <TableColumn editable="false" prefWidth="403.0" resizable="false" sortable="false" text="Название слоя" />
-                                                        </columns>
-                                                      </TableView>
+                                                      <RadioButton fx:id="rad_btn_yes" disable="true" mnemonicParsing="false" onMouseClicked="#rad_btn_yes_clicked" text="Да" />
+                                                      <RadioButton fx:id="rad_btn_no" disable="true" mnemonicParsing="false" onMouseClicked="#rad_btn_no_clicked" text="Нет" />
                                                    </children>
-                                                </VBox>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="50.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox spacing="20.0">
+                     <children>
+                        <VBox spacing="10.0">
+                           <children>
+                              <Label styleClass="bold-text" text="Слои" />
+                              <Separator prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox maxWidth="650.0">
+                           <VBox.margin>
+                              <Insets left="50.0" />
+                           </VBox.margin>
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <VBox maxWidth="500.0">
+                                       <children>
+                                          <VBox spacing="10.0">
+                                             <children>
+                                                <ComboBox fx:id="choose_layer_cb" maxWidth="1.7976931348623157E308" promptText="Выберите слой" />
+                                                <HBox spacing="10.0">
+                                                   <children>
+                                                      <HBox fx:id="btn_add_layer" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#btn_add_layer_clicked" prefWidth="1000.0" spacing="5.0" styleClass="btn-blue-filled">
+                                                         <children>
+                                                            <FontAwesomeIconView glyphName="PLUS" />
+                                                            <Label text="Добавить" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="15.0" right="15.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                      <HBox fx:id="remove_layer_btn" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#remove_layer_btn_clicked" prefWidth="1000.0" spacing="5.0" styleClass="btn-red-filled">
+                                                         <children>
+                                                            <FontAwesomeIconView glyphName="TRASH" />
+                                                            <Label text="Удалить" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="15.0" right="15.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <TableView prefWidth="500.0" VBox.vgrow="NEVER">
+                                                  <columns>
+                                                    <TableColumn editable="false" prefWidth="95.0" resizable="false" sortable="false" text="Позиция" />
+                                                    <TableColumn editable="false" prefWidth="403.0" resizable="false" sortable="false" text="Название слоя" />
+                                                  </columns>
+                                                </TableView>
                                              </children>
                                           </VBox>
                                        </children>
@@ -393,35 +472,34 @@
                            </children>
                         </VBox>
                      </children>
-                     <padding>
-                        <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
-                     </padding>
                   </VBox>
-               </content>
-            </ScrollPane>
-            <VBox styleClass="default-gray-background">
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <VBox styleClass="default-gray-background">
+         <children>
+            <Separator prefWidth="200.0" rotate="180.0" />
+            <HBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Separator prefWidth="200.0" rotate="180.0" />
-                  <HBox alignment="CENTER" spacing="10.0">
+                  <HBox fx:id="btn_cond_next" alignment="CENTER" onMouseClicked="#btn_cond_next_clicked" spacing="5.0" styleClass="btn-blue-filled">
                      <children>
-                        <Button fx:id="btn_cond_back" mnemonicParsing="false" onMouseClicked="#btn_cond_back_clicked" prefWidth="120.0" styleClass="btn-red-filled" text="&lt; Назад" />
-                        <Button fx:id="btn_cond_next" mnemonicParsing="false" onMouseClicked="#btn_cond_next_clicked" prefWidth="120.0" styleClass="btn-blue-filled" text="Далее &gt;" />
+                        <Label text="Далее" />
+                        <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
                      </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
                   </HBox>
                </children>
-            </VBox>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
          </children>
-         <styleClass>
-            <String fx:value="page-wrapper" />
-            <String fx:value="box-shadow" />
-         </styleClass>
       </VBox>
    </children>
-   <styleClass>
-      <String fx:value="sky-blue-background" />
-      <String fx:value="min-window-height" />
-   </styleClass>
 </VBox>

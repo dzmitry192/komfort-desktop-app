@@ -1,25 +1,22 @@
 package com.example.project_for_university.controllers.user;
 
 import com.example.project_for_university.dto.AllValues;
-import com.example.project_for_university.enums.Page;
+import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.LoginService;
-import com.example.project_for_university.utils.ControllerUtils;
-import javafx.beans.property.DoubleProperty;
+import com.example.project_for_university.utils.ComponentUtil;
+import com.example.project_for_university.utils.LoaderUtil;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 
 import java.io.IOException;
 
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import lombok.Data;
 
 @Data
-public class LoginController extends Node {
+public class LoginController implements DataProvider {
     private AllValues allValues = new AllValues();
     private LoginService loginService = new LoginService();
 
@@ -44,33 +41,29 @@ public class LoginController extends Node {
     @FXML
     private Label status_lbl;
 
+    @Override
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
+    }
+
     @FXML
     void login_btn_clicked(MouseEvent event) throws IOException {
         String email = email_tf.getText();
         String password = password_tf.getText();
 
+//        LoaderUtil.showModal(allValues.getRootStage(), allValues);
+
         if (email.isEmpty() || password.isEmpty()) {
-            status_lbl.setText("Вы не заполнили все поля");
+            status_lbl.setText("Все поля должны быть заполнены");
         } else {
             if(loginService.login(email, password, status_lbl, allValues)) {
-                FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/com/example/project_for_university/fxml/user/choose-operation.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-
-                ((ChooseOpController) fxmlLoader.getController()).setData(allValues);
-
-                Stage window = (Stage) login_btn.getScene().getWindow();
-                window.setScene(scene);
-                window.show();
+                ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
             }
         }
     }
 
     @FXML
-    void signup_btn_clicked(MouseEvent event) throws IOException {
-//        ControllerUtils.changePage(Page.LOGIN, );
-    }
-
-    public void setData(AllValues allValues) {
-        this.allValues = allValues;
+    void signup_btn_clicked(MouseEvent event) throws IOException, InstantiationException, IllegalAccessException {
+        ComponentUtil.mount(Component.SIGNUP, allValues.getContentPanes().getMainContentPane(), allValues);
     }
 }

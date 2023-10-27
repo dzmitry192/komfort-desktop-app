@@ -1,11 +1,17 @@
 package com.example.project_for_university.controllers.filter;
 
-import com.example.project_for_university.controllers.user.ChooseOpController;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.FilterValues;
 import com.example.project_for_university.dto.Material;
-import com.example.project_for_university.enums.Page;
-import com.example.project_for_university.utils.ControllerUtils;
+import com.example.project_for_university.dto.forBackend.entity.ConditionEntity;
+import com.example.project_for_university.dto.forBackend.entity.LayerEntity;
+import com.example.project_for_university.dto.forBackend.entity.UserEntity;
+import com.example.project_for_university.dto.forBackend.entity.WashingEntity;
+import com.example.project_for_university.dto.forBackend.entity.types.*;
+import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.utils.LoaderUtil;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
@@ -16,20 +22,16 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
-public class FilterController implements Initializable {
+public class FilterController implements Initializable, DataProvider {
 
     private AllValues allValues;
+
     private FilterValues filterValues;
 
     @FXML
@@ -37,6 +39,15 @@ public class FilterController implements Initializable {
 
     @FXML
     private URL location;
+
+    @FXML
+    private ScrollPane materialList_scrollPane;
+
+    @FXML
+    private StackPane loader_contentPane;
+
+    @FXML
+    private HBox loadMore_btn;
 
     @FXML
     private CheckBox check_own_materials;
@@ -47,7 +58,7 @@ public class FilterController implements Initializable {
     private TextField blotting_pressure_inp_2;
 
     @FXML
-    private Button btn_search;
+    private HBox btn_search;
 
     @FXML
     private CheckBox check_blotting_pressure;
@@ -89,7 +100,7 @@ public class FilterController implements Initializable {
     private TextField relative_pressure_inp_2;
 
     @FXML
-    private Button btn_reset_filters;
+    private HBox btn_reset_filters;
 
     @FXML
     private TextField resistance_inp_1;
@@ -118,6 +129,17 @@ public class FilterController implements Initializable {
     @FXML
     void check_own_materials(MouseEvent event) {
 
+    }
+
+    @Override
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
+    }
+
+    @FXML
+    void loadMore_btn_clicked(MouseEvent event) throws IOException {
+        LoaderUtil.mount(loader_contentPane);
+        loadMore_btn.setDisable(true);
     }
 
     @FXML
@@ -240,51 +262,35 @@ public class FilterController implements Initializable {
         blotting_pressure_inp_2.setDisable(true);
     }
 
-    @FXML
-    void btn_back_clicked(MouseEvent event) throws IOException {
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Material> materials = new ArrayList<>(materials());
-        for(int i = 0; i < materials.size(); i++) {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(Page.MATERIAL_DETAILS.getPath()));
+        Platform.runLater(() -> {
+            List<PartialMaterialEntity> materials = new ArrayList<>(materials());
+            for(int i = 0; i < materials.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource(Component.MATERIAL_ITEM.getPath()));
 
-            try {
-                HBox materialItem = fxmlLoader.load();
-                MaterialController materialController = fxmlLoader.getController();
-                materialController.setMaterial(materials.get(i));
-                list_materials.getChildren().add(materialItem);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                try {
+                    HBox materialItem = fxmlLoader.load();
+                    MaterialController materialController = fxmlLoader.getController();
+
+                    materialController.setMaterial(materials.get(i));
+                    materialController.setData(allValues);
+
+                    list_materials.getChildren().add(materialItem);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
+        });
     }
 
-    private List<Material> materials() {
-        List<Material> materials = new ArrayList<>();
+    private List<PartialMaterialEntity> materials() {
+        List<PartialMaterialEntity> materials = new ArrayList<>();
 
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы ЫЫЫЫЫЫЫЫЫЫЫЫЫ ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ ЫЫЫЫЫЫЫЫЫ ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
-        materials.add(new Material("/com/example/project_for_university/img/image1.jpg", "Material1", "ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫы"));
+        ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, new AbrasionTypeEntity(1, "abr"), new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), new BendingTypeEntity(), new PhysicalActivityTypeEntity(1, "act", "desc"));
+        materials.add(new PartialMaterialEntity(1, "name", "description description description description description description", "manufacturer", 10, condition, null, null, new UserEntity(1, "userName", "email", "pass", false)));
 
         return materials;
-    }
-
-    public void setData(AllValues allValues) {
-        this.allValues = allValues;
     }
 }

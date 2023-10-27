@@ -3,7 +3,7 @@
 }
 
 .slider-btn:hover {
-   -fx-background-color: rgb(235, 235, 235);
+   -fx-background-color: rgba(0, 0, 0, 0.065);
 }
 
 .slider-btn.slider-btn-right {
