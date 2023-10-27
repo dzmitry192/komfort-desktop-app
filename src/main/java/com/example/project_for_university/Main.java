@@ -1,6 +1,5 @@
 package com.example.project_for_university;
 
-import com.example.project_for_university.controllers.MainController;
 import com.example.project_for_university.enums.Component;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;

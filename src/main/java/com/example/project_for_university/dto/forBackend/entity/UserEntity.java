@@ -13,4 +13,15 @@ public class UserEntity {
     private String email;
     private String password;
     private boolean isAdmin;
+
+    public UserEntity(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public UserEntity(String fio, String email, String password) {
+        this.fio = fio;
+        this.email = email;
+        this.password = password;
+    }
 }

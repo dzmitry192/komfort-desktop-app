@@ -1,9 +1,12 @@
 package com.example.project_for_university.controllers.user;
 
 import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.dto.forBackend.create.CreateUserDto;
+import com.example.project_for_university.dto.forBackend.entity.UserEntity;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
-import com.example.project_for_university.service.SignupService;
+import com.example.project_for_university.service.AuthService;
+import com.example.project_for_university.service.models.UserModel;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,14 +15,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import lombok.Data;
+import org.apache.http.client.methods.CloseableHttpResponse;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 @Data
 public class SignupController implements DataProvider {
 
     private AllValues allValues = new AllValues();
-    private SignupService signupService = new SignupService();
+    private AuthService authService = new AuthService();
 
     @FXML
     private Button login_btn;
@@ -45,7 +50,7 @@ public class SignupController implements DataProvider {
     }
 
     @FXML
-    void signup_btn_clicked(MouseEvent event) throws IOException {
+    void signup_btn_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
         String fio = fio_tf.getText();
         String email = email_tf.getText();
         String password = password_tf.getText();
@@ -56,7 +61,15 @@ public class SignupController implements DataProvider {
         } else if(password.length() < 4) {
             status_lbl.setText("Минимальная длина пароля 6 символов");
         } else {
-            signupService.signup(fio, email, password, status_lbl, allValues);
+            authService.setUserDto(new CreateUserDto(fio, email, password));
+            UserModel userModel = authService.signupThread();
+            if(userModel.isError()) {
+                status_lbl.setText(userModel.getErrorMessage());
+            } else {
+                allValues.setUser(userModel.getUser());
+                status_lbl.setTextFill(Color.GREEN);
+                status_lbl.setText("Регистрация прошла успешно");
+            }
         }
     }
 

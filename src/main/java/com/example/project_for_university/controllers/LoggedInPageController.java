@@ -60,6 +60,7 @@ public class LoggedInPageController implements Initializable, DataProvider {
 
         try {
             allValues.setContentPanes(new ContentPanes(allValues.getContentPanes().getMainContentPane(), loggedInContentPane));
+
             ComponentUtil.mount(Component.CONDITION_1, loggedInContentPane, allValues);
         } catch (IOException e) {
             throw new RuntimeException(e);

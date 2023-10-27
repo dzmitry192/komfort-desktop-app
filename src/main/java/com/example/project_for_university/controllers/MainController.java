@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable, DataProvider {
 
     private AllValues allValues;
-
+    private Component lastComponent;
     @FXML
     private StackPane mainContentPane;
 
