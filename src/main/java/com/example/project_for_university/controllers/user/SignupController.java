@@ -52,9 +52,9 @@ public class SignupController implements DataProvider {
 
         status_lbl.setTextFill(Color.RED);
         if(fio.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            status_lbl.setText("Ошибка! Вы не заполнили все поля");
+            status_lbl.setText("Вы не заполнили все поля");
         } else if(password.length() < 4) {
-            status_lbl.setText("Минимальная длина пароля 6 символов");
+            status_lbl.setText("Минимальная длина пароля - 6 символов");
         } else {
             signupService.signup(fio, email, password, status_lbl, allValues);
         }

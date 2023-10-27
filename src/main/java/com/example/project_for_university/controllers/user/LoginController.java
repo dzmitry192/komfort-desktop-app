@@ -6,9 +6,12 @@ import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.LoginService;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.LoaderUtil;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -51,15 +54,12 @@ public class LoginController implements DataProvider {
         String email = email_tf.getText();
         String password = password_tf.getText();
 
-//        allValues = LoaderUtil.showModal(allValues.getRootStage(), allValues);
-
         if (email.isEmpty() || password.isEmpty()) {
             status_lbl.setText("Все поля должны быть заполнены");
         } else {
-            if(loginService.login(email, password, status_lbl, allValues)) {
+            if (loginService.login(email, password, status_lbl, allValues)) {
                 ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
             }
-//            LoaderUtil.closeModal(allValues.getLoaderStage());
         }
     }
 
