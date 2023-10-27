@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="20.0" styleClass="material-inner-wrapper" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.MaterialController">
+<HBox alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="material-inner-wrapper" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.MaterialController">
    <children>
       <ImageView fx:id="image" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true">
          <viewport>
@@ -23,7 +23,7 @@
       </ImageView>
       <VBox spacing="10.0" HBox.hgrow="ALWAYS">
          <HBox.margin>
-            <Insets />
+            <Insets left="20.0" right="20.0" />
          </HBox.margin>
          <children>
             <Label fx:id="name" styleClass="bold-text" text="Название_Материала">

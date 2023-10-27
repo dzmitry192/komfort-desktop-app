@@ -333,7 +333,6 @@ public class FConditionController implements Initializable, DataProvider {
 
     @FXML
     void btn_cond_next_clicked(MouseEvent event) throws IOException {
-        isReadyToChange = true;
         try {
             FConditionValues.setPositive(rad_btn_plus.isSelected());
             FConditionValues.setMinAirTemp((int) scroll_min_temp_one.getValue());
@@ -362,61 +361,56 @@ public class FConditionController implements Initializable, DataProvider {
                         rad_btn_yes.isPressed(),
                         washingTypeList.stream().filter(el -> el.getName().equals(wash_type.getValue())).findFirst().get()));
             }
-            allValues.setFConditionValues(FConditionValues);
 
+//            allValues.setFConditionValues(FConditionValues);
+            allValues.setLastCreateMaterialComponent(Component.CONDITION_2);
             ComponentUtil.mount(Component.CONDITION_2, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         } catch (NullPointerException e) {
-            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
+            allValues.setLastCreateMaterialComponent(Component.CONDITION_2);
+            ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
+//            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         }
-    }
-
-    @FXML
-    void scroll_av_speed_dragged(MouseEvent event) {
-        inp_av_speed.setText(String.valueOf((int) scroll_av_speed.getValue()));
-    }
-
-    @FXML
-    void scroll_max_air_one_dragged(MouseEvent event) {
-        inp_max_air_one.setText(String.valueOf((int) scroll_max_air_one.getValue()));
-    }
-
-    @FXML
-    void scroll_max_air_sec_dragged(MouseEvent event) {
-        inp_max_air_sec.setText(String.valueOf((int) scroll_max_air_sec.getValue()));
-    }
-
-    @FXML
-    void scroll_min_temp_one_dragged(MouseEvent event) {
-        inp_min_temp_one.setText(String.valueOf((int) scroll_min_temp_one.getValue()));
-    }
-
-    @FXML
-    void scroll_min_temp_sec_dragged(MouseEvent event) {
-        inp_min_temp_sec.setText(String.valueOf((int) scroll_min_temp_sec.getValue()));
-    }
-
-    @FXML
-    void scroll_stretching_dragged(MouseEvent event) {
-        inp_stretching.setText(String.valueOf((int) scroll_stretching.getValue()));
-    }
-
-    @FXML
-    void scroll_torsion_angle_dragged(MouseEvent event) {
-        inp_torsion_angle.setText(String.valueOf((int) scroll_torsion_angle.getValue()));
-    }
-
-    @FXML
-    void scroll_temp_washing_dragged(MouseEvent event) {
-        inp_temp_washing.setText(String.valueOf((int) scroll_temp_washing.getValue()));
-    }
-
-    @FXML
-    void scroll_time_washing_dragged(MouseEvent event) {
-        inp_time_washing.setText(String.valueOf((int) scroll_time_washing.getValue()));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        scroll_av_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
+            inp_av_speed.setText(String.valueOf(newValue.intValue()));
+        });
+
+        scroll_max_air_one.valueProperty().addListener((observable, oldValue, newValue) -> {
+            inp_max_air_one.setText(String.valueOf((int) scroll_max_air_one.getValue()));
+        });
+
+        scroll_max_air_sec.valueProperty().addListener((observable, oldValue, newValue) -> {
+            inp_max_air_sec.setText(String.valueOf((int) scroll_max_air_sec.getValue()));
+        });
+
+        scroll_min_temp_one.valueProperty().addListener((observable, oldValue, newValue) -> {
+            inp_min_temp_one.setText(String.valueOf((int) scroll_min_temp_one.getValue()));
+        });
+
+        scroll_min_temp_sec.valueProperty().addListener((observable, oldValue, newValue) -> {
+            inp_min_temp_sec.setText(String.valueOf((int) scroll_min_temp_sec.getValue()));
+        });
+
+        scroll_stretching.valueProperty().addListener((observable, oldValue, newValue) -> {
+            inp_stretching.setText(String.valueOf((int) scroll_stretching.getValue()));
+        });
+
+        scroll_torsion_angle.valueProperty().addListener((observable, oldValue, newValue) -> {
+            inp_torsion_angle.setText(String.valueOf((int) scroll_torsion_angle.getValue()));
+        });
+
+        scroll_temp_washing.valueProperty().addListener((observable, oldValue, newValue) -> {
+            inp_temp_washing.setText(String.valueOf((int) scroll_temp_washing.getValue()));
+        });
+
+        scroll_time_washing.valueProperty().addListener((observable, oldValue, newValue) -> {
+            inp_time_washing.setText(String.valueOf((int) scroll_time_washing.getValue()));
+        });
+
+
         time_cond = new ComboBox<>(FXCollections.observableArrayList(2, 4));
     }
 }

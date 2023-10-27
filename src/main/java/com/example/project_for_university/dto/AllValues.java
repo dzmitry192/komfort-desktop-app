@@ -6,7 +6,10 @@ import com.example.project_for_university.dto.forBackend.calculate.CalculateEsti
 import com.example.project_for_university.dto.forBackend.calculate.CalculateHomeostasisFunctionDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateReliabilityFunctionDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
+import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
+import com.example.project_for_university.dto.forBackend.entity.MaterialEntity;
 import com.example.project_for_university.dto.forBackend.entity.UserEntity;
+import com.example.project_for_university.enums.Component;
 import javafx.stage.Stage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,13 +23,9 @@ public class AllValues {
     private Stage rootStage;
     private Stage loaderStage;
     private ContentPanes contentPanes;
+    private Component lastCreateMaterialComponent;
+
     private UserEntity user;
     private ReturnAllTypesDto returnAllTypesDto;
-    private MaterialInformationDto materialInformationDto;
-    private FilterValues filterValues;
-    private FConditionValues FConditionValues;
-    private CalculateWaterproofFunctionDto waterproofFunction;
-    private CalculateHomeostasisFunctionDto homeostasisFunction;
-    private CalculateReliabilityFunctionDto reliabilityFunction;
-    private CalculateEstimationDto estimation;
+    private CreateMaterialDto createMaterialDto;
 }

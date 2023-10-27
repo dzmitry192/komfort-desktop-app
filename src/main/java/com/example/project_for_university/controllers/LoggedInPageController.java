@@ -47,22 +47,22 @@ public class LoggedInPageController implements Initializable, DataProvider {
     private ArrayList<HBox> sideBarButtons = new ArrayList<>();
 
     @Override
-    public void setData(AllValues allValues) {
+    public void setData(AllValues allValues) throws IOException {
         this.allValues = allValues;
         UserEntity user = allValues.getUser();
 
         userName_text.setText(user.getFio());
-        System.out.println(user.isAdmin());
         if (user.isAdmin()) {
             adminPanel_btn.setManaged(true);
             adminPanel_btn.setVisible(true);
         }
 
-        try {
-            allValues.setContentPanes(new ContentPanes(allValues.getContentPanes().getMainContentPane(), loggedInContentPane));
+        allValues.setContentPanes(new ContentPanes(allValues.getContentPanes().getMainContentPane(), loggedInContentPane));
+
+        if (allValues.getLastCreateMaterialComponent() != null) {
+            ComponentUtil.mount(allValues.getLastCreateMaterialComponent(), loggedInContentPane, allValues);
+        } else {
             ComponentUtil.mount(Component.CONDITION_1, loggedInContentPane, allValues);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -88,7 +88,12 @@ public class LoggedInPageController implements Initializable, DataProvider {
     @FXML
     void createMaterial_btn_click(MouseEvent event) {
         toggleActiveButton(createMaterial_btn);
-        ComponentUtil.mount(Component.CONDITION_1, loggedInContentPane, allValues);
+
+        if (allValues.getLastCreateMaterialComponent() != null) {
+            ComponentUtil.mount(allValues.getLastCreateMaterialComponent(), loggedInContentPane, allValues);
+        } else {
+            ComponentUtil.mount(Component.CONDITION_1, loggedInContentPane, allValues);
+        }
     }
 
     @SneakyThrows

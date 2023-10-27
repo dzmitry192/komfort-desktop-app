@@ -114,12 +114,14 @@ public class HomeostasisTableController implements DataProvider {
     @FXML
     @SneakyThrows()
     void back_btn_clicked(MouseEvent event) {
+        allValues.setLastCreateMaterialComponent(Component.WATERPROOF_TABLE);
         ComponentUtil.mount(Component.WATERPROOF_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     @SneakyThrows()
     void next_btn_clicked(MouseEvent event) {
+        allValues.setLastCreateMaterialComponent(Component.RELIABILITY_TABLE);
         ComponentUtil.mount(Component.RELIABILITY_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 

@@ -5,6 +5,7 @@ import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ComboBox;
@@ -16,15 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SConditionController implements DataProvider {
+public class SConditionController implements DataProvider, Initializable {
 
     private AllValues allValues;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private HBox btn_back;
@@ -34,12 +29,6 @@ public class SConditionController implements DataProvider {
 
     @FXML
     private TextField homeo_capacity_inp;
-
-    @FXML
-    private Slider homeo_scroll;
-
-    @FXML
-    private TextField homeo_scroll_inp;
 
     @FXML
     private TextField homeo_square_inp;
@@ -63,39 +52,43 @@ public class SConditionController implements DataProvider {
     private ComboBox<String> water_combo;
 
     @FXML
-    private TextField water_inp_press;
+    private Slider hydrostaticPressureIncreaseSpeed_slider;
 
     @FXML
-    private Slider water_scroll;
+    private TextField hydrostaticPressureIncreaseSpeed_inp;
 
     @FXML
-    private TextField water_scroll_inp;
+    private Slider avgAirSpeed_slider;
 
     @FXML
-    private TextField water_time_protect;
+    private TextField avgAirSpeed_inp;
+
 
     @Override
-    public void setData(AllValues allValues) {
+    public void setData(AllValues allValues) throws IOException {
         this.allValues = allValues;
     }
 
     @FXML
     void btn_back_clicked(MouseEvent event) throws IOException {
+        allValues.setLastCreateMaterialComponent(Component.CONDITION_1);
         ComponentUtil.mount(Component.CONDITION_1, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     void btn_next_clicked(MouseEvent event) throws IOException {
+        allValues.setLastCreateMaterialComponent(Component.WATERPROOF_TABLE);
         ComponentUtil.mount(Component.WATERPROOF_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
-    @FXML
-    void homeo_scroll_dragged(MouseEvent event) {
-        homeo_scroll_inp.setText(String.valueOf((int) homeo_scroll.getValue()));
-    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        avgAirSpeed_slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            avgAirSpeed_inp.setText(String.valueOf((int) avgAirSpeed_slider.getValue()));
+        });
 
-    @FXML
-    void water_scroll_dragged(MouseEvent event) {
-        water_scroll_inp.setText(String.valueOf((int) water_scroll.getValue()));
+        hydrostaticPressureIncreaseSpeed_slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            hydrostaticPressureIncreaseSpeed_inp.setText(String.valueOf((int) hydrostaticPressureIncreaseSpeed_slider.getValue()));
+        });
     }
 }
