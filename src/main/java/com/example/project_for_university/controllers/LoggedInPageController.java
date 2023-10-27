@@ -57,6 +57,8 @@ public class LoggedInPageController implements Initializable, DataProvider {
             adminPanel_btn.setVisible(true);
         }
 
+        try {
+
         allValues.setContentPanes(new ContentPanes(allValues.getContentPanes().getMainContentPane(), loggedInContentPane));
 
         if (allValues.getLastCreateMaterialComponent() != null) {

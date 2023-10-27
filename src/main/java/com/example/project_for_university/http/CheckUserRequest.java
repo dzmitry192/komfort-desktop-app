@@ -30,12 +30,6 @@ public class CheckUserRequest implements Runnable {
                     .build();
 
             CloseableHttpResponse response = httpClient.execute(httpPost);
-            System.out.println(response.getStatusLine().getStatusCode());
-            if(response.getStatusLine().getStatusCode() == 200) {
-                System.out.println("YEEEEESS");
-            } else {
-                System.out.println("NOOOOOOOOOOOOOOO");
-            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
