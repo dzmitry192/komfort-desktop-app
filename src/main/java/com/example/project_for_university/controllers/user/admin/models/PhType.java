@@ -6,8 +6,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class PhType {
-    private String name;
-    private String desc;
+public class PhType extends AbstractType {
+    private String description;
+
+    public PhType(int id, String name, String description) {
+        super(id, name);
+        this.description = description;
+    }
 }

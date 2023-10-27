@@ -85,12 +85,14 @@ public class ReliabilityTableController implements DataProvider {
     @FXML
     @SneakyThrows()
     void back_btn_clicked(MouseEvent event) {
+        allValues.setLastCreateMaterialComponent(Component.HOMEOSTASIS_TABLE);
         ComponentUtil.mount(Component.HOMEOSTASIS_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     @SneakyThrows()
     void next_btn_clicked(MouseEvent event) {
+        allValues.setLastCreateMaterialComponent(Component.ESTIMATION_TABLE);
         ComponentUtil.mount(Component.ESTIMATION_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 }

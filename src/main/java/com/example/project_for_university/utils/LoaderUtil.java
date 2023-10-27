@@ -28,7 +28,7 @@ public class LoaderUtil {
         loaderContentPane.getChildren().setAll();
     }
 
-    public static void showModal(Stage rootStage, AllValues allValues) throws IOException {
+    public static AllValues showModal(Stage rootStage, AllValues allValues) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LoaderUtil.class.getResource(Component.LOADER.getPath()));
         Parent modal = fxmlLoader.load();
 
@@ -56,7 +56,9 @@ public class LoaderUtil {
         modalStage.setX(centerX);
         modalStage.setY(centerY);
 
-        modalStage.showAndWait();
+        modalStage.show();
+
+        return allValues;
     }
 
     public static void closeModal(Stage loaderStage) {
