@@ -1,10 +1,12 @@
 package com.example.project_for_university.controllers.user.admin;
 
 import com.example.project_for_university.Main;
+import com.example.project_for_university.controllers.user.admin.models.AdminPanelInfo;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.ReturnAllTypesDto;
 import com.example.project_for_university.dto.forBackend.entity.ProductionMethodEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
+import com.example.project_for_university.enums.AdminPanelType;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.providers.DataProvider;
@@ -31,6 +33,9 @@ import java.util.List;
 
 public class AdminController implements DataProvider {
     private AllValues allValues;
+
+    private static AdminPanelInfo adminPanelInfo = new AdminPanelInfo();
+
     private AbrasionTypeEntity[] abrasionTypes;
     private BendingTypeEntity[] bendingTypes;
     private GlueTypeEntity[] glueTypes;
@@ -71,41 +76,57 @@ public class AdminController implements DataProvider {
 
     @FXML
     void btn_abrasion_type_clicked(MouseEvent event) throws IOException {
+        adminPanelInfo.setCurAdminPanelType(AdminPanelType.ABRASION);
+        allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     void btn_bend_type_clicked(MouseEvent event) throws IOException {
+        adminPanelInfo.setCurAdminPanelType(AdminPanelType.BENDING);
+        allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     void btn_production_type_clicked(MouseEvent event) throws IOException {
+        adminPanelInfo.setCurAdminPanelType(AdminPanelType.PRODUCTION_METHOD);
+        allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     void btn_glue_type_clicked(MouseEvent event) throws IOException {
+        adminPanelInfo.setCurAdminPanelType(AdminPanelType.GLUE);
+        allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     void btn_lay_type_clicked(MouseEvent event) throws IOException {
+        adminPanelInfo.setCurAdminPanelType(AdminPanelType.LAYER);
+        allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     void btn_lev_activ_type_clicked(MouseEvent event) throws IOException {
+        adminPanelInfo.setCurAdminPanelType(AdminPanelType.PHYSICAL_ACTIVITY);
+        allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     void btn_membr_lay_type_clicked(MouseEvent event) throws IOException {
+        adminPanelInfo.setCurAdminPanelType(AdminPanelType.MEMBRANE_LAYER_POLYMER);
+        allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
     void btn_washing_type_clicked(MouseEvent event) throws IOException {
+        adminPanelInfo.setCurAdminPanelType(AdminPanelType.WASHING);
+        allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 

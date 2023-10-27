@@ -20,6 +20,7 @@ public enum Component {
 
     ADMIN_PANEL ("/com/example/project_for_university/fxml/user/admin/admin.fxml"),
     TYPE ("/com/example/project_for_university/fxml/user/admin/type.fxml"),
+    CREATE_TYPE ("/com/example/project_for_university/fxml/user/admin/create-type.fxml"),
 
     LOADER ("/com/example/project_for_university/fxml/loader/loader.fxml");
 

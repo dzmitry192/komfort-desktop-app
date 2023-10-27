@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Type {
-    private String name;
+public class AbstractType {
+    int id;
+    String name;
 }
