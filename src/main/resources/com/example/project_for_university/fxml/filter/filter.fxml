@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.FilterController">
+<VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.FilterController">
    <children>
       <HBox alignment="TOP_RIGHT" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
          <children>
-            <HBox>
+            <HBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <children>
-                  <VBox HBox.hgrow="ALWAYS">
+                  <VBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                      <children>
                         <ScrollPane fx:id="materialList_scrollPane" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
                            <content>
