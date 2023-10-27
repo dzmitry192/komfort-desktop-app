@@ -21,7 +21,9 @@ public class Main extends Application {
         stage.setTitle("Расчет материалов");
         stage.setScene(scene);
         stage.setWidth(1250);
+        stage.setMinWidth(900);
         stage.setHeight(825);
+        stage.setMinHeight(500);
         stage.show();
     }
 

@@ -27,7 +27,6 @@ import java.util.List;
 public class MaterialInfoController implements DataProvider {
     private AllValues allValues;
     private static List<File> files = new ArrayList<>();
-    private MaterialInformationDto materialInformationDto = new MaterialInformationDto();
     @FXML
     private TextArea comments_area;
 
@@ -50,6 +49,7 @@ public class MaterialInfoController implements DataProvider {
 
     @FXML
     void back_btn_clicked(MouseEvent event) throws IOException {
+        allValues.setLastCreateMaterialComponent(Component.ESTIMATION_TABLE);
         ComponentUtil.mount(Component.ESTIMATION_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
@@ -59,10 +59,7 @@ public class MaterialInfoController implements DataProvider {
         if(name_field.getText().isEmpty() || comments_area.getText().isEmpty()) {
             AlertUtil.show("Заполните все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         } else {
-            materialInformationDto.setName(name_field.getText());
-            materialInformationDto.setDescription(comments_area.getText());
-            this.allValues.setMaterialInformationDto(materialInformationDto);
-
+            allValues.setLastCreateMaterialComponent(null);
             ComponentUtil.mount(Component.MATERIAL_DETAILS, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }
     }

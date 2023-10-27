@@ -5,24 +5,27 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <VBox alignment="CENTER" fillWidth="false" stylesheets="@../../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.admin.TypeController">
    <children>
-      <VBox prefWidth="500.0" spacing="10.0">
+      <VBox prefWidth="600.0" spacing="10.0">
          <children>
+            <TextFlow textAlignment="CENTER">
+               <children>
+                  <Text fx:id="typeName_text" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bold-text" text="Название_типа" />
+               </children>
+            </TextFlow>
             <ScrollPane fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <content>
-                  <TableView fx:id="table_types" style="-fx-background-color: white;">
-                    <columns>
-                      <TableColumn fx:id="col_name" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="1.0" text="Название типа" />
-                    </columns>
+                  <TableView fx:id="table_types" onMouseClicked="#getSelectedItem" style="-fx-background-color: white;">
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>

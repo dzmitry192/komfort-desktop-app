@@ -27,7 +27,7 @@
                   </VBox>
                   <VBox spacing="5.0">
                      <children>
-                        <Label text="Электронная почта" />
+                        <Label text="Emaill" />
                         <TextField fx:id="email_tf" prefHeight="42.0" promptText="example@gmail.com" />
                      </children>
                   </VBox>

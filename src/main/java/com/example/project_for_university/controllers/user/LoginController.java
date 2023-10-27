@@ -54,7 +54,7 @@ public class LoginController implements DataProvider {
         String email = email_tf.getText();
         String password = password_tf.getText();
 
-//        LoaderUtil.showModal(allValues.getRootStage(), allValues);
+//        allValues = LoaderUtil.showModal(allValues.getRootStage(), allValues);
 
         if (email.isEmpty() || password.isEmpty()) {
             status_lbl.setText("Все поля должны быть заполнены");
@@ -67,6 +67,7 @@ public class LoginController implements DataProvider {
             allValues.setUser(userModel.getUser());
             ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
 
+//            LoaderUtil.closeModal(allValues.getLoaderStage());
         }
     }
 
