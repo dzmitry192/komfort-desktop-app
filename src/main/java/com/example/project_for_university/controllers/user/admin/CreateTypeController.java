@@ -2,6 +2,7 @@ package com.example.project_for_university.controllers.user.admin;
 
 import com.example.project_for_university.controllers.user.admin.models.AbstractType;
 import com.example.project_for_university.controllers.user.admin.models.AdminPanelInfo;
+import com.example.project_for_university.controllers.user.admin.models.PhType;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.enums.ActionType;
 import com.example.project_for_university.enums.AdminPanelType;
@@ -49,7 +50,6 @@ public class CreateTypeController implements DataProvider {
 
     public void setTypeForUpdate(AbstractType typeForUpdate) {
         this.typeForUpdate = typeForUpdate;
-        System.out.println(typeForUpdate);
     }
 
     @Override
@@ -62,6 +62,10 @@ public class CreateTypeController implements DataProvider {
         } else {
             actionType_text.setText(ActionType.UPDATE.getName() + " ");
             name_field.setText(typeForUpdate.getName());
+
+            if (typeForUpdate instanceof PhType) {
+                description_textArea.setText(((PhType) typeForUpdate).getDescription());
+            }
         }
 
         typeName_text.setText("(" + allValues.getAdminPanelInfo().getCurAdminPanelType().getName() + ")");
