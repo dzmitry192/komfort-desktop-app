@@ -10,7 +10,6 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -67,13 +66,8 @@
                               </HBox>
                               <AnchorPane prefHeight="320.0" prefWidth="320.0">
                                  <children>
-                                    <ImageView fx:id="image_view" fitHeight="320.0" fitWidth="320.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <image>
-                                          <Image url="@../../../img/image1.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </AnchorPane>
+                                    <ImageView fx:id="image_view" fitHeight="320.0" fitWidth="320.0" layoutX="14.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children></AnchorPane>
                               <HBox fx:id="image_next_btn" alignment="CENTER" maxWidth="155.0" onMouseClicked="#image_next_btn_clicked" spacing="5.0" HBox.hgrow="NEVER">
                                  <children>
                                     <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
