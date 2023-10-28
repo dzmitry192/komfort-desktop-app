@@ -24,10 +24,8 @@ import java.util.concurrent.ExecutionException;
 public class AuthService {
 
     private UserModel user = new UserModel();
-    private CreateUserDto userDto;
-    private LoginDto loginDto;
 
-    public UserModel loginThread() throws ExecutionException, InterruptedException {
+    public UserModel loginThread(LoginDto loginDto) throws ExecutionException, InterruptedException {
         CompletableFuture<UserModel> futureUserModel = new CompletableFuture<>();
 
         Runnable runnable = new Runnable() {
@@ -67,7 +65,7 @@ public class AuthService {
         return futureUserModel.get();
     }
 
-    public UserModel signupThread() throws ExecutionException, InterruptedException {
+    public UserModel signupThread(CreateUserDto userDto) throws ExecutionException, InterruptedException {
         CompletableFuture<UserModel> futureUserModel = new CompletableFuture<>();
 
         Runnable runnable = new Runnable() {

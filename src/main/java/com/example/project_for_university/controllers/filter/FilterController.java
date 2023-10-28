@@ -27,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class FilterController implements Initializable, DataProvider {
 
@@ -288,7 +289,7 @@ public class FilterController implements Initializable, DataProvider {
     private List<PartialMaterialEntity> materials() {
         List<PartialMaterialEntity> materials = new ArrayList<>();
 
-        ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, new AbrasionTypeEntity(1, "abr"), new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), new BendingTypeEntity(), new PhysicalActivityTypeEntity(1, "act", "desc"));
+        ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, 1, 1, new AbrasionTypeEntity(1, "abr"), new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), new BendingTypeEntity(), new PhysicalActivityTypeEntity(1, "act", "desc"));
         materials.add(new PartialMaterialEntity(1, "name", "description description description description description description", "manufacturer", 10, condition, null, null, new UserEntity(1, "userName", "email", "pass", false)));
 
         return materials;

@@ -6,6 +6,7 @@ module com.example.project_for_university {
     requires org.apache.httpcomponents.httpcore;
     requires com.google.gson;
     requires json.lib;
+    requires de.jensd.fx.glyphs.fontawesome;
 
     opens com.example.project_for_university to javafx.fxml;
     exports com.example.project_for_university;
@@ -30,4 +31,5 @@ module com.example.project_for_university {
     exports com.example.project_for_university.dto.forBackend.entity to com.google.gson, json.lib;
     opens com.example.project_for_university.dto.forBackend.entity to com.google.gson;
     opens com.example.project_for_university.dto.forBackend.entity.types to com.google.gson;
+    opens com.example.project_for_university.controllers.material.models to javafx.base;
 }
