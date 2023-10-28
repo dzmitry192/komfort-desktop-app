@@ -2,11 +2,15 @@ package com.example.project_for_university.controllers.material;
 
 import com.example.project_for_university.controllers.material.models.TableType;
 import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.dto.forBackend.entity.ConditionEntity;
+import com.example.project_for_university.dto.forBackend.entity.LayerEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -26,7 +30,9 @@ import lombok.SneakyThrows;
 import java.io.File;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class MaterialDetailsController implements Initializable, DataProvider {
     private AllValues allValues;
@@ -115,44 +121,46 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         };
 
         image_view.setImage(images[0]);
-//
-//        material_name_lbl.setText(partialMaterialEntity.getName());
-//        material_desc_text.setText(partialMaterialEntity.getDescription());
-//        engineer_name_text.setText(partialMaterialEntity.getUser().getFio());
-//        email_lbl.setText(partialMaterialEntity.getUser().getEmail());
-//
-//        //и тут заполняешь таблицы, мне самому лень просто
-//        ObservableList<TableType> layerEntities = FXCollections.observableArrayList();
-//        for (LayerEntity layer : partialMaterialEntity.getLayers()) {
-//            layerEntities.add(new TableType(String.valueOf(layer.getIndexNum()), layer.getLayerType().getName()));
-//        }
-//        layers_table.setItems(layerEntities);
-//
-//        material_details_table.setItems(FXCollections.observableArrayList(
-//                new TableType("Толщина", String.valueOf(partialMaterialEntity.getDepth())),
-//                new TableType("Способ производства", partialMaterialEntity.getManufacturer())
-//        ));
-//
-//        load_type_table.setItems(FXCollections.observableArrayList(
-//                new TableType("Изгиб", partialMaterialEntity.getCondition().getBendingType().getName()),
-//                new TableType("Истирание", partialMaterialEntity.getCondition().getAbrasionType().getName()),
-//                new TableType("Растяжение-сжатие", partialMaterialEntity.getCondition().getStretchingCompression() + "%"),
-//                new TableType("Кручение", partialMaterialEntity.getCondition().getTorsionAngle() + "°"),
-//                new TableType("Стирка", partialMaterialEntity.getName() + ", "
-//                        + partialMaterialEntity.getCondition().getWashing().getCyclesCnt() + "циклов, "
-//                        + partialMaterialEntity.getCondition().getWashing().getTemperature() + "°С, "
-//                        + partialMaterialEntity.getCondition().getWashing().getDuration() + " минут, "
-//                        + "отжим - " + (partialMaterialEntity.getCondition().getWashing().isPress() ? "да" : "нет")
-//                )
-//        ));
-//
-//        condition_params_table.setItems(FXCollections.observableArrayList(
-//                new TableType("Знак при минимальной температуре воздуха", partialMaterialEntity.getCondition().isPositive() ? "Плюс" : "Минус"),
-//                new TableType("Минимальная температура воздуха", partialMaterialEntity.getCondition().getMinAirTemp() + "-" + partialMaterialEntity.getCondition().getMaxAirTemp() + "°С"),
-//                new TableType("Максимальная влажность воздуха", partialMaterialEntity.getCondition().getMinAirHumidity() + "-" + partialMaterialEntity.getCondition().getMaxAirHumidity() + "%"),
-//                new TableType("Средняя скорость движения воздуха", partialMaterialEntity.getCondition().getAvgAirSpeed() + "м/с"),
-//                new TableType("Время неприрывного пребывания в заданных условиях", partialMaterialEntity.getCondition().getResidenceTime() + " часа")
-//        ));
+
+        material_name_lbl.setText(partialMaterialEntity.getName());
+        material_desc_text.setText(partialMaterialEntity.getDescription());
+        engineer_name_text.setText(partialMaterialEntity.getUser().getFio());
+        email_lbl.setText(partialMaterialEntity.getUser().getEmail());
+
+        //и тут заполняешь таблицы, мне самому лень просто
+        ObservableList<TableType> layerEntities = FXCollections.observableArrayList();
+        for (LayerEntity layer : partialMaterialEntity.getLayers()) {
+            layerEntities.add(new TableType(String.valueOf(layer.getIndexNum()), layer.getLayerType().getName()));
+        }
+        layers_table.setItems(layerEntities);
+
+        material_details_table.setItems(FXCollections.observableArrayList(
+                new TableType("Толщина", String.valueOf(partialMaterialEntity.getDepth())),
+                new TableType("Способ производства", partialMaterialEntity.getManufacturer())
+        ));
+
+        ConditionEntity condition = partialMaterialEntity.getCondition();
+        ObservableList<TableType> loadTypeItems = FXCollections.observableArrayList(
+                !Objects.isNull(condition.getBendingType()) ? new TableType("Изгиб", condition.getBendingType().getName()) : null,
+                !Objects.isNull(condition.getAbrasionType()) ? new TableType("Истирание", condition.getAbrasionType().getName()) : null,
+                condition.getStretchingCompression() != 0 ? new TableType("Растяжение-сжатие", condition.getStretchingCompression() + "%") : null,
+                condition.getTorsionAngle() != 0 ? new TableType("Кручение", condition.getTorsionAngle() + "°") : null,
+                !Objects.isNull(condition.getWashing()) ? new TableType("Стирка", partialMaterialEntity.getName() + ", "
+                        + partialMaterialEntity.getCondition().getWashing().getCyclesCnt() + "циклов, "
+                        + partialMaterialEntity.getCondition().getWashing().getTemperature() + "°С, "
+                        + partialMaterialEntity.getCondition().getWashing().getDuration() + " минут, "
+                        + "отжим - " + (partialMaterialEntity.getCondition().getWashing().isPress() ? "да" : "нет")
+                ) : null
+        );
+        load_type_table.setItems(loadTypeItems.stream().filter(Objects::nonNull).collect(Collectors.toCollection(FXCollections::observableArrayList)));
+
+        condition_params_table.setItems(FXCollections.observableArrayList(
+                new TableType("Знак при минимальной температуре воздуха", partialMaterialEntity.getCondition().isPositive() ? "Плюс" : "Минус"),
+                new TableType("Минимальная температура воздуха", partialMaterialEntity.getCondition().getMinAirTemp() + "-" + partialMaterialEntity.getCondition().getMaxAirTemp() + "°С"),
+                new TableType("Максимальная влажность воздуха", partialMaterialEntity.getCondition().getMinAirHumidity() + "-" + partialMaterialEntity.getCondition().getMaxAirHumidity() + "%"),
+                new TableType("Средняя скорость движения воздуха", partialMaterialEntity.getCondition().getAvgAirSpeed() + "м/с"),
+                new TableType("Время неприрывного пребывания в заданных условиях", partialMaterialEntity.getCondition().getResidenceTime() + " часа")
+        ));
     }
 
     @FXML
