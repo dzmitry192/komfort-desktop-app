@@ -61,8 +61,7 @@ public class SignupController implements DataProvider {
         } else if(password.length() < 4) {
             status_lbl.setText("Минимальная длина пароля 6 символов");
         } else {
-            authService.setUserDto(new CreateUserDto(fio, email, password));
-            UserModel userModel = authService.signupThread();
+            UserModel userModel = authService.signupThread(new CreateUserDto(fio, email, password));
             if(userModel.isError()) {
                 status_lbl.setText(userModel.getErrorMessage());
             } else {

@@ -59,10 +59,9 @@ public class LoginController implements DataProvider {
         if (email.isEmpty() || password.isEmpty()) {
             status_lbl.setText("Все поля должны быть заполнены");
         } else {
-            authService.setLoginDto(new LoginDto(email, password));
-            UserModel userModel = authService.loginThread();
+            UserModel userModel = authService.loginThread(new LoginDto(email, password));
             if(userModel.isError()) {
-                AlertUtil.show("Некорректные введённые данные", "Пользователя с такими данными не найдено", allValues.getRootStage());
+                status_lbl.setText(userModel.getErrorMessage());
             }
             allValues.setUser(userModel.getUser());
             ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);

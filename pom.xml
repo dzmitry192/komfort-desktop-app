@@ -20,11 +20,13 @@
             <artifactId>fontawesomefx-materialdesignfont</artifactId>
             <version>2.0.26-9.1.2</version>
         </dependency>
+
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-commons</artifactId>
             <version>9.1.2</version>
         </dependency>
+
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-fontawesome</artifactId>
@@ -36,6 +38,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>21-ea+17</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
@@ -48,6 +51,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -66,6 +70,7 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.14</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -80,58 +85,12 @@
             <classifier>jdk15</classifier>
         </dependency>
 
-
-
         <dependency>
             <groupId>top.jfunc.json</groupId>
             <artifactId>json-gson</artifactId>
             <version>1.8.3</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.huiaong</groupId>
-            <artifactId>base64-multipartfile-starter</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.huiaong</groupId>
-            <artifactId>base64-multipartfile-starter</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.huiaong</groupId>
-            <artifactId>base64-multipartfile-starter</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.huiaong</groupId>
-            <artifactId>base64-multipartfile-starter</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.huiaong</groupId>
-            <artifactId>base64-multipartfile-starter</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.huiaong</groupId>
-            <artifactId>base64-multipartfile-starter</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.huiaong</groupId>
-            <artifactId>base64-multipartfile-starter</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.huiaong</groupId>
-            <artifactId>base64-multipartfile-starter</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.huiaong</groupId>
-            <artifactId>base64-multipartfile-starter</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>
+
         <dependency>
             <groupId>io.github.huiaong</groupId>
             <artifactId>base64-multipartfile-starter</artifactId>

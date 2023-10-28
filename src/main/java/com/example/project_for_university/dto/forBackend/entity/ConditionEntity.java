@@ -12,15 +12,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ConditionEntity {
     private int id;
-    private boolean isPositive;
-    private int minAirTemp;
-    private int minAirHumidity;
-    private int avgAirSpeed;
-    private int residenceTime;
-    private int torsionAngle;
-    private int stretchingCompression;
-    private AbrasionTypeEntity abrasionType;
-    private WashingEntity washing;
-    private BendingTypeEntity bendingType;
-    private PhysicalActivityTypeEntity physicalActivityType;
+    private boolean isPositive; //табл4
+    private int minAirTemp; //табл4
+    private int maxAirTemp; //табл4
+    private int minAirHumidity; //табл4
+    private int maxAirHumidity; //табл4
+    private int avgAirSpeed; //табл4
+    private int residenceTime; //табл4
+    private int torsionAngle; //табл3
+    private int stretchingCompression; //табл3
+    private AbrasionTypeEntity abrasionType; //табл3
+    private WashingEntity washing; //табл3
+    private BendingTypeEntity bendingType; //табл3
+    private PhysicalActivityTypeEntity physicalActivityType; //табл3
 }
