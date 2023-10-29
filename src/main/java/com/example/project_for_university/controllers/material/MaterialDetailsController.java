@@ -9,6 +9,7 @@ import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.animation.TranslateTransition;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,19 +30,21 @@ import lombok.SneakyThrows;
 
 import java.io.File;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MaterialDetailsController implements Initializable, DataProvider {
     private AllValues allValues;
     private int curIndex = 0;
-    private Image[] images;
+
+    private ArrayList<Image> images = new ArrayList<>();
     private PartialMaterialEntity partialMaterialEntity;
 
     @FXML
     private ImageView image_view;
+
+    @FXML
+    private Label pagination_lbl;
 
     @FXML
     private HBox back_btn;
@@ -114,20 +117,22 @@ public class MaterialDetailsController implements Initializable, DataProvider {
 
     public void setPartialMaterialEntity(PartialMaterialEntity partialMaterialEntity) {
         this.partialMaterialEntity = partialMaterialEntity;
-        this.images = new Image[]{
-                new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"),
-                new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"),
-                new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"),
-        };
 
-        image_view.setImage(images[0]);
+        Arrays.stream(partialMaterialEntity.getImages()).forEach(image -> images.add(new Image(image)));
+        if (images.size() == 0) {
+            image_view.setImage(new Image(getClass().getResourceAsStream("/com/example/project_for_university/img/no-image.png")));
+            pagination_lbl.setVisible(false);
+            pagination_lbl.setManaged(false);
+        } else {
+            image_view.setImage(images.get(0));
+            pagination_lbl.setText("1/" + images.size());
+        }
 
         material_name_lbl.setText(partialMaterialEntity.getName());
         material_desc_text.setText(partialMaterialEntity.getDescription());
         engineer_name_text.setText(partialMaterialEntity.getUser().getFio());
         email_lbl.setText(partialMaterialEntity.getUser().getEmail());
 
-        //и тут заполняешь таблицы, мне самому лень просто
         ObservableList<TableType> layerEntities = FXCollections.observableArrayList();
         for (LayerEntity layer : partialMaterialEntity.getLayers()) {
             layerEntities.add(new TableType(String.valueOf(layer.getIndexNum()), layer.getLayerType().getName()));
@@ -135,7 +140,7 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         layers_table.setItems(layerEntities);
 
         material_details_table.setItems(FXCollections.observableArrayList(
-                new TableType("Толщина", String.valueOf(partialMaterialEntity.getDepth())),
+                new TableType("Толщина", String.valueOf(partialMaterialEntity.getDepth()) + " мм"),
                 new TableType("Способ производства", partialMaterialEntity.getManufacturer())
         ));
 
@@ -146,20 +151,22 @@ public class MaterialDetailsController implements Initializable, DataProvider {
                 condition.getStretchingCompression() != 0 ? new TableType("Растяжение-сжатие", condition.getStretchingCompression() + "%") : null,
                 condition.getTorsionAngle() != 0 ? new TableType("Кручение", condition.getTorsionAngle() + "°") : null,
                 !Objects.isNull(condition.getWashing()) ? new TableType("Стирка", partialMaterialEntity.getName() + ", "
-                        + partialMaterialEntity.getCondition().getWashing().getCyclesCnt() + "циклов, "
+                        + partialMaterialEntity.getCondition().getWashing().getCyclesCnt() + " циклов, "
                         + partialMaterialEntity.getCondition().getWashing().getTemperature() + "°С, "
-                        + partialMaterialEntity.getCondition().getWashing().getDuration() + " минут, "
-                        + "отжим - " + (partialMaterialEntity.getCondition().getWashing().isPress() ? "да" : "нет")
+                        + partialMaterialEntity.getCondition().getWashing().getDuration() + " мин, "
+                        + (partialMaterialEntity.getCondition().getWashing().isPress() ? "с отжимом" : "без отжима")
                 ) : null
         );
         load_type_table.setItems(loadTypeItems.stream().filter(Objects::nonNull).collect(Collectors.toCollection(FXCollections::observableArrayList)));
 
         condition_params_table.setItems(FXCollections.observableArrayList(
                 new TableType("Знак при минимальной температуре воздуха", partialMaterialEntity.getCondition().isPositive() ? "Плюс" : "Минус"),
-                new TableType("Минимальная температура воздуха", partialMaterialEntity.getCondition().getMinAirTemp() + "-" + partialMaterialEntity.getCondition().getMaxAirTemp() + "°С"),
-                new TableType("Максимальная влажность воздуха", partialMaterialEntity.getCondition().getMinAirHumidity() + "-" + partialMaterialEntity.getCondition().getMaxAirHumidity() + "%"),
-                new TableType("Средняя скорость движения воздуха", partialMaterialEntity.getCondition().getAvgAirSpeed() + "м/с"),
-                new TableType("Время неприрывного пребывания в заданных условиях", partialMaterialEntity.getCondition().getResidenceTime() + " часа")
+                new TableType("Минимальная температура воздуха", partialMaterialEntity.getCondition().getMinAirTemp() + "°С"),
+                new TableType("Максимальная температура воздуха", partialMaterialEntity.getCondition().getMaxAirTemp() + "°С"),
+                new TableType("Минимальная влажность воздуха", partialMaterialEntity.getCondition().getMinAirHumidity() + "%"),
+                new TableType("Максимальная влажность воздуха", partialMaterialEntity.getCondition().getMaxAirHumidity() + "%"),
+                new TableType("Средняя скорость движения воздуха", partialMaterialEntity.getCondition().getAvgAirSpeed() + " м/с"),
+                new TableType("Время неприрывного пребывания в заданных условиях", partialMaterialEntity.getCondition().getResidenceTime() + " ч")
         ));
     }
 
@@ -189,20 +196,19 @@ public class MaterialDetailsController implements Initializable, DataProvider {
 
     @FXML
     void image_back_btn_clicked(MouseEvent event) {
-        if (images.length != 0 && images[curIndex - 1] != null) {
-            image_view.setImage(images[curIndex - 1]);
+        if (images.size() != 0 && curIndex - 1 >= 0) {
+            image_view.setImage(images.get(curIndex - 1));
             curIndex -= 1;
-            System.out.println("back: curIndex = " + curIndex);
+            pagination_lbl.setText((curIndex + 1) + "/" + images.size());
         }
     }
 
     @FXML
     void image_next_btn_clicked(MouseEvent event) {
-        if (images.length != 0 && images[curIndex + 1] != null) {
-            image_view.setImage(images[curIndex + 1]);
+        if (images.size() != 0 && curIndex + 1 < images.size()) {
+            image_view.setImage(images.get(curIndex + 1));
             curIndex += 1;
-            System.out.println("next: curIndex = " + curIndex);
-
+            pagination_lbl.setText((curIndex + 1) + "/" + images.size());
         }
     }
 

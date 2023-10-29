@@ -4,14 +4,15 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -50,38 +51,51 @@
                <children>
                   <HBox fillHeight="false" spacing="25.0" VBox.vgrow="NEVER">
                      <children>
-                        <HBox HBox.hgrow="NEVER">
+                        <VBox alignment="CENTER" spacing="5.0" HBox.hgrow="NEVER">
                            <children>
-                              <HBox fx:id="image_back_btn" alignment="CENTER" maxWidth="155.0" onMouseClicked="#image_back_btn_clicked" spacing="5.0" HBox.hgrow="NEVER">
+                              <HBox>
                                  <children>
-                                    <FontAwesomeIconView glyphName="CHEVRON_LEFT" />
+                                    <HBox fx:id="image_back_btn" alignment="CENTER" maxWidth="155.0" onMouseClicked="#image_back_btn_clicked" spacing="5.0" HBox.hgrow="NEVER">
+                                       <children>
+                                          <FontAwesomeIconView glyphName="CHEVRON_LEFT" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="15.0" right="15.0" />
+                                       </padding>
+                                       <styleClass>
+                                          <String fx:value="slider-btn" />
+                                          <String fx:value="slider-btn-left" />
+                                       </styleClass>
+                                    </HBox>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: black;" styleClass="app-background" HBox.hgrow="NEVER">
+                                       <children>
+                                          <ImageView fx:id="image_view" fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                                             <image>
+                                                <Image url="@../../../../../../../../../../PHOTO/IMG_4187.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="image_next_btn" alignment="CENTER" maxWidth="155.0" onMouseClicked="#image_next_btn_clicked" spacing="5.0" HBox.hgrow="NEVER">
+                                       <children>
+                                          <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="15.0" right="15.0" />
+                                       </padding>
+                                       <styleClass>
+                                          <String fx:value="slider-btn" />
+                                          <String fx:value="slider-btn-right" />
+                                       </styleClass>
+                                    </HBox>
                                  </children>
-                                 <padding>
-                                    <Insets left="15.0" right="15.0" />
-                                 </padding>
-                                 <styleClass>
-                                    <String fx:value="slider-btn" />
-                                    <String fx:value="slider-btn-left" />
-                                 </styleClass>
                               </HBox>
-                              <AnchorPane prefHeight="320.0" prefWidth="320.0">
-                                 <children>
-                                    <ImageView fx:id="image_view" fitHeight="320.0" fitWidth="320.0" layoutX="14.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children></AnchorPane>
-                              <HBox fx:id="image_next_btn" alignment="CENTER" maxWidth="155.0" onMouseClicked="#image_next_btn_clicked" spacing="5.0" HBox.hgrow="NEVER">
-                                 <children>
-                                    <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="15.0" right="15.0" />
-                                 </padding>
-                                 <styleClass>
-                                    <String fx:value="slider-btn" />
-                                    <String fx:value="slider-btn-right" />
-                                 </styleClass>
-                              </HBox>
+                              <Label fx:id="pagination_lbl" text="1/1" />
                            </children>
-                        </HBox>
+                        </VBox>
                         <VBox HBox.hgrow="ALWAYS">
                            <children>
                               <VBox spacing="30.0" VBox.vgrow="NEVER">
@@ -187,6 +201,37 @@
                            <children>
                               <VBox spacing="5.0" VBox.vgrow="NEVER">
                                  <children>
+                                    <Label styleClass="bold-medium-text" text="Условия испытаний">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
+                              <TableView fx:id="condition_params_table" minHeight="-Infinity" VBox.vgrow="NEVER">
+                                 <columns>
+                                    <TableColumn fx:id="name_condition_param_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Наименование параметра" />
+                                    <TableColumn fx:id="value_condition_param_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Значение" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0" VBox.vgrow="NEVER">
+                           <children>
+                              <VBox spacing="5.0" VBox.vgrow="NEVER">
+                                 <children>
                                     <Label styleClass="bold-medium-text" text="Слои артикула">
                                        <font>
                                           <Font size="18.0" />
@@ -200,14 +245,17 @@
                                     <Insets />
                                  </VBox.margin>
                               </VBox>
-                              <TableView fx:id="layers_table" VBox.vgrow="NEVER">
+                              <TableView fx:id="layers_table" minHeight="-Infinity" VBox.vgrow="NEVER">
                                  <columns>
-                                    <TableColumn fx:id="index_layer_column" editable="false" maxWidth="395.1208095550537" minWidth="323.15334129333496" prefWidth="323.15334129333496" sortable="false" styleClass="column-header-background" text="Позиция" />
-                                    <TableColumn fx:id="type_layer_column" editable="false" maxWidth="876.8467712402344" minWidth="800.0" prefWidth="876.8467712402344" resizable="false" sortable="false" styleClass="column-header-background" text="Тип слоя" />
+                                    <TableColumn fx:id="index_layer_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Позиция" />
+                                    <TableColumn fx:id="type_layer_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Тип слоя" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </VBox>
@@ -225,20 +273,23 @@
                                     </Label>
                                  </children>
                               </VBox>
-                              <TableView fx:id="material_details_table" VBox.vgrow="NEVER">
+                              <TableView fx:id="material_details_table" minHeight="-Infinity" VBox.vgrow="NEVER">
                                  <columns>
-                                    <TableColumn fx:id="name_material_details_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" text="Наименование параметра" />
-                                    <TableColumn fx:id="value_material_details_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" sortable="false" text="Значение" />
+                                    <TableColumn fx:id="name_material_details_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Наименование параметра" />
+                                    <TableColumn fx:id="value_material_details_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Значение" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </VBox>
                         <VBox spacing="10.0" VBox.vgrow="NEVER">
                            <children>
-                              <VBox spacing="10.0" VBox.vgrow="NEVER">
+                              <VBox spacing="10.0" VBox.vgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="bold-medium-text" text="Типы преобладающей нагрузки">
                                        <font>
@@ -253,42 +304,17 @@
                                     <Insets />
                                  </VBox.margin>
                               </VBox>
-                              <TableView fx:id="load_type_table" VBox.vgrow="NEVER">
+                              <TableView fx:id="load_type_table" minHeight="-Infinity" VBox.vgrow="NEVER">
                                  <columns>
-                                    <TableColumn fx:id="type_name_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" text="Тип нагрузки" />
-                                    <TableColumn fx:id="values_type_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" sortable="false" text="Условия" />
+                                    <TableColumn fx:id="type_name_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Тип нагрузки" />
+                                    <TableColumn fx:id="values_type_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Условия" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
-                              </TableView>
-                           </children>
-                        </VBox>
-                        <VBox spacing="10.0" VBox.vgrow="NEVER">
-                           <children>
-                              <VBox spacing="5.0" VBox.vgrow="NEVER">
-                                 <children>
-                                    <Label styleClass="bold-medium-text" text="Условия испытаний">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </Label>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </VBox>
-                              <TableView fx:id="condition_params_table" VBox.vgrow="NEVER">
-                                 <columns>
-                                    <TableColumn fx:id="name_condition_param_column" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" sortable="false" text="Наименование параметра" />
-                                    <TableColumn fx:id="value_condition_param_column" editable="false" maxWidth="-1.0" minWidth="800.0" prefWidth="800.0" sortable="false" text="Значение" />
-                                 </columns>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </VBox>

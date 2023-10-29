@@ -13,14 +13,18 @@
 
 <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="material-inner-wrapper" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.MaterialController">
    <children>
-      <ImageView fx:id="image" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true">
-         <viewport>
-            <Rectangle2D />
-         </viewport>
-         <image>
-            <Image url="@../../../img/image1.jpg" />
-         </image>
-      </ImageView>
+      <HBox alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: black;">
+         <children>
+            <ImageView fx:id="image" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <image>
+                  <Image url="@../../../../../../../../../../PHOTO/IMG_4080.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
       <VBox spacing="10.0" HBox.hgrow="ALWAYS">
          <HBox.margin>
             <Insets left="20.0" right="20.0" />

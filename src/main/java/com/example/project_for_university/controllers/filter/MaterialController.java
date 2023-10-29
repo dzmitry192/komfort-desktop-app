@@ -54,13 +54,14 @@ public class MaterialController implements Initializable, DataProvider {
 
     public void setMaterial(PartialMaterialEntity partialMaterialEntity) {
         this.partialMaterialEntity = partialMaterialEntity;
-        Image img;
-//        if (partialMaterialEntity.getImages().length > 0) {
-//            img = new Image(getClass().getResourceAsStream(partialMaterialEntity.getImages()[1]));
-//            image.setImage(img);
-//        }
         name.setText(partialMaterialEntity.getName());
         desc.setText(partialMaterialEntity.getDescription());
+
+        if (partialMaterialEntity.getImages().length == 0) {
+            image.setImage(new Image(getClass().getResourceAsStream("/com/example/project_for_university/img/no-image.png")));
+        } else {
+            image.setImage(new Image(partialMaterialEntity.getImages()[0]));
+        }
     }
 
     @Override
