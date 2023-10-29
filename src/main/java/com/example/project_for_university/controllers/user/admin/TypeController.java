@@ -61,6 +61,21 @@ public class TypeController implements DataProvider, Initializable {
     ObservableList<AbstractType> typeList = FXCollections.observableArrayList(
             new PhType(1, "name1", "description1"),
             new PhType(2, "name2", "description2"),
+            new PhType(3, "name3", "description3"),
+            new PhType(1, "name1", "description1"),
+            new PhType(2, "name2", "description2"),
+            new PhType(3, "name3", "description3"),
+             new PhType(1, "name1", "description1"),
+            new PhType(2, "name2", "description2"),
+            new PhType(3, "name3", "description3"),
+         new PhType(1, "name1", "description1"),
+            new PhType(2, "name2", "description2"),
+            new PhType(3, "name3", "description3"),
+         new PhType(1, "name1", "description1"),
+            new PhType(2, "name2", "description2"),
+            new PhType(3, "name3", "description3"),
+         new PhType(1, "name1", "description1"),
+            new PhType(2, "name2", "description2"),
             new PhType(3, "name3", "description3")
     );
 
@@ -73,7 +88,6 @@ public class TypeController implements DataProvider, Initializable {
 
         typeName_text.setText(curAdminPanelType.getName());
 
-        table_types.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         TableColumn<AbstractType, String> name_col = new TableColumn<>("тип");
         this.name_col = name_col;
         table_types.getColumns().add(name_col);
