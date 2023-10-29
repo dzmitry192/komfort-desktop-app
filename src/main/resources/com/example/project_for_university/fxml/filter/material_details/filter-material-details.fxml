@@ -4,7 +4,6 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -51,7 +50,7 @@
                <children>
                   <HBox fillHeight="false" spacing="25.0" VBox.vgrow="NEVER">
                      <children>
-                        <VBox alignment="CENTER" spacing="5.0" HBox.hgrow="NEVER">
+                        <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="NEVER">
                            <children>
                               <HBox>
                                  <children>
@@ -67,15 +66,12 @@
                                           <String fx:value="slider-btn-left" />
                                        </styleClass>
                                     </HBox>
-                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: black;" styleClass="app-background" HBox.hgrow="NEVER">
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: black;">
                                        <children>
-                                          <ImageView fx:id="image_view" fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                                          <ImageView fx:id="image_view" fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../../../../../PHOTO/IMG_4187.jpg" />
                                              </image>
-                                             <viewport>
-                                                <Rectangle2D />
-                                             </viewport>
                                           </ImageView>
                                        </children>
                                     </HBox>
@@ -216,8 +212,8 @@
                               </VBox>
                               <TableView fx:id="condition_params_table" minHeight="-Infinity" VBox.vgrow="NEVER">
                                  <columns>
-                                    <TableColumn fx:id="name_condition_param_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Наименование параметра" />
-                                    <TableColumn fx:id="value_condition_param_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Значение" />
+                                    <TableColumn fx:id="name_condition_param_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="1000.0" sortable="false" text="Наименование параметра" />
+                                    <TableColumn fx:id="value_condition_param_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="1000.0" sortable="false" text="Значение" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets />
@@ -247,8 +243,8 @@
                               </VBox>
                               <TableView fx:id="layers_table" minHeight="-Infinity" VBox.vgrow="NEVER">
                                  <columns>
-                                    <TableColumn fx:id="index_layer_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Позиция" />
-                                    <TableColumn fx:id="type_layer_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Тип слоя" />
+                                    <TableColumn fx:id="index_layer_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="1000.0" sortable="false" text="Позиция" />
+                                    <TableColumn fx:id="type_layer_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="1000.0" sortable="false" text="Тип слоя" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets />
@@ -275,8 +271,8 @@
                               </VBox>
                               <TableView fx:id="material_details_table" minHeight="-Infinity" VBox.vgrow="NEVER">
                                  <columns>
-                                    <TableColumn fx:id="name_material_details_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Наименование параметра" />
-                                    <TableColumn fx:id="value_material_details_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Значение" />
+                                    <TableColumn fx:id="name_material_details_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="1000.0" sortable="false" text="Наименование параметра" />
+                                    <TableColumn fx:id="value_material_details_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="1000.0" sortable="false" text="Значение" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets />
@@ -289,7 +285,7 @@
                         </VBox>
                         <VBox spacing="10.0" VBox.vgrow="NEVER">
                            <children>
-                              <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+                              <VBox spacing="10.0" VBox.vgrow="NEVER">
                                  <children>
                                     <Label styleClass="bold-medium-text" text="Типы преобладающей нагрузки">
                                        <font>
@@ -306,8 +302,8 @@
                               </VBox>
                               <TableView fx:id="load_type_table" minHeight="-Infinity" VBox.vgrow="NEVER">
                                  <columns>
-                                    <TableColumn fx:id="type_name_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Тип нагрузки" />
-                                    <TableColumn fx:id="values_type_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" sortable="false" text="Условия" />
+                                    <TableColumn fx:id="type_name_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="1000.0" sortable="false" text="Тип нагрузки" />
+                                    <TableColumn fx:id="values_type_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="1000.0" sortable="false" text="Условия" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets />
