@@ -2,6 +2,7 @@ package com.example.project_for_university.controllers;
 
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.ContentPanes;
+import com.example.project_for_university.dto.forBackend.PaginationDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.ComponentUtil;
@@ -36,6 +37,7 @@ public class MainController implements Initializable, DataProvider {
             Scene rootScene = mainContentPane.getScene();
             Stage rootStage = (Stage) rootScene.getWindow();
 
+            //content-panes
             allValues.setContentPanes(contentPanes);
             allValues.setRootStage(rootStage);
 

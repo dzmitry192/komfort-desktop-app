@@ -365,6 +365,14 @@ Label, Text {
 
 /*----scroll-----*/
 
+.scroll-pane, .scroll-pane .viewport {
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+  -fx-background-insets: 0;
+  -fx-border-width: 0;
+  -fx-padding: 0;
+}
+
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
   -fx-background-color :white;
