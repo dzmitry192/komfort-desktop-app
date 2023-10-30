@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
@@ -30,11 +31,12 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AdminController implements DataProvider {
     private AllValues allValues;
 
-    private static AdminPanelInfo adminPanelInfo = new AdminPanelInfo();
+    private static final AdminPanelInfo adminPanelInfo = new AdminPanelInfo();
 
     private AbrasionTypeEntity[] abrasionTypes;
     private BendingTypeEntity[] bendingTypes;
@@ -75,19 +77,20 @@ public class AdminController implements DataProvider {
     }
 
     @FXML
-    void btn_abrasion_type_clicked(MouseEvent event) throws IOException {
+    void btn_abrasion_type_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
         adminPanelInfo.setCurAdminPanelType(AdminPanelType.ABRASION);
         allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
-    void btn_bend_type_clicked(MouseEvent event) throws IOException {
+    void btn_bend_type_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
         adminPanelInfo.setCurAdminPanelType(AdminPanelType.BENDING);
         allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
+    @SneakyThrows
     @FXML
     void btn_production_type_clicked(MouseEvent event) throws IOException {
         adminPanelInfo.setCurAdminPanelType(AdminPanelType.PRODUCTION_METHOD);
@@ -96,12 +99,13 @@ public class AdminController implements DataProvider {
     }
 
     @FXML
-    void btn_glue_type_clicked(MouseEvent event) throws IOException {
+    void btn_glue_type_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
         adminPanelInfo.setCurAdminPanelType(AdminPanelType.GLUE);
         allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
+    @SneakyThrows
     @FXML
     void btn_lay_type_clicked(MouseEvent event) throws IOException {
         adminPanelInfo.setCurAdminPanelType(AdminPanelType.LAYER);
@@ -109,6 +113,7 @@ public class AdminController implements DataProvider {
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
+    @SneakyThrows
     @FXML
     void btn_lev_activ_type_clicked(MouseEvent event) throws IOException {
         adminPanelInfo.setCurAdminPanelType(AdminPanelType.PHYSICAL_ACTIVITY);
@@ -116,6 +121,7 @@ public class AdminController implements DataProvider {
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
+    @SneakyThrows
     @FXML
     void btn_membr_lay_type_clicked(MouseEvent event) throws IOException {
         adminPanelInfo.setCurAdminPanelType(AdminPanelType.MEMBRANE_LAYER_POLYMER);
@@ -123,6 +129,7 @@ public class AdminController implements DataProvider {
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
+    @SneakyThrows
     @FXML
     void btn_washing_type_clicked(MouseEvent event) throws IOException {
         adminPanelInfo.setCurAdminPanelType(AdminPanelType.WASHING);

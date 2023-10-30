@@ -34,7 +34,7 @@ import java.util.List;
 
 public class MaterialInfoController implements DataProvider {
     private AllValues allValues;
-    private static List<File> files = new ArrayList<>();
+    private static final List<File> files = new ArrayList<>();
     @FXML
     private TextArea comments_area;
 
@@ -55,6 +55,7 @@ public class MaterialInfoController implements DataProvider {
         this.allValues = allValues;
     }
 
+    @SneakyThrows
     @FXML
     void back_btn_clicked(MouseEvent event) throws IOException {
         allValues.setLastCreateMaterialComponent(Component.ESTIMATION_TABLE);

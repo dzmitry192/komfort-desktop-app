@@ -7,20 +7,15 @@ import com.example.project_for_university.dto.forBackend.entity.*;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.FilterSearchService;
+import com.example.project_for_university.service.models.FilterMaterialsModel;
+import com.example.project_for_university.utils.ValidationUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
-
-import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -28,10 +23,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
+
 public class FilterController implements Initializable, DataProvider {
 
     private AllValues allValues;
-
+    private HashMap<String, String> queryParams;
+    private final FilterSearchService filterSearchService = new FilterSearchService();
     private int lastPage = 1;
 
     @FXML
@@ -125,7 +126,7 @@ public class FilterController implements Initializable, DataProvider {
     private TextField name_inp;
 
     @FXML
-    private ComboBox<Integer> num_layers_cb;
+    private ComboBox<String> num_layers_cb;
 
     @FXML
     private TextField relative_pressure_inp_1;
@@ -161,7 +162,7 @@ public class FilterController implements Initializable, DataProvider {
     private ComboBox<String> way_prod_cb;
 
     @Override
-    public void setData(AllValues allValues) {
+    public void setData(AllValues allValues) throws ExecutionException, InterruptedException {
         this.allValues = allValues;
 
         setDataToCb();
@@ -176,9 +177,13 @@ public class FilterController implements Initializable, DataProvider {
     }
 
     private void setDataToCb() {
-        num_layers_cb.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6));
-        typeMemb_cb.setItems(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(MembraneLayerPolymerTypeEntity::getName).collect(Collectors.toCollection(FXCollections::observableArrayList)));
-        way_prod_cb.setItems(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).map(ProductionMethodEntity::getName).collect(Collectors.toCollection(FXCollections::observableArrayList)));
+        num_layers_cb.setItems(FXCollections.observableArrayList("Не выбрано", "1", "2", "3", "4", "5","6"));
+        ObservableList<String> membraneLayerPolymerTypes = FXCollections.observableArrayList("Не выбрано");
+        membraneLayerPolymerTypes.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(MembraneLayerPolymerTypeEntity::getName).toList());
+        typeMemb_cb.setItems(membraneLayerPolymerTypes);
+        ObservableList<String> productionMethods = FXCollections.observableArrayList("Не выбрано");
+        productionMethods.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).map(ProductionMethodEntity::getName).toList());
+        way_prod_cb.setItems(productionMethods);
     }
 
     private void fillFilters() {
@@ -197,10 +202,10 @@ public class FilterController implements Initializable, DataProvider {
                 num_layers_cb.getSelectionModel().select(allValues.getMaterialFilterDto().getLayersCnt());
             }
             if (allValues.getMaterialFilterDto().getMembraneLayerPolymerType_id() != 0) {
-//                typeMemb_cb.getSelectionModel().select();
+                typeMemb_cb.getSelectionModel().select(allValues.getMaterialFilterDto().getMembraneLayerPolymerType_id());
             }
             if (allValues.getMaterialFilterDto().getProductionMethod_id() != 0) {
-//                way_prod_cb.getSelectionModel().select();
+                way_prod_cb.getSelectionModel().select(allValues.getMaterialFilterDto().getProductionMethod_id());
             }
 
 
@@ -363,71 +368,92 @@ public class FilterController implements Initializable, DataProvider {
     }
 
     @FXML
-    void btn_search_clicked(MouseEvent event) {
+    void btn_search_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         MaterialFilterDto curFilterDto = allValues.getMaterialFilterDto();
+
+        queryParams = new HashMap<>();
 
         if (check_own_materials.isSelected()) {
             curFilterDto.setUserId(allValues.getUser().getId());
+            queryParams.put("userId", String.valueOf(curFilterDto.getUserId()));
         }
+
+
         if (!name_inp.getText().isEmpty()) {
             curFilterDto.setName(name_inp.getText());
+            queryParams.put("name", curFilterDto.getName());
         }
-        if (typeMemb_cb.getSelectionModel().getSelectedItem() != null) {
-//            curFilterDto.setMembraneLayerPolymerType_id();
+        if (typeMemb_cb.getSelectionModel().getSelectedItem() != null && !typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+            curFilterDto.setMembraneLayerPolymerType_id(way_prod_cb.getSelectionModel().getSelectedIndex());
+            queryParams.put("membraneLayerPolymerType_id", String.valueOf(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getName().equals(typeMemb_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId()));
         }
-        if (way_prod_cb.getSelectionModel().getSelectedItem() != null) {
-//            curFilterDto.setProductionMethod_id();
+        if (way_prod_cb.getSelectionModel().getSelectedItem() != null && !typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+            curFilterDto.setProductionMethod_id(way_prod_cb.getSelectionModel().getSelectedIndex());
+            queryParams.put("productionMethod_id", String.valueOf(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getName().equals(way_prod_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId()));
         }
-        if (num_layers_cb.getSelectionModel().getSelectedItem() != null) {
-            curFilterDto.setLayersCnt(num_layers_cb.getSelectionModel().getSelectedItem());
+        if (num_layers_cb.getSelectionModel().getSelectedItem() != null && !num_layers_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+            curFilterDto.setLayersCnt(Integer.parseInt(num_layers_cb.getSelectionModel().getSelectedItem()));
+            queryParams.put("layersCnt", String.valueOf(curFilterDto.getLayersCnt()));
         }
 
         if (check_depth.isSelected()) {
-            if (depth_inp_1.getText().length() > 0) {
-                curFilterDto.setDepth_min(Double.valueOf(depth_inp_1.getText()));
+            if (!depth_inp_1.getText().isEmpty()) {
+                curFilterDto.setDepth_min(Double.parseDouble(depth_inp_1.getText()));
+                queryParams.put("depth_min", String.valueOf(curFilterDto.getDepth_min()));
             }
-            if (depth_inp_2.getText().length() > 0) {
-                curFilterDto.setDepth_max(Double.valueOf(depth_inp_2.getText()));
+            if (!depth_inp_2.getText().isEmpty()) {
+                curFilterDto.setDepth_max(Double.parseDouble(depth_inp_2.getText()));
+                queryParams.put("depth_max", String.valueOf(curFilterDto.getDepth_max()));
             }
         }
         if (check_blotting_pressure.isSelected()) {
-            if (blotting_pressure_inp_1.getText().length() > 0) {
-                curFilterDto.setMaterialBlottingPressure_calculated_min(Double.valueOf(blotting_pressure_inp_1.getText()));
+            if (!blotting_pressure_inp_1.getText().isEmpty()) {
+                curFilterDto.setMaterialBlottingPressure_calculated_min(Double.parseDouble(blotting_pressure_inp_1.getText()));
+                queryParams.put("materialBlottingPressure_calculated_min", String.valueOf(curFilterDto.getMaterialBlottingTime_calculated_min()));
             }
-            if (blotting_pressure_inp_2.getText().length() > 0) {
-                curFilterDto.setMaterialBlottingPressure_calculated_max(Double.valueOf(blotting_pressure_inp_2.getText()));
+            if (!blotting_pressure_inp_2.getText().isEmpty()) {
+                curFilterDto.setMaterialBlottingPressure_calculated_max(Double.parseDouble(blotting_pressure_inp_2.getText()));
+                queryParams.put("materialBlottingPressure_calculated_max", String.valueOf(curFilterDto.getMaterialBlottingPressure_calculated_max()));
             }
         }
         if (check_time.isSelected()) {
-            if (time_inp_1.getText().length() > 0) {
-                curFilterDto.setMaterialBlottingTime_calculated_min(Double.valueOf(time_inp_1.getText()));
+            if (!time_inp_1.getText().isEmpty()) {
+                curFilterDto.setMaterialBlottingTime_calculated_min(Double.parseDouble(time_inp_1.getText()));
+                queryParams.put("materialBlottingTime_calculated_min", String.valueOf(curFilterDto.getMaterialBlottingTime_calculated_min()));
             }
-            if (time_inp_2.getText().length() > 0) {
-                curFilterDto.setMaterialBlottingTime_calculated_max(Double.valueOf(time_inp_2.getText()));
+            if (!time_inp_2.getText().isEmpty()) {
+                curFilterDto.setMaterialBlottingTime_calculated_max(Double.parseDouble(time_inp_2.getText()));
+                queryParams.put("materialBlottingTime_calculated_max", String.valueOf(curFilterDto.getMaterialBlottingTime_calculated_max()));
             }
         }
         if (check_water_vapor_perm.isSelected()) {
-            if (water_vapor_perm_inp_1.getText().length() > 0) {
-                curFilterDto.setWaterPermeability_calculated_min(Double.valueOf(water_vapor_perm_inp_1.getText()));
+            if (!water_vapor_perm_inp_1.getText().isEmpty()) {
+                curFilterDto.setWaterPermeability_calculated_min(Double.parseDouble(water_vapor_perm_inp_1.getText()));
+                queryParams.put("waterPermeability_calculated_min", String.valueOf(curFilterDto.getWaterPermeability_calculated_min()));
             }
-            if (water_vapor_perm_inp_2.getText().length() > 0) {
-                curFilterDto.setWaterPermeability_calculated_max(Double.valueOf(water_vapor_perm_inp_2.getText()));
+            if (!water_vapor_perm_inp_2.getText().isEmpty()) {
+                curFilterDto.setWaterPermeability_calculated_max(Double.parseDouble(water_vapor_perm_inp_2.getText()));
+                queryParams.put("waterPermeability_calculated_max", String.valueOf(curFilterDto.getWaterPermeability_calculated_max()));
             }
         }
         if (check_resistance.isSelected()) {
-            if (resistance_inp_1.getText().length() > 0) {
-                curFilterDto.setTotalThermalResistance_calculated_min(Double.valueOf(resistance_inp_1.getText()));
+            if (!resistance_inp_1.getText().isEmpty()) {
+                curFilterDto.setTotalThermalResistance_calculated_min(Double.parseDouble(resistance_inp_1.getText()));
+                queryParams.put("totalThermalResistance_calculated_min", String.valueOf(curFilterDto.getTotalThermalResistance_calculated_min()));
             }
-            if (resistance_inp_2.getText().length() > 0) {
-                curFilterDto.setTotalThermalResistance_calculated_max(Double.valueOf(resistance_inp_2.getText()));
+            if (!resistance_inp_2.getText().isEmpty()) {
+                curFilterDto.setTotalThermalResistance_calculated_max(Double.parseDouble(resistance_inp_2.getText()));
+                queryParams.put("totalThermalResistance_calculated_max", String.valueOf(curFilterDto.getTotalThermalResistance_calculated_max()));
             }
         }
         if (check_relative_pressure.isSelected()) {
-            if (relative_pressure_inp_1.getText().length() > 0) {
-                curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_min(Double.valueOf(relative_pressure_inp_1.getText()));
+            if (!relative_pressure_inp_1.getText().isEmpty()) {
+                curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_min(Double.parseDouble(relative_pressure_inp_1.getText()));
+                queryParams.put("relativeBlottingPressureAfterLoad_relativeValuation_min", String.valueOf(curFilterDto.getRelativeBlottingPressureAfterLoad_relativeValuation_min()));
             }
-            if (relative_pressure_inp_2.getText().length() > 0) {
-                curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_max(Double.valueOf(relative_pressure_inp_2.getText()));
+            if (!relative_pressure_inp_2.getText().isEmpty()) {
+                curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_max(Double.parseDouble(relative_pressure_inp_2.getText()));
+                queryParams.put("relativeBlottingPressureAfterLoad_relativeValuation_max", String.valueOf(curFilterDto.getRelativeBlottingPressureAfterLoad_relativeValuation_max()));
             }
         }
 
@@ -478,7 +504,7 @@ public class FilterController implements Initializable, DataProvider {
     }
 
     @FXML
-    void prevPage_btn_clicked(MouseEvent event) {
+    void prevPage_btn_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         int page = allValues.getPaginationDto().getPage();
         if (page > 1) {
             allValues.getPaginationDto().setPage(page - 1);
@@ -487,19 +513,19 @@ public class FilterController implements Initializable, DataProvider {
     }
 
     @FXML
-    void firstPage_btn_clicked(MouseEvent event) {
+    void firstPage_btn_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         allValues.getPaginationDto().setPage(1);
         mountMaterials(getMaterials());
     }
 
     @FXML
-    void page1_btn_clicked(MouseEvent event) {
+    void page1_btn_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         allValues.getPaginationDto().setPage(Integer.valueOf(page1_btnText.getText()));
         mountMaterials(getMaterials());
     }
 
     @FXML
-    void page2_btn_clicked(MouseEvent event) {
+    void page2_btn_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         allValues.getPaginationDto().setPage(Integer.valueOf(page2_btnText.getText()));
         mountMaterials(getMaterials());
     }
@@ -509,25 +535,25 @@ public class FilterController implements Initializable, DataProvider {
     }
 
     @FXML
-    void page4_btn_clicked(MouseEvent event) {
+    void page4_btn_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         allValues.getPaginationDto().setPage(Integer.valueOf(page4_btnText.getText()));
         mountMaterials(getMaterials());
     }
 
     @FXML
-    void page5_btn_clicked(MouseEvent event) {
+    void page5_btn_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         allValues.getPaginationDto().setPage(Integer.valueOf(page5_btnText.getText()));
         mountMaterials(getMaterials());
     }
 
     @FXML
-    void lastPage_btn_clicked(MouseEvent event) {
+    void lastPage_btn_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         allValues.getPaginationDto().setPage(lastPage);
         mountMaterials(getMaterials());
     }
 
     @FXML
-    void nextPage_btn_clicked(MouseEvent event) {
+    void nextPage_btn_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         allValues.getPaginationDto().setPage(allValues.getPaginationDto().getPage() + 1);
         mountMaterials(getMaterials());
     }
@@ -619,110 +645,101 @@ public class FilterController implements Initializable, DataProvider {
     }
 
 
-    //тут будет делаться запрос на сервер на получение материалов с фильтарми и page, perPage
-    private ArrayList<PartialMaterialEntity> getMaterials() {
+    //тут будет делаться запрос на сервер на получение материалов с фильтрами и page, perPage
+    private ArrayList<PartialMaterialEntity> getMaterials() throws ExecutionException, InterruptedException {
         if (allValues.getLoadedMaterials() == null) {
             allValues.setLoadedMaterials(new ArrayList<>());
         }
 
-        //запрос на сервер
-
-
-        //тестовые данные
-        ArrayList<PartialMaterialEntity> testMaterials = new ArrayList<>();
-        ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, 1, 1, null, new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), null, new PhysicalActivityTypeEntity(1, "act", "desc"));
-
-        int page = allValues.getPaginationDto().getPage();
-        if (page == 1) {
-            testMaterials.add(new PartialMaterialEntity(1, "name1", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name2", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name3", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name4", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name5", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name6", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name7", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name8", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name9", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name10", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-        } else if (page == 2) {
-            testMaterials.add(new PartialMaterialEntity(1, "name11", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name12", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name13", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name14", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name15", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name16", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name17", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name18", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name19", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name20", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-        } else if (page == 3) {
-            testMaterials.add(new PartialMaterialEntity(1, "name21", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name22", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name23", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name24", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name25", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name26", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name27", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name28", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name29", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name30", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-        } else if (page > 3) {
-            testMaterials.add(new PartialMaterialEntity(1, "name31", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name32", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name33", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name34", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name35", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name36", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name37", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name38", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name39", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
-            testMaterials.add(new PartialMaterialEntity(1, "name40", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+        ArrayList<PartialMaterialEntity> materials = new ArrayList<>();
+        if(allValues.getMaterialFilterDto().getName() != null) {
+            FilterMaterialsModel filterMaterialsModel = filterSearchService.getFilterMaterialsThread(allValues, queryParams);
+            if(!filterMaterialsModel.isError()) {
+                materials.addAll(Arrays.asList(filterMaterialsModel.getPartialMaterials()));
+            } else {
+                System.out.println("НЕ УДАЛОСЬ ПОЛУЧИТЬ МАТЕРИАЛЫ ИЗ БД");
+            }
         }
-        //--------
+//        //тестовые данные
+//        ArrayList<PartialMaterialEntity> testMaterials = new ArrayList<>();
+//        ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, 1, 1, null, new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), null, new PhysicalActivityTypeEntity(1, "act", "desc"));
+//
+//        int page = allValues.getPaginationDto().getPage();
+//        if (page == 1) {
+//            testMaterials.add(new PartialMaterialEntity(1, "name1", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name2", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name3", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name4", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name5", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name6", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name7", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name8", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name9", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name10", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//        } else if (page == 2) {
+//            testMaterials.add(new PartialMaterialEntity(1, "name11", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name12", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name13", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name14", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name15", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name16", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name17", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name18", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name19", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name20", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//        } else if (page == 3) {
+//            testMaterials.add(new PartialMaterialEntity(1, "name21", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name22", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name23", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name24", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name25", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name26", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name27", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name28", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name29", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name30", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//        } else if (page > 3) {
+//            testMaterials.add(new PartialMaterialEntity(1, "name31", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name32", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name33", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name34", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name35", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name36", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name37", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name38", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU", "https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name39", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{}, new UserEntity(1, "userName", "email", "pass", false)));
+//            testMaterials.add(new PartialMaterialEntity(1, "name40", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false)));
+//        }
+//        //--------
 
-        allValues.setLoadedMaterials(testMaterials);
+        allValues.setLoadedMaterials(materials);
 
         return allValues.getLoadedMaterials();
     }
 
     // фильтр для валидации инпутов
-    private final UnaryOperator<TextFormatter.Change> filter = change -> {
-        if (change.isReplaced()) {
-            if (change.getText().matches("[^0-9]")) {
-                change.setText(change.getControlText().substring(change.getRangeStart(), change.getRangeEnd()));
-            }
-        }
-        if (change.isAdded()) {
-            if (change.getControlText().contains(".")) {
-                if (change.getText().matches("[^0-9]")) {
-                    change.setText("");
-                }
-            } else if (change.getText().matches("[^0-9.]")) {
-                change.setText("");
-            }
-        }
-        return change;
-    };
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        depth_inp_1.setTextFormatter(new TextFormatter<>(filter));
-        depth_inp_2.setTextFormatter(new TextFormatter<>(filter));
+        depth_inp_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        depth_inp_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
 
-        blotting_pressure_inp_1.setTextFormatter(new TextFormatter<>(filter));
-        blotting_pressure_inp_2.setTextFormatter(new TextFormatter<>(filter));
+        blotting_pressure_inp_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        blotting_pressure_inp_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
 
-        time_inp_1.setTextFormatter(new TextFormatter<>(filter));
-        time_inp_2.setTextFormatter(new TextFormatter<>(filter));
+        time_inp_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        time_inp_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
 
-        water_vapor_perm_inp_1.setTextFormatter(new TextFormatter<>(filter));
-        water_vapor_perm_inp_2.setTextFormatter(new TextFormatter<>(filter));
+        water_vapor_perm_inp_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        water_vapor_perm_inp_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
 
-        resistance_inp_1.setTextFormatter(new TextFormatter<>(filter));
-        resistance_inp_2.setTextFormatter(new TextFormatter<>(filter));
+        resistance_inp_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        resistance_inp_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
 
-        relative_pressure_inp_1.setTextFormatter(new TextFormatter<>(filter));
-        relative_pressure_inp_2.setTextFormatter(new TextFormatter<>(filter));
+        relative_pressure_inp_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relative_pressure_inp_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+
+
     }
-
 }

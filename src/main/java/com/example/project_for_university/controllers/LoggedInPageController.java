@@ -46,6 +46,7 @@ public class LoggedInPageController implements Initializable, DataProvider {
 
     private ArrayList<HBox> sideBarButtons = new ArrayList<>();
 
+    @SneakyThrows
     @Override
     public void setData(AllValues allValues) throws IOException {
         this.allValues = allValues;

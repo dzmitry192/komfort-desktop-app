@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import lombok.Data;
+import lombok.SneakyThrows;
 
 @Data
 public class LoginController implements DataProvider {
@@ -79,6 +80,7 @@ public class LoginController implements DataProvider {
         }
     }
 
+    @SneakyThrows
     @FXML
     void signup_btn_clicked(MouseEvent event) throws IOException {
         ComponentUtil.mount(Component.SIGNUP, allValues.getContentPanes().getMainContentPane(), allValues);

@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 public class SConditionController implements DataProvider, Initializable {
 
@@ -70,13 +71,13 @@ public class SConditionController implements DataProvider, Initializable {
     }
 
     @FXML
-    void btn_back_clicked(MouseEvent event) throws IOException {
+    void btn_back_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
         allValues.setLastCreateMaterialComponent(Component.CONDITION_1);
         ComponentUtil.mount(Component.CONDITION_1, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
-    void btn_next_clicked(MouseEvent event) throws IOException {
+    void btn_next_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
         allValues.setLastCreateMaterialComponent(Component.WATERPROOF_TABLE);
         ComponentUtil.mount(Component.WATERPROOF_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }

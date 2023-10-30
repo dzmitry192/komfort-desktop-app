@@ -457,10 +457,10 @@
                                                       </HBox>
                                                    </children>
                                                 </HBox>
-                                                <TableView prefWidth="500.0" VBox.vgrow="NEVER">
+                                                <TableView fx:id="layers_table" minHeight="-Infinity" prefHeight="300.0" prefWidth="500.0" VBox.vgrow="NEVER">
                                                   <columns>
-                                                    <TableColumn editable="false" prefWidth="95.0" resizable="false" sortable="false" text="Позиция" />
-                                                    <TableColumn editable="false" prefWidth="403.0" resizable="false" sortable="false" text="Название слоя" />
+                                                    <TableColumn fx:id="position_column" editable="false" prefWidth="95.0" resizable="false" sortable="false" text="Позиция" />
+                                                    <TableColumn fx:id="layerName_column" editable="false" prefWidth="403.0" resizable="false" sortable="false" text="Название слоя" />
                                                   </columns>
                                                 </TableView>
                                              </children>

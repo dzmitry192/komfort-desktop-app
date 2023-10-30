@@ -1,39 +1,31 @@
 package com.example.project_for_university.controllers.material;
 
-import com.example.project_for_university.Main;
-import com.example.project_for_university.controllers.user.LoginController;
+import com.example.project_for_university.controllers.material.models.TableType;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.FConditionValues;
 import com.example.project_for_university.dto.forBackend.entity.WashingEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
-import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.AlertUtil;
-import com.example.project_for_university.utils.AuthUtils;
 import com.example.project_for_university.utils.ComponentUtil;
+import com.example.project_for_university.utils.ValidationUtils;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import lombok.Data;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @Data
 public class FConditionController implements Initializable, DataProvider {
@@ -42,17 +34,20 @@ public class FConditionController implements Initializable, DataProvider {
     private int cnt_type_of_load = 0;
     private boolean isReadyToChange;
 
-    private ObservableList<BendingTypeEntity> bendingTypeList = FXCollections.observableArrayList();
-    private ObservableList<AbrasionTypeEntity> abrasionTypeList = FXCollections.observableArrayList();
-    private ObservableList<PhysicalActivityTypeEntity> physicalActivityTypeList = FXCollections.observableArrayList();
-    private ObservableList<WashingTypeEntity> washingTypeList = FXCollections.observableArrayList();
-    private ObservableList<LayerTypeEntity> layerTypeList = FXCollections.observableArrayList();
-
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+
+    @FXML
+    private TableView<TableType> layers_table;
+
+    @FXML
+    private TableColumn<TableType, String> position_column;
+
+    @FXML
+    private TableColumn<TableType, String> layerName_column;
 
     @FXML
     private HBox btn_add_layer;
@@ -133,7 +128,7 @@ public class FConditionController implements Initializable, DataProvider {
     private ComboBox<Integer> time_cond;
 
     @FXML
-    private ComboBox<String> wash_type = new ComboBox<>();
+    private ComboBox<String> wash_type;
 
     @FXML
     private RadioButton rad_btn_minus;
@@ -177,45 +172,37 @@ public class FConditionController implements Initializable, DataProvider {
     @Override
     public void setData(AllValues allValues) {
         this.allValues = allValues;
-    }
-
-    private void setValuesToCB() {
-        wash_type.setItems(FXCollections.observableArrayList(washingTypeList.stream().map(WashingTypeEntity::getName).toList()));
-        choose_layer_cb.setItems(FXCollections.observableArrayList(layerTypeList.stream().map(LayerTypeEntity::getName).toList()));
-        bend_type.setItems(FXCollections.observableArrayList(bendingTypeList.stream().map(BendingTypeEntity::getName).toList()));
-        abrasion_type.setItems(FXCollections.observableArrayList(abrasionTypeList.stream().map(AbrasionTypeEntity::getName).toList()));
-        lev_phys.setItems(FXCollections.observableArrayList(physicalActivityTypeList.stream().map(PhysicalActivityTypeEntity::getName).toList()));
-    }
-
-    public void getValuesForCB() throws IOException {
-        bendingTypeList = getListOfNeedType(BendingTypeEntity.class, "/bending-type");
-        layerTypeList = getListOfNeedType(LayerTypeEntity.class, "/layer-type");
-        abrasionTypeList = getListOfNeedType(AbrasionTypeEntity.class, "/abrasion-type");
-        physicalActivityTypeList = getListOfNeedType(PhysicalActivityTypeEntity.class, "/physical-activity-type");
-        washingTypeList = getListOfNeedType(WashingTypeEntity.class, "/washing-type");
         setValuesToCB();
     }
 
-    private <T> ObservableList<T> getListOfNeedType(Class<T> tClass, String route) throws IOException {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpUriRequest httpGet = RequestBuilder.get()
-                .setUri(Main.host.getValue() + route)
-                .setHeader("Content-Type", "application/json")
-                .setHeader(AuthUtils.header, AuthUtils.getAuth(allValues.getUser().getEmail(), allValues.getUser().getPassword()))
-                .build();
-        CloseableHttpResponse response = httpClient.execute(httpGet);
-        System.out.println(response.getStatusLine().getStatusCode());
-        return FXCollections.observableArrayList(JsonToClass.parseToListObject(tClass, response));
+    private void setValuesToCB() {
+        wash_type.setItems(FXCollections.observableArrayList(Arrays.stream(allValues.getReturnAllTypesDto().getWashingTypes()).map(WashingTypeEntity::getName).toList()));
+        choose_layer_cb.setItems(FXCollections.observableArrayList(Arrays.stream(allValues.getReturnAllTypesDto().getLayerTypes()).map(LayerTypeEntity::getName).toList()));
+        bend_type.setItems(FXCollections.observableArrayList(Arrays.stream(allValues.getReturnAllTypesDto().getBendingTypes()).map(BendingTypeEntity::getName).toList()));
+        abrasion_type.setItems(FXCollections.observableArrayList(Arrays.stream(allValues.getReturnAllTypesDto().getAbrasionTypes()).map(AbrasionTypeEntity::getName).toList()));
+        lev_phys.setItems(FXCollections.observableArrayList(Arrays.stream(allValues.getReturnAllTypesDto().getPhysicalActivityTypes()).map(PhysicalActivityTypeEntity::getName).toList()));
+        time_cond.setItems(FXCollections.observableArrayList(2, 4));
     }
 
     @FXML
     void btn_add_layer_clicked(MouseEvent event) {
-
+        List<TableType> layers = layers_table.getItems();
+        if(layers.size() < 6 && choose_layer_cb.getSelectionModel().getSelectedIndex() != -1) {
+            layers.add(new TableType(String.valueOf(layers.size() + 1), choose_layer_cb.getSelectionModel().getSelectedItem()));
+            layers_table.setItems(FXCollections.observableList(layers));
+        }
     }
 
     @FXML
     void remove_layer_btn_clicked(MouseEvent event) {
-
+        List<TableType> layers = layers_table.getItems();
+        if(!layers.isEmpty() && choose_layer_cb.getSelectionModel().getSelectedIndex() != -1) {
+            int removeIndex = layers_table.getSelectionModel().getSelectedIndex();
+            layers.remove(removeIndex);
+            for(int i = removeIndex; i < layers.size(); i++) {
+                layers.get(i).setFirstCol(String.valueOf(Integer.parseInt(layers.get(i).getFirstCol()) - 1));
+            }
+        }
     }
 
     @FXML
@@ -331,6 +318,7 @@ public class FConditionController implements Initializable, DataProvider {
         rad_btn_no.setSelected(false);
     }
 
+    @SneakyThrows
     @FXML
     void btn_cond_next_clicked(MouseEvent event) throws IOException {
         try {
@@ -341,11 +329,12 @@ public class FConditionController implements Initializable, DataProvider {
             FConditionValues.setMaxAirHumidity((int) scroll_max_air_sec.getValue());
             FConditionValues.setAvgAirSpeed((int) scroll_av_speed.getValue());
             FConditionValues.setResidenceTime(time_cond.getValue());
+
             if (check_bend.isSelected()) {
-                FConditionValues.setBendingType(bendingTypeList.stream().filter(el -> el.getName().equals(bend_type.getValue())).findFirst().get());
+                FConditionValues.setBendingType(Arrays.stream(allValues.getReturnAllTypesDto().getBendingTypes()).filter(el -> el.getName().equals(bend_type.getValue())).findFirst().get());
             }
             if (check_abrasion.isSelected()) {
-                FConditionValues.setAbrasionType(abrasionTypeList.stream().filter(el -> el.getName().equals(abrasion_type.getValue())).findFirst().get());
+                FConditionValues.setAbrasionType(Arrays.stream(allValues.getReturnAllTypesDto().getAbrasionTypes()).filter(el -> el.getName().equals(abrasion_type.getValue())).findFirst().get());
             }
             if (check_stretch_compress.isSelected()) {
                 FConditionValues.setStretchingCompression((int) scroll_stretching.getValue());
@@ -359,16 +348,16 @@ public class FConditionController implements Initializable, DataProvider {
                         Integer.parseInt(inp_cycles_cnt.getText()),
                         (int) scroll_time_washing.getValue(),
                         rad_btn_yes.isPressed(),
-                        washingTypeList.stream().filter(el -> el.getName().equals(wash_type.getValue())).findFirst().get()));
+                        Arrays.stream(allValues.getReturnAllTypesDto().getWashingTypes()).filter(el -> el.getName().equals(wash_type.getValue())).findFirst().get()));
             }
 
 //            allValues.setFConditionValues(FConditionValues);
             allValues.setLastCreateMaterialComponent(Component.CONDITION_2);
             ComponentUtil.mount(Component.CONDITION_2, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         } catch (NullPointerException e) {
-            allValues.setLastCreateMaterialComponent(Component.CONDITION_2);
-            ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
-//            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
+//            allValues.setLastCreateMaterialComponent(Component.CONDITION_1);
+//            ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
+            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         }
     }
 
@@ -410,7 +399,9 @@ public class FConditionController implements Initializable, DataProvider {
             inp_time_washing.setText(String.valueOf((int) scroll_time_washing.getValue()));
         });
 
+        inp_cycles_cnt.setTextFormatter(new TextFormatter<>(ValidationUtils.integerFilter));
 
-        time_cond = new ComboBox<>(FXCollections.observableArrayList(2, 4));
+        position_column.setCellValueFactory(new PropertyValueFactory<>("firstCol"));
+        layerName_column.setCellValueFactory(new PropertyValueFactory<>("secondCol"));
     }
 }

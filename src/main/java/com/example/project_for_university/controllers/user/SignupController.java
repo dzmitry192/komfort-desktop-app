@@ -73,7 +73,7 @@ public class SignupController implements DataProvider {
     }
 
     @FXML
-    void login_btn_clicked(MouseEvent event) throws IOException {
+    void login_btn_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
         ComponentUtil.mount(Component.LOGIN, allValues.getContentPanes().getMainContentPane(), allValues);
     }
 }

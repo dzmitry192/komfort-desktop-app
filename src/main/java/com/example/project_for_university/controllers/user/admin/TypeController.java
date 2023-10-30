@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.net.URL;
@@ -105,6 +106,7 @@ public class TypeController implements DataProvider, Initializable {
         table_types.setItems(typeList);
     }
 
+    @SneakyThrows
     @FXML
     void btn_back_clicked(MouseEvent event) throws IOException {
         ComponentUtil.mount(Component.ADMIN_PANEL, allValues.getContentPanes().getLoggedInStackPane(), allValues);
@@ -115,6 +117,7 @@ public class TypeController implements DataProvider, Initializable {
         this.selectedItem = table_types.getSelectionModel().getSelectedItem();
     }
 
+    @SneakyThrows
     @FXML
     void btn_add_clicked(MouseEvent event) throws IOException {
         adminPanelInfo.setActionType(ActionType.CREATE);
