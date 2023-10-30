@@ -49,7 +49,7 @@
                                                       <Insets left="15.0" right="15.0" />
                                                    </padding>
                                                 </HBox>
-                                                <HBox fx:id="page1_btn" alignment="CENTER" onMouseClicked="#page1_btn_clicked" spacing="5.0" styleClass="btn-blue-outlined">
+                                                <HBox fx:id="page1_btn" alignment="CENTER" onMouseClicked="#page1_btn_clicked" spacing="5.0" styleClass="btn-red-outlined">
                                                    <children>
                                                       <Label fx:id="page1_btnText" text="1" />
                                                    </children>
@@ -57,7 +57,7 @@
                                                       <Insets left="15.0" right="15.0" />
                                                    </padding>
                                                 </HBox>
-                                                <HBox fx:id="page2_btn" alignment="CENTER" onMouseClicked="#page2_btn_clicked" spacing="5.0" styleClass="btn-blue-outlined">
+                                                <HBox fx:id="page2_btn" alignment="CENTER" onMouseClicked="#page2_btn_clicked" spacing="5.0" styleClass="btn-red-outlined">
                                                    <children>
                                                       <Label fx:id="page2_btnText" text="2" />
                                                    </children>
@@ -73,7 +73,7 @@
                                                       <Insets left="15.0" right="15.0" />
                                                    </padding>
                                                 </HBox>
-                                                <HBox fx:id="page4_btn" alignment="CENTER" onMouseClicked="#page4_btn_clicked" spacing="5.0" styleClass="btn-blue-outlined">
+                                                <HBox fx:id="page4_btn" alignment="CENTER" onMouseClicked="#page4_btn_clicked" spacing="5.0" styleClass="btn-red-outlined">
                                                    <children>
                                                       <Label fx:id="page4_btnText" text="4" />
                                                    </children>
@@ -81,7 +81,7 @@
                                                       <Insets left="15.0" right="15.0" />
                                                    </padding>
                                                 </HBox>
-                                                <HBox fx:id="page5_btn" alignment="CENTER" onMouseClicked="#page5_btn_clicked" spacing="5.0" styleClass="btn-blue-outlined">
+                                                <HBox fx:id="page5_btn" alignment="CENTER" onMouseClicked="#page5_btn_clicked" spacing="5.0" styleClass="btn-red-outlined">
                                                    <children>
                                                       <Label fx:id="page5_btnText" text="5" />
                                                    </children>

@@ -17,6 +17,8 @@ public class MaterialFilterDto {
     private double depth_max;
     private double materialBlottingPressure_calculated_min;
     private double materialBlottingPressure_calculated_max;
+    private double materialBlottingTime_calculated_min;
+    private double materialBlottingTime_calculated_max;
     private double waterPermeability_calculated_min;
     private double waterPermeability_calculated_max;
     private double totalThermalResistance_calculated_min;
