@@ -177,8 +177,8 @@ public class FilterController implements Initializable, DataProvider {
 
     private void setDataToCb() {
         num_layers_cb.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6));
-//        typeMemb_cb.setItems(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(MembraneLayerPolymerTypeEntity::getName).collect(Collectors.toCollection(FXCollections::observableArrayList)));
-//        way_prod_cb.setItems(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).map(ProductionMethodEntity::getName).collect(Collectors.toCollection(FXCollections::observableArrayList)));
+        typeMemb_cb.setItems(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(MembraneLayerPolymerTypeEntity::getName).collect(Collectors.toCollection(FXCollections::observableArrayList)));
+        way_prod_cb.setItems(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).map(ProductionMethodEntity::getName).collect(Collectors.toCollection(FXCollections::observableArrayList)));
     }
 
     private void fillFilters() {

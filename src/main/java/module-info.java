@@ -32,4 +32,5 @@ module com.example.project_for_university {
     opens com.example.project_for_university.dto.forBackend.entity to com.google.gson;
     opens com.example.project_for_university.dto.forBackend.entity.types to com.google.gson;
     opens com.example.project_for_university.controllers.material.models to javafx.base;
+    opens com.example.project_for_university.dto.forBackend to com.google.gson;
 }
