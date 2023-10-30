@@ -376,12 +376,16 @@ public class FilterController implements Initializable, DataProvider {
         if (check_own_materials.isSelected()) {
             curFilterDto.setUserId(allValues.getUser().getId());
             queryParams.put("userId", String.valueOf(curFilterDto.getUserId()));
+        } else {
+            curFilterDto.setUserId(0);
         }
 
 
         if (!name_inp.getText().isEmpty()) {
             curFilterDto.setName(name_inp.getText());
             queryParams.put("name", curFilterDto.getName());
+        } else {
+            curFilterDto.setName("");
         }
         if (typeMemb_cb.getSelectionModel().getSelectedItem() != null && !typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
             curFilterDto.setMembraneLayerPolymerType_id(way_prod_cb.getSelectionModel().getSelectedIndex());
@@ -400,60 +404,85 @@ public class FilterController implements Initializable, DataProvider {
             if (!depth_inp_1.getText().isEmpty()) {
                 curFilterDto.setDepth_min(Double.parseDouble(depth_inp_1.getText()));
                 queryParams.put("depth_min", String.valueOf(curFilterDto.getDepth_min()));
+            } else {
+                curFilterDto.setDepth_min(0);
             }
             if (!depth_inp_2.getText().isEmpty()) {
                 curFilterDto.setDepth_max(Double.parseDouble(depth_inp_2.getText()));
                 queryParams.put("depth_max", String.valueOf(curFilterDto.getDepth_max()));
+            } else {
+                curFilterDto.setDepth_max(0);
             }
         }
         if (check_blotting_pressure.isSelected()) {
             if (!blotting_pressure_inp_1.getText().isEmpty()) {
                 curFilterDto.setMaterialBlottingPressure_calculated_min(Double.parseDouble(blotting_pressure_inp_1.getText()));
                 queryParams.put("materialBlottingPressure_calculated_min", String.valueOf(curFilterDto.getMaterialBlottingTime_calculated_min()));
+            } else {
+                curFilterDto.setMaterialBlottingPressure_calculated_min(0);
             }
             if (!blotting_pressure_inp_2.getText().isEmpty()) {
                 curFilterDto.setMaterialBlottingPressure_calculated_max(Double.parseDouble(blotting_pressure_inp_2.getText()));
                 queryParams.put("materialBlottingPressure_calculated_max", String.valueOf(curFilterDto.getMaterialBlottingPressure_calculated_max()));
+            } else {
+                curFilterDto.setMaterialBlottingPressure_calculated_max(0);
             }
         }
         if (check_time.isSelected()) {
             if (!time_inp_1.getText().isEmpty()) {
                 curFilterDto.setMaterialBlottingTime_calculated_min(Double.parseDouble(time_inp_1.getText()));
                 queryParams.put("materialBlottingTime_calculated_min", String.valueOf(curFilterDto.getMaterialBlottingTime_calculated_min()));
+            } else {
+                curFilterDto.setMaterialBlottingTime_calculated_min(0);
             }
             if (!time_inp_2.getText().isEmpty()) {
                 curFilterDto.setMaterialBlottingTime_calculated_max(Double.parseDouble(time_inp_2.getText()));
                 queryParams.put("materialBlottingTime_calculated_max", String.valueOf(curFilterDto.getMaterialBlottingTime_calculated_max()));
+            }
+            else {
+                curFilterDto.setMaterialBlottingTime_calculated_max(0);
             }
         }
         if (check_water_vapor_perm.isSelected()) {
             if (!water_vapor_perm_inp_1.getText().isEmpty()) {
                 curFilterDto.setWaterPermeability_calculated_min(Double.parseDouble(water_vapor_perm_inp_1.getText()));
                 queryParams.put("waterPermeability_calculated_min", String.valueOf(curFilterDto.getWaterPermeability_calculated_min()));
+            } else {
+                curFilterDto.setWaterPermeability_calculated_min(0);
             }
             if (!water_vapor_perm_inp_2.getText().isEmpty()) {
                 curFilterDto.setWaterPermeability_calculated_max(Double.parseDouble(water_vapor_perm_inp_2.getText()));
                 queryParams.put("waterPermeability_calculated_max", String.valueOf(curFilterDto.getWaterPermeability_calculated_max()));
+            } else {
+                curFilterDto.setWaterPermeability_calculated_max(0);
             }
         }
         if (check_resistance.isSelected()) {
             if (!resistance_inp_1.getText().isEmpty()) {
                 curFilterDto.setTotalThermalResistance_calculated_min(Double.parseDouble(resistance_inp_1.getText()));
                 queryParams.put("totalThermalResistance_calculated_min", String.valueOf(curFilterDto.getTotalThermalResistance_calculated_min()));
+            } else {
+                curFilterDto.setTotalThermalResistance_calculated_min(0);
             }
             if (!resistance_inp_2.getText().isEmpty()) {
                 curFilterDto.setTotalThermalResistance_calculated_max(Double.parseDouble(resistance_inp_2.getText()));
                 queryParams.put("totalThermalResistance_calculated_max", String.valueOf(curFilterDto.getTotalThermalResistance_calculated_max()));
+            }  else {
+                curFilterDto.setTotalThermalResistance_calculated_max(0);
             }
         }
         if (check_relative_pressure.isSelected()) {
             if (!relative_pressure_inp_1.getText().isEmpty()) {
                 curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_min(Double.parseDouble(relative_pressure_inp_1.getText()));
                 queryParams.put("relativeBlottingPressureAfterLoad_relativeValuation_min", String.valueOf(curFilterDto.getRelativeBlottingPressureAfterLoad_relativeValuation_min()));
+            } else {
+                curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_min(0);
             }
             if (!relative_pressure_inp_2.getText().isEmpty()) {
                 curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_max(Double.parseDouble(relative_pressure_inp_2.getText()));
                 queryParams.put("relativeBlottingPressureAfterLoad_relativeValuation_max", String.valueOf(curFilterDto.getRelativeBlottingPressureAfterLoad_relativeValuation_max()));
+            } else {
+                curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_max(0);
             }
         }
 
@@ -653,12 +682,12 @@ public class FilterController implements Initializable, DataProvider {
 
         ArrayList<PartialMaterialEntity> materials = new ArrayList<>();
         if(allValues.getMaterialFilterDto().getName() != null) {
-            FilterMaterialsModel filterMaterialsModel = filterSearchService.getFilterMaterialsThread(allValues, queryParams);
-            if(!filterMaterialsModel.isError()) {
-                materials.addAll(Arrays.asList(filterMaterialsModel.getPartialMaterials()));
-            } else {
-                System.out.println("НЕ УДАЛОСЬ ПОЛУЧИТЬ МАТЕРИАЛЫ ИЗ БД");
-            }
+//            FilterMaterialsModel filterMaterialsModel = filterSearchService.getFilterMaterialsThread(allValues, queryParams);
+//            if(!filterMaterialsModel.isError()) {
+//                materials.addAll(Arrays.asList(filterMaterialsModel.getPartialMaterials()));
+//            } else {
+//                System.out.println("НЕ УДАЛОСЬ ПОЛУЧИТЬ МАТЕРИАЛЫ ИЗ БД");
+//            }
         }
 //        //тестовые данные
 //        ArrayList<PartialMaterialEntity> testMaterials = new ArrayList<>();
