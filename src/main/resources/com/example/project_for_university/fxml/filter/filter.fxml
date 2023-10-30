@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -29,18 +30,85 @@
                                     <VBox alignment="CENTER" fillWidth="false">
                                        <children>
                                           <StackPane fx:id="loader_contentPane" VBox.vgrow="NEVER" />
-                                          <HBox fx:id="loadMore_btn" alignment="CENTER" onMouseClicked="#loadMore_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                          <Region VBox.vgrow="ALWAYS" />
+                                          <HBox spacing="10.0">
                                              <children>
-                                                <FontAwesomeIconView glyphName="ARROW_DOWN" />
-                                                <Label text="Показать еще" />
-                                             </children>
-                                             <padding>
-                                                <Insets left="15.0" right="15.0" />
-                                             </padding>
-                                          </HBox>
+                                                <HBox fx:id="firstPage_btn" alignment="CENTER" onMouseClicked="#firstPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                                   <children>
+                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_LEFT" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="15.0" right="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox fx:id="prevPage_btn" alignment="CENTER" onMouseClicked="#prevPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                                   <children>
+                                                      <FontAwesomeIconView glyphName="ANGLE_LEFT" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="15.0" right="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox fx:id="page1_btn" alignment="CENTER" onMouseClicked="#page1_btn_clicked" spacing="5.0" styleClass="btn-red-outlined">
+                                                   <children>
+                                                      <Label fx:id="page1_btnText" text="1" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="15.0" right="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox fx:id="page2_btn" alignment="CENTER" onMouseClicked="#page2_btn_clicked" spacing="5.0" styleClass="btn-red-outlined">
+                                                   <children>
+                                                      <Label fx:id="page2_btnText" text="2" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="15.0" right="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox fx:id="curPage_btn" alignment="CENTER" onMouseClicked="#curPage_btn_clicked" spacing="5.0" styleClass="btn-red-filled">
+                                                   <children>
+                                                      <Label fx:id="curPage_btnText" text="3" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="15.0" right="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox fx:id="page4_btn" alignment="CENTER" onMouseClicked="#page4_btn_clicked" spacing="5.0" styleClass="btn-red-outlined">
+                                                   <children>
+                                                      <Label fx:id="page4_btnText" text="4" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="15.0" right="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox fx:id="page5_btn" alignment="CENTER" onMouseClicked="#page5_btn_clicked" spacing="5.0" styleClass="btn-red-outlined">
+                                                   <children>
+                                                      <Label fx:id="page5_btnText" text="5" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="15.0" right="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox fx:id="nextPage_btn" alignment="CENTER" onMouseClicked="#nextPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                                   <children>
+                                                      <FontAwesomeIconView glyphName="ANGLE_RIGHT" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="15.0" right="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox fx:id="lastPage_btn" alignment="CENTER" onMouseClicked="#lastPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
+                                                   <children>
+                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_RIGHT" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="15.0" right="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                             </children></HBox>
                                        </children>
                                        <VBox.margin>
-                                          <Insets top="15.0" />
+                                          <Insets top="30.0" />
                                        </VBox.margin>
                                     </VBox>
                                  </children>
