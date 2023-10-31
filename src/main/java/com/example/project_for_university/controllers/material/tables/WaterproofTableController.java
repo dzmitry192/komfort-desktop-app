@@ -3,6 +3,7 @@ package com.example.project_for_university.controllers.material.tables;
 
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.utils.ComponentUtil;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -104,6 +105,23 @@ public class WaterproofTableController implements DataProvider {
     @Override
     public void setData(AllValues allValues) {
         this.allValues = allValues;
+
+        for (int i = 0; i < allValues.getSideBarButtonsEventHandlers().size(); i++) {
+            allValues.getSideBarButtons().get(i).removeEventHandler(MouseEvent.MOUSE_CLICKED, allValues.getSideBarButtonsEventHandlers().get(i));
+        }
+        allValues.getSideBarButtonsEventHandlers().clear();
+
+        for (var button : allValues.getSideBarButtons()) {
+            EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println("waterproof sideBartBtn");
+                    // тут сетишь значения условий в allValues
+                }
+            };
+            button.addEventHandler(MouseEvent.MOUSE_CLICKED, clickHandler);
+            allValues.getSideBarButtonsEventHandlers().add(clickHandler);
+        }
     }
 
     @FXML

@@ -59,6 +59,7 @@ public class LoggedInPageController implements Initializable, DataProvider {
         }
 
         allValues.setContentPanes(new ContentPanes(allValues.getContentPanes().getMainContentPane(), loggedInContentPane));
+        allValues.setSideBarButtons(sideBarButtons);
 
         if (allValues.getLastCreateMaterialComponent() != null) {
             ComponentUtil.mount(allValues.getLastCreateMaterialComponent(), loggedInContentPane, allValues);

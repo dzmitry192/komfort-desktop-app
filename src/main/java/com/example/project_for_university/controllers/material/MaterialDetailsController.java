@@ -7,6 +7,7 @@ import com.example.project_for_university.dto.forBackend.entity.LayerEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
@@ -51,6 +52,9 @@ public class MaterialDetailsController implements Initializable, DataProvider {
 
     @FXML
     private HBox download_report_btn;
+
+    @FXML
+    private HBox deleteMaterial_btn;
 
     @FXML
     private Hyperlink email_lbl;
@@ -117,6 +121,11 @@ public class MaterialDetailsController implements Initializable, DataProvider {
 
     public void setPartialMaterialEntity(PartialMaterialEntity partialMaterialEntity) {
         this.partialMaterialEntity = partialMaterialEntity;
+
+        if (partialMaterialEntity.getUser().getId() != allValues.getUser().getId()) {
+            deleteMaterial_btn.setVisible(false);
+            deleteMaterial_btn.setManaged(false);
+        }
 
         Arrays.stream(partialMaterialEntity.getImages()).forEach(image -> images.add(new Image(image)));
         if (images.size() == 0) {
@@ -192,6 +201,15 @@ public class MaterialDetailsController implements Initializable, DataProvider {
             System.out.println("Operation canceled");
         }
         stage.show();
+    }
+
+    @FXML
+    void deleteMaterial_btn_clicked(MouseEvent event) {
+        boolean isToDelete = AlertUtil.showConfirmation("Навсегда удалить этот артикул?", "Данные об этом артикуле будут безвозвратно удалены", allValues.getRootStage());
+
+        if (isToDelete) {
+            //запрос на удаление артикула
+        }
     }
 
     @FXML
