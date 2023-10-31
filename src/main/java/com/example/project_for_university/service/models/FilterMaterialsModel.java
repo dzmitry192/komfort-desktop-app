@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FilterMaterialsModel {
     private PartialMaterialEntity[] partialMaterials;
+    private int totalCount;
     private boolean isError;
 }
