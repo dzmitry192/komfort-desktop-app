@@ -40,7 +40,7 @@ public class AllValues {
     private ReturnAllTypesDto returnAllTypesDto;
 
 
-    private CreateMaterialDto createMaterialDto;
+    private CreateMaterialDto createMaterialDto = new CreateMaterialDto();
     private MaterialFilterDto materialFilterDto;
     private PaginationDto paginationDto;
     private int totalMaterialsCnt;

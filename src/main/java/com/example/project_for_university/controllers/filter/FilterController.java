@@ -164,7 +164,9 @@ public class FilterController implements Initializable, DataProvider {
     @Override
     public void setData(AllValues allValues) throws ExecutionException, InterruptedException {
         this.allValues = allValues;
-
+        System.out.println("-------------------------------------------------");
+        System.out.println(allValues.getCreateMaterialDto());
+        System.out.println("-------------------------------------------------");
         setDataToCb();
 
         if (allValues.getPaginationDto() == null) {

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,5 +18,5 @@ public class MaterialInfoDto {
     private int productionMethod_id;
     private int membraneLayerPolymerType_id;
     private int glueType_id;
-    private List<CreateLayerDto> layers;
+    private List<CreateLayerDto> layers = new ArrayList<>();
 }

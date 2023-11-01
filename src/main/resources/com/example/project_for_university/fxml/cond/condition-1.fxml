@@ -60,8 +60,8 @@
                                     <Region HBox.hgrow="ALWAYS" />
                                     <HBox spacing="10.0">
                                        <children>
-                                          <RadioButton fx:id="rad_btn_plus" mnemonicParsing="false" onMouseClicked="#rad_btn_plus_clicked" text="+" />
-                                          <RadioButton fx:id="rad_btn_minus" mnemonicParsing="false" onMouseClicked="#rad_btn_minus_clicked" text="-" />
+                                          <RadioButton fx:id="rad_btn_plus" mnemonicParsing="false" onAction="#rad_btn_plus_action" text="+" />
+                                          <RadioButton fx:id="rad_btn_minus" mnemonicParsing="false" onAction="#rad_btn_minus_action" text="-" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -74,7 +74,7 @@
                                        </children>
                                     </TextFlow>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <ComboBox fx:id="lev_phys" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                    <ComboBox fx:id="lev_phys" minWidth="-Infinity" onAction="#lev_phys_action" prefWidth="180.0" promptText="Выберите" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
@@ -85,7 +85,7 @@
                                        </children>
                                     </TextFlow>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <ComboBox fx:id="time_cond" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                    <ComboBox fx:id="time_cond" minWidth="-Infinity" onAction="#time_cond_action" prefWidth="180.0" promptText="Выберите" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
@@ -235,7 +235,7 @@
                                              </children>
                                           </TextFlow>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="bend_type" disable="true" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                          <ComboBox fx:id="bend_type" disable="true" minWidth="-Infinity" onAction="#bend_type_action" prefWidth="180.0" promptText="Выберите" />
                                        </children>
                                        <VBox.margin>
                                           <Insets left="50.0" />
@@ -259,7 +259,7 @@
                                              </children>
                                           </TextFlow>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="abrasion_type" disable="true" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                          <ComboBox fx:id="abrasion_type" disable="true" minWidth="-Infinity" onAction="#abrasion_type_action" prefWidth="180.0" promptText="Выберите" />
                                        </children>
                                        <VBox.margin>
                                           <Insets left="50.0" />
@@ -325,7 +325,7 @@
                                              </children>
                                           </TextFlow>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="wash_type" disable="true" minWidth="-Infinity" prefWidth="180.0" promptText="Выберите" />
+                                          <ComboBox fx:id="wash_type" disable="true" minWidth="-Infinity" onAction="#wash_type_action" prefWidth="180.0" promptText="Выберите" />
                                        </children>
                                        <VBox.margin>
                                           <Insets left="50.0" />
@@ -395,8 +395,8 @@
                                              <children>
                                                 <HBox spacing="10.0">
                                                    <children>
-                                                      <RadioButton fx:id="rad_btn_yes" disable="true" mnemonicParsing="false" onMouseClicked="#rad_btn_yes_clicked" text="Да" />
-                                                      <RadioButton fx:id="rad_btn_no" disable="true" mnemonicParsing="false" onMouseClicked="#rad_btn_no_clicked" text="Нет" />
+                                                      <RadioButton fx:id="rad_btn_yes" disable="true" mnemonicParsing="false" onAction="#rad_btn_yes_action" text="Да" />
+                                                      <RadioButton fx:id="rad_btn_no" disable="true" mnemonicParsing="false" onAction="#rad_btn_no_action" text="Нет" />
                                                    </children>
                                                 </HBox>
                                              </children>
