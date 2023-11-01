@@ -245,7 +245,7 @@ public class FConditionController implements Initializable, DataProvider {
 
     @FXML
     void remove_layer_btn_clicked(MouseEvent event) {
-        List<TableType> layers = layers_table.getItems();
+        List<TableType> layers = new ArrayList<>(layers_table.getItems());
         if (!layers.isEmpty()) {
             if (layers_table.getSelectionModel().getSelectedIndex() != -1) {
                 int removeIndex = layers_table.getSelectionModel().getSelectedIndex();
@@ -253,6 +253,7 @@ public class FConditionController implements Initializable, DataProvider {
                 for (int i = removeIndex; i < layers.size(); i++) {
                     layers.get(i).setFirstCol(String.valueOf(Integer.parseInt(layers.get(i).getFirstCol()) - 1));
                 }
+                layers_table.setItems(FXCollections.observableList(layers));
                 allValues.getCreateMaterialDto().getMaterial().setLayers(layers_table.getItems().stream().map(layer -> new CreateLayerDto(Integer.parseInt(layer.getFirstCol()), Arrays.stream(allValues.getReturnAllTypesDto().getLayerTypes()).filter(type -> type.getName().equals(layer.getSecondCol())).findFirst().get().getId())).toList());
             } else {
                 AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте удалить", allValues.getRootStage());
