@@ -27,7 +27,7 @@
                   <Region HBox.hgrow="ALWAYS" />
                   <Label styleClass="bold-text" text="Ввод условий" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label styleClass="bold-text" text="1/6" />
+                  <Label styleClass="bold-text" text="1/5" />
                </children>
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="10.0" />
@@ -81,7 +81,7 @@
                                  <children>
                                     <TextFlow>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Время непрерывного пребывания:" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Время непрерывного пребывания, ч:" />
                                        </children>
                                     </TextFlow>
                                     <Region HBox.hgrow="ALWAYS" />
@@ -92,7 +92,7 @@
                                  <children>
                                     <TextFlow>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Средняя скорость движения:" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Средняя скорость движения, м/с:" />
                                        </children>
                                     </TextFlow>
                                     <Region HBox.hgrow="ALWAYS" />
@@ -118,7 +118,7 @@
                                              <children>
                                                 <TextFlow>
                                                    <children>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная:" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная, °С:" />
                                                    </children>
                                                 </TextFlow>
                                                 <Region HBox.hgrow="ALWAYS" />
@@ -134,7 +134,7 @@
                                              <children>
                                                 <TextFlow>
                                                    <children>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная:" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная, °С:" />
                                                    </children>
                                                 </TextFlow>
                                                 <Region HBox.hgrow="ALWAYS" />
@@ -167,7 +167,7 @@
                                              <children>
                                                 <TextFlow>
                                                    <children>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная:" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная, %:" />
                                                    </children>
                                                 </TextFlow>
                                                 <Region HBox.hgrow="ALWAYS" />
@@ -183,7 +183,7 @@
                                              <children>
                                                 <TextFlow>
                                                    <children>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная:" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная, %:" />
                                                    </children>
                                                 </TextFlow>
                                                 <Region HBox.hgrow="ALWAYS" />
@@ -271,7 +271,7 @@
                                  <children>
                                     <VBox spacing="5.0">
                                        <children>
-                                          <CheckBox fx:id="check_stretch_compress" mnemonicParsing="false" onMouseClicked="#check_stretch_compress_clicked" text="Растяжение-сжатие" />
+                                          <CheckBox fx:id="check_stretch_compress" mnemonicParsing="false" onMouseClicked="#check_stretch_compress_clicked" text="Растяжение-сжатие, %" />
                                           <Separator prefWidth="200.0" />
                                        </children>
                                     </VBox>
@@ -292,7 +292,7 @@
                                        <children>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_torsion" mnemonicParsing="false" onMouseClicked="#check_torsion_clicked" text="Кручение" />
+                                                <CheckBox fx:id="check_torsion" mnemonicParsing="false" onMouseClicked="#check_torsion_clicked" text="Кручение, °" />
                                                 <Separator prefWidth="200.0" />
                                              </children>
                                           </VBox>
@@ -335,7 +335,7 @@
                                        <children>
                                           <TextFlow>
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Температура:" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Температура, °С:" />
                                              </children>
                                           </TextFlow>
                                           <Region HBox.hgrow="ALWAYS" />
@@ -354,7 +354,7 @@
                                        <children>
                                           <TextFlow>
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Время стирки:" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Время стирки, мин:" />
                                              </children>
                                           </TextFlow>
                                           <Region HBox.hgrow="ALWAYS" />

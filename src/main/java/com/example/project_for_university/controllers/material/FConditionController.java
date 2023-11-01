@@ -175,11 +175,9 @@ public class FConditionController implements Initializable, DataProvider {
     public void setData(AllValues allValues) {
         this.allValues = allValues;
         if(allValues.getCreateMaterialDto().getCondition() == null && allValues.getCreateMaterialDto().getMaterial() == null) {
-            if (allValues.getCreateMaterialDto().getCondition() == null) {
-                CreateConditionDto conditionDto = new CreateConditionDto();
-                conditionDto.setWashing(new CreateWashingDto());
-                allValues.getCreateMaterialDto().setCondition(conditionDto);
-            }
+            CreateConditionDto conditionDto = new CreateConditionDto();
+            conditionDto.setWashing(new CreateWashingDto());
+            allValues.getCreateMaterialDto().setCondition(conditionDto);
             if (allValues.getCreateMaterialDto().getMaterial() == null) {
                 allValues.getCreateMaterialDto().setMaterial(new MaterialInfoDto());
             }
@@ -198,9 +196,7 @@ public class FConditionController implements Initializable, DataProvider {
 
         for (var button : allValues.getSideBarButtons()) {
             EventHandler<MouseEvent> clickHandler = event -> {
-//                System.out.println("firstCondition sideBartBtn");
-
-//                fillFCondition();
+                fillFCondition();
             };
             button.addEventHandler(MouseEvent.MOUSE_CLICKED, clickHandler);
             allValues.getSideBarButtonsEventHandlers().add(clickHandler);
@@ -240,7 +236,7 @@ public class FConditionController implements Initializable, DataProvider {
                 layers_table.setItems(FXCollections.observableList(layers));
                 allValues.getCreateMaterialDto().getMaterial().setLayers(layers_table.getItems().stream().map(layer -> new CreateLayerDto(Integer.parseInt(layer.getFirstCol()), Arrays.stream(allValues.getReturnAllTypesDto().getLayerTypes()).filter(type -> type.getName().equals(layer.getSecondCol())).findFirst().get().getId())).toList());
             } else {
-                AlertUtil.show("Ошибка добавления слоя", "Невозможно добавить слой, тк вы не выбрали слой", allValues.getRootStage());
+                AlertUtil.show("Выберете элемент", "Выберете нужный элемент, затем попробуйте добавить", allValues.getRootStage());
             }
         } else {
             AlertUtil.show("Ошибка добавления слоя", "Невозможно добавить слой, тк максильманое число слоев равно 6", allValues.getRootStage());
@@ -251,7 +247,7 @@ public class FConditionController implements Initializable, DataProvider {
     void remove_layer_btn_clicked(MouseEvent event) {
         List<TableType> layers = layers_table.getItems();
         if (!layers.isEmpty()) {
-            if (layers_table.getSelectionModel().getSelectedIndex() > 0) {
+            if (layers_table.getSelectionModel().getSelectedIndex() != -1) {
                 int removeIndex = layers_table.getSelectionModel().getSelectedIndex();
                 layers.remove(removeIndex);
                 for (int i = removeIndex; i < layers.size(); i++) {
@@ -259,7 +255,7 @@ public class FConditionController implements Initializable, DataProvider {
                 }
                 allValues.getCreateMaterialDto().getMaterial().setLayers(layers_table.getItems().stream().map(layer -> new CreateLayerDto(Integer.parseInt(layer.getFirstCol()), Arrays.stream(allValues.getReturnAllTypesDto().getLayerTypes()).filter(type -> type.getName().equals(layer.getSecondCol())).findFirst().get().getId())).toList());
             } else {
-                AlertUtil.show("Ошибка удаления слоя", "Невозможно удалить слой, тк Вы не выбрали слой", allValues.getRootStage());
+                AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте удалить", allValues.getRootStage());
             }
         } else {
             AlertUtil.show("Ошибка удаления слоя", "Невозможно удалить слой, тк таблица пустая", allValues.getRootStage());
@@ -361,9 +357,7 @@ public class FConditionController implements Initializable, DataProvider {
         }
         if (materialInfo != null) {
             if (materialInfo.getLayers() != null && !materialInfo.getLayers().isEmpty()) {
-                System.out.println("LAYERS = " + materialInfo.getLayers());
                 layers_table.setItems(FXCollections.observableList(materialInfo.getLayers().stream().map(layer -> new TableType(String.valueOf(layer.getIndexNum()), Arrays.stream(allValues.getReturnAllTypesDto().getLayerTypes()).filter(layerType -> layerType.getId() == layer.getLayerType_id()).findFirst().get().getName())).toList()));
-                System.out.println(layers_table.getItems());
             }
         }
     }
@@ -579,8 +573,8 @@ public class FConditionController implements Initializable, DataProvider {
             AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
             isError = false;
         } else {
-            allValues.setLastCreateMaterialComponent(Component.CONDITION_2);
-            ComponentUtil.mount(Component.CONDITION_2, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+            allValues.setLastCreateMaterialComponent(Component.WATERPROOF_TABLE);
+            ComponentUtil.mount(Component.WATERPROOF_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }
     }
 

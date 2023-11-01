@@ -25,7 +25,7 @@
                   <Region HBox.hgrow="ALWAYS" />
                   <Label styleClass="bold-text" text="Функция гомеостаза" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label styleClass="bold-text" text="4/6" />
+                  <Label styleClass="bold-text" text="3/5" />
                </children>
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="10.0" />

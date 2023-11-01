@@ -24,7 +24,7 @@
                   <Region HBox.hgrow="ALWAYS" />
                   <Label styleClass="bold-text" text="Функция водозащиты" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label styleClass="bold-text" text="6/6" />
+                  <Label styleClass="bold-text" text="5/5" />
                </children>
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="10.0" />

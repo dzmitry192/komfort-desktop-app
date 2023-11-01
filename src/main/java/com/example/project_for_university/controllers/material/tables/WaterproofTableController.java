@@ -127,8 +127,8 @@ public class WaterproofTableController implements DataProvider {
     @FXML
     @SneakyThrows()
     void back_btn_clicked(MouseEvent event) {
-        allValues.setLastCreateMaterialComponent(Component.CONDITION_2);
-        ComponentUtil.mount(Component.CONDITION_2, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+        allValues.setLastCreateMaterialComponent(Component.CONDITION_1);
+        ComponentUtil.mount(Component.CONDITION_1, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
