@@ -38,7 +38,7 @@ public class MaterialDetailsController implements Initializable, DataProvider {
     private AllValues allValues;
     private int curIndex = 0;
 
-    private ArrayList<Image> images = new ArrayList<>();
+    private final ArrayList<Image> images = new ArrayList<>();
     private PartialMaterialEntity partialMaterialEntity;
 
     @FXML
@@ -149,8 +149,8 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         layers_table.setItems(layerEntities);
 
         material_details_table.setItems(FXCollections.observableArrayList(
-                new TableType("Толщина", String.valueOf(partialMaterialEntity.getDepth()) + " мм"),
-                new TableType("Способ производства", partialMaterialEntity.getManufacturer())
+                new TableType("Толщина", partialMaterialEntity.getDepth() + " мм"),
+                new TableType("Производитель", partialMaterialEntity.getManufacturer())
         ));
 
         ConditionEntity condition = partialMaterialEntity.getCondition();

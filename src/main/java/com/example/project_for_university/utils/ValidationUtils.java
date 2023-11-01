@@ -1,5 +1,8 @@
 package com.example.project_for_university.utils;
 
+import javafx.beans.Observable;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
 import java.util.function.UnaryOperator;
@@ -24,4 +27,7 @@ public class ValidationUtils {
     };
 
     public static final UnaryOperator<TextFormatter.Change> integerFilter = change -> change.getText().matches("\\d*") ? change : null;
+    public static final boolean waterproofDoubleFilter(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+        return !newValue;
+    }
 }

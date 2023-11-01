@@ -11,6 +11,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -50,6 +51,50 @@
                         </VBox>
                         <VBox maxWidth="650.0" spacing="10.0" VBox.vgrow="NEVER">
                            <children>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Производитель:" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextArea fx:id="manufacturer_inp" prefHeight="36.0" prefWidth="200.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Способ производства:" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <ComboBox fx:id="production_way_cb" minWidth="-Infinity" onAction="#production_way_cb_action" prefWidth="180.0" promptText="Выберите" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Тип полимера мембранного слоя:" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <ComboBox fx:id="membrane_type_cb" minWidth="-Infinity" onAction="#membrane_type_cb_action" prefWidth="180.0" promptText="Выберите" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Тип клея:" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <ComboBox fx:id="glue_type_cb" minWidth="-Infinity" onAction="#glue_type_cb_action" prefWidth="180.0" promptText="Выберите" />
+                                 </children>
+                              </HBox>
                               <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
                                  <children>
                                     <TextFlow HBox.hgrow="ALWAYS">
