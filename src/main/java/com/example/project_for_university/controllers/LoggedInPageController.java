@@ -108,7 +108,13 @@ public class LoggedInPageController implements Initializable, DataProvider {
     @SneakyThrows
     @FXML
     void logout_btn_click(MouseEvent event) {
-        ComponentUtil.mount(Component.LOGIN, allValues.getContentPanes().getMainContentPane(), allValues);
+        AllValues cleanAllValues = new AllValues();
+        cleanAllValues.setRootStage(allValues.getRootStage());
+        cleanAllValues.setContentPanes(allValues.getContentPanes());
+        allValues = null;
+
+        System.out.println(allValues);
+        ComponentUtil.mount(Component.LOGIN, cleanAllValues.getContentPanes().getMainContentPane(), cleanAllValues);
     }
 
     @SneakyThrows
