@@ -11,6 +11,7 @@ import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.ValidationUtils;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -22,10 +23,10 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 @Data
 public class FConditionController implements Initializable, DataProvider {
@@ -173,6 +174,28 @@ public class FConditionController implements Initializable, DataProvider {
     public void setData(AllValues allValues) {
         this.allValues = allValues;
         setValuesToCB();
+
+        if (allValues.getSideBarButtonsEventHandlers() == null) {
+            allValues.setSideBarButtonsEventHandlers(new ArrayList<>());
+        }
+
+        for (int i = 0; i < allValues.getSideBarButtonsEventHandlers().size(); i++) {
+            allValues.getSideBarButtons().get(i).removeEventHandler(MouseEvent.MOUSE_CLICKED, allValues.getSideBarButtonsEventHandlers().get(i));
+        }
+        allValues.getSideBarButtonsEventHandlers().clear();
+
+        for (var button : allValues.getSideBarButtons()) {
+            EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println("firstCondition sideBartBtn");
+                    // тут сетишь значения условий в allValues
+                }
+            };
+            button.addEventHandler(MouseEvent.MOUSE_CLICKED, clickHandler);
+            allValues.getSideBarButtonsEventHandlers().add(clickHandler);
+        }
+
     }
 
     private void setValuesToCB() {

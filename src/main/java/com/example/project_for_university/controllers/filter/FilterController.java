@@ -668,6 +668,7 @@ public class FilterController implements Initializable, DataProvider {
 
         FilterMaterialsModel filterMaterialsModel = materialService.getFilterMaterialsThread(allValues);
         if (!filterMaterialsModel.isError()) {
+            allValues.setTotalMaterialsCnt(filterMaterialsModel.getTotalCount());
             materials.addAll(Arrays.asList(filterMaterialsModel.getPartialMaterials()));
         } else {
             AlertUtil.show("Ошибка получения данных с сервера", "Сервер временно недоступен, повторите попытку позже", allValues.getRootStage());
