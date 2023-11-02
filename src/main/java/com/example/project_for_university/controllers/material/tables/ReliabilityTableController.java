@@ -450,30 +450,30 @@ public class ReliabilityTableController implements DataProvider, Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //экспериментальные значения
-        relativeBlottingPressureAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        relativeWaterResistanceAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        relativeBlottingTimeAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofRealizationCriteriaAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofRealizationCriteriaAfterLoad_experimental_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        maxWaterResistanceLvl.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        impactCyclesCnt.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        //расчетные значения
-        relativeBlottingPressureAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        relativeWaterResistanceAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        relativeBlottingTimeAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        //базовые значения
-        relativeBlottingPressureAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        relativeWaterResistanceAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        relativeBlottingTimeAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofFunctionResource_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        //значения весомости
-        relativeBlottingPressureAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        relativeWaterResistanceAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        relativeBlottingTimeAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofRealizationCriteriaAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofFunctionResource_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        relativeBlottingPressureAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        relativeWaterResistanceAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        relativeBlottingTimeAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofRealizationCriteriaAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofRealizationCriteriaAfterLoad_experimental_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        maxWaterResistanceLvl.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        impactCyclesCnt.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        //расчетные значения
+//        relativeBlottingPressureAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        relativeWaterResistanceAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        relativeBlottingTimeAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        //базовые значения
+//        relativeBlottingPressureAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        relativeWaterResistanceAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        relativeBlottingTimeAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofFunctionResource_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        //значения весомости
+//        relativeBlottingPressureAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        relativeWaterResistanceAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        relativeBlottingTimeAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofRealizationCriteriaAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofFunctionResource_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
     }
 }
