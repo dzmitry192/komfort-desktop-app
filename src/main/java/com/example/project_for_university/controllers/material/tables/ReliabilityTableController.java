@@ -7,8 +7,10 @@ import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.ValidationUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
@@ -16,7 +18,10 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.providers.DataProvider;
 import lombok.SneakyThrows;
 
-public class ReliabilityTableController implements DataProvider {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ReliabilityTableController implements DataProvider, Initializable {
     private AllValues allValues;
 
     @FXML
@@ -440,5 +445,35 @@ public class ReliabilityTableController implements DataProvider {
             allValues.setLastCreateMaterialComponent(Component.ESTIMATION_TABLE);
             ComponentUtil.mount(Component.ESTIMATION_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //экспериментальные значения
+        relativeBlottingPressureAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeWaterResistanceAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeBlottingTimeAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofRealizationCriteriaAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofRealizationCriteriaAfterLoad_experimental_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        maxWaterResistanceLvl.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        impactCyclesCnt.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+
+        //расчетные значения
+        relativeBlottingPressureAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeWaterResistanceAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeBlottingTimeAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+
+        //базовые значения
+        relativeBlottingPressureAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeWaterResistanceAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeBlottingTimeAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofFunctionResource_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+
+        //значения весомости
+        relativeBlottingPressureAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeWaterResistanceAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeBlottingTimeAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofRealizationCriteriaAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofFunctionResource_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
     }
 }

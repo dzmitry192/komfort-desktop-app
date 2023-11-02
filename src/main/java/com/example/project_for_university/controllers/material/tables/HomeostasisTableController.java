@@ -584,39 +584,39 @@ public class HomeostasisTableController implements DataProvider, Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //экспериментальные значения
-        m1s.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        m2s.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        s0_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        t_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        m1min.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        m2min.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        m1max.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        m2max.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        s0_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        t_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        tos.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        s.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        m.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        comfTempInsideClothes.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        comfHumidityInsideClothes.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        minOutdoorHumidity.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        minOutdoorTemp.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        maxOutdoorTemp.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        maxOutdoorHumidity.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        avgOutdoorAirSpeed.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        sampleSurfaceArea.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        //базовые значения
-        waterPermeability_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterPermeabilityDynamicCriteria_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        totalThermalResistance_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        //значения весомости
-        waterPermeability_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterPermeabilityDynamicCriteria_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        totalThermalResistance_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        m1s.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        m2s.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        s0_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        t_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        m1min.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        m2min.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        m1max.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        m2max.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        s0_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        t_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        tos.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        s.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        m.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        comfTempInsideClothes.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        comfHumidityInsideClothes.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        minOutdoorHumidity.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        minOutdoorTemp.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        maxOutdoorTemp.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        maxOutdoorHumidity.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        avgOutdoorAirSpeed.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        sampleSurfaceArea.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        //базовые значения
+//        waterPermeability_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterPermeabilityDynamicCriteria_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        totalThermalResistance_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        //значения весомости
+//        waterPermeability_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterPermeabilityDynamicCriteria_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        totalThermalResistance_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
     }
 }

@@ -538,36 +538,36 @@ public class WaterproofTableController implements DataProvider, Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //экспериментальные значения
-        materialBlottingPressure_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproof_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        materialBlottingTime_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofRealizationCriteria_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofRealizationCriteria_experimental_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        dynamicWaterproofCriteria_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        dynamicWaterproofCriteria_experimental_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        dynamicWaterproofCriteria_experimental_3.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        dynamicWaterproofCriteria_experimental_4.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        hydrostaticPressureIncreaseSpeed.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        hydrostaticPressure.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofTime.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        //расчетные значения
-        materialBlottingPressure_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproof_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        materialBlottingTime_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        //базовые значения
-        materialBlottingPressure_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproof_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        materialBlottingTime_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofRealizationCriteria_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        dynamicWaterproofCriteria_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-        //значения весомости
-        materialBlottingPressure_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproof_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        materialBlottingTime_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        waterproofRealizationCriteria_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-        dynamicWaterproofCriteria_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        materialBlottingPressure_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproof_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        materialBlottingTime_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofRealizationCriteria_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofRealizationCriteria_experimental_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        dynamicWaterproofCriteria_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        dynamicWaterproofCriteria_experimental_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        dynamicWaterproofCriteria_experimental_3.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        dynamicWaterproofCriteria_experimental_4.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        hydrostaticPressureIncreaseSpeed.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        hydrostaticPressure.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofTime.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        //расчетные значения
+//        materialBlottingPressure_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproof_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        materialBlottingTime_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        //базовые значения
+//        materialBlottingPressure_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproof_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        materialBlottingTime_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofRealizationCriteria_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        dynamicWaterproofCriteria_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//
+//        //значения весомости
+//        materialBlottingPressure_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproof_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        materialBlottingTime_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        waterproofRealizationCriteria_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        dynamicWaterproofCriteria_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
     }
 }
