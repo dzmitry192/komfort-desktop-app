@@ -446,7 +446,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
 
         //col 4
         if (!materialBlottingPressure_weight.getText().isEmpty()) {
-            if(materialBlottingPressure_weight.getText().equals(".") || Double.parseDouble(materialBlottingPressure_weight.getText()) == 0) {
+            if (materialBlottingPressure_weight.getText().equals(".") || Double.parseDouble(materialBlottingPressure_weight.getText()) == 0) {
                 isValid = false;
             } else {
                 allValues.getCreateMaterialDto().getWaterproofFunction().setMaterialBlottingPressure_weight(Double.parseDouble(materialBlottingPressure_weight.getText()));
@@ -457,8 +457,8 @@ public class WaterproofTableController implements DataProvider, Initializable {
         }
 
         if (!waterproof_weight.getText().isEmpty()) {
-            if(waterproof_weight.getText().equals(".") || Double.parseDouble(waterproof_weight.getText()) == 0) {
-              isValid = false;
+            if (waterproof_weight.getText().equals(".") || Double.parseDouble(waterproof_weight.getText()) == 0) {
+                isValid = false;
             } else {
                 allValues.getCreateMaterialDto().getWaterproofFunction().setWaterproof_weight(Double.parseDouble(waterproof_weight.getText()));
             }
@@ -468,7 +468,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
         }
 
         if (!materialBlottingTime_weight.getText().isEmpty()) {
-            if(materialBlottingTime_weight.getText().equals(".") || Double.parseDouble(materialBlottingTime_weight.getText()) == 0) {
+            if (materialBlottingTime_weight.getText().equals(".") || Double.parseDouble(materialBlottingTime_weight.getText()) == 0) {
                 isValid = false;
             } else {
                 allValues.getCreateMaterialDto().getWaterproofFunction().setMaterialBlottingTime_weight(Double.parseDouble(materialBlottingTime_weight.getText()));
@@ -479,7 +479,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
         }
 
         if (!waterproofRealizationCriteria_weight.getText().isEmpty()) {
-            if(waterproofRealizationCriteria_weight.getText().equals(".") || Double.parseDouble(waterproofRealizationCriteria_weight.getText()) == 0) {
+            if (waterproofRealizationCriteria_weight.getText().equals(".") || Double.parseDouble(waterproofRealizationCriteria_weight.getText()) == 0) {
                 isValid = false;
             } else {
                 allValues.getCreateMaterialDto().getWaterproofFunction().setWaterproofRealizationCriteria_weight(Double.parseDouble(waterproofRealizationCriteria_weight.getText()));
@@ -490,7 +490,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
         }
 
         if (!dynamicWaterproofCriteria_weight.getText().isEmpty()) {
-            if(dynamicWaterproofCriteria_weight.getText().equals(".") || Double.parseDouble(dynamicWaterproofCriteria_weight.getText()) == 0) {
+            if (dynamicWaterproofCriteria_weight.getText().equals(".") || Double.parseDouble(dynamicWaterproofCriteria_weight.getText()) == 0) {
                 isValid = false;
             } else {
                 allValues.getCreateMaterialDto().getWaterproofFunction().setDynamicWaterproofCriteria_weight(Double.parseDouble(dynamicWaterproofCriteria_weight.getText()));
