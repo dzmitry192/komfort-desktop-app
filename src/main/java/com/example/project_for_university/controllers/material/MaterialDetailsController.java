@@ -150,7 +150,11 @@ public class MaterialDetailsController implements Initializable, DataProvider {
 
         material_details_table.setItems(FXCollections.observableArrayList(
                 new TableType("Толщина", partialMaterialEntity.getDepth() + " мм"),
-                new TableType("Производитель", partialMaterialEntity.getManufacturer())
+                new TableType("Производитель", partialMaterialEntity.getManufacturer()),
+                new TableType("Способ производства", partialMaterialEntity.getProductionMethod().getName()),
+                new TableType("Тип полимера мембранного слоя", partialMaterialEntity.getMembraneLayerPolymerType().getName()),
+                new TableType("Тип клея", partialMaterialEntity.getGlueType().getName())
+
         ));
 
         ConditionEntity condition = partialMaterialEntity.getCondition();

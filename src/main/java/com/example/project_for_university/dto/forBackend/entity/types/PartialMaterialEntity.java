@@ -21,7 +21,7 @@ public class PartialMaterialEntity {
     private LayerEntity[] layers; //табл 1
     private String[] images;
     private UserEntity user;
-//    private ProductionMethodEntity productionMethod; //табл 2
-//    private MembraneLayerPolymerTypeEntity membraneLayerPolymerType; //табл 2
-//    private GlueTypeEntity glueType; //табл
+    private ProductionMethodEntity productionMethod; //табл 2
+    private MembraneLayerPolymerTypeEntity membraneLayerPolymerType; //табл 2
+    private GlueTypeEntity glueType; //табл
 }

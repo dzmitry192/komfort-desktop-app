@@ -3,14 +3,8 @@ package com.example.project_for_university.controllers.material;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.MaterialInformationDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
-import com.example.project_for_university.dto.forBackend.entity.ConditionEntity;
-import com.example.project_for_university.dto.forBackend.entity.LayerEntity;
-import com.example.project_for_university.dto.forBackend.entity.UserEntity;
-import com.example.project_for_university.dto.forBackend.entity.WashingEntity;
-import com.example.project_for_university.dto.forBackend.entity.types.LayerTypeEntity;
-import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
-import com.example.project_for_university.dto.forBackend.entity.types.PhysicalActivityTypeEntity;
-import com.example.project_for_university.dto.forBackend.entity.types.WashingTypeEntity;
+import com.example.project_for_university.dto.forBackend.entity.*;
+import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.AlertUtil;
@@ -137,7 +131,7 @@ public class MaterialInfoController implements DataProvider {
             allValues.setLastCreateMaterialComponent(null);
 
             ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, 1, 1, null, new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), null, new PhysicalActivityTypeEntity(1, "act", "desc"));
-            PartialMaterialEntity newMaterial = new PartialMaterialEntity(1, "newMaterial", "newMaterial desk description description description description description", "manufacturer", 10, condition, new LayerEntity[] {new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[] {"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false));
+            PartialMaterialEntity newMaterial = new PartialMaterialEntity(1, "newMaterial", "newMaterial desk description description description description description", "manufacturer", 10, condition, new LayerEntity[] {new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[] {"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false), new ProductionMethodEntity(1, "name"), new MembraneLayerPolymerTypeEntity(1, "name"), new GlueTypeEntity(1, "name"));
 
             ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, newMaterial);
         }
