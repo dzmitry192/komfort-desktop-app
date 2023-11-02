@@ -214,7 +214,7 @@
                   <VBox spacing="5.0">
                      <children>
                         <Label text="Оборудование:" />
-                        <TextArea prefHeight="101.0" promptText="обороудование-1, обороудование-2, обороудование-3" />
+                        <TextArea fx:id="equipment" prefHeight="101.0" promptText="обороудование-1, обороудование-2, обороудование-3" />
                      </children>
                   </VBox>
                </children>

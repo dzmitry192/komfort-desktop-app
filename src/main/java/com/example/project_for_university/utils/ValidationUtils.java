@@ -30,4 +30,8 @@ public class ValidationUtils {
     public static final boolean waterproofDoubleFilter(ObservableValue observable, Boolean oldValue, Boolean newValue) {
         return !newValue;
     }
+
+    public static final boolean isValid(String num) {
+        return num.matches("^[0-9]{1,}[.]?[0-9]+$");
+    }
 }

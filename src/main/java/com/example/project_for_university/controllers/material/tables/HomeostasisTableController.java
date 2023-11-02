@@ -246,369 +246,302 @@ public class HomeostasisTableController implements DataProvider, Initializable {
 
         //col 1
         if (!m1s.getText().isEmpty()) {
-            if (m1s.getText().equals(".") || Double.parseDouble(m1s.getText()) == 0) {
+            if (!ValidationUtils.isValid(m1s.getText())) {
                 isValid = false;
-                System.out.println("1_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setM1s(Integer.parseInt(m1s.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setM1s(0);
             isEmpty = true;
-            System.out.println("1_2");
         }
 
         if (!m2s.getText().isEmpty()) {
-            if (m2s.getText().equals(".") || Double.parseDouble(m2s.getText()) == 0) {
+            if (!ValidationUtils.isValid(m2s.getText())) {
                 isValid = false;
-                System.out.println("2_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setM2s(Integer.parseInt(m2s.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setM2s(0);
             isEmpty = true;
-            System.out.println("2_2");
         }
 
         if (!s0_1.getText().isEmpty()) {
-            if (s0_1.getText().equals(".") || Double.parseDouble(s0_1.getText()) == 0) {
+            if (!ValidationUtils.isValid(s0_1.getText())) {
                 isValid = false;
-                System.out.println("3_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setS0_1(Integer.parseInt(s0_1.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setS0_1(0);
             isEmpty = true;
-            System.out.println("3_2");
         }
 
         if (!t_1.getText().isEmpty()) {
-            if (t_1.getText().equals(".") || Double.parseDouble(t_1.getText()) == 0) {
+            if (!ValidationUtils.isValid(t_1.getText())) {
                 isValid = false;
-                System.out.println("4_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setT_1(Integer.parseInt(t_1.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setT_1(0);
             isEmpty = true;
-            System.out.println("4_2");
         }
 
         if (!m1min.getText().isEmpty()) {
-            if (m1min.getText().equals(".") || Double.parseDouble(m1min.getText()) == 0) {
+            if (!ValidationUtils.isValid(m1min.getText())) {
                 isValid = false;
-                System.out.println("5_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setM1min(Integer.parseInt(m1min.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setM1min(0);
             isEmpty = true;
-            System.out.println("5_2");
         }
 
         if (!m2min.getText().isEmpty()) {
-            if (m2min.getText().equals(".") || Double.parseDouble(m2min.getText()) == 0) {
+            if (!ValidationUtils.isValid(m2min.getText())) {
                 isValid = false;
-                System.out.println("6_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setM2min(Integer.parseInt(m2min.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setM2min(0);
             isEmpty = true;
-            System.out.println("6_2");
         }
 
         if (!m1max.getText().isEmpty()) {
-            if (m1max.getText().equals(".") || Double.parseDouble(m1max.getText()) == 0) {
+            if (!ValidationUtils.isValid(m1max.getText())) {
                 isValid = false;
-                System.out.println("7_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setM1max(Integer.parseInt(m1max.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setM1max(0);
             isEmpty = true;
-            System.out.println("7_2");
         }
 
         if (!m2max.getText().isEmpty()) {
-            if (m2max.getText().equals(".") || Double.parseDouble(m2max.getText()) == 0) {
+            if (!ValidationUtils.isValid(m2max.getText())) {
                 isValid = false;
-                System.out.println("8_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setM2max(Integer.parseInt(m2max.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setM2max(0);
             isEmpty = true;
-            System.out.println("8_2");
         }
 
         if (!s0_2.getText().isEmpty()) {
-            if (s0_2.getText().equals(".") || Double.parseDouble(s0_2.getText()) == 0) {
+            if (!ValidationUtils.isValid(s0_2.getText())) {
                 isValid = false;
-                System.out.println("9_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setS0_2(Integer.parseInt(s0_2.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setS0_2(0);
             isEmpty = true;
-            System.out.println("9_2");
         }
 
         if (!t_2.getText().isEmpty()) {
-            if (t_2.getText().equals(".") || Double.parseDouble(t_2.getText()) == 0) {
+            if (!ValidationUtils.isValid(t_2.getText())) {
                 isValid = false;
-                System.out.println("10_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setT_2(Integer.parseInt(t_2.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setT_2(0);
             isEmpty = true;
-            System.out.println("10_2");
         }
 
         if (!tos.getText().isEmpty()) {
-            if (tos.getText().equals(".") || Double.parseDouble(tos.getText()) == 0) {
+            if (!ValidationUtils.isValid(tos.getText())) {
                 isValid = false;
-                System.out.println("11_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setTos(Integer.parseInt(tos.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setTos(0);
             isEmpty = true;
-            System.out.println("11_2");
         }
 
         if (!s.getText().isEmpty()) {
-            if (s.getText().equals(".") || Double.parseDouble(s.getText()) == 0) {
+            if (!ValidationUtils.isValid(s.getText())) {
                 isValid = false;
-                System.out.println("12_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setS(Integer.parseInt(s.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setS(0);
             isEmpty = true;
-            System.out.println("12_2");
         }
 
         if (!m.getText().isEmpty()) {
-            if (m.getText().equals(".") || Double.parseDouble(m.getText()) == 0) {
+            if (!ValidationUtils.isValid(m.getText())) {
                 isValid = false;
-                System.out.println("13_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setM(Integer.parseInt(m.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setM(0);
             isEmpty = true;
-            System.out.println("13_2");
-        }
-
-        if (!m.getText().isEmpty()) {
-            if (m.getText().equals(".") || Double.parseDouble(m.getText()) == 0) {
-                isValid = false;
-                System.out.println("13_1");
-            } else {
-                allValues.getCreateMaterialDto().getHomeostasisFunction().setM(Integer.parseInt(m.getText()));
-            }
-        } else {
-            allValues.getCreateMaterialDto().getHomeostasisFunction().setM(0);
-            isEmpty = true;
-            System.out.println("13_2");
         }
 
         if (!comfTempInsideClothes.getText().isEmpty()) {
-            if (comfTempInsideClothes.getText().equals(".") || Double.parseDouble(comfTempInsideClothes.getText()) == 0) {
+            if (!ValidationUtils.isValid(comfTempInsideClothes.getText())) {
                 isValid = false;
-                System.out.println("14_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setComfTempInsideClothes(Integer.parseInt(comfTempInsideClothes.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setComfTempInsideClothes(0);
             isEmpty = true;
-            System.out.println("14_2");
         }
 
         if (!comfHumidityInsideClothes.getText().isEmpty()) {
-            if (comfHumidityInsideClothes.getText().equals(".") || Double.parseDouble(comfHumidityInsideClothes.getText()) == 0) {
+            if (!ValidationUtils.isValid(comfHumidityInsideClothes.getText())) {
                 isValid = false;
-                System.out.println("15_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setComfHumidityInsideClothes(Integer.parseInt(comfHumidityInsideClothes.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setComfHumidityInsideClothes(0);
             isEmpty = true;
-            System.out.println("15_2");
         }
 
         if (!minOutdoorHumidity.getText().isEmpty()) {
-            if (minOutdoorHumidity.getText().equals(".") || Double.parseDouble(minOutdoorHumidity.getText()) == 0) {
+            if (!ValidationUtils.isValid(minOutdoorHumidity.getText())) {
                 isValid = false;
-                System.out.println("16_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setMinOutdoorHumidity(Integer.parseInt(minOutdoorHumidity.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setMinOutdoorHumidity(0);
             isEmpty = true;
-            System.out.println("16_2");
         }
 
         if (!minOutdoorTemp.getText().isEmpty()) {
-            if (minOutdoorTemp.getText().equals(".") || Double.parseDouble(minOutdoorTemp.getText()) == 0) {
+            if (!ValidationUtils.isValid(minOutdoorTemp.getText())) {
                 isValid = false;
-                System.out.println("17_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setMinOutdoorTemp(Integer.parseInt(minOutdoorTemp.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setMinOutdoorTemp(0);
             isEmpty = true;
-            System.out.println("17_2");
         }
 
         if (!maxOutdoorTemp.getText().isEmpty()) {
-            if (maxOutdoorTemp.getText().equals(".") || Double.parseDouble(maxOutdoorTemp.getText()) == 0) {
+            if (!ValidationUtils.isValid(maxOutdoorTemp.getText())) {
                 isValid = false;
-                System.out.println("18_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setMaxOutdoorTemp(Integer.parseInt(maxOutdoorTemp.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setMaxOutdoorTemp(0);
             isEmpty = true;
-            System.out.println("18_2");
         }
 
         if (!maxOutdoorHumidity.getText().isEmpty()) {
-            if (maxOutdoorHumidity.getText().equals(".") || Double.parseDouble(maxOutdoorHumidity.getText()) == 0) {
+            if (!ValidationUtils.isValid(maxOutdoorHumidity.getText())) {
                 isValid = false;
-                System.out.println("19_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setMaxOutdoorHumidity(Integer.parseInt(maxOutdoorHumidity.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setMaxOutdoorHumidity(0);
             isEmpty = true;
-            System.out.println("19_2");
         }
 
         if (!avgOutdoorAirSpeed.getText().isEmpty()) {
-            if (avgOutdoorAirSpeed.getText().equals(".") || Double.parseDouble(avgOutdoorAirSpeed.getText()) == 0) {
+            if (!ValidationUtils.isValid(avgOutdoorAirSpeed.getText())) {
                 isValid = false;
-                System.out.println("20_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setAvgOutdoorAirSpeed(Integer.parseInt(avgOutdoorAirSpeed.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setAvgOutdoorAirSpeed(0);
             isEmpty = true;
-            System.out.println("20_2");
         }
 
         if (!sampleSurfaceArea.getText().isEmpty()) {
-            if (sampleSurfaceArea.getText().equals(".") || Double.parseDouble(sampleSurfaceArea.getText()) == 0) {
+            if (!ValidationUtils.isValid(sampleSurfaceArea.getText())) {
                 isValid = false;
-                System.out.println("21_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setSampleSurfaceArea(Integer.parseInt(sampleSurfaceArea.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setSampleSurfaceArea(0);
             isEmpty = true;
-            System.out.println("21_2");
         }
 
         //col 2
         if (!waterPermeability_base.getText().isEmpty()) {
-            if (waterPermeability_base.getText().equals(".") || Double.parseDouble(waterPermeability_base.getText()) == 0) {
+            if (!ValidationUtils.isValid(waterPermeability_base.getText())) {
                 isValid = false;
-                System.out.println("22_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setWaterPermeability_base(Integer.parseInt(waterPermeability_base.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setWaterPermeability_base(0);
             isEmpty = true;
-            System.out.println("22_2");
         }
 
         if (!waterPermeabilityDynamicCriteria_base.getText().isEmpty()) {
-            if (waterPermeabilityDynamicCriteria_base.getText().equals(".") || Double.parseDouble(waterPermeabilityDynamicCriteria_base.getText()) == 0) {
+            if (!ValidationUtils.isValid(waterPermeabilityDynamicCriteria_base.getText())) {
                 isValid = false;
-                System.out.println("23_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setWaterPermeabilityDynamicCriteria_base(Integer.parseInt(waterPermeabilityDynamicCriteria_base.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setWaterPermeabilityDynamicCriteria_base(0);
             isEmpty = true;
-            System.out.println("23_2");
         }
 
         if (!totalThermalResistance_base.getText().isEmpty()) {
-            if (totalThermalResistance_base.getText().equals(".") || Double.parseDouble(totalThermalResistance_base.getText()) == 0) {
+            if (!ValidationUtils.isValid(totalThermalResistance_base.getText())) {
                 isValid = false;
-                System.out.println("24_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setTotalThermalResistance_base(Integer.parseInt(totalThermalResistance_base.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setTotalThermalResistance_base(0);
             isEmpty = true;
-            System.out.println("24_2");
         }
 
         //col 3
         if (!waterPermeability_weight.getText().isEmpty()) {
-            if (waterPermeability_weight.getText().equals(".") || Double.parseDouble(waterPermeability_weight.getText()) == 0) {
+            if (!ValidationUtils.isValid(waterPermeability_weight.getText())) {
                 isValid = false;
-                System.out.println("25_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setWaterPermeability_weight(Integer.parseInt(waterPermeability_weight.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setWaterPermeability_weight(0);
             isEmpty = true;
-            System.out.println("25_2");
         }
 
         if (!waterPermeabilityDynamicCriteria_weight.getText().isEmpty()) {
-            if (waterPermeabilityDynamicCriteria_weight.getText().equals(".") || Double.parseDouble(waterPermeabilityDynamicCriteria_weight.getText()) == 0) {
+            if (!ValidationUtils.isValid(waterPermeabilityDynamicCriteria_weight.getText())) {
                 isValid = false;
-                System.out.println("26_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setWaterPermeabilityDynamicCriteria_weight(Integer.parseInt(waterPermeabilityDynamicCriteria_weight.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setWaterPermeabilityDynamicCriteria_weight(0);
             isEmpty = true;
-            System.out.println("26_2");
         }
 
         if (!totalThermalResistance_weight.getText().isEmpty()) {
-            if (totalThermalResistance_weight.getText().equals(".") || Double.parseDouble(totalThermalResistance_weight.getText()) == 0) {
+            if (!ValidationUtils.isValid(totalThermalResistance_weight.getText())) {
                 isValid = false;
-                System.out.println("27_1");
             } else {
                 allValues.getCreateMaterialDto().getHomeostasisFunction().setTotalThermalResistance_weight(Integer.parseInt(totalThermalResistance_weight.getText()));
             }
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setTotalThermalResistance_weight(0);
             isEmpty = true;
-            System.out.println("27_2");
         }
 
         //equipment
