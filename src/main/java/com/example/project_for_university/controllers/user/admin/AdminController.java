@@ -38,15 +38,6 @@ public class AdminController implements DataProvider {
 
     private static final AdminPanelInfo adminPanelInfo = new AdminPanelInfo();
 
-    private AbrasionTypeEntity[] abrasionTypes;
-    private BendingTypeEntity[] bendingTypes;
-    private GlueTypeEntity[] glueTypes;
-    private LayerTypeEntity[] layerTypes;
-    private MembraneLayerPolymerTypeEntity[] membraneLayerPolymerTypes;
-    private PhysicalActivityTypeEntity[] physicalActivityTypes;
-    private ProductionMethodEntity[] productionMethods;
-    private WashingTypeEntity[] washingTypes;
-
     @FXML
     private HBox btn_abrasion_type;
 

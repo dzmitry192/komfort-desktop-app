@@ -38,10 +38,10 @@ public class MaterialInfoController implements DataProvider {
     private AllValues allValues;
     private static final List<File> files = new ArrayList<>();
     @FXML
-    private TextArea comments_area;
+    private TextArea description;
 
     @FXML
-    private TextField name_field;
+    private TextField name;
 
     @FXML
     private HBox upload_photo_btn;
@@ -56,6 +56,8 @@ public class MaterialInfoController implements DataProvider {
     public void setData(AllValues allValues) {
         this.allValues = allValues;
 
+        fillMaterialInfo();
+
         for (int i = 0; i < allValues.getSideBarButtonsEventHandlers().size(); i++) {
             allValues.getSideBarButtons().get(i).removeEventHandler(MouseEvent.MOUSE_CLICKED, allValues.getSideBarButtonsEventHandlers().get(i));
         }
@@ -66,7 +68,7 @@ public class MaterialInfoController implements DataProvider {
                 @Override
                 public void handle(MouseEvent event) {
                     System.out.println("createMaterial sideBartBtn");
-                    // тут сетишь значения условий в allValues
+                    validateAndSetData();
                 }
             };
             button.addEventHandler(MouseEvent.MOUSE_CLICKED, clickHandler);
@@ -77,16 +79,59 @@ public class MaterialInfoController implements DataProvider {
     @SneakyThrows
     @FXML
     void back_btn_clicked(MouseEvent event) throws IOException {
+        validateAndSetData();
         allValues.setLastCreateMaterialComponent(Component.ESTIMATION_TABLE);
         ComponentUtil.mount(Component.ESTIMATION_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+    }
+
+    private void fillMaterialInfo() {
+        CreateMaterialDto materialDto = allValues.getCreateMaterialDto();
+
+        if(materialDto.getMaterial().getDescription() != null) {
+            description.setText(materialDto.getMaterial().getDescription());
+        }
+        if(materialDto.getMaterial().getName() != null) {
+            name.setText(materialDto.getMaterial().getName());
+        }
+        if(materialDto.getImages() != null) {
+            files.addAll(List.of(materialDto.getImages()));
+        }
+    }
+
+    private boolean validateAndSetData() {
+        boolean isEmpty = false;
+
+        if(name.getText().isEmpty()) {
+            allValues.getCreateMaterialDto().getMaterial().setName(null);
+            isEmpty = true;
+        } else {
+            allValues.getCreateMaterialDto().getMaterial().setName(name.getText());
+        }
+        if(description.getText().isEmpty()) {
+            allValues.getCreateMaterialDto().getMaterial().setDescription(null);
+            isEmpty = true;
+        } else {
+            allValues.getCreateMaterialDto().getMaterial().setDescription(description.getText());
+        }
+        if(files.isEmpty()) {
+            allValues.getCreateMaterialDto().setImages(null);
+            isEmpty = true;
+        } else {
+            allValues.getCreateMaterialDto().setImages(files.toArray(File[]::new));
+        }
+
+        return isEmpty;
     }
 
     @FXML
     @SneakyThrows()
     void next_btn_clicked(MouseEvent event) {
-        if(name_field.getText().isEmpty() || comments_area.getText().isEmpty()) {
+        if(validateAndSetData()) {
             AlertUtil.show("Заполните все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         } else {
+            //запрос на сохранение материала
+            System.out.println("СОХРАНЕНИЕ ПРОШЛО УСПЕШНО");
+            //потом обнуление данных
             allValues.setCreateMaterialDto(new CreateMaterialDto());
 
             allValues.setLastCreateMaterialComponent(null);
@@ -110,14 +155,14 @@ public class MaterialInfoController implements DataProvider {
         if (selectedFiles.size() > 5) {
             AlertUtil.show("Превышен лимит", "Максимальное количетсов фотографий - 5", allValues.getRootStage());
         } else {
-
+            files.addAll(selectedFiles);
+            allValues.getCreateMaterialDto().setImages(selectedFiles.toArray(File[]::new));
         }
     }
 
     @FXML
     void initialize() {
-
-        name_field.setTextFormatter(new TextFormatter<String>(change -> {
+        name.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.getControlNewText().length() >= 40) {
                 AlertUtil.show("Превышен лимит", "Максимальная длинна названия - 40", allValues.getRootStage());
                 return null;
@@ -125,7 +170,7 @@ public class MaterialInfoController implements DataProvider {
             return change;
         }));
 
-        comments_area.setTextFormatter(new TextFormatter<String>(change -> {
+        description.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.getControlNewText().length() >= 800) {
                 AlertUtil.show("Превышен лимит", "Максимальная примечания названия - 800", allValues.getRootStage());
                 return null;

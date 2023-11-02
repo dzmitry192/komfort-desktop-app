@@ -59,7 +59,7 @@ public class TypeController implements DataProvider, Initializable {
 
     private TableColumn<AbstractType, String> description_col;
 
-    ObservableList<AbstractType> typeList = FXCollections.observableArrayList(
+    private final ObservableList<AbstractType> typeList = FXCollections.observableArrayList(
             new PhType(1, "name1", "description1"),
             new PhType(2, "name2", "description2"),
             new PhType(3, "name3", "description3"),

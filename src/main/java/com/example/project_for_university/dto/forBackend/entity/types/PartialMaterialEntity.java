@@ -2,6 +2,7 @@ package com.example.project_for_university.dto.forBackend.entity.types;
 
 import com.example.project_for_university.dto.forBackend.entity.ConditionEntity;
 import com.example.project_for_university.dto.forBackend.entity.LayerEntity;
+import com.example.project_for_university.dto.forBackend.entity.ProductionMethodEntity;
 import com.example.project_for_university.dto.forBackend.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +21,7 @@ public class PartialMaterialEntity {
     private LayerEntity[] layers; //табл 1
     private String[] images;
     private UserEntity user;
+//    private ProductionMethodEntity productionMethod; //табл 2
+//    private MembraneLayerPolymerTypeEntity membraneLayerPolymerType; //табл 2
+//    private GlueTypeEntity glueType; //табл
 }
