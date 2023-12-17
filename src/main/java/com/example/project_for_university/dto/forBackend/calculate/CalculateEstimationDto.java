@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CalculateEstimationDto {
-    private int waterproofFunction_weight;
-    private int homeostasisFunction_weight;
-    private int reliabilityFunction_weight;
+    private double waterproofFunction_weight = -1;
+    private double homeostasisFunction_weight = -1;
+    private double reliabilityFunction_weight = -1;
 }
