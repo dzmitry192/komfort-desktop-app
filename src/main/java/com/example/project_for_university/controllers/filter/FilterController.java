@@ -47,7 +47,6 @@ public class FilterController implements Initializable, DataProvider {
     @FXML
     private HBox prevPage_btn;
 
-
     @FXML
     private HBox page1_btn;
 
@@ -285,6 +284,7 @@ public class FilterController implements Initializable, DataProvider {
 
     @FXML
     void check_own_materials(MouseEvent event) {
+
     }
 
     @FXML
@@ -382,18 +382,30 @@ public class FilterController implements Initializable, DataProvider {
             curFilterDto.setName("");
         }
 
-        if (typeMemb_cb.getSelectionModel().getSelectedItem() != null && !typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
-            curFilterDto.setMembraneLayerPolymerType_id(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getName().equals(typeMemb_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+        if (typeMemb_cb.getSelectionModel().getSelectedItem() != null) {
+            if(!typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+                curFilterDto.setMembraneLayerPolymerType_id(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getName().equals(typeMemb_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            } else {
+                curFilterDto.setMembraneLayerPolymerType_id(0);
+            }
         } else {
             curFilterDto.setMembraneLayerPolymerType_id(0);
         }
-        if (way_prod_cb.getSelectionModel().getSelectedItem() != null && !typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
-            curFilterDto.setProductionMethod_id(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getName().equals(way_prod_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+        if (way_prod_cb.getSelectionModel().getSelectedItem() != null) {
+            if(!typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+                curFilterDto.setProductionMethod_id(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getName().equals(way_prod_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            } else {
+                curFilterDto.setProductionMethod_id(0);
+            }
         } else {
             curFilterDto.setProductionMethod_id(0);
         }
-        if (num_layers_cb.getSelectionModel().getSelectedItem() != null && !num_layers_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
-            curFilterDto.setLayersCnt(Integer.parseInt(num_layers_cb.getSelectionModel().getSelectedItem()));
+        if (num_layers_cb.getSelectionModel().getSelectedItem() != null) {
+            if(!num_layers_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+                curFilterDto.setLayersCnt(Integer.parseInt(num_layers_cb.getSelectionModel().getSelectedItem()));
+            } else {
+                curFilterDto.setLayersCnt(0);
+            }
         } else {
             curFilterDto.setLayersCnt(0);
         }
@@ -688,7 +700,6 @@ public class FilterController implements Initializable, DataProvider {
     }
 
     // фильтр для валидации инпутов
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

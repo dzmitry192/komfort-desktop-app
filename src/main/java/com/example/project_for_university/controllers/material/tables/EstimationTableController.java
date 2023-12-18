@@ -3,6 +3,9 @@ package com.example.project_for_university.controllers.material.tables;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateEstimationDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.exception.CustomException;
+import com.example.project_for_university.exception.ExceptionMessage;
+import com.example.project_for_university.exception.ExceptionType;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.ValidationUtils;
@@ -112,9 +115,9 @@ public class EstimationTableController implements DataProvider, Initializable {
                     reliabilityFunction_weight.getText()
             ));
             if (inpWeights.stream().anyMatch(String::isEmpty)) {
-                throw new NoSuchElementException();
-            } else if (inpWeights.stream().noneMatch(ValidationUtils::isValid)) {
-                throw new IllegalArgumentException();
+                throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage(), ExceptionType.INVALID_INPUT_TYPE.getType());
+            } else if (inpWeights.stream().anyMatch(el -> !ValidationUtils.isValid(el))) {
+                throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage(), ExceptionType.INVALID_VALUE_TYPE.getType());
             } else {
                 estimationDto.setWaterproofFunction_weight(Double.parseDouble(waterproofFunction_weight.getText()));
                 estimationDto.setHomeostasisFunction_weight(Double.parseDouble(homeostasisFunction_weight.getText()));
@@ -130,17 +133,15 @@ public class EstimationTableController implements DataProvider, Initializable {
             Optional<Double> sumWeights = weights.stream().reduce(Double::sum);
             if(sumWeights.isPresent()) {
                 if(sumWeights.get() != 1) {
-                    throw new IllegalArgumentException();
+                    throw new CustomException(ExceptionMessage.INVALID_WEIGHTS_SUM.getMessage(), ExceptionType.INVALID_WEIGHTS_SUM_TYPE.getType());
                 }
             }
 
             allValues.getCreateMaterialDto().setEstimation(estimationDto);
 
             return true;
-        } catch (NoSuchElementException e) {
-            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
-        } catch (IllegalArgumentException e) {
-            AlertUtil.show("Вы ввели некорректные значения", "Закройте это окно и проверьте правильность введенных значений", allValues.getRootStage());
+        } catch (CustomException e) {
+            AlertUtil.show(e.getType(), e.getMessage(), allValues.getRootStage());
         }
 
         return false;

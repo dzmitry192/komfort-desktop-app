@@ -32,10 +32,6 @@ public class AlertUtil {
         Optional<ButtonType> result = alert.showAndWait();
         stage.show();
 
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            return true;
-        } else {
-            return false;
-        }
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 }

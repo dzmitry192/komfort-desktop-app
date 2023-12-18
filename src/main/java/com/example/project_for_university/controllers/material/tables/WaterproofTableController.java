@@ -4,6 +4,9 @@ package com.example.project_for_university.controllers.material.tables;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.exception.CustomException;
+import com.example.project_for_university.exception.ExceptionMessage;
+import com.example.project_for_university.exception.ExceptionType;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.ValidationUtils;
@@ -415,9 +418,9 @@ public class WaterproofTableController implements DataProvider, Initializable {
                 waterFuncDto.setMaterialBlottingPressure_weight(-1);
             } else {
                 if ((fStr.stream().anyMatch(String::isEmpty) && !materialBlottingPressure_experimental_1.getText().isEmpty()) && (fStr.stream().anyMatch(el -> !el.isEmpty()) && materialBlottingPressure_experimental_1.getText().isEmpty())) {
-                    throw new NoSuchElementException();
-                } else if (fStr.stream().noneMatch(ValidationUtils::isValid) || !ValidationUtils.isValid(materialBlottingPressure_experimental_1.getText())) {
-                    throw new IllegalArgumentException();
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 1", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (fStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || !ValidationUtils.isValid(materialBlottingPressure_experimental_1.getText())) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 1", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     waterFuncDto.setMaterialBlottingPressure_experimental_1(Double.parseDouble(materialBlottingPressure_experimental_1.getText()));
                     waterFuncDto.setMaterialBlottingPressure_calculated(Double.parseDouble(materialBlottingPressure_calculated.getText()));
@@ -438,10 +441,10 @@ public class WaterproofTableController implements DataProvider, Initializable {
                 waterFuncDto.setWaterproof_base(-1);
                 waterFuncDto.setWaterproof_weight(-1);
             } else {
-                if ((sStr.stream().anyMatch(String::isEmpty) && !waterproof_experimental_1.getText().isEmpty()) && (fStr.stream().anyMatch(el -> !el.isEmpty()) && waterproof_experimental_1.getText().isEmpty())) {
-                    throw new NoSuchElementException();
-                } else if (fStr.stream().noneMatch(ValidationUtils::isValid) || !ValidationUtils.isValid(waterproof_experimental_1.getText())) {
-                    throw new IllegalArgumentException();
+                if ((sStr.stream().anyMatch(String::isEmpty) && !waterproof_experimental_1.getText().isEmpty()) || (sStr.stream().anyMatch(el -> !el.isEmpty()) && waterproof_experimental_1.getText().isEmpty())) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 2", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (sStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || !ValidationUtils.isValid(waterproof_experimental_1.getText())) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 2", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     waterFuncDto.setWaterproof_experimental_1(Double.parseDouble(waterproof_experimental_1.getText()));
                     waterFuncDto.setWaterproof_calculated(Double.parseDouble(waterproof_calculated.getText()));
@@ -462,10 +465,10 @@ public class WaterproofTableController implements DataProvider, Initializable {
                 waterFuncDto.setMaterialBlottingTime_base(-1);
                 waterFuncDto.setMaterialBlottingTime_weight(-1);
             } else {
-                if ((sStr.stream().anyMatch(String::isEmpty) && !materialBlottingTime_experimental_1.getText().isEmpty()) && (fStr.stream().anyMatch(el -> !el.isEmpty()) && materialBlottingTime_experimental_1.getText().isEmpty())) {
-                    throw new NoSuchElementException();
-                } else if (fStr.stream().noneMatch(ValidationUtils::isValid) || !ValidationUtils.isValid(materialBlottingTime_experimental_1.getText())) {
-                    throw new IllegalArgumentException();
+                if ((sStr.stream().anyMatch(String::isEmpty) && !materialBlottingTime_experimental_1.getText().isEmpty()) || (tStr.stream().anyMatch(el -> !el.isEmpty()) && materialBlottingTime_experimental_1.getText().isEmpty())) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 3", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (tStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || !ValidationUtils.isValid(materialBlottingTime_experimental_1.getText())) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 3", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     waterFuncDto.setMaterialBlottingTime_experimental_1(Double.parseDouble(materialBlottingTime_experimental_1.getText()));
                     waterFuncDto.setMaterialBlottingTime_calculated(Double.parseDouble(materialBlottingTime_calculated.getText()));
@@ -489,10 +492,10 @@ public class WaterproofTableController implements DataProvider, Initializable {
                 waterFuncDto.setWaterproofRealizationCriteria_base(-1);
                 waterFuncDto.setWaterproofRealizationCriteria_weight(-1);
             } else {
-                if ((fourthStr.stream().noneMatch(String::isEmpty) && fourthExpStr.stream().anyMatch(el -> !el.isEmpty())) && (fourthStr.stream().anyMatch(el -> !el.isEmpty()) && fourthExpStr.stream().allMatch(String::isEmpty))) {
-                    throw new NoSuchElementException();
-                } else if (fourthStr.stream().noneMatch(ValidationUtils::isValid) || fourthExpStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new IllegalArgumentException();
+                if ((fourthStr.stream().anyMatch(String::isEmpty) && fourthExpStr.stream().anyMatch(el -> !el.isEmpty())) || (fourthStr.stream().anyMatch(el -> !el.isEmpty()) && fourthExpStr.stream().anyMatch(String::isEmpty))) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 4", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (fourthStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || fourthExpStr.stream().anyMatch(el -> !ValidationUtils.isValid(el))) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 4", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     waterFuncDto.setWaterproofRealizationCriteria_experimental_1(Double.parseDouble(waterproofRealizationCriteria_experimental_1.getText()));
                     waterFuncDto.setWaterproofRealizationCriteria_experimental_2(Double.parseDouble(waterproofRealizationCriteria_experimental_2.getText()));
@@ -520,10 +523,10 @@ public class WaterproofTableController implements DataProvider, Initializable {
                 waterFuncDto.setDynamicWaterproofCriteria_base(-1);
                 waterFuncDto.setDynamicWaterproofCriteria_weight(-1);
             } else {
-                if ((fifthStr.stream().noneMatch(String::isEmpty) && fifthExpStr.stream().anyMatch(el -> !el.isEmpty())) && (fifthStr.stream().anyMatch(el -> !el.isEmpty()) && fifthExpStr.stream().allMatch(String::isEmpty))) {
-                    throw new NoSuchElementException();
-                } else if (fifthStr.stream().noneMatch(ValidationUtils::isValid) || fifthExpStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new IllegalArgumentException();
+                if ((fifthStr.stream().anyMatch(String::isEmpty) && fifthExpStr.stream().anyMatch(el -> !el.isEmpty())) || (fifthStr.stream().anyMatch(el -> !el.isEmpty()) && fifthExpStr.stream().anyMatch(String::isEmpty))) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 5", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (fifthStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || fifthExpStr.stream().anyMatch(el -> !ValidationUtils.isValid(el))) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 5", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     waterFuncDto.setDynamicWaterproofCriteria_experimental_1(Double.parseDouble(dynamicWaterproofCriteria_experimental_1.getText()));
                     waterFuncDto.setDynamicWaterproofCriteria_experimental_2(Double.parseDouble(dynamicWaterproofCriteria_experimental_2.getText()));
@@ -541,9 +544,9 @@ public class WaterproofTableController implements DataProvider, Initializable {
                     waterproofTime.getText()
             ));
             if (conds.stream().anyMatch(String::isEmpty)) {
-                throw new NoSuchElementException();
-            } else if (conds.stream().noneMatch(ValidationUtils::isValid)) {
-                throw new IllegalArgumentException();
+                throw new CustomException(ExceptionMessage.INVALID_CONDITIONS.getMessage(), ExceptionType.INVALID_CONDITIONS_TYPE.getType());
+            } else if (conds.stream().anyMatch(el -> !ValidationUtils.isValid(el))) {
+                throw new CustomException(ExceptionMessage.INVALID_CONDITIONS_VALUE.getMessage(), ExceptionType.INVALID_CONDITIONS_VALUE_TYPE.getType());
             } else {
                 waterFuncDto.setHydrostaticPressureIncreaseSpeed(Double.parseDouble(hydrostaticPressureIncreaseSpeed.getText()));
                 waterFuncDto.setHydrostaticPressure(Double.parseDouble(hydrostaticPressure.getText()));
@@ -552,7 +555,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
 
             //проверка оборудования
             if(equipment.getText().isEmpty()) {
-                throw new NoSuchElementException();
+                throw new CustomException(ExceptionMessage.INVALID_EQUIPMENT.getMessage(), ExceptionType.INVALID_EQUIPMENT_TYPE.getType());
             } else {
                 waterFuncDto.setEquipment(equipment.getText());
             }
@@ -568,14 +571,13 @@ public class WaterproofTableController implements DataProvider, Initializable {
             Optional<Double> sumWeights = weights.stream().filter(el -> el != -1).reduce(Double::sum);
             if(sumWeights.isPresent()) {
                 if(sumWeights.get() != 1) {
-                    throw new IllegalArgumentException();
+                    throw new CustomException(ExceptionMessage.INVALID_WEIGHTS_SUM.getMessage(), ExceptionType.INVALID_WEIGHTS_SUM_TYPE.getType());
                 }
             }
 
-        } catch (NoSuchElementException e) {
-            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
-        } catch (IllegalArgumentException e) {
-            AlertUtil.show("Вы ввели некорректные значения", "Закройте это окно и проверьте правильность введенных значений", allValues.getRootStage());
+            return true;
+        } catch (CustomException e) {
+            AlertUtil.show(e.getType(), e.getMessage(), allValues.getRootStage());
         }
 
         return false;

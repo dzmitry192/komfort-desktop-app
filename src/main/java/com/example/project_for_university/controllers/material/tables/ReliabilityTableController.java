@@ -3,6 +3,9 @@ package com.example.project_for_university.controllers.material.tables;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateReliabilityFunctionDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.exception.CustomException;
+import com.example.project_for_university.exception.ExceptionMessage;
+import com.example.project_for_university.exception.ExceptionType;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.ValidationUtils;
@@ -109,12 +112,9 @@ public class ReliabilityTableController implements DataProvider, Initializable {
         allValues.getSideBarButtonsEventHandlers().clear();
 
         for (var button : allValues.getSideBarButtons()) {
-            EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    System.out.println("reliability sideBartBtn");
-                    saveDataFromInputs();
-                }
+            EventHandler<MouseEvent> clickHandler = event -> {
+                System.out.println("reliability sideBartBtn");
+                saveDataFromInputs();
             };
             button.addEventHandler(MouseEvent.MOUSE_CLICKED, clickHandler);
             allValues.getSideBarButtonsEventHandlers().add(clickHandler);
@@ -342,10 +342,10 @@ public class ReliabilityTableController implements DataProvider, Initializable {
                 relFuncDto.setRelativeBlottingPressureAfterLoad_base(-1);
                 relFuncDto.setRelativeBlottingPressureAfterLoad_weight(-1);
             } else {
-                if ((fStr.stream().anyMatch(String::isEmpty) && !relativeBlottingPressureAfterLoad_experimental_1.getText().isEmpty()) && (fStr.stream().anyMatch(el -> !el.isEmpty()) && relativeBlottingPressureAfterLoad_experimental_1.getText().isEmpty())) {
-                    throw new NoSuchElementException();
-                } else if (fStr.stream().noneMatch(ValidationUtils::isValid) || !ValidationUtils.isValid(relativeBlottingPressureAfterLoad_experimental_1.getText())) {
-                    throw new IllegalArgumentException();
+                if ((fStr.stream().anyMatch(String::isEmpty) && !relativeBlottingPressureAfterLoad_experimental_1.getText().isEmpty()) || (fStr.stream().anyMatch(el -> !el.isEmpty()) && relativeBlottingPressureAfterLoad_experimental_1.getText().isEmpty())) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 1", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (fStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || !ValidationUtils.isValid(relativeBlottingPressureAfterLoad_experimental_1.getText())) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 1", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     relFuncDto.setRelativeBlottingPressureAfterLoad_experimental_1(Double.parseDouble(relativeBlottingPressureAfterLoad_experimental_1.getText()));
                     relFuncDto.setRelativeBlottingPressureAfterLoad_calculated(Double.parseDouble(relativeBlottingPressureAfterLoad_calculated.getText()));
@@ -366,10 +366,10 @@ public class ReliabilityTableController implements DataProvider, Initializable {
                 relFuncDto.setRelativeWaterResistanceAfterLoad_base(-1);
                 relFuncDto.setRelativeWaterResistanceAfterLoad_weight(-1);
             } else {
-                if ((sStr.stream().anyMatch(String::isEmpty) && !relativeWaterResistanceAfterLoad_experimental_1.getText().isEmpty()) && (fStr.stream().anyMatch(el -> !el.isEmpty()) && relativeWaterResistanceAfterLoad_experimental_1.getText().isEmpty())) {
-                    throw new NoSuchElementException();
-                } else if (fStr.stream().noneMatch(ValidationUtils::isValid) || !ValidationUtils.isValid(relativeWaterResistanceAfterLoad_experimental_1.getText())) {
-                    throw new IllegalArgumentException();
+                if ((sStr.stream().anyMatch(String::isEmpty) && !relativeWaterResistanceAfterLoad_experimental_1.getText().isEmpty()) || (sStr.stream().anyMatch(el -> !el.isEmpty()) && relativeWaterResistanceAfterLoad_experimental_1.getText().isEmpty())) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 2", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (sStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || !ValidationUtils.isValid(relativeWaterResistanceAfterLoad_experimental_1.getText())) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 2", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     relFuncDto.setRelativeWaterResistanceAfterLoad_experimental_1(Double.parseDouble(relativeWaterResistanceAfterLoad_experimental_1.getText()));
                     relFuncDto.setRelativeWaterResistanceAfterLoad_calculated(Double.parseDouble(relativeWaterResistanceAfterLoad_calculated.getText()));
@@ -390,10 +390,10 @@ public class ReliabilityTableController implements DataProvider, Initializable {
                 relFuncDto.setRelativeBlottingTimeAfterLoad_base(-1);
                 relFuncDto.setRelativeBlottingTimeAfterLoad_weight(-1);
             } else {
-                if ((sStr.stream().anyMatch(String::isEmpty) && !relativeBlottingTimeAfterLoad_experimental_1.getText().isEmpty()) && (fStr.stream().anyMatch(el -> !el.isEmpty()) && relativeBlottingTimeAfterLoad_experimental_1.getText().isEmpty())) {
-                    throw new NoSuchElementException();
-                } else if (fStr.stream().noneMatch(ValidationUtils::isValid) || !ValidationUtils.isValid(relativeBlottingTimeAfterLoad_experimental_1.getText())) {
-                    throw new IllegalArgumentException();
+                if ((tStr.stream().anyMatch(String::isEmpty) && !relativeBlottingTimeAfterLoad_experimental_1.getText().isEmpty()) || (tStr.stream().anyMatch(el -> !el.isEmpty()) && relativeBlottingTimeAfterLoad_experimental_1.getText().isEmpty())) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 3", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (tStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || !ValidationUtils.isValid(relativeBlottingTimeAfterLoad_experimental_1.getText())) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 3", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     relFuncDto.setRelativeBlottingTimeAfterLoad_experimental_1(Double.parseDouble(relativeBlottingTimeAfterLoad_experimental_1.getText()));
                     relFuncDto.setRelativeBlottingTimeAfterLoad_calculated(Double.parseDouble(relativeBlottingTimeAfterLoad_calculated.getText()));
@@ -412,10 +412,10 @@ public class ReliabilityTableController implements DataProvider, Initializable {
                 relFuncDto.setWaterproofRealizationCriteriaAfterLoad_experimental_2(-1);
                 relFuncDto.setWaterproofRealizationCriteriaAfterLoad_weight(-1);
             } else {
-                if ((waterproofRealizationCriteriaAfterLoad_weight.getText().isEmpty() && fourthExpStr.stream().anyMatch(el -> !el.isEmpty())) && (!waterproofRealizationCriteriaAfterLoad_weight.getText().isEmpty() && fourthExpStr.stream().allMatch(String::isEmpty))) {
-                    throw new NoSuchElementException();
-                } else if (!ValidationUtils.isValid(waterproofRealizationCriteriaAfterLoad_weight.getText()) || fourthExpStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new IllegalArgumentException();
+                if ((waterproofRealizationCriteriaAfterLoad_weight.getText().isEmpty() && fourthExpStr.stream().anyMatch(el -> !el.isEmpty())) || (!waterproofRealizationCriteriaAfterLoad_weight.getText().isEmpty() && fourthExpStr.stream().anyMatch(String::isEmpty))) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 4", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (!ValidationUtils.isValid(waterproofRealizationCriteriaAfterLoad_weight.getText()) || fourthExpStr.stream().anyMatch(el -> !ValidationUtils.isValid(el))) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 4", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     relFuncDto.setWaterproofRealizationCriteriaAfterLoad_experimental_1(Double.parseDouble(waterproofRealizationCriteriaAfterLoad_experimental_1.getText()));
                     relFuncDto.setWaterproofRealizationCriteriaAfterLoad_experimental_2(Double.parseDouble(waterproofRealizationCriteriaAfterLoad_experimental_2.getText()));
@@ -433,9 +433,9 @@ public class ReliabilityTableController implements DataProvider, Initializable {
                 relFuncDto.setWaterproofFunctionResource_weight(-1);
             } else {
                 if (fifthStr.stream().anyMatch(String::isEmpty)) {
-                    throw new NoSuchElementException();
-                } else if (fifthStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new IllegalArgumentException();
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 5", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (fifthStr.stream().anyMatch(el -> !ValidationUtils.isValid(el))) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке -5", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     relFuncDto.setWaterproofFunctionResource_base(Double.parseDouble(waterproofFunctionResource_base.getText()));
                     relFuncDto.setWaterproofFunctionResource_weight(Double.parseDouble(waterproofFunctionResource_weight.getText()));
@@ -448,9 +448,9 @@ public class ReliabilityTableController implements DataProvider, Initializable {
                     impactCyclesCnt.getText()
             ));
             if (conds.stream().anyMatch(String::isEmpty)) {
-                throw new NoSuchElementException();
-            } else if (conds.stream().noneMatch(ValidationUtils::isValid)) {
-                throw new IllegalArgumentException();
+                throw new CustomException(ExceptionMessage.INVALID_CONDITIONS.getMessage(), ExceptionType.INVALID_CONDITIONS_TYPE.getType());
+            } else if (conds.stream().anyMatch(el -> !ValidationUtils.isValid(el))) {
+                throw new CustomException(ExceptionMessage.INVALID_CONDITIONS_VALUE.getMessage(), ExceptionType.INVALID_CONDITIONS_VALUE_TYPE.getType());
             } else {
                 relFuncDto.setMaxWaterResistanceLvl(Double.parseDouble(maxWaterResistanceLvl.getText()));
                 relFuncDto.setImpactCyclesCnt(Double.parseDouble(impactCyclesCnt.getText()));
@@ -458,7 +458,7 @@ public class ReliabilityTableController implements DataProvider, Initializable {
 
             //проверка оборудования
             if(equipment.getText().isEmpty()) {
-                throw new NoSuchElementException();
+                throw new CustomException(ExceptionMessage.INVALID_EQUIPMENT.getMessage(), ExceptionType.INVALID_EQUIPMENT_TYPE.getType());
             } else {
                 relFuncDto.setEquipment(equipment.getText());
             }
@@ -474,17 +474,15 @@ public class ReliabilityTableController implements DataProvider, Initializable {
             Optional<Double> sumWeights = weights.stream().filter(el -> el != -1).reduce(Double::sum);
             if(sumWeights.isPresent()) {
                 if(sumWeights.get() != 1) {
-                    throw new IllegalArgumentException();
+                    throw new CustomException(ExceptionMessage.INVALID_WEIGHTS_SUM.getMessage(), ExceptionType.INVALID_WEIGHTS_SUM_TYPE.getType());
                 }
             }
 
             allValues.getCreateMaterialDto().setReliabilityFunction(relFuncDto);
 
             return true;
-        } catch (NoSuchElementException e) {
-            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
-        } catch (IllegalArgumentException e) {
-            AlertUtil.show("Вы ввели некорректные значения", "Закройте это окно и проверьте правильность введенных значений", allValues.getRootStage());
+        } catch (CustomException e) {
+            AlertUtil.show(e.getType(), e.getMessage(), allValues.getRootStage());
         }
 
         return false;

@@ -3,6 +3,9 @@ package com.example.project_for_university.controllers.material.tables;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateHomeostasisFunctionDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.exception.CustomException;
+import com.example.project_for_university.exception.ExceptionMessage;
+import com.example.project_for_university.exception.ExceptionType;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.ValidationUtils;
@@ -440,10 +443,10 @@ public class HomeostasisTableController implements DataProvider, Initializable {
                 homeoFuncDto.setWaterPermeability_base(-1);
                 homeoFuncDto.setWaterPermeability_weight(-1);
             } else {
-                if ((firstStr.stream().noneMatch(String::isEmpty) && firstExpStr.stream().anyMatch(el -> !el.isEmpty())) && (firstStr.stream().anyMatch(el -> !el.isEmpty()) && firstExpStr.stream().allMatch(String::isEmpty))) {
-                    throw new NoSuchElementException();
-                } else if (firstStr.stream().noneMatch(ValidationUtils::isValid) || firstExpStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new IllegalArgumentException();
+                if ((firstStr.stream().anyMatch(String::isEmpty) && firstExpStr.stream().anyMatch(el -> !el.isEmpty())) || (firstStr.stream().anyMatch(el -> !el.isEmpty()) && firstExpStr.stream().anyMatch(String::isEmpty))) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 1", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (firstStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || firstExpStr.stream().noneMatch(ValidationUtils::isValid)) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 1", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     homeoFuncDto.setM1s(Double.parseDouble(m1s.getText()));
                     homeoFuncDto.setM2s(Double.parseDouble(m2s.getText()));
@@ -477,10 +480,10 @@ public class HomeostasisTableController implements DataProvider, Initializable {
                 homeoFuncDto.setWaterPermeabilityDynamicCriteria_base(-1);
                 homeoFuncDto.setWaterPermeabilityDynamicCriteria_weight(-1);
             } else {
-                if ((secondStr.stream().noneMatch(String::isEmpty) && secondExpStr.stream().anyMatch(el -> !el.isEmpty())) && (secondStr.stream().anyMatch(el -> !el.isEmpty()) && secondExpStr.stream().allMatch(String::isEmpty))) {
-                    throw new NoSuchElementException();
-                } else if (secondStr.stream().noneMatch(ValidationUtils::isValid) || secondExpStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new IllegalArgumentException();
+                if ((secondStr.stream().anyMatch(String::isEmpty) && secondExpStr.stream().anyMatch(el -> !el.isEmpty())) || (secondStr.stream().anyMatch(el -> !el.isEmpty()) && secondExpStr.stream().anyMatch(String::isEmpty))) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 2", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (secondStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || secondExpStr.stream().noneMatch(ValidationUtils::isValid)) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 2", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     homeoFuncDto.setM1min(Double.parseDouble(m1min.getText()));
                     homeoFuncDto.setM2min(Double.parseDouble(m2min.getText()));
@@ -510,10 +513,10 @@ public class HomeostasisTableController implements DataProvider, Initializable {
                 homeoFuncDto.setTotalThermalResistance_base(-1);
                 homeoFuncDto.setTotalThermalResistance_weight(-1);
             } else {
-                if ((thirdStr.stream().noneMatch(String::isEmpty) && thirdExpStr.stream().anyMatch(el -> !el.isEmpty())) && (thirdStr.stream().anyMatch(el -> !el.isEmpty()) && thirdExpStr.stream().allMatch(String::isEmpty))) {
-                    throw new NoSuchElementException();
-                } else if (thirdStr.stream().noneMatch(ValidationUtils::isValid) || thirdExpStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new IllegalArgumentException();
+                if ((thirdStr.stream().anyMatch(String::isEmpty) && thirdExpStr.stream().anyMatch(el -> !el.isEmpty())) || (thirdStr.stream().anyMatch(el -> !el.isEmpty()) && thirdExpStr.stream().anyMatch(String::isEmpty))) {
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 3", ExceptionType.INVALID_INPUT_TYPE.getType());
+                } else if (thirdStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || thirdExpStr.stream().noneMatch(ValidationUtils::isValid)) {
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 3", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     homeoFuncDto.setTos(Double.parseDouble(tos.getText()));
                     homeoFuncDto.setS(Double.parseDouble(s.getText()));
@@ -534,10 +537,10 @@ public class HomeostasisTableController implements DataProvider, Initializable {
                     avgOutdoorAirSpeed.getText(),
                     sampleSurfaceArea.getText()
             ));
-            if (conds.stream().noneMatch(String::isEmpty)) {
-                throw new NoSuchElementException();
-            } else if (conds.stream().noneMatch(ValidationUtils::isValid)) {
-                throw new IllegalArgumentException();
+            if (conds.stream().anyMatch(String::isEmpty)) {
+                throw new CustomException(ExceptionMessage.INVALID_CONDITIONS.getMessage(), ExceptionType.INVALID_CONDITIONS_TYPE.getType());
+            } else if (conds.stream().anyMatch(el -> !ValidationUtils.isValid(el))) {
+                throw new CustomException(ExceptionMessage.INVALID_CONDITIONS_VALUE.getMessage(), ExceptionType.INVALID_CONDITIONS_VALUE_TYPE.getType());
             } else {
                 homeoFuncDto.setComfTempInsideClothes(Double.parseDouble(comfTempInsideClothes.getText()));
                 homeoFuncDto.setComfHumidityInsideClothes(Double.parseDouble(comfHumidityInsideClothes.getText()));
@@ -550,10 +553,10 @@ public class HomeostasisTableController implements DataProvider, Initializable {
             }
 
             //equipment
-            if(equipment.getText() != null) {
-                homeoFuncDto.setEquipment(equipment.getText());
+            if(equipment.getText().isEmpty()) {
+                throw new CustomException(ExceptionMessage.INVALID_EQUIPMENT.getMessage(), ExceptionType.INVALID_EQUIPMENT_TYPE.getType());
             } else {
-                throw new NoSuchElementException();
+                homeoFuncDto.setEquipment(equipment.getText());
             }
 
             //проверка суммы весомостей
@@ -565,17 +568,15 @@ public class HomeostasisTableController implements DataProvider, Initializable {
             Optional<Double> sumWeights = weights.stream().filter(el -> el != -1).reduce(Double::sum);
             if(sumWeights.isPresent()) {
                 if(sumWeights.get() != 1) {
-                    throw new IllegalArgumentException();
+                    throw new CustomException(ExceptionMessage.INVALID_WEIGHTS_SUM.getMessage(), ExceptionType.INVALID_WEIGHTS_SUM_TYPE.getType());
                 }
             }
 
             allValues.getCreateMaterialDto().setHomeostasisFunction(homeoFuncDto);
 
             return true;
-        } catch (NoSuchElementException e) {
-            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
-        } catch (IllegalArgumentException e) {
-            AlertUtil.show("Вы ввели некорректные значения", "Закройте это окно и проверьте правильность введенных значений", allValues.getRootStage());
+        } catch (CustomException e) {
+            AlertUtil.show(e.getType(), e.getMessage(), allValues.getRootStage());
         }
 
         return false;
