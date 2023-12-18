@@ -19,10 +19,7 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class HomeostasisTableController implements DataProvider, Initializable {
     private AllValues allValues;
@@ -524,7 +521,7 @@ public class HomeostasisTableController implements DataProvider, Initializable {
                 }
             }
 
-            //3 row
+            //conds
             ArrayList<String> conds = new ArrayList<>(List.of(
                     comfTempInsideClothes.getText(),
                     comfHumidityInsideClothes.getText(),
@@ -550,10 +547,24 @@ public class HomeostasisTableController implements DataProvider, Initializable {
                 homeoFuncDto.setSampleSurfaceArea(Double.parseDouble(sampleSurfaceArea.getText()));
             }
 
+            //equipment
             if(equipment.getText() != null) {
                 homeoFuncDto.setEquipment(equipment.getText());
             } else {
                 throw new NoSuchElementException();
+            }
+
+            //проверка суммы весомостей
+            ArrayList<Double> weights = new ArrayList<>(List.of(
+                    homeoFuncDto.getWaterPermeability_weight(),
+                    homeoFuncDto.getWaterPermeabilityDynamicCriteria_weight(),
+                    homeoFuncDto.getTotalThermalResistance_weight()
+            ));
+            Optional<Double> sumWeights = weights.stream().filter(el -> el != -1).reduce(Double::sum);
+            if(sumWeights.isPresent()) {
+                if(sumWeights.get() != 1) {
+                    throw new IllegalArgumentException();
+                }
             }
 
             allValues.getCreateMaterialDto().setHomeostasisFunction(homeoFuncDto);

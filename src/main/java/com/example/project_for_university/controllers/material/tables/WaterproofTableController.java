@@ -20,10 +20,7 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class WaterproofTableController implements DataProvider, Initializable {
     private AllValues allValues;
@@ -450,6 +447,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
                     waterFuncDto.setWaterproof_weight(Double.parseDouble(waterproof_weight.getText()));
                 }
             }
+
             //проверка 3 строки
             ArrayList<String> tStr = new ArrayList<>(List.of(
                     materialBlottingTime_calculated.getText(),
@@ -473,6 +471,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
                     waterFuncDto.setMaterialBlottingTime_weight(Double.parseDouble(materialBlottingTime_weight.getText()));
                 }
             }
+
             //проверка 4 строки
             ArrayList<String> fourthStr = new ArrayList<>(List.of(
                     waterproofRealizationCriteria_base.getText(),
@@ -499,6 +498,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
                     waterFuncDto.setWaterproofRealizationCriteria_weight(Double.parseDouble(waterproofRealizationCriteria_weight.getText()));
                 }
             }
+
             //проверка 5 строки
             ArrayList<String> fifthStr = new ArrayList<>(List.of(
                     dynamicWaterproofCriteria_base.getText(),
@@ -531,6 +531,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
                     waterFuncDto.setDynamicWaterproofCriteria_weight(Double.parseDouble(dynamicWaterproofCriteria_weight.getText()));
                 }
             }
+
             //проверка условий
             ArrayList<String> conds = new ArrayList<>(List.of(
                     hydrostaticPressureIncreaseSpeed.getText(),
@@ -554,9 +555,21 @@ public class WaterproofTableController implements DataProvider, Initializable {
                 waterFuncDto.setEquipment(equipment.getText());
             }
 
-            allValues.getCreateMaterialDto().setWaterproofFunction(waterFuncDto);
+            //проверка суммы весомостей
+            ArrayList<Double> weights = new ArrayList<>(List.of(
+                    waterFuncDto.getMaterialBlottingPressure_weight(),
+                    waterFuncDto.getWaterproof_weight(),
+                    waterFuncDto.getMaterialBlottingTime_weight(),
+                    waterFuncDto.getWaterproofRealizationCriteria_weight(),
+                    waterFuncDto.getDynamicWaterproofCriteria_weight()
+            ));
+            Optional<Double> sumWeights = weights.stream().filter(el -> el != -1).reduce(Double::sum);
+            if(sumWeights.isPresent()) {
+                if(sumWeights.get() != 1) {
+                    throw new IllegalArgumentException();
+                }
+            }
 
-            return true;
         } catch (NoSuchElementException e) {
             AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         } catch (IllegalArgumentException e) {

@@ -19,7 +19,7 @@ import com.example.project_for_university.providers.DataProvider;
 import lombok.SneakyThrows;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ReliabilityTableController implements DataProvider, Initializable {
     private AllValues allValues;
@@ -110,7 +110,7 @@ public class ReliabilityTableController implements DataProvider, Initializable {
                 @Override
                 public void handle(MouseEvent event) {
                     System.out.println("reliability sideBartBtn");
-                    validateAndSetData();
+                    saveDataFromInputs();
                 }
             };
             button.addEventHandler(MouseEvent.MOUSE_CLICKED, clickHandler);
@@ -123,67 +123,67 @@ public class ReliabilityTableController implements DataProvider, Initializable {
 
         if (reliabilityFunctionDto != null) {
             //col 1
-            if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_experimental_1() != 0) {
+            if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_experimental_1() != -1) {
                 relativeBlottingPressureAfterLoad_experimental_1.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_experimental_1()));
             }
-            if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_experimental_1() != 0) {
+            if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_experimental_1() != -1) {
                 relativeWaterResistanceAfterLoad_experimental_1.setText(String.valueOf(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_experimental_1()));
             }
-            if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_experimental_1() != 0) {
+            if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_experimental_1() != -1) {
                 relativeBlottingTimeAfterLoad_experimental_1.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_experimental_1()));
             }
-            if (reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_1() != 0) {
+            if (reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_1() != -1) {
                 waterproofRealizationCriteriaAfterLoad_experimental_1.setText(String.valueOf(reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_1()));
             }
-            if (reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_2() != 0) {
+            if (reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_2() != -1) {
                 waterproofRealizationCriteriaAfterLoad_experimental_2.setText(String.valueOf(reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_2()));
             }
-            if (reliabilityFunctionDto.getMaxWaterResistanceLvl() != 0) {
+            if (reliabilityFunctionDto.getMaxWaterResistanceLvl() != -1) {
                 maxWaterResistanceLvl.setText(String.valueOf(reliabilityFunctionDto.getMaxWaterResistanceLvl()));
             }
-            if (reliabilityFunctionDto.getImpactCyclesCnt() != 0) {
+            if (reliabilityFunctionDto.getImpactCyclesCnt() != -1) {
                 impactCyclesCnt.setText(String.valueOf(reliabilityFunctionDto.getImpactCyclesCnt()));
             }
 
             //col 2
-            if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_calculated() != 0) {
+            if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_calculated() != -1) {
                 relativeBlottingPressureAfterLoad_calculated.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_calculated()));
             }
-            if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_calculated() != 0) {
+            if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_calculated() != -1) {
                 relativeWaterResistanceAfterLoad_calculated.setText(String.valueOf(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_calculated()));
             }
-            if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_calculated() != 0) {
+            if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_calculated() != -1) {
                 relativeBlottingTimeAfterLoad_calculated.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_calculated()));
             }
 
             //col 3
-            if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_base() != 0) {
+            if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_base() != -1) {
                 relativeBlottingPressureAfterLoad_base.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_base()));
             }
-            if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_base() != 0) {
+            if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_base() != -1) {
                 relativeWaterResistanceAfterLoad_base.setText(String.valueOf(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_base()));
             }
-            if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_base() != 0) {
+            if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_base() != -1) {
                 relativeBlottingTimeAfterLoad_base.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_base()));
             }
-            if (reliabilityFunctionDto.getWaterproofFunctionResource_base() != 0) {
+            if (reliabilityFunctionDto.getWaterproofFunctionResource_base() != -1) {
                 waterproofFunctionResource_base.setText(String.valueOf(reliabilityFunctionDto.getWaterproofFunctionResource_base()));
             }
 
             //col 4
-            if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_weight() != 0) {
+            if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_weight() != -1) {
                 relativeBlottingPressureAfterLoad_weight.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_weight()));
             }
-            if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_weight() != 0) {
+            if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_weight() != -1) {
                 relativeWaterResistanceAfterLoad_weight.setText(String.valueOf(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_weight()));
             }
-            if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_weight() != 0) {
+            if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_weight() != -1) {
                 relativeBlottingTimeAfterLoad_weight.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_weight()));
             }
-            if (reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_weight() != 0) {
+            if (reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_weight() != -1) {
                 waterproofRealizationCriteriaAfterLoad_weight.setText(String.valueOf(reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_weight()));
             }
-            if (reliabilityFunctionDto.getWaterproofFunctionResource_weight() != 0) {
+            if (reliabilityFunctionDto.getWaterproofFunctionResource_weight() != -1) {
                 waterproofFunctionResource_weight.setText(String.valueOf(reliabilityFunctionDto.getWaterproofFunctionResource_weight()));
             }
 
@@ -194,239 +194,303 @@ public class ReliabilityTableController implements DataProvider, Initializable {
         }
     }
 
-    private boolean[] validateAndSetData() {
-        boolean isEmpty = false;
-        boolean isValid = true;
-
-        //col 1
-        if (!relativeBlottingPressureAfterLoad_experimental_1.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeBlottingPressureAfterLoad_experimental_1.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_experimental_1(Integer.parseInt(relativeBlottingPressureAfterLoad_experimental_1.getText()));
-            }
+    private void saveDataFromInputs() {
+        //1 row
+        if (!relativeBlottingPressureAfterLoad_experimental_1.getText().isEmpty() && ValidationUtils.isValid(relativeBlottingPressureAfterLoad_experimental_1.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_experimental_1(Double.parseDouble(relativeBlottingPressureAfterLoad_experimental_1.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_experimental_1(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_experimental_1(-1);
         }
 
-        if (!relativeWaterResistanceAfterLoad_experimental_1.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeWaterResistanceAfterLoad_experimental_1.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_experimental_1(Integer.parseInt(relativeWaterResistanceAfterLoad_experimental_1.getText()));
-            }
+        if (!relativeBlottingPressureAfterLoad_calculated.getText().isEmpty() && ValidationUtils.isValid(relativeBlottingPressureAfterLoad_calculated.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_calculated(Double.parseDouble(relativeBlottingPressureAfterLoad_calculated.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_experimental_1(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_calculated(-1);
         }
 
-        if (!relativeBlottingTimeAfterLoad_experimental_1.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeBlottingTimeAfterLoad_experimental_1.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_experimental_1(Integer.parseInt(relativeBlottingTimeAfterLoad_experimental_1.getText()));
-            }
+        if (!relativeBlottingPressureAfterLoad_base.getText().isEmpty() && ValidationUtils.isValid(relativeBlottingPressureAfterLoad_base.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_base(Double.parseDouble(relativeBlottingPressureAfterLoad_base.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_experimental_1(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_base(-1);
         }
 
-        if (!waterproofRealizationCriteriaAfterLoad_experimental_1.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(waterproofRealizationCriteriaAfterLoad_experimental_1.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_experimental_1(Integer.parseInt(waterproofRealizationCriteriaAfterLoad_experimental_1.getText()));
-            }
+        if (!relativeBlottingPressureAfterLoad_weight.getText().isEmpty() && ValidationUtils.isValid(relativeBlottingPressureAfterLoad_weight.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_weight(Double.parseDouble(relativeBlottingPressureAfterLoad_weight.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_experimental_1(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_weight(-1);
         }
 
-        if (!waterproofRealizationCriteriaAfterLoad_experimental_2.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(waterproofRealizationCriteriaAfterLoad_experimental_2.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_experimental_2(Integer.parseInt(waterproofRealizationCriteriaAfterLoad_experimental_2.getText()));
-            }
+        //2 row
+        if (!relativeWaterResistanceAfterLoad_experimental_1.getText().isEmpty() && ValidationUtils.isValid(relativeWaterResistanceAfterLoad_experimental_1.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_experimental_1(Double.parseDouble(relativeWaterResistanceAfterLoad_experimental_1.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_experimental_2(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_experimental_1(-1);
         }
 
-        if (!maxWaterResistanceLvl.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(maxWaterResistanceLvl.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setMaxWaterResistanceLvl(Integer.parseInt(maxWaterResistanceLvl.getText()));
-            }
+        if (!relativeWaterResistanceAfterLoad_calculated.getText().isEmpty() && ValidationUtils.isValid(relativeWaterResistanceAfterLoad_calculated.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_calculated(Double.parseDouble(relativeWaterResistanceAfterLoad_calculated.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setMaxWaterResistanceLvl(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_calculated(-1);
         }
 
-        if (!impactCyclesCnt.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(impactCyclesCnt.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setImpactCyclesCnt(Integer.parseInt(impactCyclesCnt.getText()));
-            }
+        if (!relativeWaterResistanceAfterLoad_base.getText().isEmpty() && ValidationUtils.isValid(relativeWaterResistanceAfterLoad_base.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_base(Double.parseDouble(relativeWaterResistanceAfterLoad_base.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setImpactCyclesCnt(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_base(-1);
         }
 
-        //col 2
-        if (!relativeBlottingPressureAfterLoad_calculated.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeBlottingPressureAfterLoad_calculated.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_calculated(Integer.parseInt(relativeBlottingPressureAfterLoad_calculated.getText()));
-            }
+        if (!relativeWaterResistanceAfterLoad_weight.getText().isEmpty() && ValidationUtils.isValid(relativeWaterResistanceAfterLoad_weight.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_weight(Double.parseDouble(relativeWaterResistanceAfterLoad_weight.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_calculated(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_weight(-1);
         }
 
-        if (!relativeWaterResistanceAfterLoad_calculated.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeWaterResistanceAfterLoad_calculated.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_calculated(Integer.parseInt(relativeWaterResistanceAfterLoad_calculated.getText()));
-            }
+        //3 row
+        if (!relativeBlottingTimeAfterLoad_experimental_1.getText().isEmpty() && ValidationUtils.isValid(relativeBlottingTimeAfterLoad_experimental_1.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_experimental_1(Double.parseDouble(relativeBlottingTimeAfterLoad_experimental_1.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_calculated(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_experimental_1(-1);
         }
 
-        if (!relativeBlottingTimeAfterLoad_calculated.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeBlottingTimeAfterLoad_calculated.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_calculated(Integer.parseInt(relativeBlottingTimeAfterLoad_calculated.getText()));
-            }
+        if (!relativeBlottingTimeAfterLoad_calculated.getText().isEmpty() && ValidationUtils.isValid(relativeBlottingTimeAfterLoad_calculated.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_calculated(Double.parseDouble(relativeBlottingTimeAfterLoad_calculated.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_calculated(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_calculated(-1);
         }
 
-        //col 3
-        if (!relativeBlottingPressureAfterLoad_base.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeBlottingPressureAfterLoad_base.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_base(Integer.parseInt(relativeBlottingPressureAfterLoad_base.getText()));
-            }
+        if (!relativeBlottingTimeAfterLoad_base.getText().isEmpty() && ValidationUtils.isValid(relativeBlottingTimeAfterLoad_base.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_base(Double.parseDouble(relativeBlottingTimeAfterLoad_base.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_base(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_base(-1);
         }
 
-        if (!relativeWaterResistanceAfterLoad_base.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeWaterResistanceAfterLoad_base.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_base(Integer.parseInt(relativeWaterResistanceAfterLoad_base.getText()));
-            }
+        if (!relativeBlottingTimeAfterLoad_weight.getText().isEmpty() && ValidationUtils.isValid(relativeBlottingTimeAfterLoad_weight.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_weight(Double.parseDouble(relativeBlottingTimeAfterLoad_weight.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_base(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_weight(-1);
         }
 
-        if (!relativeBlottingTimeAfterLoad_base.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeBlottingTimeAfterLoad_base.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_base(Integer.parseInt(relativeBlottingTimeAfterLoad_base.getText()));
-            }
+        //4 row
+        if (!waterproofRealizationCriteriaAfterLoad_experimental_1.getText().isEmpty() && ValidationUtils.isValid(waterproofRealizationCriteriaAfterLoad_experimental_1.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_experimental_1(Double.parseDouble(waterproofRealizationCriteriaAfterLoad_experimental_1.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_base(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_experimental_1(-1);
         }
 
-        if (!waterproofFunctionResource_base.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(waterproofFunctionResource_base.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofFunctionResource_base(Integer.parseInt(waterproofFunctionResource_base.getText()));
-            }
+        if (!waterproofRealizationCriteriaAfterLoad_experimental_2.getText().isEmpty() && ValidationUtils.isValid(waterproofRealizationCriteriaAfterLoad_experimental_2.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_experimental_2(Double.parseDouble(waterproofRealizationCriteriaAfterLoad_experimental_2.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofFunctionResource_base(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_experimental_2(-1);
         }
 
-        //col 4
-        if (!relativeBlottingPressureAfterLoad_weight.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeBlottingPressureAfterLoad_weight.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_weight(Integer.parseInt(relativeBlottingPressureAfterLoad_weight.getText()));
-            }
+        if (!waterproofRealizationCriteriaAfterLoad_weight.getText().isEmpty() && ValidationUtils.isValid(waterproofRealizationCriteriaAfterLoad_weight.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_weight(Double.parseDouble(waterproofRealizationCriteriaAfterLoad_weight.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingPressureAfterLoad_weight(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_weight(-1);
         }
 
-        if (!relativeWaterResistanceAfterLoad_weight.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeWaterResistanceAfterLoad_weight.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_weight(Integer.parseInt(relativeWaterResistanceAfterLoad_weight.getText()));
-            }
+        //5 row
+        if (!waterproofFunctionResource_base.getText().isEmpty() && ValidationUtils.isValid(waterproofFunctionResource_base.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofFunctionResource_base(Double.parseDouble(waterproofFunctionResource_base.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeWaterResistanceAfterLoad_weight(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofFunctionResource_base(-1);
         }
 
-        if (!relativeBlottingTimeAfterLoad_weight.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(relativeBlottingTimeAfterLoad_weight.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_weight(Integer.parseInt(relativeBlottingTimeAfterLoad_weight.getText()));
-            }
+        if (!waterproofFunctionResource_weight.getText().isEmpty() && ValidationUtils.isValid(waterproofFunctionResource_weight.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofFunctionResource_weight(Double.parseDouble(waterproofFunctionResource_weight.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setRelativeBlottingTimeAfterLoad_weight(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofFunctionResource_weight(-1);
         }
 
-        if (!waterproofRealizationCriteriaAfterLoad_weight.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(waterproofRealizationCriteriaAfterLoad_weight.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_weight(Integer.parseInt(waterproofRealizationCriteriaAfterLoad_weight.getText()));
-            }
+        //conds
+        if (!maxWaterResistanceLvl.getText().isEmpty() && ValidationUtils.isValid(maxWaterResistanceLvl.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setMaxWaterResistanceLvl(Double.parseDouble(maxWaterResistanceLvl.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofRealizationCriteriaAfterLoad_weight(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setMaxWaterResistanceLvl(-1);
         }
 
-        if (!waterproofFunctionResource_weight.getText().isEmpty()) {
-            if (!ValidationUtils.isValid(waterproofFunctionResource_weight.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofFunctionResource_weight(Integer.parseInt(waterproofFunctionResource_weight.getText()));
-            }
+        if (!impactCyclesCnt.getText().isEmpty() && ValidationUtils.isValid(impactCyclesCnt.getText())) {
+            allValues.getCreateMaterialDto().getReliabilityFunction().setImpactCyclesCnt(Double.parseDouble(impactCyclesCnt.getText()));
         } else {
-            allValues.getCreateMaterialDto().getReliabilityFunction().setWaterproofFunctionResource_weight(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getReliabilityFunction().setImpactCyclesCnt(-1);
         }
 
         //equipment
-        if (equipment.getText() != null) {
+        if(equipment.getText() != null) {
             allValues.getCreateMaterialDto().getReliabilityFunction().setEquipment(equipment.getText());
         } else {
             allValues.getCreateMaterialDto().getReliabilityFunction().setEquipment(null);
-            isEmpty = true;
+        }
+    }
 
+    private boolean validateAndSetData() {
+        CalculateReliabilityFunctionDto relFuncDto = allValues.getCreateMaterialDto().getReliabilityFunction();
+
+        try {
+            //проверка 1 строки
+            ArrayList<String> fStr = new ArrayList<>(List.of(
+                    relativeBlottingPressureAfterLoad_calculated.getText(),
+                    relativeBlottingPressureAfterLoad_base.getText(),
+                    relativeBlottingPressureAfterLoad_weight.getText()
+            ));
+            if (relativeBlottingPressureAfterLoad_experimental_1.getText().isEmpty() && fStr.stream().allMatch(String::isEmpty)) {
+                relFuncDto.setRelativeBlottingPressureAfterLoad_experimental_1(-1);
+                relFuncDto.setRelativeBlottingPressureAfterLoad_calculated(-1);
+                relFuncDto.setRelativeBlottingPressureAfterLoad_base(-1);
+                relFuncDto.setRelativeBlottingPressureAfterLoad_weight(-1);
+            } else {
+                if ((fStr.stream().anyMatch(String::isEmpty) && !relativeBlottingPressureAfterLoad_experimental_1.getText().isEmpty()) && (fStr.stream().anyMatch(el -> !el.isEmpty()) && relativeBlottingPressureAfterLoad_experimental_1.getText().isEmpty())) {
+                    throw new NoSuchElementException();
+                } else if (fStr.stream().noneMatch(ValidationUtils::isValid) || !ValidationUtils.isValid(relativeBlottingPressureAfterLoad_experimental_1.getText())) {
+                    throw new IllegalArgumentException();
+                } else {
+                    relFuncDto.setRelativeBlottingPressureAfterLoad_experimental_1(Double.parseDouble(relativeBlottingPressureAfterLoad_experimental_1.getText()));
+                    relFuncDto.setRelativeBlottingPressureAfterLoad_calculated(Double.parseDouble(relativeBlottingPressureAfterLoad_calculated.getText()));
+                    relFuncDto.setRelativeBlottingPressureAfterLoad_base(Double.parseDouble(relativeBlottingPressureAfterLoad_base.getText()));
+                    relFuncDto.setRelativeBlottingPressureAfterLoad_weight(Double.parseDouble(relativeBlottingPressureAfterLoad_weight.getText()));
+                }
+            }
+
+            //проверка 2 строки
+            ArrayList<String> sStr = new ArrayList<>(List.of(
+                    relativeWaterResistanceAfterLoad_calculated.getText(),
+                    relativeWaterResistanceAfterLoad_base.getText(),
+                    relativeWaterResistanceAfterLoad_weight.getText()
+            ));
+            if (relativeWaterResistanceAfterLoad_experimental_1.getText().isEmpty() && sStr.stream().allMatch(String::isEmpty)) {
+                relFuncDto.setRelativeWaterResistanceAfterLoad_experimental_1(-1);
+                relFuncDto.setRelativeWaterResistanceAfterLoad_calculated(-1);
+                relFuncDto.setRelativeWaterResistanceAfterLoad_base(-1);
+                relFuncDto.setRelativeWaterResistanceAfterLoad_weight(-1);
+            } else {
+                if ((sStr.stream().anyMatch(String::isEmpty) && !relativeWaterResistanceAfterLoad_experimental_1.getText().isEmpty()) && (fStr.stream().anyMatch(el -> !el.isEmpty()) && relativeWaterResistanceAfterLoad_experimental_1.getText().isEmpty())) {
+                    throw new NoSuchElementException();
+                } else if (fStr.stream().noneMatch(ValidationUtils::isValid) || !ValidationUtils.isValid(relativeWaterResistanceAfterLoad_experimental_1.getText())) {
+                    throw new IllegalArgumentException();
+                } else {
+                    relFuncDto.setRelativeWaterResistanceAfterLoad_experimental_1(Double.parseDouble(relativeWaterResistanceAfterLoad_experimental_1.getText()));
+                    relFuncDto.setRelativeWaterResistanceAfterLoad_calculated(Double.parseDouble(relativeWaterResistanceAfterLoad_calculated.getText()));
+                    relFuncDto.setRelativeWaterResistanceAfterLoad_base(Double.parseDouble(relativeWaterResistanceAfterLoad_base.getText()));
+                    relFuncDto.setRelativeWaterResistanceAfterLoad_weight(Double.parseDouble(relativeWaterResistanceAfterLoad_weight.getText()));
+                }
+            }
+
+            //проверка 3 строки
+            ArrayList<String> tStr = new ArrayList<>(List.of(
+                    relativeBlottingTimeAfterLoad_calculated.getText(),
+                    relativeBlottingTimeAfterLoad_base.getText(),
+                    relativeBlottingTimeAfterLoad_weight.getText()
+            ));
+            if (relativeBlottingTimeAfterLoad_experimental_1.getText().isEmpty() && tStr.stream().allMatch(String::isEmpty)) {
+                relFuncDto.setRelativeBlottingTimeAfterLoad_experimental_1(-1);
+                relFuncDto.setRelativeBlottingTimeAfterLoad_calculated(-1);
+                relFuncDto.setRelativeBlottingTimeAfterLoad_base(-1);
+                relFuncDto.setRelativeBlottingTimeAfterLoad_weight(-1);
+            } else {
+                if ((sStr.stream().anyMatch(String::isEmpty) && !relativeBlottingTimeAfterLoad_experimental_1.getText().isEmpty()) && (fStr.stream().anyMatch(el -> !el.isEmpty()) && relativeBlottingTimeAfterLoad_experimental_1.getText().isEmpty())) {
+                    throw new NoSuchElementException();
+                } else if (fStr.stream().noneMatch(ValidationUtils::isValid) || !ValidationUtils.isValid(relativeBlottingTimeAfterLoad_experimental_1.getText())) {
+                    throw new IllegalArgumentException();
+                } else {
+                    relFuncDto.setRelativeBlottingTimeAfterLoad_experimental_1(Double.parseDouble(relativeBlottingTimeAfterLoad_experimental_1.getText()));
+                    relFuncDto.setRelativeBlottingTimeAfterLoad_calculated(Double.parseDouble(relativeBlottingTimeAfterLoad_calculated.getText()));
+                    relFuncDto.setRelativeBlottingTimeAfterLoad_base(Double.parseDouble(relativeBlottingTimeAfterLoad_base.getText()));
+                    relFuncDto.setRelativeBlottingTimeAfterLoad_weight(Double.parseDouble(relativeBlottingTimeAfterLoad_weight.getText()));
+                }
+            }
+
+            //проверка 4 строки
+            ArrayList<String> fourthExpStr = new ArrayList<>(List.of(
+                    waterproofRealizationCriteriaAfterLoad_experimental_1.getText(),
+                    waterproofRealizationCriteriaAfterLoad_experimental_2.getText()
+            ));
+            if (fourthExpStr.stream().allMatch(String::isEmpty) && waterproofRealizationCriteriaAfterLoad_weight.getText().isEmpty()) {
+                relFuncDto.setWaterproofRealizationCriteriaAfterLoad_experimental_1(-1);
+                relFuncDto.setWaterproofRealizationCriteriaAfterLoad_experimental_2(-1);
+                relFuncDto.setWaterproofRealizationCriteriaAfterLoad_weight(-1);
+            } else {
+                if ((waterproofRealizationCriteriaAfterLoad_weight.getText().isEmpty() && fourthExpStr.stream().anyMatch(el -> !el.isEmpty())) && (!waterproofRealizationCriteriaAfterLoad_weight.getText().isEmpty() && fourthExpStr.stream().allMatch(String::isEmpty))) {
+                    throw new NoSuchElementException();
+                } else if (!ValidationUtils.isValid(waterproofRealizationCriteriaAfterLoad_weight.getText()) || fourthExpStr.stream().noneMatch(ValidationUtils::isValid)) {
+                    throw new IllegalArgumentException();
+                } else {
+                    relFuncDto.setWaterproofRealizationCriteriaAfterLoad_experimental_1(Double.parseDouble(waterproofRealizationCriteriaAfterLoad_experimental_1.getText()));
+                    relFuncDto.setWaterproofRealizationCriteriaAfterLoad_experimental_2(Double.parseDouble(waterproofRealizationCriteriaAfterLoad_experimental_2.getText()));
+                    relFuncDto.setWaterproofRealizationCriteriaAfterLoad_weight(Double.parseDouble(waterproofRealizationCriteriaAfterLoad_weight.getText()));
+                }
+            }
+
+            //проверка 5 строки
+            ArrayList<String> fifthStr = new ArrayList<>(List.of(
+                    waterproofFunctionResource_base.getText(),
+                    waterproofFunctionResource_weight.getText()
+            ));
+            if (fifthStr.stream().allMatch(String::isEmpty)) {
+                relFuncDto.setWaterproofFunctionResource_base(-1);
+                relFuncDto.setWaterproofFunctionResource_weight(-1);
+            } else {
+                if (fifthStr.stream().anyMatch(String::isEmpty)) {
+                    throw new NoSuchElementException();
+                } else if (fifthStr.stream().noneMatch(ValidationUtils::isValid)) {
+                    throw new IllegalArgumentException();
+                } else {
+                    relFuncDto.setWaterproofFunctionResource_base(Double.parseDouble(waterproofFunctionResource_base.getText()));
+                    relFuncDto.setWaterproofFunctionResource_weight(Double.parseDouble(waterproofFunctionResource_weight.getText()));
+                }
+            }
+
+            //проверка условий
+            ArrayList<String> conds = new ArrayList<>(List.of(
+                    maxWaterResistanceLvl.getText(),
+                    impactCyclesCnt.getText()
+            ));
+            if (conds.stream().anyMatch(String::isEmpty)) {
+                throw new NoSuchElementException();
+            } else if (conds.stream().noneMatch(ValidationUtils::isValid)) {
+                throw new IllegalArgumentException();
+            } else {
+                relFuncDto.setMaxWaterResistanceLvl(Double.parseDouble(maxWaterResistanceLvl.getText()));
+                relFuncDto.setImpactCyclesCnt(Double.parseDouble(impactCyclesCnt.getText()));
+            }
+
+            //проверка оборудования
+            if(equipment.getText().isEmpty()) {
+                throw new NoSuchElementException();
+            } else {
+                relFuncDto.setEquipment(equipment.getText());
+            }
+
+            //проверка суммы весомостей
+            ArrayList<Double> weights = new ArrayList<>(List.of(
+                    relFuncDto.getRelativeBlottingPressureAfterLoad_weight(),
+                    relFuncDto.getRelativeWaterResistanceAfterLoad_weight(),
+                    relFuncDto.getRelativeBlottingTimeAfterLoad_weight(),
+                    relFuncDto.getWaterproofRealizationCriteriaAfterLoad_weight(),
+                    relFuncDto.getWaterproofFunctionResource_weight()
+            ));
+            Optional<Double> sumWeights = weights.stream().filter(el -> el != -1).reduce(Double::sum);
+            if(sumWeights.isPresent()) {
+                if(sumWeights.get() != 1) {
+                    throw new IllegalArgumentException();
+                }
+            }
+
+            allValues.getCreateMaterialDto().setReliabilityFunction(relFuncDto);
+
+            return true;
+        } catch (NoSuchElementException e) {
+            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
+        } catch (IllegalArgumentException e) {
+            AlertUtil.show("Вы ввели некорректные значения", "Закройте это окно и проверьте правильность введенных значений", allValues.getRootStage());
         }
 
-        return new boolean[]{isEmpty, isValid};
+        return false;
     }
 
     @FXML
     @SneakyThrows()
     void back_btn_clicked(MouseEvent event) {
-        validateAndSetData();
+        saveDataFromInputs();
         allValues.setLastCreateMaterialComponent(Component.HOMEOSTASIS_TABLE);
         ComponentUtil.mount(Component.HOMEOSTASIS_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
@@ -434,14 +498,7 @@ public class ReliabilityTableController implements DataProvider, Initializable {
     @FXML
     @SneakyThrows()
     void next_btn_clicked(MouseEvent event) {
-        boolean[] checkErrors = validateAndSetData();
-        if (checkErrors[0]) {
-            allValues.setLastCreateMaterialComponent(Component.RELIABILITY_TABLE);
-            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
-        } else if (!checkErrors[1]) {
-            allValues.setLastCreateMaterialComponent(Component.RELIABILITY_TABLE);
-            AlertUtil.show("Вы ввели некорректные значения", "Закройте это окно и проверьте правильность введенных значений", allValues.getRootStage());
-        } else {
+        if(validateAndSetData()) {
             allValues.setLastCreateMaterialComponent(Component.ESTIMATION_TABLE);
             ComponentUtil.mount(Component.ESTIMATION_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }
@@ -449,31 +506,31 @@ public class ReliabilityTableController implements DataProvider, Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //экспериментальные значения
-//        relativeBlottingPressureAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        relativeWaterResistanceAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        relativeBlottingTimeAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        waterproofRealizationCriteriaAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        waterproofRealizationCriteriaAfterLoad_experimental_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        maxWaterResistanceLvl.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        impactCyclesCnt.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//
-//        //расчетные значения
-//        relativeBlottingPressureAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        relativeWaterResistanceAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        relativeBlottingTimeAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//
-//        //базовые значения
-//        relativeBlottingPressureAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        relativeWaterResistanceAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        relativeBlottingTimeAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        waterproofFunctionResource_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//
-//        //значения весомости
-//        relativeBlottingPressureAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        relativeWaterResistanceAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        relativeBlottingTimeAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        waterproofRealizationCriteriaAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        waterproofFunctionResource_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+//        экспериментальные значения
+        relativeBlottingPressureAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeWaterResistanceAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeBlottingTimeAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofRealizationCriteriaAfterLoad_experimental_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofRealizationCriteriaAfterLoad_experimental_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        maxWaterResistanceLvl.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        impactCyclesCnt.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+
+        //расчетные значения
+        relativeBlottingPressureAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeWaterResistanceAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeBlottingTimeAfterLoad_calculated.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+
+        //базовые значения
+        relativeBlottingPressureAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeWaterResistanceAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeBlottingTimeAfterLoad_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofFunctionResource_base.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+
+        //значения весомости
+        relativeBlottingPressureAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeWaterResistanceAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        relativeBlottingTimeAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofRealizationCriteriaAfterLoad_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofFunctionResource_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
     }
 }
