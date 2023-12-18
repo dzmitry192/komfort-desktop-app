@@ -17,7 +17,7 @@ import com.example.project_for_university.providers.DataProvider;
 import lombok.SneakyThrows;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class EstimationTableController implements DataProvider, Initializable {
     private AllValues allValues;
@@ -53,12 +53,9 @@ public class EstimationTableController implements DataProvider, Initializable {
         allValues.getSideBarButtonsEventHandlers().clear();
 
         for (var button : allValues.getSideBarButtons()) {
-            EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    System.out.println("estimation sideBartBtn");
-                    validateAndSetData();
-                }
+            EventHandler<MouseEvent> clickHandler = event -> {
+                System.out.println("estimation sideBartBtn");
+                saveDataFromInputs();
             };
             button.addEventHandler(MouseEvent.MOUSE_CLICKED, clickHandler);
             allValues.getSideBarButtonsEventHandlers().add(clickHandler);
@@ -69,62 +66,87 @@ public class EstimationTableController implements DataProvider, Initializable {
         CalculateEstimationDto estimationDto = allValues.getCreateMaterialDto().getEstimation();
 
         if (estimationDto != null) {
-            if (estimationDto.getWaterproofFunction_weight() != 0) {
+            if (estimationDto.getWaterproofFunction_weight() != -1) {
                 waterproofFunction_weight.setText(String.valueOf(estimationDto.getWaterproofFunction_weight()));
             }
-            if (estimationDto.getHomeostasisFunction_weight() != 0) {
+            if (estimationDto.getHomeostasisFunction_weight() != -1) {
                 homeostasisFunction_weight.setText(String.valueOf(estimationDto.getHomeostasisFunction_weight()));
             }
-            if (estimationDto.getReliabilityFunction_weight() != 0) {
+            if (estimationDto.getReliabilityFunction_weight() != -1) {
                 reliabilityFunction_weight.setText(String.valueOf(estimationDto.getReliabilityFunction_weight()));
             }
         }
     }
 
-    private boolean[] validateAndSetData() {
-        boolean isEmpty = false;
-        boolean isValid = true;
-
-        if(!waterproofFunction_weight.getText().isEmpty()) {
-            if(!ValidationUtils.isValid(waterproofFunction_weight.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getEstimation().setWaterproofFunction_weight(Integer.parseInt(waterproofFunction_weight.getText()));
-            }
+    private void saveDataFromInputs() {
+        if (!waterproofFunction_weight.getText().isEmpty() && ValidationUtils.isValid(waterproofFunction_weight.getText())) {
+            allValues.getCreateMaterialDto().getEstimation().setWaterproofFunction_weight(Double.parseDouble(waterproofFunction_weight.getText()));
         } else {
-            allValues.getCreateMaterialDto().getEstimation().setWaterproofFunction_weight(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getEstimation().setWaterproofFunction_weight(-1);
         }
 
-        if(!homeostasisFunction_weight.getText().isEmpty()) {
-            if(!ValidationUtils.isValid(homeostasisFunction_weight.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getEstimation().setHomeostasisFunction_weight(Integer.parseInt(homeostasisFunction_weight.getText()));
-            }
+        if (!homeostasisFunction_weight.getText().isEmpty() && ValidationUtils.isValid(homeostasisFunction_weight.getText())) {
+            allValues.getCreateMaterialDto().getEstimation().setHomeostasisFunction_weight(Double.parseDouble(homeostasisFunction_weight.getText()));
         } else {
-            allValues.getCreateMaterialDto().getEstimation().setHomeostasisFunction_weight(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getEstimation().setHomeostasisFunction_weight(-1);
         }
 
-        if(!reliabilityFunction_weight.getText().isEmpty()) {
-            if(!ValidationUtils.isValid(reliabilityFunction_weight.getText())) {
-                isValid = false;
-            } else {
-                allValues.getCreateMaterialDto().getEstimation().setReliabilityFunction_weight(Integer.parseInt(reliabilityFunction_weight.getText()));
-            }
+        if (!reliabilityFunction_weight.getText().isEmpty() && ValidationUtils.isValid(reliabilityFunction_weight.getText())) {
+            allValues.getCreateMaterialDto().getEstimation().setReliabilityFunction_weight(Double.parseDouble(reliabilityFunction_weight.getText()));
         } else {
-            allValues.getCreateMaterialDto().getEstimation().setReliabilityFunction_weight(0);
-            isEmpty = true;
+            allValues.getCreateMaterialDto().getEstimation().setReliabilityFunction_weight(-1);
+        }
+    }
+
+    private boolean validateAndSetData() {
+        CalculateEstimationDto estimationDto = allValues.getCreateMaterialDto().getEstimation();
+
+        try {
+            //проверка весомостей
+            ArrayList<String> inpWeights = new ArrayList<>(List.of(
+                    waterproofFunction_weight.getText(),
+                    homeostasisFunction_weight.getText(),
+                    reliabilityFunction_weight.getText()
+            ));
+            if (inpWeights.stream().anyMatch(String::isEmpty)) {
+                throw new NoSuchElementException();
+            } else if (inpWeights.stream().noneMatch(ValidationUtils::isValid)) {
+                throw new IllegalArgumentException();
+            } else {
+                estimationDto.setWaterproofFunction_weight(Double.parseDouble(waterproofFunction_weight.getText()));
+                estimationDto.setHomeostasisFunction_weight(Double.parseDouble(homeostasisFunction_weight.getText()));
+                estimationDto.setReliabilityFunction_weight(Double.parseDouble(reliabilityFunction_weight.getText()));
+            }
+
+            //проверка суммы весомостей
+            ArrayList<Double> weights = new ArrayList<>(List.of(
+                    estimationDto.getWaterproofFunction_weight(),
+                    estimationDto.getHomeostasisFunction_weight(),
+                    estimationDto.getReliabilityFunction_weight()
+            ));
+            Optional<Double> sumWeights = weights.stream().reduce(Double::sum);
+            if(sumWeights.isPresent()) {
+                if(sumWeights.get() != 1) {
+                    throw new IllegalArgumentException();
+                }
+            }
+
+            allValues.getCreateMaterialDto().setEstimation(estimationDto);
+
+            return true;
+        } catch (NoSuchElementException e) {
+            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
+        } catch (IllegalArgumentException e) {
+            AlertUtil.show("Вы ввели некорректные значения", "Закройте это окно и проверьте правильность введенных значений", allValues.getRootStage());
         }
 
-        return new boolean[]{isEmpty, isValid};
+        return false;
     }
 
     @FXML
     @SneakyThrows()
     void back_btn_clicked(MouseEvent event) {
-        validateAndSetData();
+        saveDataFromInputs();
         allValues.setLastCreateMaterialComponent(Component.RELIABILITY_TABLE);
         ComponentUtil.mount(Component.RELIABILITY_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
@@ -132,14 +154,7 @@ public class EstimationTableController implements DataProvider, Initializable {
     @FXML
     @SneakyThrows()
     void next_btn_clicked(MouseEvent event) {
-        boolean[] checkErrors = validateAndSetData();
-        if (checkErrors[0]) {
-            allValues.setLastCreateMaterialComponent(Component.ESTIMATION_TABLE);
-            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
-        } else if (!checkErrors[1]) {
-            allValues.setLastCreateMaterialComponent(Component.ESTIMATION_TABLE);
-            AlertUtil.show("Вы ввели некорректные значения", "Закройте это окно и проверьте правильность введенных значений", allValues.getRootStage());
-        } else {
+        if (validateAndSetData()) {
             allValues.setLastCreateMaterialComponent(Component.MATERIAL_INFO);
             ComponentUtil.mount(Component.MATERIAL_INFO, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }
@@ -147,8 +162,8 @@ public class EstimationTableController implements DataProvider, Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        waterproofFunction_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        homeostasisFunction_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-//        reliabilityFunction_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        waterproofFunction_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        homeostasisFunction_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+        reliabilityFunction_weight.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
     }
 }
