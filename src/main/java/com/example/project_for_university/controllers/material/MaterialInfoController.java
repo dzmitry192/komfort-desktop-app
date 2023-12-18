@@ -124,10 +124,9 @@ public class MaterialInfoController implements DataProvider {
             AlertUtil.show("Заполните все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         } else {
             //запрос на сохранение материала
-            System.out.println("СОХРАНЕНИЕ ПРОШЛО УСПЕШНО");
+
             //потом обнуление данных
             allValues.setCreateMaterialDto(new CreateMaterialDto());
-
             allValues.setLastCreateMaterialComponent(null);
 
             ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, 1, 1, null, new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), null, new PhysicalActivityTypeEntity(1, "act", "desc"));

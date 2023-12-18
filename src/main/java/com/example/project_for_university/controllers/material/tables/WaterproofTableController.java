@@ -2,6 +2,7 @@ package com.example.project_for_university.controllers.material.tables;
 
 
 import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
+import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
@@ -21,6 +22,7 @@ import lombok.SneakyThrows;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class WaterproofTableController implements DataProvider, Initializable {
     private AllValues allValues;
@@ -577,6 +579,24 @@ public class WaterproofTableController implements DataProvider, Initializable {
         }
 
         return false;
+    }
+
+    @FXML
+    void btn_clearFields_clicked(MouseEvent event) {
+        boolean isTrue = AlertUtil.showConfirmation("Очистить все поля на этой стадии?", "Все поля в этой стадии создания будут полностью очищены", allValues.getRootStage());
+        if (isTrue) {
+            allValues.getCreateMaterialDto().setWaterproofFunction(null);
+        }
+    }
+
+    @FXML
+    void btn_reset_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
+        boolean isTrue = AlertUtil.showConfirmation("Полностью сбросить прогресс?", "Весть прогресс создания будет полностью очищен, создание начнется сначала", allValues.getRootStage());
+        if (isTrue) {
+            allValues.setCreateMaterialDto(new CreateMaterialDto());
+            allValues.setLastCreateMaterialComponent(null);
+            ComponentUtil.mount(Component.CONDITION_1, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+        }
     }
 
     @FXML

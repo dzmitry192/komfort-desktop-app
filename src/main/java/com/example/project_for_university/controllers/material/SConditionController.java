@@ -111,6 +111,16 @@ public class SConditionController implements DataProvider, Initializable {
         }
     }
 
+    @FXML
+    void btn_clearFields_clicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void btn_reset_clicked(MouseEvent event) {
+
+    }
+
     private void fillSCondition() {
         CalculateWaterproofFunctionDto waterproofFunctionDto = allValues.getCreateMaterialDto().getWaterproofFunction();
         CalculateHomeostasisFunctionDto homeostasisFunctionDto = allValues.getCreateMaterialDto().getHomeostasisFunction();

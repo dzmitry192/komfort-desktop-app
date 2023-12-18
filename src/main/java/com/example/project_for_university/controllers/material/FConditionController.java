@@ -5,6 +5,7 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.MaterialInfoDto;
 import com.example.project_for_university.dto.forBackend.create.CreateConditionDto;
 import com.example.project_for_university.dto.forBackend.create.CreateLayerDto;
+import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.dto.forBackend.create.CreateWashingDto;
 import com.example.project_for_university.dto.forBackend.entity.ProductionMethodEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
@@ -77,7 +78,7 @@ public class FConditionController implements Initializable, DataProvider {
     private CheckBox check_wash;
 
     @FXML
-    private TextArea manufacturer_inp;
+    private TextField manufacturer_inp;
 
     @FXML
     private TextField inp_av_speed;
@@ -401,6 +402,23 @@ public class FConditionController implements Initializable, DataProvider {
                 allValues.getCreateMaterialDto().getMaterial().setGlueType_id(materialInfo.getGlueType_id());
                 glue_type_cb.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getGlueTypes()).filter(type -> type.getId() == materialInfo.getGlueType_id()).findFirst().get().getName());
             }
+        }
+    }
+
+    @FXML
+    void btn_clearFields_clicked(MouseEvent event) {
+        boolean isTrue = AlertUtil.showConfirmation("Очистить все поля на этой стадии?", "Все поля в этой стадии создания будут полностью очищены", allValues.getRootStage());
+        if (isTrue) {
+            allValues.getCreateMaterialDto().setCondition(null);
+        }
+    }
+
+    @FXML
+    void btn_reset_clicked(MouseEvent event) {
+        boolean isTrue = AlertUtil.showConfirmation("Полностью сбросить прогресс?", "Весть прогресс создания будет полностью очищен, создание начнется сначала", allValues.getRootStage());
+        if (isTrue) {
+            allValues.setCreateMaterialDto(new CreateMaterialDto());
+            allValues.setLastCreateMaterialComponent(null);
         }
     }
 
