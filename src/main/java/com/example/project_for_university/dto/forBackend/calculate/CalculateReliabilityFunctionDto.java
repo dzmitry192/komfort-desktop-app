@@ -8,24 +8,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CalculateReliabilityFunctionDto {
-    private int maxWaterResistanceLvl;
-    private int relativeBlottingPressureAfterLoad_experimental_1;
-    private int relativeBlottingPressureAfterLoad_calculated;
-    private int relativeBlottingPressureAfterLoad_base;
-    private int relativeBlottingPressureAfterLoad_weight;
-    private int relativeWaterResistanceAfterLoad_experimental_1;
-    private int relativeWaterResistanceAfterLoad_calculated;
-    private int relativeWaterResistanceAfterLoad_base;
-    private int relativeWaterResistanceAfterLoad_weight;
-    private int relativeBlottingTimeAfterLoad_experimental_1;
-    private int relativeBlottingTimeAfterLoad_calculated;
-    private int relativeBlottingTimeAfterLoad_base;
-    private int relativeBlottingTimeAfterLoad_weight;
-    private int waterproofRealizationCriteriaAfterLoad_experimental_1;
-    private int waterproofRealizationCriteriaAfterLoad_experimental_2;
-    private int waterproofRealizationCriteriaAfterLoad_weight;
-    private int waterproofFunctionResource_base;
-    private int waterproofFunctionResource_weight;
-    private int impactCyclesCnt;
-    private String equipment;
+    private double maxWaterResistanceLvl = -1;
+    private double relativeBlottingPressureAfterLoad_experimental_1 = -1;
+    private double relativeBlottingPressureAfterLoad_calculated = -1;
+    private double relativeBlottingPressureAfterLoad_base = -1;
+    private double relativeBlottingPressureAfterLoad_weight = -1;
+    private double relativeWaterResistanceAfterLoad_experimental_1 = -1;
+    private double relativeWaterResistanceAfterLoad_calculated = -1;
+    private double relativeWaterResistanceAfterLoad_base = -1;
+    private double relativeWaterResistanceAfterLoad_weight = -1;
+    private double relativeBlottingTimeAfterLoad_experimental_1 = -1;
+    private double relativeBlottingTimeAfterLoad_calculated = -1;
+    private double relativeBlottingTimeAfterLoad_base = -1;
+    private double relativeBlottingTimeAfterLoad_weight = -1;
+    private double waterproofRealizationCriteriaAfterLoad_experimental_1 = -1;
+    private double waterproofRealizationCriteriaAfterLoad_experimental_2 = -1;
+    private double waterproofRealizationCriteriaAfterLoad_weight = -1;
+    private double waterproofFunctionResource_base = -1;
+    private double waterproofFunctionResource_weight = -1;
+    private double impactCyclesCnt = -1;
+    private String equipment = null;
 }

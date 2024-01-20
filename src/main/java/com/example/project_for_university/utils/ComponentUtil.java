@@ -13,17 +13,17 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class ComponentUtil {
 
-    public static void mount(Component component, StackPane contentArea, AllValues allValues) throws IOException {
+    public static void mount(Component component, StackPane contentArea, AllValues allValues) throws IOException, ExecutionException, InterruptedException {
         FXMLLoader fxmlLoader = new FXMLLoader(ComponentUtil.class.getResource(Objects.requireNonNull(component.getPath())));
         Parent parent = fxmlLoader.load();
 
         Object controller = fxmlLoader.getController();
 
-        if (controller instanceof DataProvider) {
-            DataProvider dataProvider = (DataProvider) controller;
+        if (controller instanceof DataProvider dataProvider) {
             dataProvider.setData(allValues);
         }
 
@@ -37,8 +37,7 @@ public class ComponentUtil {
 
         Object controller = fxmlLoader.getController();
 
-        if (controller instanceof MaterialDetailsController) {
-            MaterialDetailsController materialDetailsController = (MaterialDetailsController) controller;
+        if (controller instanceof MaterialDetailsController materialDetailsController) {
             materialDetailsController.setData(allValues);
             materialDetailsController.setPartialMaterialEntity(partialMaterialEntity);
         }
@@ -53,8 +52,7 @@ public class ComponentUtil {
 
         Object controller = fxmlLoader.getController();
 
-        if (controller instanceof CreateTypeController) {
-            CreateTypeController createTypeController = (CreateTypeController) controller;
+        if (controller instanceof CreateTypeController createTypeController) {
             createTypeController.setTypeForUpdate(typeForUpdate);
             createTypeController.setData(allValues);
         }

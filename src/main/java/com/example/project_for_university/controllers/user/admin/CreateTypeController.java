@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import lombok.SneakyThrows;
 
 import java.io.IOException;
 
@@ -76,11 +77,13 @@ public class CreateTypeController implements DataProvider {
         }
     }
 
+    @SneakyThrows
     @FXML
     void ok_btn_clicked(MouseEvent event) throws IOException {
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
+    @SneakyThrows
     @FXML
     void cancel_btn_clicked(MouseEvent event) throws IOException {
         ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);

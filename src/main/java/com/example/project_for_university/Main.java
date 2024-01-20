@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    public static StringProperty host = new SimpleStringProperty("http://localhost:9000");
+    public static StringProperty host = new SimpleStringProperty("http://localhost:80");
 
     @Override
     public void start(Stage stage) throws IOException {

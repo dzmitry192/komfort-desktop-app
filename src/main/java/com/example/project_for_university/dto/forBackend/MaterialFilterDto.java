@@ -24,5 +24,5 @@ public class MaterialFilterDto {
     private double totalThermalResistance_calculated_min;
     private double totalThermalResistance_calculated_max;
     private double relativeBlottingPressureAfterLoad_relativeValuation_min;
-    private double  relativeBlottingPressureAfterLoad_relativeValuation_max;
+    private double relativeBlottingPressureAfterLoad_relativeValuation_max;
 }

@@ -13,6 +13,9 @@ import com.example.project_for_university.dto.forBackend.entity.MaterialEntity;
 import com.example.project_for_university.dto.forBackend.entity.UserEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
 import com.example.project_for_university.enums.Component;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,13 +32,15 @@ public class AllValues {
     private Stage loaderStage;
     private ContentPanes contentPanes;
     private Component lastCreateMaterialComponent;
+    private ArrayList<HBox> sideBarButtons;
+    private ArrayList<EventHandler<MouseEvent>> sideBarButtonsEventHandlers;
 
 
     private UserEntity user;
     private ReturnAllTypesDto returnAllTypesDto;
 
 
-    private CreateMaterialDto createMaterialDto;
+    private CreateMaterialDto createMaterialDto = new CreateMaterialDto();
     private MaterialFilterDto materialFilterDto;
     private PaginationDto paginationDto;
     private int totalMaterialsCnt;

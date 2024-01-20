@@ -34,7 +34,7 @@
       </VBox>
       <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
          <content>
-            <VBox spacing="50.0">
+            <VBox spacing="50.0" style="-fx-background-color: white;">
                <children>
                   <VBox spacing="10.0">
                      <children>
@@ -57,7 +57,7 @@
                                     <HBox spacing="10.0">
                                        <children>
                                           <Slider fx:id="hydrostaticPressureIncreaseSpeed_slider" blockIncrement="1.0" majorTickUnit="5.0" max="30.0" min="1.0" prefHeight="14.0" prefWidth="166.0" showTickLabels="true" />
-                                          <TextField fx:id="hydrostaticPressureIncreaseSpeed_inp" minWidth="-Infinity" prefHeight="0.0" prefWidth="70.0" />
+                                          <TextField fx:id="hydrostaticPressureIncreaseSpeed_inp" editable="false" minWidth="-Infinity" prefHeight="0.0" prefWidth="70.0" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -120,20 +120,9 @@
                                     <HBox spacing="10.0">
                                        <children>
                                           <Slider fx:id="avgAirSpeed_slider" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" showTickLabels="true" />
-                                          <TextField fx:id="avgAirSpeed_inp" minWidth="70.0" prefWidth="70.0" />
+                                          <TextField fx:id="avgAirSpeed_inp" editable="false" minWidth="70.0" prefWidth="70.0" />
                                        </children>
                                     </HBox>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
-                                 <children>
-                                    <TextFlow>
-                                       <children>
-                                          <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Площадь поверхности пробы:" wrappingWidth="377.0344543457031" />
-                                       </children>
-                                    </TextFlow>
-                                    <Region HBox.hgrow="ALWAYS" />
-                                    <TextField fx:id="homeo_square_inp" minWidth="-Infinity" prefWidth="70.0" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
@@ -232,6 +221,18 @@
             <Separator rotate="180.0" />
             <HBox alignment="CENTER" spacing="10.0" VBox.vgrow="NEVER">
                <children>
+                  <HBox fx:id="btn_reset" alignment="CENTER" onMouseClicked="#btn_reset_clicked" spacing="5.0" styleClass="btn-red-filled">
+                     <children>
+                        <Label text="Сбросить">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ROTATE_LEFT" />
+                           </graphic></Label>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                  </HBox>
+                  <Region HBox.hgrow="ALWAYS" />
                   <HBox fx:id="btn_back" alignment="CENTER" onMouseClicked="#btn_back_clicked" spacing="5.0" styleClass="btn-red-filled">
                      <children>
                         <FontAwesomeIconView glyphName="CHEVRON_LEFT" />
@@ -250,12 +251,25 @@
                         <Insets left="15.0" right="15.0" />
                      </padding>
                   </HBox>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <HBox fx:id="btn_clearFields" alignment="CENTER" onMouseClicked="#btn_clearFields_clicked" spacing="5.0" styleClass="btn-red-filled">
+                     <children>
+                        <FontAwesomeIconView glyphName="REMOVE" />
+                        <Label text="Очистить" />
+                     </children>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                  </HBox>
                </children>
                <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
                </VBox.margin>
             </HBox>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </VBox>
    </children>
 </VBox>

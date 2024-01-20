@@ -18,6 +18,7 @@ import lombok.SneakyThrows;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 @Data
 public class MainController implements Initializable, DataProvider {
@@ -27,7 +28,6 @@ public class MainController implements Initializable, DataProvider {
     @FXML
     private StackPane mainContentPane;
 
-    @SneakyThrows
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
@@ -43,7 +43,7 @@ public class MainController implements Initializable, DataProvider {
 
             try {
                 ComponentUtil.mount(Component.LOGIN, mainContentPane, allValues);
-            } catch (IOException e) {
+            } catch (IOException | ExecutionException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });

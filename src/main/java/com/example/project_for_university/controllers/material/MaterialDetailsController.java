@@ -7,6 +7,7 @@ import com.example.project_for_university.dto.forBackend.entity.LayerEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
@@ -37,7 +38,7 @@ public class MaterialDetailsController implements Initializable, DataProvider {
     private AllValues allValues;
     private int curIndex = 0;
 
-    private ArrayList<Image> images = new ArrayList<>();
+    private final ArrayList<Image> images = new ArrayList<>();
     private PartialMaterialEntity partialMaterialEntity;
 
     @FXML
@@ -51,6 +52,9 @@ public class MaterialDetailsController implements Initializable, DataProvider {
 
     @FXML
     private HBox download_report_btn;
+
+    @FXML
+    private HBox deleteMaterial_btn;
 
     @FXML
     private Hyperlink email_lbl;
@@ -118,6 +122,11 @@ public class MaterialDetailsController implements Initializable, DataProvider {
     public void setPartialMaterialEntity(PartialMaterialEntity partialMaterialEntity) {
         this.partialMaterialEntity = partialMaterialEntity;
 
+        if (partialMaterialEntity.getUser().getId() != allValues.getUser().getId()) {
+            deleteMaterial_btn.setVisible(false);
+            deleteMaterial_btn.setManaged(false);
+        }
+
         Arrays.stream(partialMaterialEntity.getImages()).forEach(image -> images.add(new Image(image)));
         if (images.size() == 0) {
             image_view.setImage(new Image(getClass().getResourceAsStream("/com/example/project_for_university/img/no-image.png")));
@@ -140,8 +149,12 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         layers_table.setItems(layerEntities);
 
         material_details_table.setItems(FXCollections.observableArrayList(
-                new TableType("Толщина", String.valueOf(partialMaterialEntity.getDepth()) + " мм"),
-                new TableType("Способ производства", partialMaterialEntity.getManufacturer())
+                new TableType("Толщина", partialMaterialEntity.getDepth() + " мм"),
+                new TableType("Производитель", partialMaterialEntity.getManufacturer()),
+                new TableType("Способ производства", partialMaterialEntity.getProductionMethod().getName()),
+                new TableType("Тип полимера мембранного слоя", partialMaterialEntity.getMembraneLayerPolymerType().getName()),
+                new TableType("Тип клея", partialMaterialEntity.getGlueType().getName())
+
         ));
 
         ConditionEntity condition = partialMaterialEntity.getCondition();
@@ -192,6 +205,15 @@ public class MaterialDetailsController implements Initializable, DataProvider {
             System.out.println("Operation canceled");
         }
         stage.show();
+    }
+
+    @FXML
+    void deleteMaterial_btn_clicked(MouseEvent event) {
+        boolean isToDelete = AlertUtil.showConfirmation("Навсегда удалить этот артикул?", "Данные об этом артикуле будут безвозвратно удалены", allValues.getRootStage());
+
+        if (isToDelete) {
+            //запрос на удаление артикула
+        }
     }
 
     @FXML
