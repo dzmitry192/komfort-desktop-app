@@ -8,6 +8,7 @@ import com.example.project_for_university.enums.ActionType;
 import com.example.project_for_university.enums.AdminPanelType;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -80,7 +81,21 @@ public class CreateTypeController implements DataProvider {
     @SneakyThrows
     @FXML
     void ok_btn_clicked(MouseEvent event) throws IOException {
-        ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+        if (adminPanelInfo.getCurAdminPanelType().getName().equals("Уровень физической активности")) {
+            if (name_field.getText().isEmpty()) {
+                AlertUtil.show("Вы не заполнили название типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+            } else if (description_textArea.getText().isEmpty()) {
+                AlertUtil.show("Вы не заполнили описание типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+            } else {
+                ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+            }
+        } else {
+            if (name_field.getText().isEmpty()) {
+                AlertUtil.show("Вы не заполнили название типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+            } else {
+                ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+            }
+        }
     }
 
     @SneakyThrows

@@ -6,26 +6,25 @@ import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.AuthService;
 import com.example.project_for_university.service.ReturnAllTypesService;
-import com.example.project_for_university.service.models.ReturnAllTypesModel;
 import com.example.project_for_university.service.models.UserModel;
-import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import lombok.Data;
 import lombok.SneakyThrows;
 
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
 @Data
 public class LoginController implements DataProvider {
     private AllValues allValues = new AllValues();
     private AuthService authService = new AuthService();
-    private ReturnAllTypesService allTypesService = new ReturnAllTypesService();
+    private ReturnAllTypesService returnAllTypesService = new ReturnAllTypesService();
 
     @FXML
     private TextField email_tf;
@@ -68,13 +67,8 @@ public class LoginController implements DataProvider {
                 status_lbl.setText(userModel.getErrorMessage());
             } else {
                 allValues.setUser(userModel.getUser());
-                ReturnAllTypesModel allTypesModel = allTypesService.getAllTypesThread(email, password);
-                if(allTypesModel.isError()) {
-                    status_lbl.setText("Сервер временно недоступен, повторите попытку позже");
-                } else {
-                    allValues.setReturnAllTypesDto(allTypesModel.getReturnAllTypesDto());
-                    ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
-                }
+                allValues.getAdminPanelInfo().setReturnAllTypesDto(returnAllTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
+                ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
             }
 //            LoaderUtil.closeModal(allValues.getLoaderStage());
         }

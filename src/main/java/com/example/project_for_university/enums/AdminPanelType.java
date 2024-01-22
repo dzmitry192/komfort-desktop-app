@@ -8,9 +8,9 @@ public enum AdminPanelType {
     BENDING ("Тип изгиба"),
     WASHING ("Тип стирки"),
     LAYER ("Тип слоя"),
-    GLUE ("Тип слоя");
+    GLUE ("Тип клея");
 
-    private String name;
+    private final String name;
 
     AdminPanelType(String name) {
         this.name = name;
