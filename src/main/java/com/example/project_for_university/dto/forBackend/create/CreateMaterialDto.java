@@ -5,6 +5,7 @@ import com.example.project_for_university.dto.forBackend.calculate.CalculateEsti
 import com.example.project_for_university.dto.forBackend.calculate.CalculateHomeostasisFunctionDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateReliabilityFunctionDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

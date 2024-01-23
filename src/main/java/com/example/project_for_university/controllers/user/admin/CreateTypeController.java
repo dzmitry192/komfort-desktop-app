@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import lombok.Setter;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
@@ -48,11 +49,8 @@ public class CreateTypeController implements DataProvider {
     @FXML
     private TextField name_field;
 
+    @Setter
     private AbstractType typeForUpdate;
-
-    public void setTypeForUpdate(AbstractType typeForUpdate) {
-        this.typeForUpdate = typeForUpdate;
-    }
 
     @Override
     public void setData(AllValues allValues) {

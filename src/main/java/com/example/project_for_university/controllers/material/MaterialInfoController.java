@@ -1,7 +1,6 @@
 package com.example.project_for_university.controllers.material;
 
 import com.example.project_for_university.dto.AllValues;
-import com.example.project_for_university.dto.MaterialInformationDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.dto.forBackend.entity.*;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
@@ -9,14 +8,12 @@ import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.TextFormatter.Change;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
@@ -30,7 +27,7 @@ import java.util.List;
 
 public class MaterialInfoController implements DataProvider {
     private AllValues allValues;
-    private static final List<File> files = new ArrayList<>();
+    private static final List<File> images = new ArrayList<>();
     @FXML
     private TextArea description;
 
@@ -88,7 +85,7 @@ public class MaterialInfoController implements DataProvider {
             name.setText(materialDto.getMaterial().getName());
         }
         if(materialDto.getImages() != null) {
-            files.addAll(List.of(materialDto.getImages()));
+            images.addAll(List.of(materialDto.getImages()));
         }
     }
 
@@ -107,11 +104,11 @@ public class MaterialInfoController implements DataProvider {
         } else {
             allValues.getCreateMaterialDto().getMaterial().setDescription(description.getText());
         }
-        if(files.isEmpty()) {
+        if(images.isEmpty()) {
             allValues.getCreateMaterialDto().setImages(null);
             isEmpty = true;
         } else {
-            allValues.getCreateMaterialDto().setImages(files.toArray(File[]::new));
+            allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
         }
 
         return isEmpty;
@@ -148,8 +145,8 @@ public class MaterialInfoController implements DataProvider {
         if (selectedFiles.size() > 5) {
             AlertUtil.show("Превышен лимит", "Максимальное количетсов фотографий - 5", allValues.getRootStage());
         } else {
-            files.addAll(selectedFiles);
-            allValues.getCreateMaterialDto().setImages(selectedFiles.toArray(File[]::new));
+            images.addAll(selectedFiles);
+            allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.project_for_university.service;
 import com.example.project_for_university.Main;
 import com.example.project_for_university.dto.forBackend.entity.ProductionMethodEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.MembraneLayerPolymerTypeEntity;
+import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.service.models.FilterServiceModel;
 import com.example.project_for_university.utils.AuthUtils;
@@ -28,7 +29,7 @@ public class FilterService {
                 CloseableHttpClient httpClient = HttpClients.createDefault();
 
                 HttpUriRequest httpGet_memb = RequestBuilder.get()
-                        .setUri(Main.host.getValue() + "/membrane-layer-polymer-type")
+                        .setUri(Main.host.getValue() + UrlRoutes.GET_MEMBRANE_LAYER_POLYMER_TYPES.getName())
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
                         .build();
@@ -37,7 +38,7 @@ public class FilterService {
                 MembraneLayerPolymerTypeEntity[] membraneLayerPolymerTypeEntities = JsonToClass.parseToListObject(MembraneLayerPolymerTypeEntity.class, response).toArray(MembraneLayerPolymerTypeEntity[]::new);
 
                 HttpUriRequest httpGet_prod = RequestBuilder.get()
-                        .setUri(Main.host.getValue() + "/production-method")
+                        .setUri(Main.host.getValue() + UrlRoutes.GET_PRODUCTION_METHODS.getName())
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
                         .build();
