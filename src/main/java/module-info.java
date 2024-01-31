@@ -7,6 +7,9 @@ module com.example.project_for_university {
     requires com.google.gson;
     requires json.lib;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.databind;
+    requires org.apache.httpcomponents.httpmime;
 
     opens com.example.project_for_university to javafx.fxml;
     exports com.example.project_for_university;
@@ -23,7 +26,7 @@ module com.example.project_for_university {
     opens com.example.project_for_university.controllers.filter to javafx.fxml;
     opens com.example.project_for_university.dto to javafx.fxml;
     opens com.example.project_for_university.controllers.user.admin to javafx.fxml;
-    opens com.example.project_for_university.controllers.user.admin.models to javafx.base;
+    opens com.example.project_for_university.controllers.user.admin.models to javafx.base, com.google.gson;
     exports com.example.project_for_university.controllers.material;
     opens com.example.project_for_university.controllers.material to javafx.fxml;
     exports com.example.project_for_university.controllers.material.tables;
@@ -33,4 +36,7 @@ module com.example.project_for_university {
     opens com.example.project_for_university.dto.forBackend.entity.types to com.google.gson;
     opens com.example.project_for_university.controllers.material.models to javafx.base;
     opens com.example.project_for_university.dto.forBackend to com.google.gson;
+    exports com.example.project_for_university.dto.forBackend.create to com.fasterxml.jackson.databind;
+    exports com.example.project_for_university.dto.forBackend to com.fasterxml.jackson.databind;
+    exports com.example.project_for_university.dto.forBackend.calculate to com.fasterxml.jackson.databind;
 }

@@ -4,6 +4,7 @@ import com.example.project_for_university.Main;
 import com.example.project_for_university.dto.forBackend.LoginDto;
 import com.example.project_for_university.dto.forBackend.create.CreateUserDto;
 import com.example.project_for_university.dto.forBackend.entity.UserEntity;
+import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.service.models.UserModel;
 import com.google.gson.JsonObject;
@@ -32,19 +33,21 @@ public class AuthService {
             @SneakyThrows
             @Override
             public void run() {
-                CloseableHttpClient httpClient = HttpClients.createDefault();
+                CloseableHttpResponse response;
+                try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("email", loginDto.getEmail());
-                jsonObject.addProperty("password", loginDto.getPassword());
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("email", loginDto.getEmail());
+                    jsonObject.addProperty("password", loginDto.getPassword());
 
-                HttpUriRequest httpPost = RequestBuilder.post()
-                        .setUri(Main.host.getValue() + "/auth/login")
-                        .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
-                        .build();
+                    HttpUriRequest httpPost = RequestBuilder.post()
+                            .setUri(Main.host.getValue() + UrlRoutes.AUTH_LOGIN.getName())
+                            .setHeader("Content-Type", "application/json")
+                            .setEntity(new StringEntity(jsonObject.toString()))
+                            .build();
 
-                CloseableHttpResponse response = httpClient.execute(httpPost);
+                    response = httpClient.execute(httpPost);
+                }
                 if (response.getStatusLine().getStatusCode() != 201) {
                     user.setError(true);
                     user.setErrorType(response.getStatusLine().getStatusCode());
@@ -80,7 +83,7 @@ public class AuthService {
                 jsonObject.addProperty("password", userDto.getPassword());
 
                 HttpUriRequest httpPost = RequestBuilder.post()
-                        .setUri(Main.host.getValue() + "/auth/signup")
+                        .setUri(Main.host.getValue() + UrlRoutes.AUTH_SIGNUP.getName())
                         .setHeader("Content-Type", "application/json")
                         .setEntity(new StringEntity(jsonObject.toString()))
                         .build();

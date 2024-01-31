@@ -219,35 +219,35 @@ public class FConditionController implements Initializable, DataProvider {
 
     private void setValuesToCB() {
         ObservableList<String> prodWay = FXCollections.observableArrayList("Не выбрано");
-        prodWay.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).map(ProductionMethodEntity::getName).toList());
+        prodWay.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).map(ProductionMethodEntity::getName).toList());
         production_way_cb.setItems(prodWay);
 
         ObservableList<String> membraneTypes = FXCollections.observableArrayList("Не выбрано");
-        membraneTypes.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(MembraneLayerPolymerTypeEntity::getName).toList());
+        membraneTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(MembraneLayerPolymerTypeEntity::getName).toList());
         membrane_type_cb.setItems(membraneTypes);
 
         ObservableList<String> glueTypes = FXCollections.observableArrayList("Не выбрано", "нет");
-        glueTypes.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getGlueTypes()).map(GlueTypeEntity::getName).toList());
+        glueTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getGlueTypes()).map(GlueTypeEntity::getName).toList());
         glue_type_cb.setItems(glueTypes);
 
         ObservableList<String> washTypes = FXCollections.observableArrayList("Не выбрано");
-        washTypes.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getWashingTypes()).map(WashingTypeEntity::getName).toList());
+        washTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getWashingTypes()).map(WashingTypeEntity::getName).toList());
         wash_type.setItems(washTypes);
 
         ObservableList<String> layerTypes = FXCollections.observableArrayList("Не выбрано");
-        layerTypes.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getLayerTypes()).map(LayerTypeEntity::getName).toList());
+        layerTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getLayerTypes()).map(LayerTypeEntity::getName).toList());
         choose_layer_cb.setItems(layerTypes);
 
         ObservableList<String> bendingTypes = FXCollections.observableArrayList("Не выбрано");
-        bendingTypes.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getBendingTypes()).map(BendingTypeEntity::getName).toList());
+        bendingTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getBendingTypes()).map(BendingTypeEntity::getName).toList());
         bend_type.setItems(bendingTypes);
 
         ObservableList<String> abrasionTypes = FXCollections.observableArrayList("Не выбрано");
-        abrasionTypes.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getAbrasionTypes()).map(AbrasionTypeEntity::getName).toList());
+        abrasionTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getAbrasionTypes()).map(AbrasionTypeEntity::getName).toList());
         abrasion_type.setItems(abrasionTypes);
 
         ObservableList<String> physicalTypes = FXCollections.observableArrayList("Не выбрано");
-        physicalTypes.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getPhysicalActivityTypes()).map(PhysicalActivityTypeEntity::getName).toList());
+        physicalTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).map(PhysicalActivityTypeEntity::getName).toList());
         lev_phys.setItems(physicalTypes);
 
         time_cond.setItems(FXCollections.observableArrayList("Не выбрано", "2", "4"));
@@ -260,7 +260,7 @@ public class FConditionController implements Initializable, DataProvider {
             if (choose_layer_cb.getSelectionModel().getSelectedIndex() != -1 && choose_layer_cb.getSelectionModel().getSelectedIndex() != 0) {
                 layers.add(new TableType(String.valueOf(layers.size() + 1), choose_layer_cb.getSelectionModel().getSelectedItem()));
                 layers_table.setItems(FXCollections.observableList(layers));
-                allValues.getCreateMaterialDto().getMaterial().setLayers(layers_table.getItems().stream().map(layer -> new CreateLayerDto(Integer.parseInt(layer.getFirstCol()), Arrays.stream(allValues.getReturnAllTypesDto().getLayerTypes()).filter(type -> type.getName().equals(layer.getSecondCol())).findFirst().get().getId())).toList());
+                allValues.getCreateMaterialDto().getMaterial().setLayers(layers_table.getItems().stream().map(layer -> new CreateLayerDto(Integer.parseInt(layer.getFirstCol()), Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getLayerTypes()).filter(type -> type.getName().equals(layer.getSecondCol())).findFirst().get().getId())).toList());
             } else {
                 AlertUtil.show("Выберете элемент", "Выберете нужный элемент, затем попробуйте добавить", allValues.getRootStage());
             }
@@ -280,7 +280,7 @@ public class FConditionController implements Initializable, DataProvider {
                     layers.get(i).setFirstCol(String.valueOf(Integer.parseInt(layers.get(i).getFirstCol()) - 1));
                 }
                 layers_table.setItems(FXCollections.observableList(layers));
-                allValues.getCreateMaterialDto().getMaterial().setLayers(layers_table.getItems().stream().map(layer -> new CreateLayerDto(Integer.parseInt(layer.getFirstCol()), Arrays.stream(allValues.getReturnAllTypesDto().getLayerTypes()).filter(type -> type.getName().equals(layer.getSecondCol())).findFirst().get().getId())).toList());
+                allValues.getCreateMaterialDto().getMaterial().setLayers(layers_table.getItems().stream().map(layer -> new CreateLayerDto(Integer.parseInt(layer.getFirstCol()), Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getLayerTypes()).filter(type -> type.getName().equals(layer.getSecondCol())).findFirst().get().getId())).toList());
             } else {
                 AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте удалить", allValues.getRootStage());
             }
@@ -297,8 +297,8 @@ public class FConditionController implements Initializable, DataProvider {
             if (conditionDto.isPositive()) {
                 rad_btn_plus.setSelected(true);
             }
-            if (conditionDto.getPhysicalActivityType_id() != 0) {
-                lev_phys.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getId() == conditionDto.getPhysicalActivityType_id()).findFirst().get().getName());
+            if (conditionDto.getPhysicalActivityType_id() != 0 && Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).anyMatch(type -> type.getId() == conditionDto.getPhysicalActivityType_id())) {
+                lev_phys.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getId() == conditionDto.getPhysicalActivityType_id()).findFirst().get().getName());
             }
             if (conditionDto.getResidenceTime() != 0) {
                 time_cond.setValue(String.valueOf(conditionDto.getResidenceTime()));
@@ -326,12 +326,12 @@ public class FConditionController implements Initializable, DataProvider {
             if (conditionDto.getBendingType_id() != 0) {
                 check_bend.setSelected(true);
                 bend_type.setDisable(false);
-                bend_type.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getBendingTypes()).filter(type -> type.getId() == conditionDto.getBendingType_id()).findFirst().get().getName());
+                bend_type.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getBendingTypes()).filter(type -> type.getId() == conditionDto.getBendingType_id()).findFirst().get().getName());
             }
             if (conditionDto.getAbrasionType_id() != 0) {
                 check_abrasion.setSelected(true);
                 abrasion_type.setDisable(false);
-                abrasion_type.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getAbrasionTypes()).filter(type -> type.getId() == conditionDto.getAbrasionType_id()).findFirst().get().getName());
+                abrasion_type.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getAbrasionTypes()).filter(type -> type.getId() == conditionDto.getAbrasionType_id()).findFirst().get().getName());
             }
             if (conditionDto.getStretchingCompression() != 0) {
                 check_stretch_compress.setSelected(true);
@@ -360,7 +360,7 @@ public class FConditionController implements Initializable, DataProvider {
 
                 if (conditionDto.getWashing().getWashingType_id() != 0) {
                     allValues.getCreateMaterialDto().getCondition().getWashing().setWashingType_id(conditionDto.getWashing().getWashingType_id());
-                    wash_type.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getWashingTypes()).filter(type -> type.getId() == conditionDto.getWashing().getWashingType_id()).findFirst().get().getName());
+                    wash_type.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getWashingTypes()).filter(type -> type.getId() == conditionDto.getWashing().getWashingType_id()).findFirst().get().getName());
                 }
                 if (conditionDto.getWashing().getTemperature() != 0) {
                     scroll_temp_washing.setValue(conditionDto.getWashing().getTemperature());
@@ -388,19 +388,19 @@ public class FConditionController implements Initializable, DataProvider {
                 manufacturer_inp.setText(materialInfo.getManufacturer());
             }
             if (materialInfo.getLayers() != null && !materialInfo.getLayers().isEmpty()) {
-                layers_table.setItems(FXCollections.observableList(materialInfo.getLayers().stream().map(layer -> new TableType(String.valueOf(layer.getIndexNum()), Arrays.stream(allValues.getReturnAllTypesDto().getLayerTypes()).filter(layerType -> layerType.getId() == layer.getLayerType_id()).findFirst().get().getName())).toList()));
+                layers_table.setItems(FXCollections.observableList(materialInfo.getLayers().stream().map(layer -> new TableType(String.valueOf(layer.getIndexNum()), Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getLayerTypes()).filter(layerType -> layerType.getId() == layer.getLayerType_id()).findFirst().get().getName())).toList()));
             }
             if(materialInfo.getProductionMethod_id() != 0) {
                 allValues.getCreateMaterialDto().getMaterial().setProductionMethod_id(materialInfo.getProductionMethod_id());
-                production_way_cb.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getId() == materialInfo.getProductionMethod_id()).findFirst().get().getName());
+                production_way_cb.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getId() == materialInfo.getProductionMethod_id()).findFirst().get().getName());
             }
             if(materialInfo.getMembraneLayerPolymerType_id() != 0) {
                 allValues.getCreateMaterialDto().getMaterial().setMembraneLayerPolymerType_id(materialInfo.getMembraneLayerPolymerType_id());
-                membrane_type_cb.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getId() == materialInfo.getMembraneLayerPolymerType_id()).findFirst().get().getName());
+                membrane_type_cb.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getId() == materialInfo.getMembraneLayerPolymerType_id()).findFirst().get().getName());
             }
             if(materialInfo.getGlueType_id() != 0) {
                 allValues.getCreateMaterialDto().getMaterial().setGlueType_id(materialInfo.getGlueType_id());
-                glue_type_cb.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getGlueTypes()).filter(type -> type.getId() == materialInfo.getGlueType_id()).findFirst().get().getName());
+                glue_type_cb.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getGlueTypes()).filter(type -> type.getId() == materialInfo.getGlueType_id()).findFirst().get().getName());
             }
         }
     }
@@ -523,7 +523,7 @@ public class FConditionController implements Initializable, DataProvider {
     @FXML
     void production_way_cb_action(ActionEvent event) {
         if (production_way_cb.getSelectionModel().getSelectedItem() != null && production_way_cb.getSelectionModel().getSelectedIndex() != 0) {
-            allValues.getCreateMaterialDto().getMaterial().setProductionMethod_id(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).filter(type -> type.getName().equals(production_way_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            allValues.getCreateMaterialDto().getMaterial().setProductionMethod_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).filter(type -> type.getName().equals(production_way_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
         } else {
             allValues.getCreateMaterialDto().getMaterial().setProductionMethod_id(0);
         }
@@ -531,7 +531,7 @@ public class FConditionController implements Initializable, DataProvider {
     @FXML
     void membrane_type_cb_action(ActionEvent event) {
         if (membrane_type_cb.getSelectionModel().getSelectedItem() != null && membrane_type_cb.getSelectionModel().getSelectedIndex() != 0) {
-            allValues.getCreateMaterialDto().getMaterial().setMembraneLayerPolymerType_id(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getName().equals(membrane_type_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            allValues.getCreateMaterialDto().getMaterial().setMembraneLayerPolymerType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getName().equals(membrane_type_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
         } else {
             allValues.getCreateMaterialDto().getMaterial().setMembraneLayerPolymerType_id(0);
         }
@@ -540,7 +540,7 @@ public class FConditionController implements Initializable, DataProvider {
     @FXML
     void glue_type_cb_action(ActionEvent event) {
         if (glue_type_cb.getSelectionModel().getSelectedItem() != null && glue_type_cb.getSelectionModel().getSelectedIndex() != 0) {
-            allValues.getCreateMaterialDto().getMaterial().setGlueType_id(Arrays.stream(allValues.getReturnAllTypesDto().getGlueTypes()).filter(type -> type.getName().equals(glue_type_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            allValues.getCreateMaterialDto().getMaterial().setGlueType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getGlueTypes()).filter(type -> type.getName().equals(glue_type_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
         } else {
             allValues.getCreateMaterialDto().getMaterial().setGlueType_id(0);
         }
@@ -549,7 +549,7 @@ public class FConditionController implements Initializable, DataProvider {
     @FXML
     void lev_phys_action(ActionEvent event) {
         if (lev_phys.getSelectionModel().getSelectedItem() != null && lev_phys.getSelectionModel().getSelectedIndex() != 0) {
-            allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(Arrays.stream(allValues.getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getName().equals(lev_phys.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getName().equals(lev_phys.getSelectionModel().getSelectedItem())).findFirst().get().getId());
         } else {
             allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(0);
         }
@@ -567,7 +567,7 @@ public class FConditionController implements Initializable, DataProvider {
     @FXML
     void bend_type_action(ActionEvent event) {
         if (bend_type.getSelectionModel().getSelectedItem() != null && bend_type.getSelectionModel().getSelectedIndex() != 0) {
-            allValues.getCreateMaterialDto().getCondition().setBendingType_id(Arrays.stream(allValues.getReturnAllTypesDto().getBendingTypes()).filter(type -> type.getName().equals(bend_type.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            allValues.getCreateMaterialDto().getCondition().setBendingType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getBendingTypes()).filter(type -> type.getName().equals(bend_type.getSelectionModel().getSelectedItem())).findFirst().get().getId());
         } else {
             allValues.getCreateMaterialDto().getCondition().setBendingType_id(0);
         }
@@ -576,7 +576,7 @@ public class FConditionController implements Initializable, DataProvider {
     @FXML
     void abrasion_type_action(ActionEvent event) {
         if (abrasion_type.getSelectionModel().getSelectedItem() != null && abrasion_type.getSelectionModel().getSelectedIndex() != 0) {
-            allValues.getCreateMaterialDto().getCondition().setAbrasionType_id(Arrays.stream(allValues.getReturnAllTypesDto().getAbrasionTypes()).filter(type -> type.getName().equals(abrasion_type.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            allValues.getCreateMaterialDto().getCondition().setAbrasionType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getAbrasionTypes()).filter(type -> type.getName().equals(abrasion_type.getSelectionModel().getSelectedItem())).findFirst().get().getId());
         } else {
             allValues.getCreateMaterialDto().getCondition().setAbrasionType_id(0);
         }
@@ -585,7 +585,7 @@ public class FConditionController implements Initializable, DataProvider {
     @FXML
     void wash_type_action(ActionEvent event) {
         if (wash_type.getSelectionModel().getSelectedItem() != null && wash_type.getSelectionModel().getSelectedIndex() != 0) {
-            allValues.getCreateMaterialDto().getCondition().getWashing().setWashingType_id(Arrays.stream(allValues.getReturnAllTypesDto().getWashingTypes()).filter(type -> type.getName().equals(wash_type.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            allValues.getCreateMaterialDto().getCondition().getWashing().setWashingType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getWashingTypes()).filter(type -> type.getName().equals(wash_type.getSelectionModel().getSelectedItem())).findFirst().get().getId());
         } else {
             allValues.getCreateMaterialDto().getCondition().getWashing().setWashingType_id(0);
         }

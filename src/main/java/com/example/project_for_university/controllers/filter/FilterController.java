@@ -168,7 +168,6 @@ public class FilterController implements Initializable, DataProvider {
         if (allValues.getPaginationDto() == null) {
             allValues.setPaginationDto(new PaginationDto(1, 10));
         }
-        allValues.setTotalMaterialsCnt(50);
 
         fillFilters();
         mountMaterials(getMaterials());
@@ -177,10 +176,10 @@ public class FilterController implements Initializable, DataProvider {
     private void setDataToCb() {
         num_layers_cb.setItems(FXCollections.observableArrayList("Не выбрано", "1", "2", "3", "4", "5", "6"));
         ObservableList<String> membraneLayerPolymerTypes = FXCollections.observableArrayList("Не выбрано");
-        membraneLayerPolymerTypes.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(MembraneLayerPolymerTypeEntity::getName).toList());
+        membraneLayerPolymerTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(MembraneLayerPolymerTypeEntity::getName).toList());
         typeMemb_cb.setItems(membraneLayerPolymerTypes);
         ObservableList<String> productionMethods = FXCollections.observableArrayList("Не выбрано");
-        productionMethods.addAll(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).map(ProductionMethodEntity::getName).toList());
+        productionMethods.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).map(ProductionMethodEntity::getName).toList());
         way_prod_cb.setItems(productionMethods);
     }
 
@@ -200,10 +199,10 @@ public class FilterController implements Initializable, DataProvider {
                 num_layers_cb.setValue(String.valueOf(allValues.getMaterialFilterDto().getLayersCnt()));
             }
             if (allValues.getMaterialFilterDto().getMembraneLayerPolymerType_id() != 0) {
-                typeMemb_cb.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getId() == allValues.getMaterialFilterDto().getMembraneLayerPolymerType_id()).findFirst().get().getName());
+                typeMemb_cb.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getId() == allValues.getMaterialFilterDto().getMembraneLayerPolymerType_id()).findFirst().get().getName());
             }
             if (allValues.getMaterialFilterDto().getProductionMethod_id() != 0) {
-                way_prod_cb.setValue(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getId() == allValues.getMaterialFilterDto().getProductionMethod_id()).findFirst().get().getName());
+                way_prod_cb.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getId() == allValues.getMaterialFilterDto().getProductionMethod_id()).findFirst().get().getName());
             }
 
 
@@ -384,7 +383,7 @@ public class FilterController implements Initializable, DataProvider {
 
         if (typeMemb_cb.getSelectionModel().getSelectedItem() != null) {
             if(!typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
-                curFilterDto.setMembraneLayerPolymerType_id(Arrays.stream(allValues.getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getName().equals(typeMemb_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+                curFilterDto.setMembraneLayerPolymerType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getName().equals(typeMemb_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
             } else {
                 curFilterDto.setMembraneLayerPolymerType_id(0);
             }
@@ -393,7 +392,7 @@ public class FilterController implements Initializable, DataProvider {
         }
         if (way_prod_cb.getSelectionModel().getSelectedItem() != null) {
             if(!typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
-                curFilterDto.setProductionMethod_id(Arrays.stream(allValues.getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getName().equals(way_prod_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+                curFilterDto.setProductionMethod_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getName().equals(way_prod_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
             } else {
                 curFilterDto.setProductionMethod_id(0);
             }
@@ -586,8 +585,9 @@ public class FilterController implements Initializable, DataProvider {
         if (allValues.getTotalMaterialsCnt() <= 0) {
             lastPage = 1;
         } else {
-            lastPage = allValues.getTotalMaterialsCnt() / allValues.getPaginationDto().getPerPage();
+            lastPage = (int) Math.ceil( (double) allValues.getTotalMaterialsCnt() / (double) allValues.getPaginationDto().getPerPage());
         }
+
         return lastPage;
     }
 
@@ -684,15 +684,6 @@ public class FilterController implements Initializable, DataProvider {
         } else {
             AlertUtil.show("Ошибка получения данных с сервера", "Сервер временно недоступен, повторите попытку позже", allValues.getRootStage());
         }
-
-//        //тестовые данные
-//        ArrayList<PartialMaterialEntity> testMaterials = new ArrayList<>();
-//        ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, 1, 1, null, new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), null, new PhysicalActivityTypeEntity(1, "act", "desc"));
-//
-//        int page = allValues.getPaginationDto().getPage();
-//        testMaterials.add(new PartialMaterialEntity(1, "name1", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false), new ProductionMethodEntity(1, "prodmethod"), new MembraneLayerPolymerTypeEntity(1, "membrane method"), new GlueTypeEntity(1, "ПВА")));
-
-//        //--------
 
         allValues.setLoadedMaterials(materials);
 

@@ -7,6 +7,7 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.enums.ActionType;
 import com.example.project_for_university.enums.AdminPanelType;
 import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.factory.ServiceFactory;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
@@ -22,14 +23,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import lombok.SneakyThrows;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TypeController implements DataProvider, Initializable {
 
     private AllValues allValues;
+    private final ServiceFactory serviceFactory = new ServiceFactory();
 
     private AdminPanelInfo adminPanelInfo;
 
@@ -59,27 +61,6 @@ public class TypeController implements DataProvider, Initializable {
 
     private TableColumn<AbstractType, String> description_col;
 
-    private final ObservableList<AbstractType> typeList = FXCollections.observableArrayList(
-            new PhType(1, "name1", "description1"),
-            new PhType(2, "name2", "description2"),
-            new PhType(3, "name3", "description3"),
-            new PhType(1, "name1", "description1"),
-            new PhType(2, "name2", "description2"),
-            new PhType(3, "name3", "description3"),
-             new PhType(1, "name1", "description1"),
-            new PhType(2, "name2", "description2"),
-            new PhType(3, "name3", "description3"),
-         new PhType(1, "name1", "description1"),
-            new PhType(2, "name2", "description2"),
-            new PhType(3, "name3", "description3"),
-         new PhType(1, "name1", "description1"),
-            new PhType(2, "name2", "description2"),
-            new PhType(3, "name3", "description3"),
-         new PhType(1, "name1", "description1"),
-            new PhType(2, "name2", "description2"),
-            new PhType(3, "name3", "description3")
-    );
-
     @Override
     public void setData(AllValues allValues) {
         this.allValues = allValues;
@@ -103,12 +84,34 @@ public class TypeController implements DataProvider, Initializable {
 
         name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        table_types.setItems(typeList);
+        table_types.setItems(getTypesList());
+    }
+
+    private ObservableList<AbstractType> getTypesList() {
+        return switch (allValues.getAdminPanelInfo().getCurAdminPanelType().getName()) {
+            case "Тип клея" ->
+                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getGlueTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
+            case "Тип слоя" ->
+                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getLayerTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
+            case "Тип стирки" ->
+                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getWashingTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
+            case "Тип изгиба" ->
+                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getBendingTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
+            case "Тип истирания" ->
+                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getAbrasionTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
+            case "Способ производства" ->
+                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
+            case "Тип полимера мембранного слоя" ->
+                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
+            case "Уровень физической активности" ->
+                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).map(type -> new PhType(type.getId(), type.getName(), type.getDescription())).toList());
+            default -> null;
+        };
     }
 
     @SneakyThrows
     @FXML
-    void btn_back_clicked(MouseEvent event) throws IOException {
+    void btn_back_clicked(MouseEvent event) {
         ComponentUtil.mount(Component.ADMIN_PANEL, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
@@ -119,20 +122,20 @@ public class TypeController implements DataProvider, Initializable {
 
     @SneakyThrows
     @FXML
-    void btn_add_clicked(MouseEvent event) throws IOException {
+    void btn_add_clicked(MouseEvent event) {
         adminPanelInfo.setActionType(ActionType.CREATE);
         allValues.setAdminPanelInfo(adminPanelInfo);
         ComponentUtil.mount(Component.CREATE_TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
     @FXML
-    void btn_change_clicked(MouseEvent event) throws IOException {
+    @SneakyThrows
+    void btn_change_clicked(MouseEvent event) {
         if (selectedItem == null) {
             AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте изменить", allValues.getRootStage());
         } else {
             adminPanelInfo.setActionType(ActionType.UPDATE);
             allValues.setAdminPanelInfo(adminPanelInfo);
-
             ComponentUtil.mountUpdateType(allValues.getContentPanes().getLoggedInStackPane(), allValues, selectedItem);
         }
     }
@@ -142,7 +145,12 @@ public class TypeController implements DataProvider, Initializable {
         if (selectedItem == null) {
             AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте удалить", allValues.getRootStage());
         } else {
-
+            AbstractType abstractType = (AbstractType) serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).delete(selectedItem.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if(Objects.nonNull(abstractType)) {
+                List<AbstractType> types = table_types.getItems();
+                types.remove(selectedItem);
+                table_types.setItems(FXCollections.observableArrayList(types));
+            }
         }
     }
 

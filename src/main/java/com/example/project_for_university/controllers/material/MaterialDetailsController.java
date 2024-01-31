@@ -163,7 +163,7 @@ public class MaterialDetailsController implements Initializable, DataProvider {
                 !Objects.isNull(condition.getAbrasionType()) ? new TableType("Истирание", condition.getAbrasionType().getName()) : null,
                 condition.getStretchingCompression() != 0 ? new TableType("Растяжение-сжатие", condition.getStretchingCompression() + "%") : null,
                 condition.getTorsionAngle() != 0 ? new TableType("Кручение", condition.getTorsionAngle() + "°") : null,
-                !Objects.isNull(condition.getWashing()) ? new TableType("Стирка", partialMaterialEntity.getName() + ", "
+                !Objects.isNull(condition.getWashing()) ? new TableType("Стирка", partialMaterialEntity.getCondition().getWashing().getWashingType().getName() + ", "
                         + partialMaterialEntity.getCondition().getWashing().getCyclesCnt() + " циклов, "
                         + partialMaterialEntity.getCondition().getWashing().getTemperature() + "°С, "
                         + partialMaterialEntity.getCondition().getWashing().getDuration() + " мин, "

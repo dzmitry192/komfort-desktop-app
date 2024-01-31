@@ -1,13 +1,12 @@
 package com.example.project_for_university.dto.forBackend.entity.types;
 
-import lombok.AllArgsConstructor;
+import com.example.project_for_university.controllers.user.admin.models.AbstractType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class LayerTypeEntity {
-    private int id;
-    private String name;
+public class LayerTypeEntity extends AbstractType {
+    public LayerTypeEntity(int id, String name) {
+        super();
+    }
 }

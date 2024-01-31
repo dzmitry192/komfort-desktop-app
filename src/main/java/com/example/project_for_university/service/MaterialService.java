@@ -3,19 +3,33 @@ package com.example.project_for_university.service;
 import com.example.project_for_university.Main;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.MaterialFilterDto;
+import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
+import com.example.project_for_university.dto.forBackend.entity.MaterialEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
+import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.service.models.FilterMaterialsModel;
 import com.example.project_for_university.utils.AuthUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -28,11 +42,9 @@ public class MaterialService {
         CompletableFuture<FilterMaterialsModel> futureMaterials = new CompletableFuture<>();
         MaterialFilterDto filterDto = allValues.getMaterialFilterDto();
 
-        Runnable runnable = new Runnable() {
-            @SneakyThrows
-            @Override
-            public void run() {
-                CloseableHttpClient httpClient = HttpClients.createDefault();
+        Runnable runnable = () -> {
+            CloseableHttpResponse response;
+            try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
                 List<NameValuePair> queryParams = new ArrayList<>();
                 if (filterDto.getName() != null) {
@@ -88,7 +100,7 @@ public class MaterialService {
                 }
 
                 HttpUriRequest httpGet = RequestBuilder.get()
-                        .setUri(Main.host.getValue() + "/material")
+                        .setUri(Main.host.getValue() + UrlRoutes.GET_MATERIALS.getName())
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(allValues.getUser().getEmail(), allValues.getUser().getPassword()))
                         .setHeader("Content-Type", "application/json")
                         .addParameter("page", String.valueOf(allValues.getPaginationDto().getPage()))
@@ -96,15 +108,23 @@ public class MaterialService {
                         .addParameters(queryParams.toArray(NameValuePair[]::new))
                         .build();
 
-                CloseableHttpResponse response = httpClient.execute(httpGet);
+                response = httpClient.execute(httpGet);
+
                 if (response.getStatusLine().getStatusCode() != 200) {
                     filterMaterialsModel.setError(true);
                 } else {
-                    filterMaterialsModel.setPartialMaterials(JsonToClass.parseToListObject(PartialMaterialEntity.class, response).toArray(PartialMaterialEntity[]::new));
+                    try {
+                        filterMaterialsModel.setPartialMaterials(JsonToClass.parseToListObject(PartialMaterialEntity.class, response).toArray(PartialMaterialEntity[]::new));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     filterMaterialsModel.setError(false);
                     filterMaterialsModel.setTotalCount(Integer.parseInt(response.getFirstHeader("x-total-count").getValue()));
                 }
+
                 futureMaterials.complete(filterMaterialsModel);
+            } catch (IOException e) {
+                throw new RuntimeException();
             }
         };
 
@@ -112,5 +132,55 @@ public class MaterialService {
         getFilterMaterialsThread.start();
 
         return futureMaterials.get();
+    }
+
+    @SneakyThrows
+    public MaterialEntity create(CreateMaterialDto createMaterialDto, String email, String password) {
+        CompletableFuture<MaterialEntity> completableFuture = new CompletableFuture<>();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+
+                    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+                    for (File file : createMaterialDto.getImages()) {
+                        builder.addPart("images", new FileBody(file, ContentType.IMAGE_PNG, file.getName()));
+                    }
+
+                    builder.addTextBody("material", objectMapper.writeValueAsString(createMaterialDto.getMaterial()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("condition", objectMapper.writeValueAsString(createMaterialDto.getCondition()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("waterproofFunction", objectMapper.writeValueAsString(createMaterialDto.getWaterproofFunction()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("homeostasisFunction", objectMapper.writeValueAsString(createMaterialDto.getHomeostasisFunction()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("reliabilityFunction", objectMapper.writeValueAsString(createMaterialDto.getReliabilityFunction()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("estimation", objectMapper.writeValueAsString(createMaterialDto.getEstimation()), ContentType.APPLICATION_JSON);
+
+                    HttpEntity multipart = builder.build();
+
+                    HttpUriRequest httpPost = RequestBuilder.post()
+                            .setUri(Main.host.getValue() + UrlRoutes.POST_MATERIAL.getName())
+                            .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                            .setEntity(multipart)
+                            .build();
+
+                    try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+                        MaterialEntity material = JsonToClass.parseToObject(MaterialEntity.class, response);
+                        completableFuture.complete(material);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        throw e;
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        Thread createMaterialThread = new Thread(runnable);
+        createMaterialThread.start();
+
+        return completableFuture.get();
     }
 }

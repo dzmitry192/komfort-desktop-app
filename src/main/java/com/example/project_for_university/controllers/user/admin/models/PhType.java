@@ -2,7 +2,6 @@ package com.example.project_for_university.controllers.user.admin.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -13,4 +12,5 @@ public class PhType extends AbstractType {
         super(id, name);
         this.description = description;
     }
+
 }

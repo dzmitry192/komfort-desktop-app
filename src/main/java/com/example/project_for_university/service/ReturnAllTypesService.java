@@ -2,6 +2,7 @@ package com.example.project_for_university.service;
 
 import com.example.project_for_university.Main;
 import com.example.project_for_university.dto.forBackend.ReturnAllTypesDto;
+import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.service.models.ReturnAllTypesModel;
 import com.example.project_for_university.utils.AuthUtils;
@@ -28,7 +29,7 @@ public class ReturnAllTypesService {
                 CloseableHttpClient httpClient = HttpClients.createDefault();
 
                 HttpUriRequest httpGet = RequestBuilder.get()
-                        .setUri(Main.host.getValue() + "/all-types")
+                        .setUri(Main.host.getValue() + UrlRoutes.GET_ALL_TYPES.getName())
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
                         .build();

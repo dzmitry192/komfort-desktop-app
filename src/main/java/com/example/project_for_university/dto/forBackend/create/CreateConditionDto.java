@@ -1,5 +1,6 @@
 package com.example.project_for_university.dto.forBackend.create;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateConditionDto {
+    @JsonProperty("isPositive")
     private boolean isPositive;
     private int minAirTemp;
     private int maxAirTemp;

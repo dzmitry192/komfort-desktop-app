@@ -5,8 +5,10 @@ import com.example.project_for_university.dto.ContentPanes;
 import com.example.project_for_university.dto.forBackend.entity.UserEntity;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.FilterService;
+import com.example.project_for_university.service.ReturnAllTypesService;
+import com.example.project_for_university.service.models.FilterServiceModel;
 import com.example.project_for_university.utils.ComponentUtil;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +27,8 @@ import java.util.ResourceBundle;
 public class LoggedInPageController implements Initializable, DataProvider {
 
     private AllValues allValues;
+    private FilterService filterService = new FilterService();
+    private ReturnAllTypesService returnAllTypesService = new ReturnAllTypesService();
 
     @FXML
     private Text userName_text;
@@ -83,6 +87,7 @@ public class LoggedInPageController implements Initializable, DataProvider {
     @FXML
     void adminPanel_btn_click(MouseEvent event) {
         toggleActiveButton(adminPanel_btn);
+        allValues.getAdminPanelInfo().setReturnAllTypesDto(returnAllTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
         ComponentUtil.mount(Component.ADMIN_PANEL, loggedInContentPane, allValues);
     }
 
@@ -91,6 +96,7 @@ public class LoggedInPageController implements Initializable, DataProvider {
     void createMaterial_btn_click(MouseEvent event) {
         toggleActiveButton(createMaterial_btn);
 
+        allValues.getAdminPanelInfo().setReturnAllTypesDto(returnAllTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
         if (allValues.getLastCreateMaterialComponent() != null) {
             ComponentUtil.mount(allValues.getLastCreateMaterialComponent(), loggedInContentPane, allValues);
         } else {
@@ -102,6 +108,9 @@ public class LoggedInPageController implements Initializable, DataProvider {
     @FXML
     void materialList_btn_click(MouseEvent event) {
         toggleActiveButton(materialList_btn);
+        FilterServiceModel filterServiceModel = filterService.filterThread(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+        allValues.getAdminPanelInfo().getReturnAllTypesDto().setProductionMethods(filterServiceModel.getProductionMethods());
+        allValues.getAdminPanelInfo().getReturnAllTypesDto().setMembraneLayerPolymerTypes(filterServiceModel.getMembraneLayerPolymerTypes());
         ComponentUtil.mount(Component.FILTER, loggedInContentPane, allValues);
     }
 

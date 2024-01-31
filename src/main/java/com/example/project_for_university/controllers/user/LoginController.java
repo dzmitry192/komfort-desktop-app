@@ -2,30 +2,42 @@ package com.example.project_for_university.controllers.user;
 
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.LoginDto;
+import com.example.project_for_university.dto.forBackend.MaterialInfoDto;
+import com.example.project_for_university.dto.forBackend.calculate.CalculateEstimationDto;
+import com.example.project_for_university.dto.forBackend.calculate.CalculateHomeostasisFunctionDto;
+import com.example.project_for_university.dto.forBackend.calculate.CalculateReliabilityFunctionDto;
+import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
+import com.example.project_for_university.dto.forBackend.create.CreateConditionDto;
+import com.example.project_for_university.dto.forBackend.create.CreateLayerDto;
+import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
+import com.example.project_for_university.dto.forBackend.create.CreateWashingDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.AuthService;
+import com.example.project_for_university.service.MaterialService;
 import com.example.project_for_university.service.ReturnAllTypesService;
-import com.example.project_for_university.service.models.ReturnAllTypesModel;
 import com.example.project_for_university.service.models.UserModel;
-import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import lombok.Data;
 import lombok.SneakyThrows;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 @Data
 public class LoginController implements DataProvider {
     private AllValues allValues = new AllValues();
     private AuthService authService = new AuthService();
-    private ReturnAllTypesService allTypesService = new ReturnAllTypesService();
+    private ReturnAllTypesService returnAllTypesService = new ReturnAllTypesService();
 
     @FXML
     private TextField email_tf;
@@ -64,17 +76,12 @@ public class LoginController implements DataProvider {
             status_lbl.setText("Все поля должны быть заполнены");
         } else {
             UserModel userModel = authService.loginThread(new LoginDto(email, password));
-            if(userModel.isError()) {
+            if (userModel.isError()) {
                 status_lbl.setText(userModel.getErrorMessage());
             } else {
                 allValues.setUser(userModel.getUser());
-                ReturnAllTypesModel allTypesModel = allTypesService.getAllTypesThread(email, password);
-                if(allTypesModel.isError()) {
-                    status_lbl.setText("Сервер временно недоступен, повторите попытку позже");
-                } else {
-                    allValues.setReturnAllTypesDto(allTypesModel.getReturnAllTypesDto());
-                    ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
-                }
+                allValues.getAdminPanelInfo().setReturnAllTypesDto(returnAllTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
+                ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
             }
 //            LoaderUtil.closeModal(allValues.getLoaderStage());
         }
