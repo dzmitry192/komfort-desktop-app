@@ -168,7 +168,6 @@ public class FilterController implements Initializable, DataProvider {
         if (allValues.getPaginationDto() == null) {
             allValues.setPaginationDto(new PaginationDto(1, 10));
         }
-        allValues.setTotalMaterialsCnt(50);
 
         fillFilters();
         mountMaterials(getMaterials());
@@ -586,8 +585,9 @@ public class FilterController implements Initializable, DataProvider {
         if (allValues.getTotalMaterialsCnt() <= 0) {
             lastPage = 1;
         } else {
-            lastPage = allValues.getTotalMaterialsCnt() / allValues.getPaginationDto().getPerPage();
+            lastPage = (int) Math.ceil( (double) allValues.getTotalMaterialsCnt() / (double) allValues.getPaginationDto().getPerPage());
         }
+
         return lastPage;
     }
 
@@ -684,15 +684,6 @@ public class FilterController implements Initializable, DataProvider {
         } else {
             AlertUtil.show("Ошибка получения данных с сервера", "Сервер временно недоступен, повторите попытку позже", allValues.getRootStage());
         }
-
-        //тестовые данные
-        ArrayList<PartialMaterialEntity> testMaterials = new ArrayList<>();
-        ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, 1, 1, null, new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), null, new PhysicalActivityTypeEntity(1, "act", "desc"));
-
-        int page = allValues.getPaginationDto().getPage();
-        testMaterials.add(  new PartialMaterialEntity(1, "name1", "description description description description description description", "manufacturer", 10, condition, new LayerEntity[]{new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[]{"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false), new ProductionMethodEntity(1, "prodmethod"), new MembraneLayerPolymerTypeEntity(1, "membrane method"), new GlueTypeEntity(1, "ПВА")));
-
-//        --------
 
         allValues.setLoadedMaterials(materials);
 
