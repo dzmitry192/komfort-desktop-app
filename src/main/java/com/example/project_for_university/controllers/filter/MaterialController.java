@@ -48,7 +48,7 @@ public class MaterialController implements Initializable, DataProvider {
     }
 
     @FXML
-    void btn_moreDetails_clicked(MouseEvent event) throws IOException {
+    void materialItem_onclick(MouseEvent event) throws IOException {
         ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, partialMaterialEntity);
     }
 

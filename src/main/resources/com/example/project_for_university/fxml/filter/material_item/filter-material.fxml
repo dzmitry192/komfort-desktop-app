@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="material-inner-wrapper" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.MaterialController">
+<HBox fx:id="materialItem" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#materialItem_onclick" styleClass="material-inner-wrapper" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.MaterialController">
    <children>
       <HBox alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: black;">
          <children>
@@ -39,14 +39,6 @@
          </children>
       </VBox>
       <Region HBox.hgrow="ALWAYS" />
-      <HBox fx:id="btn_moreDetails" alignment="CENTER" fillHeight="false" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#btn_moreDetails_clicked" prefWidth="110.0" spacing="5.0" styleClass="btn-blue-filled" HBox.hgrow="NEVER">
-         <children>
-            <Label text="Подробнее" />
-         </children>
-         <padding>
-            <Insets left="15.0" right="15.0" />
-         </padding>
-      </HBox>
    </children>
    <padding>
       <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
