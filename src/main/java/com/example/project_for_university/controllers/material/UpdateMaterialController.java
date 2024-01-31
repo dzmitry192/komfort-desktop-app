@@ -51,6 +51,9 @@ public class UpdateMaterialController implements DataProvider {
     @FXML
     private TextField name_field;
 
+    @FXML
+    private TextField manufacturer_field;
+
     @Override
     public void setData(AllValues allValues) {
         this.allValues = allValues;
@@ -62,6 +65,7 @@ public class UpdateMaterialController implements DataProvider {
         typeName_text.setText("(" + partialMaterialEntity.getName()+ ")");
         name_field.setText(partialMaterialEntity.getName());
         description_textArea.setText(partialMaterialEntity.getDescription());
+        manufacturer_field.setText(partialMaterialEntity.getManufacturer());
     }
 
     @SneakyThrows
@@ -70,13 +74,17 @@ public class UpdateMaterialController implements DataProvider {
         if (name_field.getText().isEmpty()) {
             AlertUtil.show("Вы не заполнили поле названия", "Закройте окно и заполните нужное поле", allValues.getRootStage());
         } else if (description_textArea.getText().isEmpty()) {
-            AlertUtil.show("Вы не заполнили поле описание", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+            AlertUtil.show("Вы не заполнили поле описания", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+        } else if (manufacturer_field.getText().isEmpty()) {
+            AlertUtil.show("Вы не заполнили поле производителя", "Закройте окно и заполните нужное поле", allValues.getRootStage());
         } else {
             if (!partialMaterialEntity.getName().equals(name_field.getText())
                     || !partialMaterialEntity.getDescription().equals(description_textArea.getText())
+                    || !partialMaterialEntity.getManufacturer().equals(manufacturer_field.getText())
             ) {
-                //запрос на обновление материала + обновление partialMaterialEntity измененным материалом
+                //запрос на обновление материала + обновление this.partialMaterialEntity измененным материалом
 //                this.partialMaterialEntity =
+                System.out.println("-----server_update");
             }
 
             ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, partialMaterialEntity);

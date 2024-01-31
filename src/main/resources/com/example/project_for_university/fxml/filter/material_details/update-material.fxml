@@ -38,6 +38,22 @@
                         </HBox>
                      </children>
                   </VBox>
+
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label text="Производитель: ">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox fillHeight="false" spacing="10.0">
+                           <children>
+                              <TextField fx:id="manufacturer_field" prefHeight="30.0" prefWidth="373.0" promptText="Производитель артикула" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+
                   <VBox fx:id="description_vbox" spacing="10.0">
                      <children>
                         <Label text="Описание:">
