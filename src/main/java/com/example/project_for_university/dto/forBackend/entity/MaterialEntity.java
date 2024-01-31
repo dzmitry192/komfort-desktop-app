@@ -19,7 +19,7 @@ public class MaterialEntity {
     private int depth; //табл 2
     private ConditionEntity condition; //табл 3 - параметры, табл 4 - перечисления типов условий
     private LayerEntity[] layers; //табл 1
-    private File[] images;
+    private String[] images;
     private UserEntity user;
     private ProductionMethodEntity productionMethod; //табл 2
     private MembraneLayerPolymerTypeEntity membraneLayerPolymerType; //табл 2

@@ -91,8 +91,8 @@ public class LoginController implements DataProvider {
     @FXML
     void signup_btn_clicked(MouseEvent event) throws IOException {
         new MaterialService().create(new CreateMaterialDto(
-                new File[]{new File("C:\\Users\\Dmitry\\Desktop\\new.png")},
-                new MaterialInfoDto("name", "manufacturer", "description", 0, 1, 1, 1, new ArrayList<>(List.of(new CreateLayerDto(1, 1)))),
+                new File[]{new File("/Users/daniil/Desktop/project_for_university/src/main/resources/com/example/project_for_university/img/no-image.png")},
+                new MaterialInfoDto("GAVNO_IS_ZHOPbI", "manufacturer", "description", 0, 1, 1, 1, new ArrayList<>(List.of(new CreateLayerDto(1, 1)))),
                 new CreateConditionDto(
                         true,
                         0,

@@ -17,14 +17,18 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -142,11 +146,10 @@ public class MaterialService {
 
                     MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
-                    for(File file : createMaterialDto.getImages()) {
+//                    for (File file : createMaterialDto.getImages()) {
 //                        builder.addBinaryBody("images", file);
-                        builder.addPart("images", new FileBody(file, ContentType.DEFAULT_BINARY, file.getName()));
-                    }
-
+//                        builder.addPart("images", new FileBody(file, ContentType.DEFAULT_BINARY, file.getName()));
+//                    }
 
                     builder.addTextBody("material", objectMapper.writeValueAsString(createMaterialDto.getMaterial()), ContentType.APPLICATION_JSON);
                     builder.addTextBody("condition", objectMapper.writeValueAsString(createMaterialDto.getCondition()), ContentType.APPLICATION_JSON);
@@ -164,8 +167,11 @@ public class MaterialService {
                             .build();
 
                     try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-//                        MaterialEntity material = JsonToClass.parseToObject(MaterialEntity.class, response);
-//                        completableFuture.complete(material);
+                        MaterialEntity material = JsonToClass.parseToObject(MaterialEntity.class, response);
+                        completableFuture.complete(material);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        throw e;
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
