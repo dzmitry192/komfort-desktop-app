@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.forBackend.entity.types.BendingTyp
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.utils.AuthUtils;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,12 +17,13 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 public class BendingTypeService implements CrudService<BendingTypeEntity> {
     @SneakyThrows
     @Override
-    public BendingTypeEntity[] getAll() {
+    public BendingTypeEntity[] getAll(String email, String password) {
         CompletableFuture<BendingTypeEntity[]> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -29,6 +31,7 @@ public class BendingTypeService implements CrudService<BendingTypeEntity> {
 
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_BENDING_TYPES.getName())
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
                         .build();
 
@@ -54,7 +57,7 @@ public class BendingTypeService implements CrudService<BendingTypeEntity> {
 
     @SneakyThrows
     @Override
-    public BendingTypeEntity getById(int id) {
+    public BendingTypeEntity getById(int id, String email, String password) {
         CompletableFuture<BendingTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -62,6 +65,7 @@ public class BendingTypeService implements CrudService<BendingTypeEntity> {
 
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_BENDING_TYPE_BY_ID.getName() + id)
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
                         .build();
 
@@ -87,7 +91,7 @@ public class BendingTypeService implements CrudService<BendingTypeEntity> {
 
     @SneakyThrows
     @Override
-    public BendingTypeEntity create(PhType phType) {
+    public BendingTypeEntity create(PhType phType, String email, String password) {
         CompletableFuture<BendingTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -96,10 +100,11 @@ public class BendingTypeService implements CrudService<BendingTypeEntity> {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.get()
+                HttpUriRequest httpGet = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.POST_BENDING_TYPE.getName())
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -124,7 +129,7 @@ public class BendingTypeService implements CrudService<BendingTypeEntity> {
 
     @SneakyThrows
     @Override
-    public BendingTypeEntity update(PhType phType) {
+    public BendingTypeEntity update(PhType phType, String email, String password) {
         CompletableFuture<BendingTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -135,8 +140,9 @@ public class BendingTypeService implements CrudService<BendingTypeEntity> {
 
                 HttpUriRequest httpGet = RequestBuilder.patch()
                         .setUri(Main.host.getValue() + UrlRoutes.PATCH_BENDING_TYPE_BY_ID.getName() + phType.getId())
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -161,14 +167,15 @@ public class BendingTypeService implements CrudService<BendingTypeEntity> {
 
     @SneakyThrows
     @Override
-    public BendingTypeEntity delete(int id) {
+    public BendingTypeEntity delete(int id, String email, String password) {
         CompletableFuture<BendingTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpUriRequest httpGet = RequestBuilder.patch()
+                HttpUriRequest httpGet = RequestBuilder.delete()
                         .setUri(Main.host.getValue() + UrlRoutes.DELETE_BENDING_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {

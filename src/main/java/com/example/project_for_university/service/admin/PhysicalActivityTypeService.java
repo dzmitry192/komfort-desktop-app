@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.forBackend.entity.types.PhysicalAc
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.utils.AuthUtils;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,13 +17,14 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 public class PhysicalActivityTypeService implements CrudService<PhysicalActivityTypeEntity> {
 
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity[] getAll() {
+    public PhysicalActivityTypeEntity[] getAll(String email, String password) {
         CompletableFuture<PhysicalActivityTypeEntity[]> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -31,6 +33,7 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_PHYSICAL_ACTIVITY_TYPES.getName())
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -55,7 +58,7 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
 
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity getById(int id) {
+    public PhysicalActivityTypeEntity getById(int id, String email, String password) {
         CompletableFuture<PhysicalActivityTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -64,6 +67,7 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_PHYSICAL_ACTIVITY_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -88,7 +92,7 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
 
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity create(PhType phType) {
+    public PhysicalActivityTypeEntity create(PhType phType, String email, String password) {
         CompletableFuture<PhysicalActivityTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -98,10 +102,11 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
                 jsonObject.addProperty("name", phType.getName());
                 jsonObject.addProperty("description", phType.getDescription());
 
-                HttpUriRequest httpGet = RequestBuilder.get()
+                HttpUriRequest httpGet = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.POST_PHYSICAL_ACTIVITY_TYPE.getName())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -126,7 +131,7 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
 
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity update(PhType phType) {
+    public PhysicalActivityTypeEntity update(PhType phType, String email, String password) {
         CompletableFuture<PhysicalActivityTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -139,7 +144,8 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
                 HttpUriRequest httpGet = RequestBuilder.patch()
                         .setUri(Main.host.getValue() + UrlRoutes.PATCH_PHYSICAL_ACTIVITY_TYPE_BY_ID.getName() + phType.getId())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -164,14 +170,15 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
 
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity delete(int id) {
+    public PhysicalActivityTypeEntity delete(int id, String email, String password) {
         CompletableFuture<PhysicalActivityTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpUriRequest httpGet = RequestBuilder.patch()
+                HttpUriRequest httpGet = RequestBuilder.delete()
                         .setUri(Main.host.getValue() + UrlRoutes.DELETE_PHYSICAL_ACTIVITY_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {

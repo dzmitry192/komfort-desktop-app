@@ -297,7 +297,7 @@ public class FConditionController implements Initializable, DataProvider {
             if (conditionDto.isPositive()) {
                 rad_btn_plus.setSelected(true);
             }
-            if (conditionDto.getPhysicalActivityType_id() != 0) {
+            if (conditionDto.getPhysicalActivityType_id() != 0 && Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).anyMatch(type -> type.getId() == conditionDto.getPhysicalActivityType_id())) {
                 lev_phys.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getId() == conditionDto.getPhysicalActivityType_id()).findFirst().get().getName());
             }
             if (conditionDto.getResidenceTime() != 0) {

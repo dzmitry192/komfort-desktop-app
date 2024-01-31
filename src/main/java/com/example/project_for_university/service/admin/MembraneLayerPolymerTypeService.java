@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.forBackend.entity.types.MembraneLa
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.utils.AuthUtils;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,12 +17,13 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 public class MembraneLayerPolymerTypeService implements CrudService<MembraneLayerPolymerTypeEntity> {
     @SneakyThrows
     @Override
-    public MembraneLayerPolymerTypeEntity[] getAll() {
+    public MembraneLayerPolymerTypeEntity[] getAll(String email, String password) {
         CompletableFuture<MembraneLayerPolymerTypeEntity[]> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -30,6 +32,7 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_MEMBRANE_LAYER_POLYMER_TYPES.getName())
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -54,7 +57,7 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
 
     @SneakyThrows
     @Override
-    public MembraneLayerPolymerTypeEntity getById(int id) {
+    public MembraneLayerPolymerTypeEntity getById(int id, String email, String password) {
         CompletableFuture<MembraneLayerPolymerTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -63,6 +66,7 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_MEMBRANE_LAYER_POLYMER_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -87,7 +91,7 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
 
     @SneakyThrows
     @Override
-    public MembraneLayerPolymerTypeEntity create(PhType phType) {
+    public MembraneLayerPolymerTypeEntity create(PhType phType, String email, String password) {
         CompletableFuture<MembraneLayerPolymerTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -96,10 +100,11 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.get()
+                HttpUriRequest httpGet = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.POST_MEMBRANE_LAYER_POLYMER_TYPE.getName())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -124,7 +129,7 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
 
     @SneakyThrows
     @Override
-    public MembraneLayerPolymerTypeEntity update(PhType phType) {
+    public MembraneLayerPolymerTypeEntity update(PhType phType, String email, String password) {
         CompletableFuture<MembraneLayerPolymerTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -136,7 +141,8 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
                 HttpUriRequest httpGet = RequestBuilder.patch()
                         .setUri(Main.host.getValue() + UrlRoutes.PATCH_MEMBRANE_LAYER_POLYMER_TYPE_BY_ID.getName() + phType.getId())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -161,14 +167,15 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
 
     @SneakyThrows
     @Override
-    public MembraneLayerPolymerTypeEntity delete(int id) {
+    public MembraneLayerPolymerTypeEntity delete(int id, String email, String password) {
         CompletableFuture<MembraneLayerPolymerTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpUriRequest httpGet = RequestBuilder.patch()
+                HttpUriRequest httpGet = RequestBuilder.delete()
                         .setUri(Main.host.getValue() + UrlRoutes.DELETE_MEMBRANE_LAYER_POLYMER_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {

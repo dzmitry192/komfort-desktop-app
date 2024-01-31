@@ -90,36 +90,33 @@ public class MaterialInfoController implements DataProvider {
     }
 
     private boolean validateAndSetData() {
-        boolean isEmpty = false;
-
-        if(name.getText().isEmpty()) {
-            allValues.getCreateMaterialDto().getMaterial().setName(null);
-            isEmpty = true;
-        } else {
-            allValues.getCreateMaterialDto().getMaterial().setName(name.getText());
+        if(allValues.getCreateMaterialDto().getMaterial() != null) {
+            try {
+                if(name.getText().isEmpty()) {
+                    throw new IllegalArgumentException();
+                } else {
+                    allValues.getCreateMaterialDto().getMaterial().setName(name.getText());
+                }
+                if(description.getText().isEmpty()) {
+                    throw new IllegalArgumentException();
+                } else {
+                    allValues.getCreateMaterialDto().getMaterial().setDescription(description.getText());
+                }
+                if(!images.isEmpty()) {
+                    allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
+                }
+                return true;
+            } catch (IllegalArgumentException e) {
+                return false;
+            }
         }
-        if(description.getText().isEmpty()) {
-            allValues.getCreateMaterialDto().getMaterial().setDescription(null);
-            isEmpty = true;
-        } else {
-            allValues.getCreateMaterialDto().getMaterial().setDescription(description.getText());
-        }
-        if(images.isEmpty()) {
-            allValues.getCreateMaterialDto().setImages(null);
-            isEmpty = true;
-        } else {
-            allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
-        }
-
-        return isEmpty;
+        return false;
     }
 
     @FXML
     @SneakyThrows()
     void next_btn_clicked(MouseEvent event) {
         if(validateAndSetData()) {
-            AlertUtil.show("Заполните все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
-        } else {
             //запрос на сохранение материала
 
             //потом обнуление данных
@@ -130,6 +127,8 @@ public class MaterialInfoController implements DataProvider {
             PartialMaterialEntity newMaterial = new PartialMaterialEntity(1, "newMaterial", "newMaterial desk description description description description description", "manufacturer", 10, condition, new LayerEntity[] {new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[] {"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false), new ProductionMethodEntity(1, "name"), new MembraneLayerPolymerTypeEntity(1, "name"), new GlueTypeEntity(1, "name"));
 
             ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, newMaterial);
+        } else {
+            AlertUtil.show("Заполните все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         }
     }
 

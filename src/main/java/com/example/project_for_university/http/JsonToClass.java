@@ -1,24 +1,24 @@
 package com.example.project_for_university.http;
 
+import com.google.gson.Gson;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONSerializer;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
-
-import com.google.gson.Gson;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 
 @Data
 @NoArgsConstructor
 public class JsonToClass {
     public static <T> T parseToObject(Class<T> tClass, CloseableHttpResponse response) throws IOException {
         Gson gson = new Gson();
-        JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(EntityUtils.toString(response.getEntity()));
-        return gson.fromJson(jsonObject.toString(), tClass);
+        JSON json = JSONSerializer.toJSON(EntityUtils.toString(response.getEntity()));
+        return gson.fromJson(json.toString(), tClass);
     }
 
     public static <T> ArrayList<T> parseToListObject(Class<T> tClass, CloseableHttpResponse response) throws IOException {

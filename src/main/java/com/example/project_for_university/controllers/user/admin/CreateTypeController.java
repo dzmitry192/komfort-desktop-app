@@ -7,7 +7,9 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.enums.ActionType;
 import com.example.project_for_university.enums.AdminPanelType;
 import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.factory.ServiceFactory;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.ReturnAllTypesService;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
@@ -25,6 +27,8 @@ import java.io.IOException;
 public class CreateTypeController implements DataProvider {
 
     private AllValues allValues;
+    private final ServiceFactory serviceFactory = new ServiceFactory();
+    private final ReturnAllTypesService returnAllTypesService = new ReturnAllTypesService();
 
     private AdminPanelInfo adminPanelInfo;
 
@@ -85,12 +89,24 @@ public class CreateTypeController implements DataProvider {
             } else if (description_textArea.getText().isEmpty()) {
                 AlertUtil.show("Вы не заполнили описание типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
             } else {
+                if(adminPanelInfo.getActionType().name().equals(ActionType.CREATE.name())) {
+                    serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).create(new PhType(0, name_field.getText(), description_textArea.getText()), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                } else {
+                    serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).update(new PhType(typeForUpdate.getId(), name_field.getText(), description_textArea.getText()), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                }
+                allValues.getAdminPanelInfo().setReturnAllTypesDto(returnAllTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
                 ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
             }
         } else {
             if (name_field.getText().isEmpty()) {
                 AlertUtil.show("Вы не заполнили название типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
             } else {
+                if(adminPanelInfo.getActionType().name().equals(ActionType.CREATE.name())) {
+                    serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).create(new PhType(0, name_field.getText(), ""), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                } else {
+                    serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).update(new PhType(typeForUpdate.getId(), name_field.getText(), ""), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                }
+                allValues.getAdminPanelInfo().setReturnAllTypesDto(returnAllTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
                 ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
             }
         }

@@ -1,13 +1,13 @@
 package com.example.project_for_university.dto.forBackend.entity.types;
 
+import com.example.project_for_university.controllers.user.admin.models.AbstractType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class MembraneLayerPolymerTypeEntity {
-    private int id;
-    private String name;
+public class MembraneLayerPolymerTypeEntity extends AbstractType {
+    public MembraneLayerPolymerTypeEntity(int id, String name) {
+        super();
+    }
 }

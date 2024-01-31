@@ -444,9 +444,9 @@ public class HomeostasisTableController implements DataProvider, Initializable {
                 homeoFuncDto.setWaterPermeability_weight(-1);
             } else {
                 if ((firstStr.stream().anyMatch(String::isEmpty) && firstExpStr.stream().anyMatch(el -> !el.isEmpty())) || (firstStr.stream().anyMatch(el -> !el.isEmpty()) && firstExpStr.stream().anyMatch(String::isEmpty))) {
-                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 1", ExceptionType.INVALID_INPUT_TYPE.getType());
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + " в строке - 1", ExceptionType.INVALID_INPUT_TYPE.getType());
                 } else if (firstStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || firstExpStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 1", ExceptionType.INVALID_VALUE_TYPE.getType());
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + " в строке - 1", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     homeoFuncDto.setM1s(Double.parseDouble(m1s.getText()));
                     homeoFuncDto.setM2s(Double.parseDouble(m2s.getText()));
@@ -481,9 +481,9 @@ public class HomeostasisTableController implements DataProvider, Initializable {
                 homeoFuncDto.setWaterPermeabilityDynamicCriteria_weight(-1);
             } else {
                 if ((secondStr.stream().anyMatch(String::isEmpty) && secondExpStr.stream().anyMatch(el -> !el.isEmpty())) || (secondStr.stream().anyMatch(el -> !el.isEmpty()) && secondExpStr.stream().anyMatch(String::isEmpty))) {
-                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 2", ExceptionType.INVALID_INPUT_TYPE.getType());
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + " в строке - 2", ExceptionType.INVALID_INPUT_TYPE.getType());
                 } else if (secondStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || secondExpStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 2", ExceptionType.INVALID_VALUE_TYPE.getType());
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + " в строке - 2", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     homeoFuncDto.setM1min(Double.parseDouble(m1min.getText()));
                     homeoFuncDto.setM2min(Double.parseDouble(m2min.getText()));
@@ -514,9 +514,9 @@ public class HomeostasisTableController implements DataProvider, Initializable {
                 homeoFuncDto.setTotalThermalResistance_weight(-1);
             } else {
                 if ((thirdStr.stream().anyMatch(String::isEmpty) && thirdExpStr.stream().anyMatch(el -> !el.isEmpty())) || (thirdStr.stream().anyMatch(el -> !el.isEmpty()) && thirdExpStr.stream().anyMatch(String::isEmpty))) {
-                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + "в строке - 3", ExceptionType.INVALID_INPUT_TYPE.getType());
+                    throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + " в строке - 3", ExceptionType.INVALID_INPUT_TYPE.getType());
                 } else if (thirdStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || thirdExpStr.stream().noneMatch(ValidationUtils::isValid)) {
-                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + "в строке - 3", ExceptionType.INVALID_VALUE_TYPE.getType());
+                    throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + " в строке - 3", ExceptionType.INVALID_VALUE_TYPE.getType());
                 } else {
                     homeoFuncDto.setTos(Double.parseDouble(tos.getText()));
                     homeoFuncDto.setS(Double.parseDouble(s.getText()));

@@ -105,21 +105,23 @@ public class MaterialService {
                         .build();
 
                 response = httpClient.execute(httpGet);
+
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    filterMaterialsModel.setError(true);
+                } else {
+                    try {
+                        filterMaterialsModel.setPartialMaterials(JsonToClass.parseToListObject(PartialMaterialEntity.class, response).toArray(PartialMaterialEntity[]::new));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    filterMaterialsModel.setError(false);
+                    filterMaterialsModel.setTotalCount(Integer.parseInt(response.getFirstHeader("x-total-count").getValue()));
+                }
+
+                futureMaterials.complete(filterMaterialsModel);
             } catch (IOException e) {
                 throw new RuntimeException();
             }
-            if (response.getStatusLine().getStatusCode() != 200) {
-                filterMaterialsModel.setError(true);
-            } else {
-                try {
-                    filterMaterialsModel.setPartialMaterials(JsonToClass.parseToListObject(PartialMaterialEntity.class, response).toArray(PartialMaterialEntity[]::new));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                filterMaterialsModel.setError(false);
-                filterMaterialsModel.setTotalCount(Integer.parseInt(response.getFirstHeader("x-total-count").getValue()));
-            }
-            futureMaterials.complete(filterMaterialsModel);
         };
 
         Thread getFilterMaterialsThread = new Thread(runnable);
@@ -141,8 +143,10 @@ public class MaterialService {
                     MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
                     for(File file : createMaterialDto.getImages()) {
+//                        builder.addBinaryBody("images", file);
                         builder.addPart("images", new FileBody(file, ContentType.DEFAULT_BINARY, file.getName()));
                     }
+
 
                     builder.addTextBody("material", objectMapper.writeValueAsString(createMaterialDto.getMaterial()), ContentType.APPLICATION_JSON);
                     builder.addTextBody("condition", objectMapper.writeValueAsString(createMaterialDto.getCondition()), ContentType.APPLICATION_JSON);
@@ -161,7 +165,6 @@ public class MaterialService {
 
                     try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
 //                        MaterialEntity material = JsonToClass.parseToObject(MaterialEntity.class, response);
-//                        System.out.println(material.toString());
 //                        completableFuture.complete(material);
                     }
                 } catch (IOException e) {

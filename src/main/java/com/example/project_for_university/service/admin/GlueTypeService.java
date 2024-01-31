@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.forBackend.entity.types.GlueTypeEn
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.utils.AuthUtils;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,12 +17,13 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 public class GlueTypeService implements CrudService<GlueTypeEntity> {
     @SneakyThrows
     @Override
-    public GlueTypeEntity[] getAll() {
+    public GlueTypeEntity[] getAll(String email, String password) {
         CompletableFuture<GlueTypeEntity[]> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -30,6 +32,7 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_GLUE_TYPES.getName())
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -54,7 +57,7 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
 
     @SneakyThrows
     @Override
-    public GlueTypeEntity getById(int id) {
+    public GlueTypeEntity getById(int id, String email, String password) {
         CompletableFuture<GlueTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -63,6 +66,7 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_GLUE_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -87,7 +91,7 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
 
     @SneakyThrows
     @Override
-    public GlueTypeEntity create(PhType phType) {
+    public GlueTypeEntity create(PhType phType, String email, String password) {
         CompletableFuture<GlueTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -96,10 +100,11 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.get()
+                HttpUriRequest httpGet = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.POST_GLUE_TYPE.getName())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -124,7 +129,7 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
 
     @SneakyThrows
     @Override
-    public GlueTypeEntity update(PhType phType) {
+    public GlueTypeEntity update(PhType phType, String email, String password) {
         CompletableFuture<GlueTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -136,7 +141,8 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
                 HttpUriRequest httpGet = RequestBuilder.patch()
                         .setUri(Main.host.getValue() + UrlRoutes.PATCH_GLUE_TYPE_BY_ID.getName() + phType.getId())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -161,14 +167,15 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
 
     @SneakyThrows
     @Override
-    public GlueTypeEntity delete(int id) {
+    public GlueTypeEntity delete(int id, String email, String password) {
         CompletableFuture<GlueTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpUriRequest httpGet = RequestBuilder.patch()
+                HttpUriRequest httpGet = RequestBuilder.delete()
                         .setUri(Main.host.getValue() + UrlRoutes.DELETE_GLUE_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {

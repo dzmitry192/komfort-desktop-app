@@ -26,7 +26,7 @@ module com.example.project_for_university {
     opens com.example.project_for_university.controllers.filter to javafx.fxml;
     opens com.example.project_for_university.dto to javafx.fxml;
     opens com.example.project_for_university.controllers.user.admin to javafx.fxml;
-    opens com.example.project_for_university.controllers.user.admin.models to javafx.base;
+    opens com.example.project_for_university.controllers.user.admin.models to javafx.base, com.google.gson;
     exports com.example.project_for_university.controllers.material;
     opens com.example.project_for_university.controllers.material to javafx.fxml;
     exports com.example.project_for_university.controllers.material.tables;

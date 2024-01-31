@@ -7,6 +7,7 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.enums.ActionType;
 import com.example.project_for_university.enums.AdminPanelType;
 import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.factory.ServiceFactory;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
@@ -24,11 +25,13 @@ import lombok.SneakyThrows;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TypeController implements DataProvider, Initializable {
 
     private AllValues allValues;
+    private final ServiceFactory serviceFactory = new ServiceFactory();
 
     private AdminPanelInfo adminPanelInfo;
 
@@ -133,7 +136,6 @@ public class TypeController implements DataProvider, Initializable {
         } else {
             adminPanelInfo.setActionType(ActionType.UPDATE);
             allValues.setAdminPanelInfo(adminPanelInfo);
-
             ComponentUtil.mountUpdateType(allValues.getContentPanes().getLoggedInStackPane(), allValues, selectedItem);
         }
     }
@@ -143,7 +145,12 @@ public class TypeController implements DataProvider, Initializable {
         if (selectedItem == null) {
             AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте удалить", allValues.getRootStage());
         } else {
-
+            AbstractType abstractType = (AbstractType) serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).delete(selectedItem.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if(Objects.nonNull(abstractType)) {
+                List<AbstractType> types = table_types.getItems();
+                types.remove(selectedItem);
+                table_types.setItems(FXCollections.observableArrayList(types));
+            }
         }
     }
 

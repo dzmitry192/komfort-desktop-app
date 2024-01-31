@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.forBackend.entity.ProductionMethod
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.utils.AuthUtils;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,13 +17,14 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 public class ProductionMethodService implements CrudService<ProductionMethodEntity> {
 
     @SneakyThrows
     @Override
-    public ProductionMethodEntity[] getAll() {
+    public ProductionMethodEntity[] getAll(String email, String password) {
         CompletableFuture<ProductionMethodEntity[]> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -31,6 +33,7 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_PRODUCTION_METHODS.getName())
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -55,7 +58,7 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
 
     @SneakyThrows
     @Override
-    public ProductionMethodEntity getById(int id) {
+    public ProductionMethodEntity getById(int id, String email, String password) {
         CompletableFuture<ProductionMethodEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -64,6 +67,7 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_PRODUCTION_METHOD_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -88,7 +92,7 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
 
     @SneakyThrows
     @Override
-    public ProductionMethodEntity create(PhType phType) {
+    public ProductionMethodEntity create(PhType phType, String email, String password) {
         CompletableFuture<ProductionMethodEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -97,10 +101,11 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.get()
+                HttpUriRequest httpGet = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.POST_PRODUCTION_METHOD.getName())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -125,7 +130,7 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
 
     @SneakyThrows
     @Override
-    public ProductionMethodEntity update(PhType phType) {
+    public ProductionMethodEntity update(PhType phType, String email, String password) {
         CompletableFuture<ProductionMethodEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -137,7 +142,8 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
                 HttpUriRequest httpGet = RequestBuilder.patch()
                         .setUri(Main.host.getValue() + UrlRoutes.PATCH_PRODUCTION_METHOD_BY_ID.getName() + phType.getId())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -162,14 +168,15 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
 
     @SneakyThrows
     @Override
-    public ProductionMethodEntity delete(int id) {
+    public ProductionMethodEntity delete(int id, String email, String password) {
         CompletableFuture<ProductionMethodEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpUriRequest httpGet = RequestBuilder.patch()
+                HttpUriRequest httpGet = RequestBuilder.delete()
                         .setUri(Main.host.getValue() + UrlRoutes.DELETE_PRODUCTION_METHOD_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {

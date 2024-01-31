@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.forBackend.entity.types.AbrasionTy
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.utils.AuthUtils;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,12 +17,13 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
     @SneakyThrows
     @Override
-    public AbrasionTypeEntity[] getAll() {
+    public AbrasionTypeEntity[] getAll(String email, String password) {
         CompletableFuture<AbrasionTypeEntity[]> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -29,6 +31,7 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
 
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_ABRASION_TYPES.getName())
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
                         .build();
 
@@ -54,7 +57,7 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
 
     @SneakyThrows
     @Override
-    public AbrasionTypeEntity getById(int id) {
+    public AbrasionTypeEntity getById(int id, String email, String password) {
         CompletableFuture<AbrasionTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -62,6 +65,7 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
 
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_ABRASION_TYPE_BY_ID.getName() + id)
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
                         .build();
 
@@ -87,7 +91,7 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
 
     @SneakyThrows
     @Override
-    public AbrasionTypeEntity create(PhType phType) {
+    public AbrasionTypeEntity create(PhType phType, String email, String password) {
         CompletableFuture<AbrasionTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -96,10 +100,11 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.get()
+                HttpUriRequest httpGet = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.POST_ABRASION_TYPE.getName())
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -124,7 +129,7 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
 
     @SneakyThrows
     @Override
-    public AbrasionTypeEntity update(PhType phType) {
+    public AbrasionTypeEntity update(PhType phType, String email, String password) {
         CompletableFuture<AbrasionTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -135,8 +140,9 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
 
                 HttpUriRequest httpGet = RequestBuilder.patch()
                         .setUri(Main.host.getValue() + UrlRoutes.PATCH_ABRASION_TYPE_BY_ID.getName() + phType.getId())
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -161,13 +167,14 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
 
     @SneakyThrows
     @Override
-    public AbrasionTypeEntity delete(int id) {
+    public AbrasionTypeEntity delete(int id, String email, String password) {
         CompletableFuture<AbrasionTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpUriRequest httpGet = RequestBuilder.patch()
+                HttpUriRequest httpGet = RequestBuilder.delete()
                         .setUri(Main.host.getValue() + UrlRoutes.DELETE_ABRASION_TYPE_BY_ID.getName() + id)
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setHeader("Content-Type", "application/json")
                         .build();
 

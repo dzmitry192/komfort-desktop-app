@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.forBackend.entity.types.LayerTypeE
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.utils.AuthUtils;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,13 +17,14 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
     @SneakyThrows
     @Override
-    public LayerTypeEntity[] getAll() {
+    public LayerTypeEntity[] getAll(String email, String password) {
         CompletableFuture<LayerTypeEntity[]> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -31,6 +33,7 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_LAYER_TYPES.getName())
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -55,7 +58,7 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
     @SneakyThrows
     @Override
-    public LayerTypeEntity getById(int id) {
+    public LayerTypeEntity getById(int id, String email, String password) {
         CompletableFuture<LayerTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -64,6 +67,7 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
                 HttpUriRequest httpGet = RequestBuilder.get()
                         .setUri(Main.host.getValue() + UrlRoutes.GET_LAYER_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
@@ -88,7 +92,7 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
     @SneakyThrows
     @Override
-    public LayerTypeEntity create(PhType phType) {
+    public LayerTypeEntity create(PhType phType, String email, String password) {
         CompletableFuture<LayerTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -97,10 +101,11 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.get()
+                HttpUriRequest httpGet = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.POST_LAYER_TYPE.getName())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -125,7 +130,7 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
     @SneakyThrows
     @Override
-    public LayerTypeEntity update(PhType phType) {
+    public LayerTypeEntity update(PhType phType, String email, String password) {
         CompletableFuture<LayerTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
@@ -137,7 +142,8 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
                 HttpUriRequest httpGet = RequestBuilder.patch()
                         .setUri(Main.host.getValue() + UrlRoutes.PATCH_LAYER_TYPE_BY_ID.getName() + phType.getId())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 try {
@@ -162,14 +168,15 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
     @SneakyThrows
     @Override
-    public LayerTypeEntity delete(int id) {
+    public LayerTypeEntity delete(int id, String email, String password) {
         CompletableFuture<LayerTypeEntity> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpUriRequest httpGet = RequestBuilder.patch()
+                HttpUriRequest httpGet = RequestBuilder.delete()
                         .setUri(Main.host.getValue() + UrlRoutes.DELETE_LAYER_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
+                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
                 try {
