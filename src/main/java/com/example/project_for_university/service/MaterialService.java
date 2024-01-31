@@ -146,10 +146,9 @@ public class MaterialService {
 
                     MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
-//                    for (File file : createMaterialDto.getImages()) {
-//                        builder.addBinaryBody("images", file);
-//                        builder.addPart("images", new FileBody(file, ContentType.DEFAULT_BINARY, file.getName()));
-//                    }
+                    for (File file : createMaterialDto.getImages()) {
+                        builder.addPart("images", new FileBody(file, ContentType.IMAGE_PNG, file.getName()));
+                    }
 
                     builder.addTextBody("material", objectMapper.writeValueAsString(createMaterialDto.getMaterial()), ContentType.APPLICATION_JSON);
                     builder.addTextBody("condition", objectMapper.writeValueAsString(createMaterialDto.getCondition()), ContentType.APPLICATION_JSON);
