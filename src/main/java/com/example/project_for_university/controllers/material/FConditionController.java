@@ -81,6 +81,9 @@ public class FConditionController implements Initializable, DataProvider {
     private TextField manufacturer_inp;
 
     @FXML
+    private TextField depth_inp;
+
+    @FXML
     private TextField inp_av_speed;
 
     @FXML
@@ -387,6 +390,10 @@ public class FConditionController implements Initializable, DataProvider {
                 allValues.getCreateMaterialDto().getMaterial().setManufacturer(materialInfo.getManufacturer());
                 manufacturer_inp.setText(materialInfo.getManufacturer());
             }
+            if(materialInfo.getDepth() != 0) {
+                allValues.getCreateMaterialDto().getMaterial().setDepth(materialInfo.getDepth());
+                depth_inp.setText(String.valueOf(materialInfo.getDepth()));
+            }
             if (materialInfo.getLayers() != null && !materialInfo.getLayers().isEmpty()) {
                 layers_table.setItems(FXCollections.observableList(materialInfo.getLayers().stream().map(layer -> new TableType(String.valueOf(layer.getIndexNum()), Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getLayerTypes()).filter(layerType -> layerType.getId() == layer.getLayerType_id()).findFirst().get().getName())).toList()));
             }
@@ -609,6 +616,9 @@ public class FConditionController implements Initializable, DataProvider {
         if(manufacturer_inp.getText().isEmpty()) {
             isError = true;
         }
+        if(depth_inp.getText().isEmpty()) {
+            isError = true;
+        }
         if (allValues.getCreateMaterialDto().getMaterial().getProductionMethod_id() == 0) {
             isError = true;
         }
@@ -729,6 +739,9 @@ public class FConditionController implements Initializable, DataProvider {
             inp_cycles_cnt.textProperty().addListener((observable, oldValue, newValue) -> allValues.getCreateMaterialDto().getCondition().getWashing().setCyclesCnt(newValue == null ? 0 : Integer.parseInt(newValue)));
 
             manufacturer_inp.textProperty().addListener((observable, oldValue, newValue) -> allValues.getCreateMaterialDto().getMaterial().setManufacturer(newValue));
+
+            depth_inp.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+            depth_inp.textProperty().addListener((observable, oldValue, newValue) -> allValues.getCreateMaterialDto().getMaterial().setDepth(Double.valueOf(newValue)));
         });
 
         position_column.setCellValueFactory(new PropertyValueFactory<>("firstCol"));

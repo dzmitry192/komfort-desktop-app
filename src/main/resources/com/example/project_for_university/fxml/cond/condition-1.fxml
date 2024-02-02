@@ -65,6 +65,17 @@
                                  <children>
                                     <TextFlow>
                                        <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Толщина, мм:" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="depth_inp" minWidth="-Infinity" prefHeight="26.0" prefWidth="180.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Способ производства:" />
                                        </children>
                                     </TextFlow>
