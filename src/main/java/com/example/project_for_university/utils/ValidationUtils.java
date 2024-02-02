@@ -14,7 +14,6 @@ public class ValidationUtils {
 
     public static final UnaryOperator<TextFormatter.Change> doubleFilter = change -> {
         String fullString = change.getControlText() + change.getText();
-        System.out.println(fullString);
 
         if (change.isReplaced()) {
            if (!fullString.matches(doubleRegex)) {
@@ -42,7 +41,7 @@ public class ValidationUtils {
 
     public static final UnaryOperator<TextFormatter.Change> integerFilter = change -> change.getText().matches("\\d*") ? change : null;
 
-    public static final boolean isValid(String num) {
+    public static boolean isValid(String num) {
         return num.matches("^[0-9]*[.]?[0-9]+(?:[eE][-+]?[0-9]+)?$");
     }
 }

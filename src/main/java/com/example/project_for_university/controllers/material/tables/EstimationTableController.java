@@ -60,7 +60,6 @@ public class EstimationTableController implements DataProvider, Initializable {
 
         for (var button : allValues.getSideBarButtons()) {
             EventHandler<MouseEvent> clickHandler = event -> {
-                System.out.println("estimation sideBartBtn");
                 saveDataFromInputs();
             };
             button.addEventHandler(MouseEvent.MOUSE_CLICKED, clickHandler);
@@ -131,8 +130,8 @@ public class EstimationTableController implements DataProvider, Initializable {
                     estimationDto.getReliabilityFunction_weight()
             ));
             Optional<Double> sumWeights = weights.stream().reduce(Double::sum);
-            if(sumWeights.isPresent()) {
-                if(sumWeights.get() != 1) {
+            if (sumWeights.isPresent()) {
+                if (sumWeights.get() != 1) {
                     throw new CustomException(ExceptionMessage.INVALID_WEIGHTS_SUM.getMessage(), ExceptionType.INVALID_WEIGHTS_SUM_TYPE.getType());
                 }
             }
@@ -147,11 +146,18 @@ public class EstimationTableController implements DataProvider, Initializable {
         return false;
     }
 
+    private void clearFields() {
+        homeostasisFunction_weight.setText("");
+        reliabilityFunction_weight.setText("");
+        waterproofFunction_weight.setText("");
+    }
+
     @FXML
     void btn_clearFields_clicked(MouseEvent event) {
         boolean isTrue = AlertUtil.showConfirmation("Очистить все поля на этой стадии?", "Все поля в этой стадии создания будут полностью очищены", allValues.getRootStage());
         if (isTrue) {
-            allValues.getCreateMaterialDto().setEstimation(null);
+            clearFields();
+            allValues.getCreateMaterialDto().setEstimation(new CalculateEstimationDto());
         }
     }
 

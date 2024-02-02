@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.forBackend.entity.*;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.MaterialService;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.event.EventHandler;
@@ -58,7 +59,6 @@ public class MaterialInfoController implements DataProvider {
             EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    System.out.println("createMaterial sideBartBtn");
                     validateAndSetData();
                 }
             };
@@ -117,9 +117,9 @@ public class MaterialInfoController implements DataProvider {
     @SneakyThrows()
     void next_btn_clicked(MouseEvent event) {
         if(validateAndSetData()) {
-            //запрос на сохранение материала
+            MaterialService.materialService.create(allValues.getCreateMaterialDto(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
 
-            //потом обнуление данных
+
             allValues.setCreateMaterialDto(new CreateMaterialDto());
             allValues.setLastCreateMaterialComponent(null);
 

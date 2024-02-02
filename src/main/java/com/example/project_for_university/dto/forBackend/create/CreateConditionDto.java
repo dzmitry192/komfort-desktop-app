@@ -19,7 +19,7 @@ public class CreateConditionDto {
     private int residenceTime;
     private int torsionAngle;
     private int stretchingCompression;
-    private CreateWashingDto washing;
+    private CreateWashingDto washing = new CreateWashingDto();
     private int bendingType_id;
     private int abrasionType_id;
     private int physicalActivityType_id;

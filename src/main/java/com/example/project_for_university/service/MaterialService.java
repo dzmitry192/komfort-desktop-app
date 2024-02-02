@@ -36,6 +36,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class MaterialService {
     private final FilterMaterialsModel filterMaterialsModel = new FilterMaterialsModel();
+    public static final MaterialService materialService = new MaterialService();
 
     @SneakyThrows
     public FilterMaterialsModel getFilterMaterialsThread(AllValues allValues) {

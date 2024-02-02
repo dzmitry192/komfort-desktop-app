@@ -138,7 +138,6 @@ public class HomeostasisTableController implements DataProvider, Initializable {
             EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    System.out.println("homeostasis sideBartBtn");
                     saveDataFromInputs();
                 }
             };
@@ -413,7 +412,7 @@ public class HomeostasisTableController implements DataProvider, Initializable {
         }
 
         //equipment
-        if (equipment.getText() != null) {
+        if (!equipment.getText().isBlank()) {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setEquipment(equipment.getText());
         } else {
             allValues.getCreateMaterialDto().getHomeostasisFunction().setEquipment(null);
@@ -553,7 +552,7 @@ public class HomeostasisTableController implements DataProvider, Initializable {
             }
 
             //equipment
-            if(equipment.getText().isEmpty()) {
+            if(equipment.getText().isBlank()) {
                 throw new CustomException(ExceptionMessage.INVALID_EQUIPMENT.getMessage(), ExceptionType.INVALID_EQUIPMENT_TYPE.getType());
             } else {
                 homeoFuncDto.setEquipment(equipment.getText());
@@ -582,11 +581,43 @@ public class HomeostasisTableController implements DataProvider, Initializable {
         return false;
     }
 
+    private void clearFields() {
+        avgOutdoorAirSpeed.setText("");
+        comfHumidityInsideClothes.setText("");
+        comfTempInsideClothes.setText("");
+        equipment.setText("");
+        m.setText("");
+        m1max.setText("");
+        m1min.setText("");
+        m1s.setText("");
+        m2max.setText("");
+        m2min.setText("");
+        m2s.setText("");
+        maxOutdoorHumidity.setText("");
+        maxOutdoorTemp.setText("");
+        minOutdoorHumidity.setText("");
+        minOutdoorTemp.setText("");
+        s.setText("");
+        s0_1.setText("");
+        s0_2.setText("");
+        sampleSurfaceArea.setText("");
+        t_1.setText("");
+        t_2.setText("");
+        tos.setText("");
+        totalThermalResistance_base.setText("");
+        totalThermalResistance_weight.setText("");
+        waterPermeabilityDynamicCriteria_base.setText("");
+        waterPermeabilityDynamicCriteria_weight.setText("");
+        waterPermeability_base.setText("");
+        waterPermeability_weight.setText("");
+    }
+
     @FXML
     void btn_clearFields_clicked(MouseEvent event) {
         boolean isTrue = AlertUtil.showConfirmation("Очистить все поля на этой стадии?", "Все поля в этой стадии создания будут полностью очищены", allValues.getRootStage());
         if (isTrue) {
-            allValues.getCreateMaterialDto().setHomeostasisFunction(null);
+            clearFields();
+            allValues.getCreateMaterialDto().setHomeostasisFunction(new CalculateHomeostasisFunctionDto());
         }
     }
 
