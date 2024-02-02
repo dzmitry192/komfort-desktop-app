@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import java.lang.String?>
 <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.FilterController">
    <children>
       <HBox alignment="TOP_RIGHT" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
@@ -124,7 +125,7 @@
                      </HBox.margin>
                   </VBox>
                   <Separator orientation="VERTICAL" />
-                  <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="330.0" HBox.hgrow="ALWAYS">
+                  <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="355.0" HBox.hgrow="ALWAYS">
                      <children>
                         <VBox alignment="CENTER" spacing="10.0" styleClass="default-gray-background">
                            <children>
@@ -167,7 +168,10 @@
                                           <VBox spacing="5.0">
                                              <children>
                                                 <Label text="Тип мембраны" />
-                                                <ComboBox fx:id="typeMemb_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Выберите">
+                                                <ComboBox fx:id="typeMemb_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Не выбрано">
+                                                   <value>
+                                                      <String fx:value="Не выбрано" />
+                                                   </value>
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -177,7 +181,10 @@
                                           <VBox spacing="5.0">
                                              <children>
                                                 <Label text="Способ производства" />
-                                                <ComboBox fx:id="way_prod_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Выберите">
+                                                <ComboBox fx:id="way_prod_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Не выбрано">
+                                                   <value>
+                                                      <String fx:value="Не выбрано" />
+                                                   </value>
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -187,7 +194,10 @@
                                           <VBox spacing="5.0">
                                              <children>
                                                 <Label text="Количество слоев" />
-                                                <ComboBox fx:id="num_layers_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Выберите">
+                                                <ComboBox fx:id="num_layers_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Не выбрано">
+                                                   <value>
+                                                      <String fx:value="Не выбрано" />
+                                                   </value>
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -196,7 +206,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_depth" mnemonicParsing="false" onMouseClicked="#check_depth_clicked" text="Толщина">
+                                                <CheckBox fx:id="check_depth" mnemonicParsing="false" onMouseClicked="#check_depth_clicked" text="Толщина, мм">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -216,7 +226,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_blotting_pressure" mnemonicParsing="false" onMouseClicked="#check_blotting_pressure_clicked" text="Давление промокания">
+                                                <CheckBox fx:id="check_blotting_pressure" mnemonicParsing="false" onMouseClicked="#check_blotting_pressure_clicked" text="Давление промокания, кПа">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -232,7 +242,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_time" mnemonicParsing="false" onMouseClicked="#check_time_clicked" text="Время промокания">
+                                                <CheckBox fx:id="check_time" mnemonicParsing="false" onMouseClicked="#check_time_clicked" text="Время промокания, мин">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -248,7 +258,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_water_vapor_perm" mnemonicParsing="false" onMouseClicked="#check_water_vapor_perm_clicked" text="Водопаропроницаемость">
+                                                <CheckBox fx:id="check_water_vapor_perm" mnemonicParsing="false" onMouseClicked="#check_water_vapor_perm_clicked" text="Водопаропроницаемость, г/м²·24ч">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -264,7 +274,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_resistance" mnemonicParsing="false" onMouseClicked="#check_resistance_clicked" text="Тепловое сопротивление">
+                                                <CheckBox fx:id="check_resistance" mnemonicParsing="false" onMouseClicked="#check_resistance_clicked" text="Тепловое сопротивление, м²∙°C/Вт">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -280,7 +290,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_relative_pressure" mnemonicParsing="false" onMouseClicked="#check_relative_pressure_clicked" text="Относительное давление промокания">
+                                                <CheckBox fx:id="check_relative_pressure" mnemonicParsing="false" onMouseClicked="#check_relative_pressure_clicked" text="Относительное давление промокания, кПа">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
