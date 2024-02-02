@@ -380,9 +380,8 @@ public class FilterController implements Initializable, DataProvider {
         } else {
             curFilterDto.setName("");
         }
-
         if (typeMemb_cb.getSelectionModel().getSelectedItem() != null) {
-            if(!typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+            if(typeMemb_cb.getSelectionModel().getSelectedIndex() != 0) {
                 curFilterDto.setMembraneLayerPolymerType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getName().equals(typeMemb_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
             } else {
                 curFilterDto.setMembraneLayerPolymerType_id(0);
@@ -391,7 +390,7 @@ public class FilterController implements Initializable, DataProvider {
             curFilterDto.setMembraneLayerPolymerType_id(0);
         }
         if (way_prod_cb.getSelectionModel().getSelectedItem() != null) {
-            if(!typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+            if(way_prod_cb.getSelectionModel().getSelectedIndex() != 0) {
                 curFilterDto.setProductionMethod_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getName().equals(way_prod_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
             } else {
                 curFilterDto.setProductionMethod_id(0);
@@ -400,7 +399,7 @@ public class FilterController implements Initializable, DataProvider {
             curFilterDto.setProductionMethod_id(0);
         }
         if (num_layers_cb.getSelectionModel().getSelectedItem() != null) {
-            if(!num_layers_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+            if(num_layers_cb.getSelectionModel().getSelectedIndex() != 0) {
                 curFilterDto.setLayersCnt(Integer.parseInt(num_layers_cb.getSelectionModel().getSelectedItem()));
             } else {
                 curFilterDto.setLayersCnt(0);
@@ -476,15 +475,18 @@ public class FilterController implements Initializable, DataProvider {
             curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_max(0);
         }
 
+        System.out.println("--------------");
+        System.out.println(curFilterDto);
+
         allValues.setMaterialFilterDto(curFilterDto);
         allValues.getPaginationDto().setPage(1);
         mountMaterials(getMaterials());
     }
 
     @FXML
-    void btn_reset_filters_clicked(MouseEvent event) {
+    void btn_reset_filters_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         allValues.getPaginationDto().setPage(1);
-        allValues.setMaterialFilterDto(null);
+        allValues.setMaterialFilterDto(new MaterialFilterDto());
 
         check_own_materials.setSelected(false);
         check_time.setSelected(false);
@@ -524,6 +526,8 @@ public class FilterController implements Initializable, DataProvider {
         depth_inp_2.setDisable(true);
         blotting_pressure_inp_1.setDisable(true);
         blotting_pressure_inp_2.setDisable(true);
+
+        mountMaterials(getMaterials());
     }
 
     @FXML
@@ -711,7 +715,5 @@ public class FilterController implements Initializable, DataProvider {
 
         relative_pressure_inp_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
         relative_pressure_inp_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-
     }
 }
