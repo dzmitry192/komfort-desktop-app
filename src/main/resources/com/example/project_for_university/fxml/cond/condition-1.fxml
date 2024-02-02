@@ -361,8 +361,8 @@
                                     </VBox>
                                     <HBox alignment="CENTER_LEFT" spacing="20.0">
                                        <children>
-                                          <Slider fx:id="scroll_stretching" value="5"  blockIncrement="5.0" disable="true" majorTickUnit="20.0" min="5.0" minorTickCount="5" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" />
-                                          <TextField fx:id="inp_stretching" text="5" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                          <Slider fx:id="scroll_stretching" blockIncrement="5.0" disable="true" majorTickUnit="20.0" min="5.0" minorTickCount="5" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" />
+                                          <TextField fx:id="inp_stretching" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                        </children>
                                        <VBox.margin>
                                           <Insets left="50.0" />
@@ -384,8 +384,8 @@
                                     </VBox>
                                     <HBox alignment="CENTER_LEFT" spacing="20.0">
                                        <children>
-                                          <Slider fx:id="scroll_torsion_angle" disable="true" majorTickUnit="40.0" max="180.0" min="20.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="5.0" />
-                                          <TextField fx:id="inp_torsion_angle" text="5" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                          <Slider fx:id="scroll_torsion_angle" disable="true" majorTickUnit="40.0" max="180.0" min="20.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" />
+                                          <TextField fx:id="inp_torsion_angle" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                        </children>
                                        <VBox.margin>
                                           <Insets left="50.0" />
@@ -429,8 +429,8 @@
                                           <Region HBox.hgrow="ALWAYS" />
                                           <HBox spacing="10.0">
                                              <children>
-                                                <Slider fx:id="scroll_temp_washing"  disable="true" majorTickUnit="10.0" max="60.0" min="30.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
-                                                <TextField fx:id="inp_temp_washing" text="30" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                                <Slider fx:id="scroll_temp_washing"  disable="true" majorTickUnit="10.0" max="60.0" min="30.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" />
+                                                <TextField fx:id="inp_temp_washing" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -448,8 +448,8 @@
                                           <Region HBox.hgrow="ALWAYS" />
                                           <HBox spacing="10.0">
                                              <children>
-                                                <Slider fx:id="scroll_time_washing" disable="true" majorTickUnit="10.0" max="60.0" min="20.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
-                                                <TextField fx:id="inp_time_washing" text="20" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                                <Slider fx:id="scroll_time_washing" disable="true" majorTickUnit="10.0" max="60.0" min="20.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" />
+                                                <TextField fx:id="inp_time_washing" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                              </children>
                                           </HBox>
                                        </children>

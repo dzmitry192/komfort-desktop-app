@@ -4,25 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53d1435e-0f67-4b1b-83a0-da847717fcc7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/CreateMaterialModel.java" afterDir="false" />
+    <list default="true" id="53d1435e-0f67-4b1b-83a0-da847717fcc7" name="Changes" comment="added logic for reset and clear fields buttons">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/ErrorMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateConditionRequestDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateMaterialRequestDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateMaterialResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateWashingRequestDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/EstimationTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/EstimationTableController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/HomeostasisTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/HomeostasisTableController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/ReliabilityTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/ReliabilityTableController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/WaterproofTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/WaterproofTableController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/forBackend/create/CreateConditionDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/forBackend/create/CreateConditionDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/MaterialService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/MaterialService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ValidationUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/CreateMaterialModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/condition-1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/condition-1.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/tables/homeostasis-table.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/tables/homeostasis-table.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/tables/reliability-table.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/tables/reliability-table.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/tables/waterproof-table.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/tables/waterproof-table.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +27,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -46,6 +42,9 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2ZiQj3iqKvtxv0sGcG3T0lSp6W1" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -146,8 +145,18 @@
       <workItem from="1706864176193" duration="2059000" />
       <workItem from="1706868900808" duration="11054000" />
       <workItem from="1706881894208" duration="879000" />
-      <workItem from="1706891916019" duration="3213000" />
+      <workItem from="1706891916019" duration="6922000" />
+      <workItem from="1706909859253" duration="7930000" />
     </task>
+    <task id="LOCAL-00001" summary="added logic for reset and clear fields buttons">
+      <option name="closed" value="true" />
+      <created>1706895303803</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1706895303803</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +172,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added logic for reset and clear fields buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="added logic for reset and clear fields buttons" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

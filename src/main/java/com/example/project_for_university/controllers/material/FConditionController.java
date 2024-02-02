@@ -537,9 +537,14 @@ public class FConditionController implements Initializable, DataProvider {
         if (check_stretch_compress.isSelected()) {
             scroll_stretching.setDisable(false);
             inp_stretching.setDisable(false);
+
+            scroll_stretching.setValue(5);
+            inp_stretching.setText("5");
+            allValues.getCreateMaterialDto().getCondition().setStretchingCompression(5);
         } else {
             scroll_stretching.setDisable(true);
             scroll_stretching.setValue(0);
+            inp_stretching.setText("");
 
             allValues.getCreateMaterialDto().getCondition().setStretchingCompression(0);
 
@@ -553,9 +558,14 @@ public class FConditionController implements Initializable, DataProvider {
         if (check_torsion.isSelected()) {
             scroll_torsion_angle.setDisable(false);
             inp_torsion_angle.setDisable(false);
+
+            scroll_torsion_angle.setValue(5);
+            inp_torsion_angle.setText("5");
+            allValues.getCreateMaterialDto().getCondition().setTorsionAngle(5);
         } else {
             scroll_torsion_angle.setDisable(true);
             scroll_torsion_angle.setValue(0);
+            inp_torsion_angle.setText("");
             allValues.getCreateMaterialDto().getCondition().setTorsionAngle(0);
 
             inp_torsion_angle.setDisable(true);
@@ -574,12 +584,23 @@ public class FConditionController implements Initializable, DataProvider {
             rad_btn_yes.setDisable(false);
             rad_btn_no.setDisable(false);
             inp_cycles_cnt.setDisable(false);
+
+            scroll_temp_washing.setValue(30);
+            allValues.getCreateMaterialDto().getCondition().getWashing().setTemperature(30);
+            inp_temp_washing.setText("30");
+            scroll_time_washing.setValue(20);
+            allValues.getCreateMaterialDto().getCondition().getWashing().setDuration(20);
+            inp_time_washing.setText("20");
+            wash_type.setValue("Не выбрано");
         } else {
             wash_type.setDisable(true);
             wash_type.setValue(null);
 
             scroll_temp_washing.setDisable(true);
             scroll_temp_washing.setValue(0);
+
+            allValues.getCreateMaterialDto().getCondition().getWashing().setDuration(0);
+            allValues.getCreateMaterialDto().getCondition().getWashing().setTemperature(0);
 
             scroll_time_washing.setDisable(true);
             scroll_time_washing.setValue(0);
@@ -592,6 +613,11 @@ public class FConditionController implements Initializable, DataProvider {
 
             rad_btn_yes.setDisable(true);
             rad_btn_no.setDisable(true);
+
+            rad_btn_yes.setSelected(false);
+            rad_btn_no.setSelected(false);
+
+            allValues.getCreateMaterialDto().getCondition().setPositive(false);
 
             inp_cycles_cnt.setDisable(true);
             inp_cycles_cnt.setText(null);
@@ -765,7 +791,7 @@ public class FConditionController implements Initializable, DataProvider {
             AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
             isError = false;
         } else {
-            allValues.getCreateMaterialDto().getMaterial().setDepth(allValues.getCreateMaterialDto().getMaterial().getLayers().size());
+            System.out.println("---------AAAAAAAAAAAAAAAAA\n" + allValues.getCreateMaterialDto().getCondition());
             allValues.setLastCreateMaterialComponent(Component.WATERPROOF_TABLE);
             ComponentUtil.mount(Component.WATERPROOF_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }

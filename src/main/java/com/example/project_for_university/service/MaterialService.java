@@ -4,10 +4,12 @@ import com.example.project_for_university.Main;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.MaterialFilterDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
-import com.example.project_for_university.dto.forBackend.entity.MaterialEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
+import com.example.project_for_university.enums.ErrorMessage;
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
+import com.example.project_for_university.service.models.material.CreateMaterialRequestDto;
+import com.example.project_for_university.service.models.material.CreateMaterialResponse;
 import com.example.project_for_university.service.models.FilterMaterialsModel;
 import com.example.project_for_university.utils.AuthUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,18 +19,14 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +34,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class MaterialService {
     private final FilterMaterialsModel filterMaterialsModel = new FilterMaterialsModel();
+    private final CreateMaterialResponse createMaterialResponse = new CreateMaterialResponse();
     public static final MaterialService materialService = new MaterialService();
 
     @SneakyThrows
@@ -136,8 +135,8 @@ public class MaterialService {
     }
 
     @SneakyThrows
-    public MaterialEntity create(CreateMaterialDto createMaterialDto, String email, String password) {
-        CompletableFuture<MaterialEntity> completableFuture = new CompletableFuture<>();
+    public CreateMaterialResponse create(CreateMaterialRequestDto createMaterialRequestDto, String email, String password) {
+        CompletableFuture<CreateMaterialResponse> completableFuture = new CompletableFuture<>();
 
         Runnable runnable = new Runnable() {
             @Override
@@ -147,16 +146,16 @@ public class MaterialService {
 
                     MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
-                    for (File file : createMaterialDto.getImages()) {
+                    for (File file : createMaterialRequestDto.getImages()) {
                         builder.addPart("images", new FileBody(file, ContentType.IMAGE_PNG, file.getName()));
                     }
 
-                    builder.addTextBody("material", objectMapper.writeValueAsString(createMaterialDto.getMaterial()), ContentType.APPLICATION_JSON);
-                    builder.addTextBody("condition", objectMapper.writeValueAsString(createMaterialDto.getCondition()), ContentType.APPLICATION_JSON);
-                    builder.addTextBody("waterproofFunction", objectMapper.writeValueAsString(createMaterialDto.getWaterproofFunction()), ContentType.APPLICATION_JSON);
-                    builder.addTextBody("homeostasisFunction", objectMapper.writeValueAsString(createMaterialDto.getHomeostasisFunction()), ContentType.APPLICATION_JSON);
-                    builder.addTextBody("reliabilityFunction", objectMapper.writeValueAsString(createMaterialDto.getReliabilityFunction()), ContentType.APPLICATION_JSON);
-                    builder.addTextBody("estimation", objectMapper.writeValueAsString(createMaterialDto.getEstimation()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("material", objectMapper.writeValueAsString(createMaterialRequestDto.getMaterial()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("condition", objectMapper.writeValueAsString(createMaterialRequestDto.getCondition()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("waterproofFunction", objectMapper.writeValueAsString(createMaterialRequestDto.getWaterproofFunction()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("homeostasisFunction", objectMapper.writeValueAsString(createMaterialRequestDto.getHomeostasisFunction()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("reliabilityFunction", objectMapper.writeValueAsString(createMaterialRequestDto.getReliabilityFunction()), ContentType.APPLICATION_JSON);
+                    builder.addTextBody("estimation", objectMapper.writeValueAsString(createMaterialRequestDto.getEstimation()), ContentType.APPLICATION_JSON);
 
                     HttpEntity multipart = builder.build();
 
@@ -167,11 +166,17 @@ public class MaterialService {
                             .build();
 
                     try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-                        MaterialEntity material = JsonToClass.parseToObject(MaterialEntity.class, response);
-                        completableFuture.complete(material);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                        throw e;
+                        if(response.getStatusLine().getStatusCode() == 201) {
+                            createMaterialResponse.setMaterial(JsonToClass.parseToObject(PartialMaterialEntity.class, response));
+                            createMaterialResponse.setError(false);
+                            completableFuture.complete(createMaterialResponse);
+                        } else {
+                            createMaterialResponse.setError(true);
+                            createMaterialResponse.setErrorMessage(getErrorMessage(response.getStatusLine().getStatusCode()));
+                            completableFuture.complete(createMaterialResponse);
+                        }
+                    } catch (IOException e) {
+                        throw new IOException(e);
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -183,5 +188,13 @@ public class MaterialService {
         createMaterialThread.start();
 
         return completableFuture.get();
+    }
+
+    private String getErrorMessage(int statusCode) {
+        return switch (statusCode) {
+            case 500 -> ErrorMessage.SERVER_ERROR.getMessage();
+            case 404 -> ErrorMessage.NOT_FOUND.getMessage();
+            default -> ErrorMessage.KOGDA_NE_ZNAESH_CHTO_KIDATb.getMessage();
+        };
     }
 }

@@ -1,12 +1,14 @@
 package com.example.project_for_university.controllers.material;
 
 import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.dto.forBackend.MaterialInfoDto;
+import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
-import com.example.project_for_university.dto.forBackend.entity.*;
-import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.MaterialService;
+import com.example.project_for_university.service.models.material.CreateMaterialRequestDto;
+import com.example.project_for_university.service.models.material.CreateMaterialResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.event.EventHandler;
@@ -23,6 +25,7 @@ import lombok.SneakyThrows;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +52,10 @@ public class MaterialInfoController implements DataProvider {
         this.allValues = allValues;
 
         fillMaterialInfo();
+
+        if (allValues.getCreateMaterialDto().getMaterial() == null) {
+            allValues.getCreateMaterialDto().setMaterial(new MaterialInfoDto());
+        }
 
         for (int i = 0; i < allValues.getSideBarButtonsEventHandlers().size(); i++) {
             allValues.getSideBarButtons().get(i).removeEventHandler(MouseEvent.MOUSE_CLICKED, allValues.getSideBarButtonsEventHandlers().get(i));
@@ -78,55 +85,132 @@ public class MaterialInfoController implements DataProvider {
     private void fillMaterialInfo() {
         CreateMaterialDto materialDto = allValues.getCreateMaterialDto();
 
-        if(materialDto.getMaterial().getDescription() != null) {
+        if (materialDto.getMaterial().getDescription() != null) {
             description.setText(materialDto.getMaterial().getDescription());
         }
-        if(materialDto.getMaterial().getName() != null) {
+        if (materialDto.getMaterial().getName() != null) {
             name.setText(materialDto.getMaterial().getName());
         }
-        if(materialDto.getImages() != null) {
+        if (materialDto.getImages() != null) {
             images.addAll(List.of(materialDto.getImages()));
         }
     }
 
     private boolean validateAndSetData() {
-        if(allValues.getCreateMaterialDto().getMaterial() != null) {
-            try {
-                if(name.getText().isEmpty()) {
-                    throw new IllegalArgumentException();
-                } else {
-                    allValues.getCreateMaterialDto().getMaterial().setName(name.getText());
-                }
-                if(description.getText().isEmpty()) {
-                    throw new IllegalArgumentException();
-                } else {
-                    allValues.getCreateMaterialDto().getMaterial().setDescription(description.getText());
-                }
-                if(!images.isEmpty()) {
-                    allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
-                }
-                return true;
-            } catch (IllegalArgumentException e) {
-                return false;
+        try {
+            if (name.getText().isEmpty()) {
+                throw new IllegalArgumentException();
+            } else {
+                allValues.getCreateMaterialDto().getMaterial().setName(name.getText());
             }
+            if (description.getText().isEmpty()) {
+                throw new IllegalArgumentException();
+            } else {
+                allValues.getCreateMaterialDto().getMaterial().setDescription(description.getText());
+            }
+            if (!images.isEmpty()) {
+                allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
+            }
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
         }
-        return false;
+    }
+
+    private CreateMaterialRequestDto createMaterialDtoToCreateMaterialRequestDto(CreateMaterialDto materialDto) {
+        CreateMaterialRequestDto requestDto = new CreateMaterialRequestDto();
+
+        //set files
+        if(materialDto.getImages().length > 0) {
+            requestDto.setImages(materialDto.getImages());
+        }
+
+        //set material
+        requestDto.setMaterial(materialDto.getMaterial());
+
+        //set condition values
+        requestDto.getCondition().setPositive(materialDto.getCondition().isPositive());
+        requestDto.getCondition().setMinAirTemp(materialDto.getCondition().getMinAirTemp());
+        requestDto.getCondition().setMaxAirTemp(materialDto.getCondition().getMaxAirTemp());
+        requestDto.getCondition().setMinAirHumidity(materialDto.getCondition().getMinAirHumidity());
+        requestDto.getCondition().setMaxAirHumidity(materialDto.getCondition().getMaxAirHumidity());
+        requestDto.getCondition().setAvgAirSpeed(materialDto.getCondition().getAvgAirSpeed());
+        requestDto.getCondition().setResidenceTime(materialDto.getCondition().getResidenceTime());
+        requestDto.getCondition().setTorsionAngle(materialDto.getCondition().getTorsionAngle());
+        requestDto.getCondition().setStretchingCompression(materialDto.getCondition().getStretchingCompression());
+        requestDto.getCondition().getWashing().setTemperature(materialDto.getCondition().getWashing().getTemperature());
+        requestDto.getCondition().getWashing().setDuration(materialDto.getCondition().getWashing().getDuration());
+        requestDto.getCondition().getWashing().setPress(materialDto.getCondition().getWashing().isPress());
+        requestDto.getCondition().getWashing().setCyclesCnt(materialDto.getCondition().getWashing().getCyclesCnt());
+        if(materialDto.getCondition().getWashing().getWashingType_id() == 0) {
+            requestDto.getCondition().getWashing().setWashingType_id(null);
+        } else {
+            requestDto.getCondition().getWashing().setWashingType_id(materialDto.getCondition().getWashing().getWashingType_id());
+        }
+        if(materialDto.getCondition().getAbrasionType_id() == 0) {
+            requestDto.getCondition().setAbrasionType_id(null);
+        } else {
+            requestDto.getCondition().setAbrasionType_id(materialDto.getCondition().getAbrasionType_id());
+        }
+        if(materialDto.getCondition().getBendingType_id() == 0) {
+            requestDto.getCondition().setBendingType_id(null);
+        } else {
+            requestDto.getCondition().setBendingType_id(materialDto.getCondition().getBendingType_id());
+        }
+        requestDto.getCondition().setPhysicalActivityType_id(materialDto.getCondition().getPhysicalActivityType_id());
+
+        //waterproof table
+        requestDto.setWaterproofFunction(negativeValueToZero(materialDto.getWaterproofFunction()));
+        requestDto.setHomeostasisFunction(negativeValueToZero(materialDto.getHomeostasisFunction()));
+        requestDto.setReliabilityFunction(negativeValueToZero(materialDto.getReliabilityFunction()));
+        requestDto.setEstimation(materialDto.getEstimation());
+
+        return requestDto;
+    }
+
+    private <T> T negativeValueToZero(T obj) {
+        try {
+            T updatedObj = (T) obj.getClass().newInstance();
+
+            Class<?> clazz = obj.getClass();
+            Field[] fields = clazz.getDeclaredFields();
+
+            for (Field field : fields) {
+                field.setAccessible(true);
+
+                if (field.getType() == double.class) {
+                    double value = field.getDouble(obj);
+
+                    if (value == -1) {
+                        field.setDouble(updatedObj, 0);
+                    } else {
+                        field.setDouble(updatedObj, value);
+                    }
+                }
+            }
+
+            return updatedObj;
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+            return obj; // Возвращаем исходный объект в случае ошибки
+        }
     }
 
     @FXML
     @SneakyThrows()
     void next_btn_clicked(MouseEvent event) {
-        if(validateAndSetData()) {
-            MaterialService.materialService.create(allValues.getCreateMaterialDto(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
-
-
-            allValues.setCreateMaterialDto(new CreateMaterialDto());
-            allValues.setLastCreateMaterialComponent(null);
-
-            ConditionEntity condition = new ConditionEntity(1, true, 1, 1, 1, 1, 1, 1, 1, 1, null, new WashingEntity(1, 1, 1, 1, true, new WashingTypeEntity(1, "washing")), null, new PhysicalActivityTypeEntity(1, "act", "desc"));
-            PartialMaterialEntity newMaterial = new PartialMaterialEntity(1, "newMaterial", "newMaterial desk description description description description description", "manufacturer", 10, condition, new LayerEntity[] {new LayerEntity(1, 1, new LayerTypeEntity(1, "fdsafsf"))}, new String[] {"https://avatars.githubusercontent.com/u/95999531?v=4", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfiAsmz9QJAl1zQuMB98yf3rje25gDaZbZyZ3VpaDl1-yZwfd3nWfW918AvHR449ePXKM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8nQdinoQx9ed3qju0E6e-C4ve5eDbZhRm-SqGchXgaI72-Y2oC7tpzRr4tFmYvfMxU4&usqp=CAU"}, new UserEntity(1, "userName", "email", "pass", false), new ProductionMethodEntity(1, "name"), new MembraneLayerPolymerTypeEntity(1, "name"), new GlueTypeEntity(1, "name"));
-
-            ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, newMaterial);
+        if (validateAndSetData()) {
+            System.out.println("------ДО--------\n" + allValues.getCreateMaterialDto());
+            CreateMaterialRequestDto createMaterialRequestDto = createMaterialDtoToCreateMaterialRequestDto(allValues.getCreateMaterialDto());
+            System.out.println("------ПОСЛЕ-----------\n" + createMaterialRequestDto.getCondition().isPositive());
+            CreateMaterialResponse createMaterialResponse = MaterialService.materialService.create(createMaterialRequestDto, allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if(createMaterialResponse.isError()) {
+                AlertUtil.show("Ошибка при создании материала", createMaterialResponse.getErrorMessage(), allValues.getRootStage());
+            } else {
+                allValues.setCreateMaterialDto(new CreateMaterialDto());
+                allValues.setLastCreateMaterialComponent(null);
+                ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, createMaterialResponse.getMaterial());
+            }
         } else {
             AlertUtil.show("Заполните все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
         }

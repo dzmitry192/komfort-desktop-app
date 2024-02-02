@@ -39,4 +39,5 @@ module com.example.project_for_university {
     exports com.example.project_for_university.dto.forBackend.create to com.fasterxml.jackson.databind;
     exports com.example.project_for_university.dto.forBackend to com.fasterxml.jackson.databind;
     exports com.example.project_for_university.dto.forBackend.calculate to com.fasterxml.jackson.databind;
+    exports com.example.project_for_university.service.models.material to com.fasterxml.jackson.databind;
 }
