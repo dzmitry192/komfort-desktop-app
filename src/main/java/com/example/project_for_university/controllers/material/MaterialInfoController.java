@@ -2,7 +2,11 @@ package com.example.project_for_university.controllers.material;
 
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.MaterialInfoDto;
+import com.example.project_for_university.dto.forBackend.calculate.CalculateEstimationDto;
+import com.example.project_for_university.dto.forBackend.calculate.CalculateHomeostasisFunctionDto;
+import com.example.project_for_university.dto.forBackend.calculate.CalculateReliabilityFunctionDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
+import com.example.project_for_university.dto.forBackend.create.CreateConditionDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
@@ -17,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
@@ -160,9 +165,18 @@ public class MaterialInfoController implements DataProvider {
         requestDto.getCondition().setPhysicalActivityType_id(materialDto.getCondition().getPhysicalActivityType_id());
 
         //waterproof table
-        requestDto.setWaterproofFunction(negativeValueToZero(materialDto.getWaterproofFunction()));
-        requestDto.setHomeostasisFunction(negativeValueToZero(materialDto.getHomeostasisFunction()));
-        requestDto.setReliabilityFunction(negativeValueToZero(materialDto.getReliabilityFunction()));
+        CalculateWaterproofFunctionDto waterproofFunctionDto = negativeValueToZero(materialDto.getWaterproofFunction());
+        waterproofFunctionDto.setEquipment(materialDto.getWaterproofFunction().getEquipment());
+        requestDto.setWaterproofFunction(waterproofFunctionDto);
+
+        CalculateHomeostasisFunctionDto homeostasisFunctionDto = negativeValueToZero(materialDto.getHomeostasisFunction());
+        homeostasisFunctionDto.setEquipment(materialDto.getHomeostasisFunction().getEquipment());
+        requestDto.setHomeostasisFunction(homeostasisFunctionDto);
+
+        CalculateReliabilityFunctionDto reliabilityFunctionDto = negativeValueToZero(materialDto.getReliabilityFunction());
+        reliabilityFunctionDto.setEquipment(materialDto.getReliabilityFunction().getEquipment());
+        requestDto.setReliabilityFunction(reliabilityFunctionDto);
+
         requestDto.setEstimation(materialDto.getEstimation());
 
         return requestDto;
@@ -200,9 +214,7 @@ public class MaterialInfoController implements DataProvider {
     @SneakyThrows()
     void next_btn_clicked(MouseEvent event) {
         if (validateAndSetData()) {
-            System.out.println("------ДО--------\n" + allValues.getCreateMaterialDto());
             CreateMaterialRequestDto createMaterialRequestDto = createMaterialDtoToCreateMaterialRequestDto(allValues.getCreateMaterialDto());
-            System.out.println("------ПОСЛЕ-----------\n" + createMaterialRequestDto.getCondition().isPositive());
             CreateMaterialResponse createMaterialResponse = MaterialService.materialService.create(createMaterialRequestDto, allValues.getUser().getEmail(), allValues.getUser().getPassword());
             if(createMaterialResponse.isError()) {
                 AlertUtil.show("Ошибка при создании материала", createMaterialResponse.getErrorMessage(), allValues.getRootStage());

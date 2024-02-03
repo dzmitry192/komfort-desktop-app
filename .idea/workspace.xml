@@ -7,15 +7,16 @@
     <list default="true" id="53d1435e-0f67-4b1b-83a0-da847717fcc7" name="Changes" comment="added logic for reset and clear fields buttons">
       <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/ErrorMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateConditionRequestDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateMaterialRequestDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateMaterialResponse.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateWashingRequestDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/forBackend/create/CreateMaterialDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/forBackend/create/CreateMaterialDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/MaterialService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/MaterialService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/CreateMaterialModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateConditionRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateConditionRequestDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/condition-1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/condition-1.fxml" afterDir="false" />
     </list>

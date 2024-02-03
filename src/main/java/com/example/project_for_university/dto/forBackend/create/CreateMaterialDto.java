@@ -5,7 +5,6 @@ import com.example.project_for_university.dto.forBackend.calculate.CalculateEsti
 import com.example.project_for_university.dto.forBackend.calculate.CalculateHomeostasisFunctionDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateReliabilityFunctionDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,11 +15,11 @@ import java.io.File;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateMaterialDto {
-    private File[] images;
-    private MaterialInfoDto material;
-    private CreateConditionDto condition;
-    private CalculateWaterproofFunctionDto waterproofFunction;
-    private CalculateHomeostasisFunctionDto homeostasisFunction;
-    private CalculateReliabilityFunctionDto reliabilityFunction;
-    private CalculateEstimationDto estimation;
+    private File[] images = new File[]{};
+    private MaterialInfoDto material = new MaterialInfoDto();
+    private CreateConditionDto condition = new CreateConditionDto();
+    private CalculateWaterproofFunctionDto waterproofFunction = new CalculateWaterproofFunctionDto();
+    private CalculateHomeostasisFunctionDto homeostasisFunction = new CalculateHomeostasisFunctionDto();
+    private CalculateReliabilityFunctionDto reliabilityFunction = new CalculateReliabilityFunctionDto();
+    private CalculateEstimationDto estimation = new CalculateEstimationDto();
 }
