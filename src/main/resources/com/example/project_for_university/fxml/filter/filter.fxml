@@ -293,7 +293,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_water_vapor_perm" mnemonicParsing="false" onMouseClicked="#check_water_vapor_perm_clicked" text="Водопаропроницаемость, г/м²·24ч">
+                                                <CheckBox fx:id="check_water_vapor_perm" mnemonicParsing="false" onMouseClicked="#check_water_vapor_perm_clicked" text="Водопаропроницаемость, г/(м²∙24ч)">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -309,7 +309,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_resistance" mnemonicParsing="false" onMouseClicked="#check_resistance_clicked" text="Тепловое сопротивление, м²∙°C/Вт">
+                                                <CheckBox fx:id="check_resistance" mnemonicParsing="false" onMouseClicked="#check_resistance_clicked" text="Тепловое сопротивление, (м²∙°С)/Вт">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>

@@ -482,9 +482,6 @@ public class FilterController implements Initializable, DataProvider {
             curFilterDto.setRelativeBlottingPressureAfterLoad_relativeValuation_max(0);
         }
 
-        System.out.println("--------------");
-        System.out.println(curFilterDto);
-
         allValues.setMaterialFilterDto(curFilterDto);
         allValues.getPaginationDto().setPage(1);
         mountMaterials(getMaterials());
