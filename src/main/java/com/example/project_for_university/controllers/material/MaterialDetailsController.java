@@ -30,8 +30,10 @@ import javafx.util.Duration;
 import lombok.SneakyThrows;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class MaterialDetailsController implements Initializable, DataProvider {
@@ -55,6 +57,9 @@ public class MaterialDetailsController implements Initializable, DataProvider {
 
     @FXML
     private HBox deleteMaterial_btn;
+
+    @FXML
+    private HBox updateMaterial_btn;
 
     @FXML
     private Hyperlink email_lbl;
@@ -125,6 +130,8 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         if (partialMaterialEntity.getUser().getId() != allValues.getUser().getId()) {
             deleteMaterial_btn.setVisible(false);
             deleteMaterial_btn.setManaged(false);
+            updateMaterial_btn.setVisible(false);
+            updateMaterial_btn.setManaged(false);
         }
 
         Arrays.stream(partialMaterialEntity.getImages()).forEach(image -> images.add(new Image(image)));
@@ -208,12 +215,19 @@ public class MaterialDetailsController implements Initializable, DataProvider {
     }
 
     @FXML
-    void deleteMaterial_btn_clicked(MouseEvent event) {
+    void deleteMaterial_btn_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
         boolean isToDelete = AlertUtil.showConfirmation("Навсегда удалить этот артикул?", "Данные об этом артикуле будут безвозвратно удалены", allValues.getRootStage());
 
         if (isToDelete) {
             //запрос на удаление артикула
+
+            ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }
+    }
+
+    @FXML
+    void updateMaterial_btn_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
+        ComponentUtil.mountUpdateMaterial(allValues.getContentPanes().getLoggedInStackPane(), allValues, partialMaterialEntity);
     }
 
     @FXML

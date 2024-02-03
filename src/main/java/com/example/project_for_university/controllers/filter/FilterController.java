@@ -21,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -40,6 +41,12 @@ public class FilterController implements Initializable, DataProvider {
 
     @FXML
     private StackPane loader_contentPane;
+
+    @FXML
+    private VBox noResultsPanel;
+
+    @FXML
+    private Region noResultsRegion;
 
     @FXML
     private HBox firstPage_btn;
@@ -644,6 +651,16 @@ public class FilterController implements Initializable, DataProvider {
         page5_btnText.setText(String.valueOf(page + 2));
     }
 
+    public void showNoResultsPanel() {
+        displayNode(noResultsRegion, true);
+        displayNode(noResultsPanel, true);
+    }
+
+    public void hideNoResultsPanel() {
+        displayNode(noResultsRegion, false);
+        displayNode(noResultsPanel, false);
+    }
+
     private void mountMaterials(ArrayList<PartialMaterialEntity> materials) {
         list_materials.getChildren().clear();
         materialList_scrollPane.setVvalue(0);
@@ -651,29 +668,33 @@ public class FilterController implements Initializable, DataProvider {
         calcLastPage();
         setPagination();
 
-        Platform.runLater(() -> {
-            for (int i = 0; i < materials.size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource(Component.MATERIAL_ITEM.getPath()));
+        if (materials.size() == 0) {
+            showNoResultsPanel();
+        } else {
+            hideNoResultsPanel();
 
-                try {
-                    HBox materialItem = fxmlLoader.load();
-                    MaterialController materialController = fxmlLoader.getController();
+            Platform.runLater(() -> {
+                for (int i = 0; i < materials.size(); i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource(Component.MATERIAL_ITEM.getPath()));
 
-                    materialController.setMaterial(materials.get(i));
-                    materialController.setData(allValues);
+                    try {
+                        HBox materialItem = fxmlLoader.load();
+                        MaterialController materialController = fxmlLoader.getController();
 
-                    list_materials.getChildren().removeAll();
-                    list_materials.getChildren().add(materialItem);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                        materialController.setMaterial(materials.get(i));
+                        materialController.setData(allValues);
+
+                        list_materials.getChildren().removeAll();
+                        list_materials.getChildren().add(materialItem);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
-
-    //тут будет делаться запрос на сервер на получение материалов с фильтрами и page, perPage
     private ArrayList<PartialMaterialEntity> getMaterials() throws ExecutionException, InterruptedException {
         if (allValues.getLoadedMaterials() == null) {
             allValues.setLoadedMaterials(new ArrayList<>());

@@ -13,6 +13,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <?import java.lang.String?>
 <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.FilterController">
@@ -23,11 +25,32 @@
                <children>
                   <VBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="materialList_scrollPane" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
+                        <ScrollPane fx:id="materialList_scrollPane" fitToHeight="true" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox alignment="TOP_CENTER">
                                  <children>
+                                    <Region fx:id="noResultsRegion" VBox.vgrow="ALWAYS" />
+                                    <VBox fx:id="noResultsPanel" VBox.vgrow="NEVER">
+                                       <children>
+                                          <VBox alignment="CENTER" spacing="15.0">
+                                             <children>
+                                                <FontAwesomeIconView glyphName="SEARCH" size="40" />
+                                                <TextFlow textAlignment="CENTER" VBox.vgrow="NEVER">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bold-text" text="Результатов не найдено" textAlignment="CENTER" />
+                                                   </children>
+                                                </TextFlow>
+                                                <TextFlow textAlignment="CENTER">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Поищите по другому названию или уберите примененные фильтры" textAlignment="CENTER" />
+                                                   </children>
+                                                </TextFlow>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
                                     <VBox fx:id="list_materials" spacing="15.0" style="-fx-background-color: white;" />
+                                    <Region VBox.vgrow="ALWAYS" />
                                     <VBox alignment="CENTER" fillWidth="false">
                                        <children>
                                           <StackPane fx:id="loader_contentPane" VBox.vgrow="NEVER" />
@@ -36,7 +59,10 @@
                                              <children>
                                                 <HBox fx:id="firstPage_btn" alignment="CENTER" onMouseClicked="#firstPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
                                                    <children>
-                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_LEFT" />
+                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_LEFT" selectionStart="1" size="20">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font></FontAwesomeIconView>
                                                    </children>
                                                    <padding>
                                                       <Insets left="15.0" right="15.0" />
@@ -44,7 +70,10 @@
                                                 </HBox>
                                                 <HBox fx:id="prevPage_btn" alignment="CENTER" onMouseClicked="#prevPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
                                                    <children>
-                                                      <FontAwesomeIconView glyphName="ANGLE_LEFT" />
+                                                      <FontAwesomeIconView glyphName="ANGLE_LEFT" selectionStart="1" size="20">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font></FontAwesomeIconView>
                                                    </children>
                                                    <padding>
                                                       <Insets left="15.0" right="15.0" />
@@ -92,7 +121,10 @@
                                                 </HBox>
                                                 <HBox fx:id="nextPage_btn" alignment="CENTER" onMouseClicked="#nextPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
                                                    <children>
-                                                      <FontAwesomeIconView glyphName="ANGLE_RIGHT" />
+                                                      <FontAwesomeIconView glyphName="ANGLE_RIGHT" selectionStart="1" size="20">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font></FontAwesomeIconView>
                                                    </children>
                                                    <padding>
                                                       <Insets left="15.0" right="15.0" />
@@ -100,7 +132,10 @@
                                                 </HBox>
                                                 <HBox fx:id="lastPage_btn" alignment="CENTER" onMouseClicked="#lastPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
                                                    <children>
-                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_RIGHT" />
+                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_RIGHT" selectionStart="1" size="20">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font></FontAwesomeIconView>
                                                    </children>
                                                    <padding>
                                                       <Insets left="15.0" right="15.0" />

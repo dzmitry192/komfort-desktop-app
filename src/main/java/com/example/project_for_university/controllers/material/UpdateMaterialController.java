@@ -1,0 +1,99 @@
+package com.example.project_for_university.controllers.material;
+
+import com.example.project_for_university.controllers.user.admin.models.AbstractType;
+import com.example.project_for_university.controllers.user.admin.models.AdminPanelInfo;
+import com.example.project_for_university.controllers.user.admin.models.PhType;
+import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
+import com.example.project_for_university.enums.ActionType;
+import com.example.project_for_university.enums.AdminPanelType;
+import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.factory.ServiceFactory;
+import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.ReturnAllTypesService;
+import com.example.project_for_university.utils.AlertUtil;
+import com.example.project_for_university.utils.ComponentUtil;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import lombok.Setter;
+import lombok.SneakyThrows;
+
+import java.io.IOException;
+
+public class UpdateMaterialController implements DataProvider {
+
+    private AllValues allValues;
+
+    private PartialMaterialEntity partialMaterialEntity;
+    private final ServiceFactory serviceFactory = new ServiceFactory();
+    private final ReturnAllTypesService returnAllTypesService = new ReturnAllTypesService();
+
+    @FXML
+    private Text typeName_text;
+
+    @FXML
+    private HBox ok_btn;
+
+    @FXML
+    private HBox cancel_btn;
+
+    @FXML
+    private TextArea description_textArea;
+
+    @FXML
+    private VBox description_vbox;
+
+    @FXML
+    private TextField name_field;
+
+    @FXML
+    private TextField manufacturer_field;
+
+    @Override
+    public void setData(AllValues allValues) {
+        this.allValues = allValues;
+    }
+
+    public void setPartialMaterialEntity(PartialMaterialEntity partialMaterialEntity) {
+        this.partialMaterialEntity = partialMaterialEntity;
+
+        typeName_text.setText("(" + partialMaterialEntity.getName()+ ")");
+        name_field.setText(partialMaterialEntity.getName());
+        description_textArea.setText(partialMaterialEntity.getDescription());
+        manufacturer_field.setText(partialMaterialEntity.getManufacturer());
+    }
+
+    @SneakyThrows
+    @FXML
+    void ok_btn_clicked(MouseEvent event) throws IOException {
+        if (name_field.getText().isEmpty()) {
+            AlertUtil.show("Вы не заполнили поле названия", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+        } else if (description_textArea.getText().isEmpty()) {
+            AlertUtil.show("Вы не заполнили поле описания", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+        } else if (manufacturer_field.getText().isEmpty()) {
+            AlertUtil.show("Вы не заполнили поле производителя", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+        } else {
+            if (!partialMaterialEntity.getName().equals(name_field.getText())
+                    || !partialMaterialEntity.getDescription().equals(description_textArea.getText())
+                    || !partialMaterialEntity.getManufacturer().equals(manufacturer_field.getText())
+            ) {
+                //запрос на обновление материала + обновление this.partialMaterialEntity измененным материалом
+//                this.partialMaterialEntity =
+                System.out.println("-----server_update");
+            }
+
+            ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, partialMaterialEntity);
+        }
+    }
+
+    @SneakyThrows
+    @FXML
+    void cancel_btn_clicked(MouseEvent event) throws IOException {
+        ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, partialMaterialEntity);
+    }
+}
