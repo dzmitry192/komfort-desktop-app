@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(Component.MAIN.getPath()));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Расчет материалов");
+        stage.setTitle("КОМФОРТ (Комплексная оценка материалов по функционально обоснованному расчету требований)");
         stage.setScene(scene);
         stage.setWidth(1250);
         stage.setMinWidth(1000);
