@@ -15,6 +15,7 @@ import com.example.project_for_university.service.models.material.CreateMaterial
 import com.example.project_for_university.service.models.material.CreateMaterialResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -36,7 +37,7 @@ import java.util.List;
 
 public class MaterialInfoController implements DataProvider {
     private AllValues allValues;
-    private static final List<File> images = new ArrayList<>();
+    private static List<File> images = new ArrayList<>();
     @FXML
     private TextArea description;
 
@@ -56,11 +57,11 @@ public class MaterialInfoController implements DataProvider {
     public void setData(AllValues allValues) {
         this.allValues = allValues;
 
-        fillMaterialInfo();
+        allValues.getCreateMaterialDto().getMaterial().setName(null);
+        allValues.getCreateMaterialDto().getMaterial().setDescription(null);
+        allValues.getCreateMaterialDto().setImages(new File[] {});
 
-        if (allValues.getCreateMaterialDto().getMaterial() == null) {
-            allValues.getCreateMaterialDto().setMaterial(new MaterialInfoDto());
-        }
+        fillMaterialInfo();
 
         for (int i = 0; i < allValues.getSideBarButtonsEventHandlers().size(); i++) {
             allValues.getSideBarButtons().get(i).removeEventHandler(MouseEvent.MOUSE_CLICKED, allValues.getSideBarButtonsEventHandlers().get(i));
@@ -126,8 +127,12 @@ public class MaterialInfoController implements DataProvider {
         CreateMaterialRequestDto requestDto = new CreateMaterialRequestDto();
 
         //set files
-        if(materialDto.getImages().length > 0) {
-            requestDto.setImages(materialDto.getImages());
+        if(materialDto.getImages() != null) {
+            if(materialDto.getImages().length > 0) {
+                requestDto.setImages(materialDto.getImages());
+            }
+        } else {
+            requestDto.setImages(new File[] {});
         }
 
         //set material
@@ -205,7 +210,6 @@ public class MaterialInfoController implements DataProvider {
 
             return updatedObj;
         } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
             return obj; // Возвращаем исходный объект в случае ошибки
         }
     }
@@ -221,7 +225,14 @@ public class MaterialInfoController implements DataProvider {
             } else {
                 allValues.setCreateMaterialDto(new CreateMaterialDto());
                 allValues.setLastCreateMaterialComponent(null);
-                ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, createMaterialResponse.getMaterial());
+                Platform.runLater(() -> {
+                    try {
+                        ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, createMaterialResponse.getMaterial());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
             }
         } else {
             AlertUtil.show("Заполните все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
@@ -254,6 +265,7 @@ public class MaterialInfoController implements DataProvider {
             }
             return change;
         }));
+        name.setText("");
 
         description.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.getControlNewText().length() >= 800) {
@@ -262,5 +274,7 @@ public class MaterialInfoController implements DataProvider {
             }
             return change;
         }));
+        description.setText("");
+        images = new ArrayList<>();
     }
 }

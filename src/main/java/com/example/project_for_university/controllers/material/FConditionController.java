@@ -200,6 +200,7 @@ public class FConditionController implements Initializable, DataProvider {
             }
         }
         setValuesToCB();
+
         fillFCondition();
 
         if (allValues.getSideBarButtonsEventHandlers() == null) {
@@ -791,7 +792,6 @@ public class FConditionController implements Initializable, DataProvider {
             AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
             isError = false;
         } else {
-            System.out.println("---------AAAAAAAAAAAAAAAAA\n" + allValues.getCreateMaterialDto().getCondition());
             allValues.setLastCreateMaterialComponent(Component.WATERPROOF_TABLE);
             ComponentUtil.mount(Component.WATERPROOF_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }

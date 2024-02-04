@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53d1435e-0f67-4b1b-83a0-da847717fcc7" name="Changes" comment="added logic for reset and clear fields buttons">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/ErrorMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateMaterialRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateMaterialResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateWashingRequestDto.java" afterDir="false" />
+    <list default="true" id="53d1435e-0f67-4b1b-83a0-da847717fcc7" name="Changes" comment="almost implementing logic for creating material">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/forBackend/create/CreateMaterialDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/forBackend/create/CreateMaterialDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/MaterialService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/MaterialService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/CreateMaterialModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateConditionRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/material/CreateConditionRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/condition-1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/condition-1.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ComponentUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ComponentUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,6 +138,8 @@
       <workItem from="1706881894208" duration="879000" />
       <workItem from="1706891916019" duration="6922000" />
       <workItem from="1706909859253" duration="7930000" />
+      <workItem from="1706951132510" duration="3096000" />
+      <workItem from="1707074738492" duration="2541000" />
     </task>
     <task id="LOCAL-00001" summary="added logic for reset and clear fields buttons">
       <option name="closed" value="true" />
@@ -168,7 +160,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/createMaterial-fixes" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
