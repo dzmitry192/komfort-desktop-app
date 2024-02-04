@@ -1,4 +1,4 @@
-package com.example.project_for_university.dto.forBackend.create;
+package com.example.project_for_university.service.models.material;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateConditionDto {
+public class CreateConditionRequestDto {
     @JsonProperty("isPositive")
     private boolean isPositive;
     private int minAirTemp;
@@ -19,8 +19,8 @@ public class CreateConditionDto {
     private int residenceTime;
     private int torsionAngle;
     private int stretchingCompression;
-    private CreateWashingDto washing = new CreateWashingDto();
-    private int bendingType_id;
-    private int abrasionType_id;
-    private int physicalActivityType_id;
+    private CreateWashingRequestDto washing = new CreateWashingRequestDto();
+    private Integer bendingType_id;
+    private Integer abrasionType_id;
+    private Integer physicalActivityType_id;
 }

@@ -133,7 +133,6 @@ public class WaterproofTableController implements DataProvider, Initializable {
             EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    System.out.println("waterproof sideBartBtn");
                     saveDataFromInputs();
                 }
             };
@@ -394,7 +393,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
         }
 
         //equipment
-        if (waterproofTime.getText() != null) {
+        if (!equipment.getText().isBlank()) {
             allValues.getCreateMaterialDto().getWaterproofFunction().setEquipment(equipment.getText());
         } else {
             allValues.getCreateMaterialDto().getWaterproofFunction().setEquipment(null);
@@ -554,7 +553,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
             }
 
             //проверка оборудования
-            if(equipment.getText().isEmpty()) {
+            if (equipment.getText().isBlank()) {
                 throw new CustomException(ExceptionMessage.INVALID_EQUIPMENT.getMessage(), ExceptionType.INVALID_EQUIPMENT_TYPE.getType());
             } else {
                 waterFuncDto.setEquipment(equipment.getText());
@@ -569,8 +568,8 @@ public class WaterproofTableController implements DataProvider, Initializable {
                     waterFuncDto.getDynamicWaterproofCriteria_weight()
             ));
             Optional<Double> sumWeights = weights.stream().filter(el -> el != -1).reduce(Double::sum);
-            if(sumWeights.isPresent()) {
-                if(sumWeights.get() != 1) {
+            if (sumWeights.isPresent()) {
+                if (sumWeights.get() != 1) {
                     throw new CustomException(ExceptionMessage.INVALID_WEIGHTS_SUM.getMessage(), ExceptionType.INVALID_WEIGHTS_SUM_TYPE.getType());
                 }
             }
@@ -583,11 +582,41 @@ public class WaterproofTableController implements DataProvider, Initializable {
         return false;
     }
 
+    private void clearFields() {
+        dynamicWaterproofCriteria_base.setText("");
+        dynamicWaterproofCriteria_experimental_1.setText("");
+        dynamicWaterproofCriteria_experimental_2.setText("");
+        dynamicWaterproofCriteria_experimental_3.setText("");
+        dynamicWaterproofCriteria_experimental_4.setText("");
+        dynamicWaterproofCriteria_weight.setText("");
+        equipment.setText("");
+        hydrostaticPressure.setText("");
+        hydrostaticPressureIncreaseSpeed.setText("");
+        materialBlottingPressure_base.setText("");
+        materialBlottingPressure_calculated.setText("");
+        materialBlottingPressure_experimental_1.setText("");
+        materialBlottingPressure_weight.setText("");
+        materialBlottingTime_base.setText("");
+        materialBlottingTime_calculated.setText("");
+        materialBlottingTime_experimental_1.setText("");
+        materialBlottingTime_weight.setText("");
+        waterproofRealizationCriteria_base.setText("");
+        waterproofRealizationCriteria_experimental_1.setText("");
+        waterproofRealizationCriteria_experimental_2.setText("");
+        waterproofRealizationCriteria_weight.setText("");
+        waterproofTime.setText("");
+        waterproof_base.setText("");
+        waterproof_calculated.setText("");
+        waterproof_experimental_1.setText("");
+        waterproof_weight.setText("");
+    }
+
     @FXML
     void btn_clearFields_clicked(MouseEvent event) {
         boolean isTrue = AlertUtil.showConfirmation("Очистить все поля на этой стадии?", "Все поля в этой стадии создания будут полностью очищены", allValues.getRootStage());
         if (isTrue) {
-            allValues.getCreateMaterialDto().setWaterproofFunction(null);
+            clearFields();
+            allValues.getCreateMaterialDto().setWaterproofFunction(new CalculateWaterproofFunctionDto());
         }
     }
 

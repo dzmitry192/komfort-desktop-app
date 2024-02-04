@@ -85,7 +85,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Предельно допустимый уровень водонепроницаемости" wrappingWidth="254.97265625" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Предельно допустимый уровень водонепроницаемости, МПа" wrappingWidth="254.97265625" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -94,7 +94,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Количество циклов воздействий" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Количество циклов воздействий, циклов" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>

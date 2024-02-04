@@ -1,4 +1,4 @@
-package com.example.project_for_university.dto.forBackend.create;
+package com.example.project_for_university.service.models.material;
 
 import com.example.project_for_university.dto.forBackend.MaterialInfoDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateEstimationDto;
@@ -14,10 +14,10 @@ import java.io.File;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateMaterialDto {
+public class CreateMaterialRequestDto {
     private File[] images = new File[]{};
-    private MaterialInfoDto material = new MaterialInfoDto();
-    private CreateConditionDto condition = new CreateConditionDto();
+    private MaterialInfoDto material;
+    private CreateConditionRequestDto condition = new CreateConditionRequestDto();
     private CalculateWaterproofFunctionDto waterproofFunction = new CalculateWaterproofFunctionDto();
     private CalculateHomeostasisFunctionDto homeostasisFunction = new CalculateHomeostasisFunctionDto();
     private CalculateReliabilityFunctionDto reliabilityFunction = new CalculateReliabilityFunctionDto();

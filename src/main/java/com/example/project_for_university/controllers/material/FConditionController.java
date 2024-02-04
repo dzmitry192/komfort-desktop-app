@@ -81,6 +81,9 @@ public class FConditionController implements Initializable, DataProvider {
     private TextField manufacturer_inp;
 
     @FXML
+    private TextField depth_inp;
+
+    @FXML
     private TextField inp_av_speed;
 
     @FXML
@@ -188,7 +191,7 @@ public class FConditionController implements Initializable, DataProvider {
     @Override
     public void setData(AllValues allValues) {
         this.allValues = allValues;
-        if(allValues.getCreateMaterialDto().getCondition() == null && allValues.getCreateMaterialDto().getMaterial() == null) {
+        if (allValues.getCreateMaterialDto().getCondition() == null && allValues.getCreateMaterialDto().getMaterial() == null) {
             CreateConditionDto conditionDto = new CreateConditionDto();
             conditionDto.setWashing(new CreateWashingDto());
             allValues.getCreateMaterialDto().setCondition(conditionDto);
@@ -197,6 +200,7 @@ public class FConditionController implements Initializable, DataProvider {
             }
         }
         setValuesToCB();
+
         fillFCondition();
 
         if (allValues.getSideBarButtonsEventHandlers() == null) {
@@ -383,42 +387,129 @@ public class FConditionController implements Initializable, DataProvider {
             }
         }
         if (materialInfo != null) {
-            if(materialInfo.getManufacturer() != null) {
+            if (materialInfo.getManufacturer() != null) {
                 allValues.getCreateMaterialDto().getMaterial().setManufacturer(materialInfo.getManufacturer());
                 manufacturer_inp.setText(materialInfo.getManufacturer());
+            }
+            if (materialInfo.getDepth() != 0) {
+                allValues.getCreateMaterialDto().getMaterial().setDepth(materialInfo.getDepth());
+                depth_inp.setText(String.valueOf(materialInfo.getDepth()));
             }
             if (materialInfo.getLayers() != null && !materialInfo.getLayers().isEmpty()) {
                 layers_table.setItems(FXCollections.observableList(materialInfo.getLayers().stream().map(layer -> new TableType(String.valueOf(layer.getIndexNum()), Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getLayerTypes()).filter(layerType -> layerType.getId() == layer.getLayerType_id()).findFirst().get().getName())).toList()));
             }
-            if(materialInfo.getProductionMethod_id() != 0) {
+            if (materialInfo.getProductionMethod_id() != 0) {
                 allValues.getCreateMaterialDto().getMaterial().setProductionMethod_id(materialInfo.getProductionMethod_id());
                 production_way_cb.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getId() == materialInfo.getProductionMethod_id()).findFirst().get().getName());
             }
-            if(materialInfo.getMembraneLayerPolymerType_id() != 0) {
+            if (materialInfo.getMembraneLayerPolymerType_id() != 0) {
                 allValues.getCreateMaterialDto().getMaterial().setMembraneLayerPolymerType_id(materialInfo.getMembraneLayerPolymerType_id());
                 membrane_type_cb.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getId() == materialInfo.getMembraneLayerPolymerType_id()).findFirst().get().getName());
             }
-            if(materialInfo.getGlueType_id() != 0) {
+            if (materialInfo.getGlueType_id() != 0) {
                 allValues.getCreateMaterialDto().getMaterial().setGlueType_id(materialInfo.getGlueType_id());
                 glue_type_cb.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getGlueTypes()).filter(type -> type.getId() == materialInfo.getGlueType_id()).findFirst().get().getName());
             }
         }
     }
 
+    private void clearFields() {
+        //check buttons
+        check_abrasion.setSelected(false);
+        abrasion_type.setDisable(true);
+
+        check_bend.setSelected(false);
+        bend_type.setDisable(true);
+
+        check_stretch_compress.setSelected(false);
+        scroll_stretching.setDisable(true);
+        inp_stretching.setDisable(true);
+
+        check_torsion.setSelected(false);
+        scroll_torsion_angle.setDisable(true);
+        inp_torsion_angle.setDisable(true);
+
+        check_wash.setSelected(false);
+        allValues.getCreateMaterialDto().getCondition().getWashing().setPress(false);
+        allValues.getCreateMaterialDto().getCondition().getWashing().setWashingType_id(0);
+        allValues.getCreateMaterialDto().getCondition().getWashing().setTemperature(0);
+        allValues.getCreateMaterialDto().getCondition().getWashing().setDuration(0);
+        allValues.getCreateMaterialDto().getCondition().getWashing().setCyclesCnt(0);
+        wash_type.setDisable(true);
+
+        scroll_temp_washing.setDisable(true);
+        inp_temp_washing.setDisable(true);
+        scroll_time_washing.setDisable(true);
+        inp_time_washing.setDisable(true);
+        inp_cycles_cnt.setDisable(true);
+        rad_btn_yes.setDisable(true);
+        rad_btn_no.setDisable(true);
+
+        //text fields
+        manufacturer_inp.setText("");
+        depth_inp.setText("");
+        inp_av_speed.setText("0");
+        inp_max_air_one.setText("20");
+        inp_cycles_cnt.setText("");
+        inp_max_air_sec.setText("20");
+        inp_min_temp_sec.setText("0");
+        inp_min_temp_one.setText("0");
+        inp_stretching.setText("5");
+        inp_temp_washing.setText("30");
+        inp_time_washing.setText("20");
+        inp_torsion_angle.setText("5");
+
+        //table
+        layers_table.setItems(FXCollections.observableArrayList());
+
+        isError = false;
+
+        //combo boxes
+        lev_phys.setValue("Не выбрано");
+        production_way_cb.setValue("Не выбрано");
+        membrane_type_cb.setValue("Не выбрано");
+        glue_type_cb.setValue("Не выбрано");
+        abrasion_type.setValue("Не выбрано");
+        bend_type.setValue("Не выбрано");
+        choose_layer_cb.setValue("Не выбрано");
+        time_cond.setValue("Не выбрано");
+        wash_type.setValue("Не выбрано");
+
+        //radio buttons
+        rad_btn_minus.setSelected(false);
+        rad_btn_no.setSelected(false);
+        rad_btn_plus.setSelected(false);
+        rad_btn_yes.setSelected(false);
+
+        //sliders
+        scroll_av_speed.setValue(0);
+        scroll_max_air_one.setValue(20);
+        scroll_max_air_sec.setValue(20);
+        scroll_min_temp_one.setValue(0);
+        scroll_min_temp_sec.setValue(0);
+        scroll_stretching.setValue(5);
+        scroll_temp_washing.setValue(30);
+        scroll_time_washing.setValue(20);
+        scroll_torsion_angle.setValue(5);
+    }
+
     @FXML
     void btn_clearFields_clicked(MouseEvent event) {
         boolean isTrue = AlertUtil.showConfirmation("Очистить все поля на этой стадии?", "Все поля в этой стадии создания будут полностью очищены", allValues.getRootStage());
         if (isTrue) {
-            allValues.getCreateMaterialDto().setCondition(null);
+            allValues.getCreateMaterialDto().setCondition(new CreateConditionDto());
+            clearFields();
         }
     }
 
+    @SneakyThrows
     @FXML
     void btn_reset_clicked(MouseEvent event) {
         boolean isTrue = AlertUtil.showConfirmation("Полностью сбросить прогресс?", "Весть прогресс создания будет полностью очищен, создание начнется сначала", allValues.getRootStage());
         if (isTrue) {
             allValues.setCreateMaterialDto(new CreateMaterialDto());
             allValues.setLastCreateMaterialComponent(null);
+            ComponentUtil.mount(Component.CONDITION_1, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }
     }
 
@@ -447,9 +538,14 @@ public class FConditionController implements Initializable, DataProvider {
         if (check_stretch_compress.isSelected()) {
             scroll_stretching.setDisable(false);
             inp_stretching.setDisable(false);
+
+            scroll_stretching.setValue(5);
+            inp_stretching.setText("5");
+            allValues.getCreateMaterialDto().getCondition().setStretchingCompression(5);
         } else {
             scroll_stretching.setDisable(true);
             scroll_stretching.setValue(0);
+            inp_stretching.setText("");
 
             allValues.getCreateMaterialDto().getCondition().setStretchingCompression(0);
 
@@ -463,9 +559,14 @@ public class FConditionController implements Initializable, DataProvider {
         if (check_torsion.isSelected()) {
             scroll_torsion_angle.setDisable(false);
             inp_torsion_angle.setDisable(false);
+
+            scroll_torsion_angle.setValue(5);
+            inp_torsion_angle.setText("5");
+            allValues.getCreateMaterialDto().getCondition().setTorsionAngle(5);
         } else {
             scroll_torsion_angle.setDisable(true);
             scroll_torsion_angle.setValue(0);
+            inp_torsion_angle.setText("");
             allValues.getCreateMaterialDto().getCondition().setTorsionAngle(0);
 
             inp_torsion_angle.setDisable(true);
@@ -484,12 +585,23 @@ public class FConditionController implements Initializable, DataProvider {
             rad_btn_yes.setDisable(false);
             rad_btn_no.setDisable(false);
             inp_cycles_cnt.setDisable(false);
+
+            scroll_temp_washing.setValue(30);
+            allValues.getCreateMaterialDto().getCondition().getWashing().setTemperature(30);
+            inp_temp_washing.setText("30");
+            scroll_time_washing.setValue(20);
+            allValues.getCreateMaterialDto().getCondition().getWashing().setDuration(20);
+            inp_time_washing.setText("20");
+            wash_type.setValue("Не выбрано");
         } else {
             wash_type.setDisable(true);
             wash_type.setValue(null);
 
             scroll_temp_washing.setDisable(true);
             scroll_temp_washing.setValue(0);
+
+            allValues.getCreateMaterialDto().getCondition().getWashing().setDuration(0);
+            allValues.getCreateMaterialDto().getCondition().getWashing().setTemperature(0);
 
             scroll_time_washing.setDisable(true);
             scroll_time_washing.setValue(0);
@@ -502,6 +614,11 @@ public class FConditionController implements Initializable, DataProvider {
 
             rad_btn_yes.setDisable(true);
             rad_btn_no.setDisable(true);
+
+            rad_btn_yes.setSelected(false);
+            rad_btn_no.setSelected(false);
+
+            allValues.getCreateMaterialDto().getCondition().setPositive(false);
 
             inp_cycles_cnt.setDisable(true);
             inp_cycles_cnt.setText(null);
@@ -528,6 +645,7 @@ public class FConditionController implements Initializable, DataProvider {
             allValues.getCreateMaterialDto().getMaterial().setProductionMethod_id(0);
         }
     }
+
     @FXML
     void membrane_type_cb_action(ActionEvent event) {
         if (membrane_type_cb.getSelectionModel().getSelectedItem() != null && membrane_type_cb.getSelectionModel().getSelectedIndex() != 0) {
@@ -606,7 +724,10 @@ public class FConditionController implements Initializable, DataProvider {
     @SneakyThrows
     @FXML
     void btn_cond_next_clicked(MouseEvent event) throws IOException {
-        if(manufacturer_inp.getText().isEmpty()) {
+        if (manufacturer_inp.getText().isEmpty()) {
+            isError = true;
+        }
+        if (depth_inp.getText().isEmpty()) {
             isError = true;
         }
         if (allValues.getCreateMaterialDto().getMaterial().getProductionMethod_id() == 0) {
@@ -652,10 +773,10 @@ public class FConditionController implements Initializable, DataProvider {
             if (allValues.getCreateMaterialDto().getCondition().getWashing() != null) {
                 if (
                         allValues.getCreateMaterialDto().getCondition().getWashing().getWashingType_id() == 0 ||
-                        inp_temp_washing.getText().isEmpty() ||
-                        inp_time_washing.getText().isEmpty() ||
-                        inp_cycles_cnt.getText().isBlank() ||
-                        (!rad_btn_yes.isSelected() && !rad_btn_no.isSelected())
+                                inp_temp_washing.getText().isEmpty() ||
+                                inp_time_washing.getText().isEmpty() ||
+                                inp_cycles_cnt.getText().isBlank() ||
+                                (!rad_btn_yes.isSelected() && !rad_btn_no.isSelected())
                 ) {
                     isError = true;
                 }
@@ -671,7 +792,6 @@ public class FConditionController implements Initializable, DataProvider {
             AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
             isError = false;
         } else {
-            allValues.getCreateMaterialDto().getMaterial().setDepth(allValues.getCreateMaterialDto().getMaterial().getLayers().size());
             allValues.setLastCreateMaterialComponent(Component.WATERPROOF_TABLE);
             ComponentUtil.mount(Component.WATERPROOF_TABLE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
         }
@@ -729,6 +849,9 @@ public class FConditionController implements Initializable, DataProvider {
             inp_cycles_cnt.textProperty().addListener((observable, oldValue, newValue) -> allValues.getCreateMaterialDto().getCondition().getWashing().setCyclesCnt(newValue == null ? 0 : Integer.parseInt(newValue)));
 
             manufacturer_inp.textProperty().addListener((observable, oldValue, newValue) -> allValues.getCreateMaterialDto().getMaterial().setManufacturer(newValue));
+
+            depth_inp.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
+            depth_inp.textProperty().addListener((observable, oldValue, newValue) -> allValues.getCreateMaterialDto().getMaterial().setDepth(Double.valueOf(newValue)));
         });
 
         position_column.setCellValueFactory(new PropertyValueFactory<>("firstCol"));
