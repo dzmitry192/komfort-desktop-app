@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -28,7 +31,17 @@
                   <VBox spacing="5.0">
                      <children>
                         <Label accessibleRoleDescription="pass" text="Пароль" />
-                        <TextField fx:id="password_tf" prefHeight="42.0" prefWidth="226.0" promptText="password123" text="adminDlyaDimki9182_gay" />
+                        <HBox spacing="5.0" VBox.vgrow="NEVER">
+                           <children>
+                              <TextField fx:id="password_tf" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="1000.0" promptText="password123" text="adminDlyaDimki9182_gay" />
+                              <PasswordField fx:id="password_pf" maxHeight="1.7976931348623157E308" prefHeight="42.0" prefWidth="1000.0" promptText="password123" text="adminDlyaDimki9182_gay" HBox.hgrow="NEVER" />
+                              <Button fx:id="btn_showPassword" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_showPassword_clicked" styleClass="btn-show-password">
+                                 <graphic>
+                                    <FontAwesomeIconView fx:id="icon_showPassword" glyphName="EYE" size="16" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                   <Label fx:id="status_lbl" styleClass="error-text" stylesheets="@../../styles/shared.css">

@@ -10,6 +10,7 @@ import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.MaterialService;
 import com.example.project_for_university.service.models.FilterMaterialsModel;
 import com.example.project_for_university.utils.AlertUtil;
+import com.example.project_for_university.utils.NodeUtils;
 import com.example.project_for_university.utils.ValidationUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -598,47 +599,42 @@ public class FilterController implements Initializable, DataProvider {
 
         return lastPage;
     }
-
-    private void displayNode(Node node, boolean isDisplay) {
-        node.setVisible(isDisplay);
-        node.setManaged(isDisplay);
-    }
-
+    
     private void setPagination() {
         int page = allValues.getPaginationDto().getPage();
 
         if (page < 2) {
-            displayNode(firstPage_btn, false);
-            displayNode(prevPage_btn, false);
-            displayNode(page1_btn, false);
-            displayNode(page2_btn, false);
+            NodeUtils.displayNode(firstPage_btn, false);
+            NodeUtils.displayNode(prevPage_btn, false);
+            NodeUtils.displayNode(page1_btn, false);
+            NodeUtils.displayNode(page2_btn, false);
         } else if (page == 2) {
-            displayNode(firstPage_btn, true);
-            displayNode(prevPage_btn, true);
-            displayNode(page1_btn, false);
-            displayNode(page2_btn, true);
+            NodeUtils.displayNode(firstPage_btn, true);
+            NodeUtils.displayNode(prevPage_btn, true);
+            NodeUtils.displayNode(page1_btn, false);
+            NodeUtils.displayNode(page2_btn, true);
         } else {
-            displayNode(firstPage_btn, true);
-            displayNode(prevPage_btn, true);
-            displayNode(page1_btn, true);
-            displayNode(page2_btn, true);
+            NodeUtils.displayNode(firstPage_btn, true);
+            NodeUtils.displayNode(prevPage_btn, true);
+            NodeUtils.displayNode(page1_btn, true);
+            NodeUtils.displayNode(page2_btn, true);
         }
 
         if (page >= lastPage) {
-            displayNode(lastPage_btn, false);
-            displayNode(nextPage_btn, false);
-            displayNode(page4_btn, false);
-            displayNode(page5_btn, false);
+            NodeUtils.displayNode(lastPage_btn, false);
+            NodeUtils.displayNode(nextPage_btn, false);
+            NodeUtils.displayNode(page4_btn, false);
+            NodeUtils.displayNode(page5_btn, false);
         } else if (page == lastPage - 1) {
-            displayNode(lastPage_btn, true);
-            displayNode(nextPage_btn, true);
-            displayNode(page4_btn, true);
-            displayNode(page5_btn, false);
+            NodeUtils.displayNode(lastPage_btn, true);
+            NodeUtils.displayNode(nextPage_btn, true);
+            NodeUtils.displayNode(page4_btn, true);
+            NodeUtils.displayNode(page5_btn, false);
         } else {
-            displayNode(lastPage_btn, true);
-            displayNode(nextPage_btn, true);
-            displayNode(page4_btn, true);
-            displayNode(page5_btn, true);
+            NodeUtils.displayNode(lastPage_btn, true);
+            NodeUtils.displayNode(nextPage_btn, true);
+            NodeUtils.displayNode(page4_btn, true);
+            NodeUtils.displayNode(page5_btn, true);
         }
 
         page1_btnText.setText(String.valueOf(page - 2));
@@ -649,13 +645,13 @@ public class FilterController implements Initializable, DataProvider {
     }
 
     public void showNoResultsPanel() {
-        displayNode(noResultsRegion, true);
-        displayNode(noResultsPanel, true);
+        NodeUtils.displayNode(noResultsRegion, true);
+        NodeUtils.displayNode(noResultsPanel, true);
     }
 
     public void hideNoResultsPanel() {
-        displayNode(noResultsRegion, false);
-        displayNode(noResultsPanel, false);
+        NodeUtils.displayNode(noResultsRegion, false);
+        NodeUtils.displayNode(noResultsPanel, false);
     }
 
     private void mountMaterials(ArrayList<PartialMaterialEntity> materials) {
