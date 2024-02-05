@@ -2,11 +2,16 @@ package com.example.project_for_university.service.admin;
 
 import com.example.project_for_university.Main;
 import com.example.project_for_university.controllers.user.admin.models.PhType;
+import com.example.project_for_university.dto.forBackend.entity.types.MembraneLayerPolymerTypeEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.PhysicalActivityTypeEntity;
+import com.example.project_for_university.enums.ServiceEnum;
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.service.models.TypeResponse;
+import com.example.project_for_university.service.models.TypesResponse;
 import com.example.project_for_university.utils.AuthUtils;
+import com.example.project_for_university.utils.ExceptionMessageUtil;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -22,10 +27,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class PhysicalActivityTypeService implements CrudService<PhysicalActivityTypeEntity> {
 
+    public static final PhysicalActivityTypeService INSTANCE = new PhysicalActivityTypeService();
+
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity[] getAll(String email, String password) {
-        CompletableFuture<PhysicalActivityTypeEntity[]> futureTypeList = new CompletableFuture<>();
+    public TypesResponse<PhysicalActivityTypeEntity> getAll(String email, String password) {
+        CompletableFuture<TypesResponse<PhysicalActivityTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -36,15 +43,17 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    PhysicalActivityTypeEntity[] physicalActivityTypeEntities;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        physicalActivityTypeEntities = JsonToClass.parseToListObject(PhysicalActivityTypeEntity.class, response).toArray(PhysicalActivityTypeEntity[]::new);
+                TypesResponse<PhysicalActivityTypeEntity> typesResponse = new TypesResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typesResponse.setError(false);
+                        typesResponse.setTypes(JsonToClass.parseToListObject(PhysicalActivityTypeEntity.class, response).toArray(PhysicalActivityTypeEntity[]::new));
+                    } else {
+                        typesResponse.setError(true);
+                        typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
-                    futureTypeList.complete(physicalActivityTypeEntities);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typesResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -58,8 +67,8 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
 
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity getById(int id, String email, String password) {
-        CompletableFuture<PhysicalActivityTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<PhysicalActivityTypeEntity> getById(int id, String email, String password) {
+        CompletableFuture<TypeResponse<PhysicalActivityTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -70,15 +79,17 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    PhysicalActivityTypeEntity physicalActivityTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        physicalActivityTypeEntity = JsonToClass.parseToObject(PhysicalActivityTypeEntity.class, response);
+                TypeResponse<PhysicalActivityTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setType(JsonToClass.parseToObject(PhysicalActivityTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(physicalActivityTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -92,8 +103,8 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
 
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity create(PhType phType, String email, String password) {
-        CompletableFuture<PhysicalActivityTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<PhysicalActivityTypeEntity> create(PhType phType, String email, String password) {
+        CompletableFuture<TypeResponse<PhysicalActivityTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -109,15 +120,17 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
                         .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
-                try {
-                    PhysicalActivityTypeEntity physicalActivityTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        physicalActivityTypeEntity = JsonToClass.parseToObject(PhysicalActivityTypeEntity.class, response);
+                TypeResponse<PhysicalActivityTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 201) {
+                        typeResponse.setError(false);
+                        typeResponse.setType(JsonToClass.parseToObject(PhysicalActivityTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(physicalActivityTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -131,8 +144,8 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
 
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity update(PhType phType, String email, String password) {
-        CompletableFuture<PhysicalActivityTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<PhysicalActivityTypeEntity> update(PhType phType, String email, String password) {
+        CompletableFuture<TypeResponse<PhysicalActivityTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -148,15 +161,17 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
                         .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
-                try {
-                    PhysicalActivityTypeEntity physicalActivityTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        physicalActivityTypeEntity = JsonToClass.parseToObject(PhysicalActivityTypeEntity.class, response);
+                TypeResponse<PhysicalActivityTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setType(JsonToClass.parseToObject(PhysicalActivityTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(physicalActivityTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -170,8 +185,8 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
 
     @SneakyThrows
     @Override
-    public PhysicalActivityTypeEntity delete(int id, String email, String password) {
-        CompletableFuture<PhysicalActivityTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<PhysicalActivityTypeEntity> delete(int id, String email, String password) {
+        CompletableFuture<TypeResponse<PhysicalActivityTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -181,15 +196,17 @@ public class PhysicalActivityTypeService implements CrudService<PhysicalActivity
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    PhysicalActivityTypeEntity physicalActivityTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        physicalActivityTypeEntity = JsonToClass.parseToObject(PhysicalActivityTypeEntity.class, response);
+                TypeResponse<PhysicalActivityTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setType(JsonToClass.parseToObject(PhysicalActivityTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),ExceptionMessageUtil.getMessageFromResponse(response)));
                     }
-                    futureTypeList.complete(physicalActivityTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

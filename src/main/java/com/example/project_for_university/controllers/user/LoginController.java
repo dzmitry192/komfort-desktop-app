@@ -2,21 +2,11 @@ package com.example.project_for_university.controllers.user;
 
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.LoginDto;
-import com.example.project_for_university.dto.forBackend.MaterialInfoDto;
-import com.example.project_for_university.dto.forBackend.calculate.CalculateEstimationDto;
-import com.example.project_for_university.dto.forBackend.calculate.CalculateHomeostasisFunctionDto;
-import com.example.project_for_university.dto.forBackend.calculate.CalculateReliabilityFunctionDto;
-import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
-import com.example.project_for_university.dto.forBackend.create.CreateConditionDto;
-import com.example.project_for_university.dto.forBackend.create.CreateLayerDto;
-import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
-import com.example.project_for_university.dto.forBackend.create.CreateWashingDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.AuthService;
-import com.example.project_for_university.service.MaterialService;
-import com.example.project_for_university.service.ReturnAllTypesService;
-import com.example.project_for_university.service.models.UserModel;
+import com.example.project_for_university.service.AllTypesService;
+import com.example.project_for_university.service.models.AuthResponse;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.NodeUtils;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -32,11 +22,8 @@ import javafx.scene.layout.VBox;
 import lombok.Data;
 import lombok.SneakyThrows;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
@@ -44,7 +31,7 @@ import java.util.concurrent.ExecutionException;
 public class LoginController implements DataProvider, Initializable {
     private AllValues allValues = new AllValues();
     private AuthService authService = new AuthService();
-    private ReturnAllTypesService returnAllTypesService = new ReturnAllTypesService();
+    private AllTypesService allTypesService = new AllTypesService();
 
     private boolean isPasswordShows = false;
 
@@ -96,12 +83,12 @@ public class LoginController implements DataProvider, Initializable {
         if (email.isEmpty() || password.isEmpty()) {
             status_lbl.setText("Все поля должны быть заполнены");
         } else {
-            UserModel userModel = authService.loginThread(new LoginDto(email, password));
+            AuthResponse userModel = authService.loginThread(new LoginDto(email, password));
             if (userModel.isError()) {
-                status_lbl.setText(userModel.getErrorMessage());
+                status_lbl.setText(userModel.getMessage());
             } else {
                 allValues.setUser(userModel.getUser());
-                allValues.getAdminPanelInfo().setReturnAllTypesDto(returnAllTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
+                allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
                 ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
             }
         }

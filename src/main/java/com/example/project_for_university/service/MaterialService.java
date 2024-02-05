@@ -3,15 +3,15 @@ package com.example.project_for_university.service;
 import com.example.project_for_university.Main;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.MaterialFilterDto;
-import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
-import com.example.project_for_university.enums.ErrorMessage;
+import com.example.project_for_university.enums.ServiceEnum;
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.service.models.material.CreateMaterialRequestDto;
-import com.example.project_for_university.service.models.material.CreateMaterialResponse;
-import com.example.project_for_university.service.models.FilterMaterialsModel;
+import com.example.project_for_university.service.models.CreateMaterialResponse;
+import com.example.project_for_university.service.models.get.GetMaterialsResponse;
 import com.example.project_for_university.utils.AuthUtils;
+import com.example.project_for_university.utils.ExceptionMessageUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.apache.http.HttpEntity;
@@ -33,13 +33,15 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MaterialService {
-    private final FilterMaterialsModel filterMaterialsModel = new FilterMaterialsModel();
+
+    public static final MaterialService INSTANCE = new MaterialService();
+
+    private final GetMaterialsResponse getMaterialsResponse = new GetMaterialsResponse();
     private final CreateMaterialResponse createMaterialResponse = new CreateMaterialResponse();
-    public static final MaterialService materialService = new MaterialService();
 
     @SneakyThrows
-    public FilterMaterialsModel getFilterMaterialsThread(AllValues allValues) {
-        CompletableFuture<FilterMaterialsModel> futureMaterials = new CompletableFuture<>();
+    public GetMaterialsResponse getFilterMaterialsThread(AllValues allValues) {
+        CompletableFuture<GetMaterialsResponse> futureMaterials = new CompletableFuture<>();
         MaterialFilterDto filterDto = allValues.getMaterialFilterDto();
 
         Runnable runnable = () -> {
@@ -111,18 +113,20 @@ public class MaterialService {
                 response = httpClient.execute(httpGet);
 
                 if (response.getStatusLine().getStatusCode() != 200) {
-                    filterMaterialsModel.setError(true);
+                    getMaterialsResponse.setError(true);
+                    getMaterialsResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
                 } else {
                     try {
-                        filterMaterialsModel.setPartialMaterials(JsonToClass.parseToListObject(PartialMaterialEntity.class, response).toArray(PartialMaterialEntity[]::new));
+                        getMaterialsResponse.setPartialMaterials(JsonToClass.parseToListObject(PartialMaterialEntity.class, response).toArray(PartialMaterialEntity[]::new));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    filterMaterialsModel.setError(false);
-                    filterMaterialsModel.setTotalCount(Integer.parseInt(response.getFirstHeader("x-total-count").getValue()));
+                    getMaterialsResponse.setError(false);
+                    getMaterialsResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
+                    getMaterialsResponse.setTotalCount(Integer.parseInt(response.getFirstHeader("x-total-count").getValue()));
                 }
 
-                futureMaterials.complete(filterMaterialsModel);
+                futureMaterials.complete(getMaterialsResponse);
             } catch (IOException e) {
                 throw new RuntimeException();
             }
@@ -172,7 +176,7 @@ public class MaterialService {
                             completableFuture.complete(createMaterialResponse);
                         } else {
                             createMaterialResponse.setError(true);
-                            createMaterialResponse.setErrorMessage(getErrorMessage(response.getStatusLine().getStatusCode()));
+                            createMaterialResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
                             completableFuture.complete(createMaterialResponse);
                         }
                     } catch (IOException e) {
@@ -188,13 +192,5 @@ public class MaterialService {
         createMaterialThread.start();
 
         return completableFuture.get();
-    }
-
-    private String getErrorMessage(int statusCode) {
-        return switch (statusCode) {
-            case 500 -> ErrorMessage.SERVER_ERROR.getMessage();
-            case 404 -> ErrorMessage.NOT_FOUND.getMessage();
-            default -> ErrorMessage.KOGDA_NE_ZNAESH_CHTO_KIDATb.getMessage();
-        };
     }
 }

@@ -2,11 +2,16 @@ package com.example.project_for_university.service.admin;
 
 import com.example.project_for_university.Main;
 import com.example.project_for_university.controllers.user.admin.models.PhType;
+import com.example.project_for_university.dto.forBackend.entity.types.BendingTypeEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.GlueTypeEntity;
+import com.example.project_for_university.enums.ServiceEnum;
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.service.models.TypeResponse;
+import com.example.project_for_university.service.models.TypesResponse;
 import com.example.project_for_university.utils.AuthUtils;
+import com.example.project_for_university.utils.ExceptionMessageUtil;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -21,10 +26,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 public class GlueTypeService implements CrudService<GlueTypeEntity> {
+
+    public static final GlueTypeService INSTANCE = new GlueTypeService();
+
     @SneakyThrows
     @Override
-    public GlueTypeEntity[] getAll(String email, String password) {
-        CompletableFuture<GlueTypeEntity[]> futureTypeList = new CompletableFuture<>();
+    public TypesResponse<GlueTypeEntity> getAll(String email, String password) {
+        CompletableFuture<TypesResponse<GlueTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -35,15 +43,17 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    GlueTypeEntity[] glueTypeEntities;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        glueTypeEntities = JsonToClass.parseToListObject(GlueTypeEntity.class, response).toArray(GlueTypeEntity[]::new);
+                TypesResponse<GlueTypeEntity> typesResponse = new TypesResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typesResponse.setError(false);
+                        typesResponse.setTypes(JsonToClass.parseToListObject(GlueTypeEntity.class, response).toArray(GlueTypeEntity[]::new));
+                    } else {
+                        typesResponse.setError(true);
+                        typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
-                    futureTypeList.complete(glueTypeEntities);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typesResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -57,8 +67,8 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
 
     @SneakyThrows
     @Override
-    public GlueTypeEntity getById(int id, String email, String password) {
-        CompletableFuture<GlueTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<GlueTypeEntity> getById(int id, String email, String password) {
+        CompletableFuture<TypeResponse<GlueTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -69,15 +79,17 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    GlueTypeEntity glueTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        glueTypeEntity = JsonToClass.parseToObject(GlueTypeEntity.class, response);
+                TypeResponse<GlueTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setType(JsonToClass.parseToObject(GlueTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(glueTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -91,8 +103,8 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
 
     @SneakyThrows
     @Override
-    public GlueTypeEntity create(PhType phType, String email, String password) {
-        CompletableFuture<GlueTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<GlueTypeEntity> create(PhType phType, String email, String password) {
+        CompletableFuture<TypeResponse<GlueTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -100,22 +112,24 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.post()
+                HttpUriRequest httpPost = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.POST_GLUE_TYPE.getName())
                         .setHeader("Content-Type", "application/json")
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
-                try {
-                    GlueTypeEntity glueTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        glueTypeEntity = JsonToClass.parseToObject(GlueTypeEntity.class, response);
+                TypeResponse<GlueTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+                    if (response.getStatusLine().getStatusCode() == 201) {
+                        typeResponse.setError(false);
+                        typeResponse.setType(JsonToClass.parseToObject(GlueTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(glueTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -129,8 +143,8 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
 
     @SneakyThrows
     @Override
-    public GlueTypeEntity update(PhType phType, String email, String password) {
-        CompletableFuture<GlueTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<GlueTypeEntity> update(PhType phType, String email, String password) {
+        CompletableFuture<TypeResponse<GlueTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -138,22 +152,24 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.patch()
+                HttpUriRequest httpPatch = RequestBuilder.patch()
                         .setUri(Main.host.getValue() + UrlRoutes.PATCH_GLUE_TYPE_BY_ID.getName() + phType.getId())
                         .setHeader("Content-Type", "application/json")
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
-                try {
-                    GlueTypeEntity glueTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        glueTypeEntity = JsonToClass.parseToObject(GlueTypeEntity.class, response);
+                TypeResponse<GlueTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpPatch)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setType(JsonToClass.parseToObject(GlueTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(glueTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -167,26 +183,28 @@ public class GlueTypeService implements CrudService<GlueTypeEntity> {
 
     @SneakyThrows
     @Override
-    public GlueTypeEntity delete(int id, String email, String password) {
-        CompletableFuture<GlueTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<GlueTypeEntity> delete(int id, String email, String password) {
+        CompletableFuture<TypeResponse<GlueTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpUriRequest httpGet = RequestBuilder.delete()
+                HttpUriRequest httpDelete = RequestBuilder.delete()
                         .setUri(Main.host.getValue() + UrlRoutes.DELETE_GLUE_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    GlueTypeEntity glueTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        glueTypeEntity = JsonToClass.parseToObject(GlueTypeEntity.class, response);
+                TypeResponse<GlueTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpDelete)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setType(JsonToClass.parseToObject(GlueTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),ExceptionMessageUtil.getMessageFromResponse(response)));
                     }
-                    futureTypeList.complete(glueTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
