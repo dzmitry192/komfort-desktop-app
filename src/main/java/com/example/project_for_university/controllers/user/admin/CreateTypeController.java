@@ -97,16 +97,16 @@ public class CreateTypeController implements DataProvider {
                         AlertUtil.show("Ошибка при создании типа", response.getMessage(), allValues.getRootStage());
                     } else {
                         allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
-                        ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                     }
+                    ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                 } else {
                     TypeResponse<?> response = serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).update(new PhType(typeForUpdate.getId(), name_field.getText().trim(), description_textArea.getText().trim()), allValues.getUser().getEmail(), allValues.getUser().getPassword());
                     if(response.isError()) {
                         AlertUtil.show("Ошибка при изменении типа", response.getMessage(), allValues.getRootStage());
                     } else {
                         allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
-                        ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                     }
+                    ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                 }
             }
         } else {
@@ -119,19 +119,18 @@ public class CreateTypeController implements DataProvider {
                         AlertUtil.show("Ошибка при создании типа", response.getMessage(), allValues.getRootStage());
                     } else {
                         allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
-                        ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                     }
+                    ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                 } else {
                     TypeResponse<?> response = serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).update(new PhType(typeForUpdate.getId(), name_field.getText().trim(), ""), allValues.getUser().getEmail(), allValues.getUser().getPassword());
                     if(response.isError()) {
                         AlertUtil.show("Ошибка при изменении типа", response.getMessage(), allValues.getRootStage());
                     } else {
                         allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
-                        ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                     }
+                    ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                 }
                 allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
-                ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
             }
         }
     }

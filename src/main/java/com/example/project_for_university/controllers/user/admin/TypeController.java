@@ -147,13 +147,13 @@ public class TypeController implements DataProvider, Initializable {
             AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте удалить", allValues.getRootStage());
         } else {
             TypeResponse<AbstractType> typeResponse = serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).delete(selectedItem.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
-            if(!typeResponse.isError()) {
-                List<AbstractType> types = table_types.getItems();
-                types.remove(selectedItem);
-                table_types.setItems(FXCollections.observableArrayList(types));
-            } else {
+            if(typeResponse.isError()) {
                 AlertUtil.show("Ошибка при удалении элемента", typeResponse.getMessage(), allValues.getRootStage());
             }
+
+            List<AbstractType> types = table_types.getItems();
+            types.remove(selectedItem);
+            table_types.setItems(FXCollections.observableArrayList(types));
         }
     }
 

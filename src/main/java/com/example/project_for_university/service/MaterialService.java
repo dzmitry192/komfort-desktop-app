@@ -312,7 +312,7 @@ public class MaterialService {
                             deleteResponse.setError(false);
                         } else {
                             deleteResponse.setError(true);
-                            deleteResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
+                            deleteResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
                         }
                         completableFuture.complete(createMaterialResponse);
                     } catch (IOException e) {

@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum ErrorMessage {
     DEFAULT("Непредвиденная ошибка"),
-    ENTITY_NOT_FOUND("Что-то там не найдено короче"),
+    ENTITY_NOT_FOUND("То, что вы пытаетесь удалить уже не существует"),
     SERVER_ERROR("С серваком писец, хз чё делать, попробуй ещё раз позже"),
     SIGNUP_400_EMAIL("Некорректный email"),
     SIGNUP_400_PASSWORD("Разрешенные символы пароля: 0-9, A-z, !@#$%^&*"),

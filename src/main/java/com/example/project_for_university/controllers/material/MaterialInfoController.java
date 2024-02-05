@@ -238,6 +238,17 @@ public class MaterialInfoController implements DataProvider {
     }
 
     @FXML
+    void delete_photos_btn_clicked(MouseEvent event) {
+        int selectedPhotoCnt = allValues.getCreateMaterialDto().getImages().length;
+        boolean isDeletePhotos = AlertUtil.showConfirmation("Подтверждение", String.format("Вы хотите удалить выбранные фото (%d)?", selectedPhotoCnt), allValues.getRootStage());
+
+        if (isDeletePhotos) {
+            images.clear();
+            allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
+        }
+    }
+
+    @FXML
     void upload_photo_btn_clicked(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
