@@ -8,7 +8,7 @@ import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.MaterialService;
-import com.example.project_for_university.service.models.FilterMaterialsModel;
+import com.example.project_for_university.service.models.get.GetMaterialsResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.NodeUtils;
 import com.example.project_for_university.utils.ValidationUtils;
@@ -18,7 +18,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -695,10 +694,10 @@ public class FilterController implements Initializable, DataProvider {
 
         ArrayList<PartialMaterialEntity> materials = new ArrayList<>();
 
-        FilterMaterialsModel filterMaterialsModel = materialService.getFilterMaterialsThread(allValues);
-        if (!filterMaterialsModel.isError()) {
-            allValues.setTotalMaterialsCnt(filterMaterialsModel.getTotalCount());
-            materials.addAll(Arrays.asList(filterMaterialsModel.getPartialMaterials()));
+        GetMaterialsResponse getMaterialsResponse = materialService.getFilterMaterialsThread(allValues);
+        if (!getMaterialsResponse.isError()) {
+            allValues.setTotalMaterialsCnt(getMaterialsResponse.getTotalCount());
+            materials.addAll(Arrays.asList(getMaterialsResponse.getPartialMaterials()));
         } else {
             AlertUtil.show("Ошибка получения данных с сервера", "Сервер временно недоступен, повторите попытку позже", allValues.getRootStage());
         }

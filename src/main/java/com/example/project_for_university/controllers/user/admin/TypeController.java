@@ -9,6 +9,7 @@ import com.example.project_for_university.enums.AdminPanelType;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.factory.ServiceFactory;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.models.TypeResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.collections.FXCollections;
@@ -145,11 +146,13 @@ public class TypeController implements DataProvider, Initializable {
         if (selectedItem == null) {
             AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте удалить", allValues.getRootStage());
         } else {
-            AbstractType abstractType = (AbstractType) serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).delete(selectedItem.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
-            if(Objects.nonNull(abstractType)) {
+            TypeResponse<AbstractType> typeResponse = serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).delete(selectedItem.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if(!typeResponse.isError()) {
                 List<AbstractType> types = table_types.getItems();
                 types.remove(selectedItem);
                 table_types.setItems(FXCollections.observableArrayList(types));
+            } else {
+                AlertUtil.show("Ошибка при удалении элемента", typeResponse.getMessage(), allValues.getRootStage());
             }
         }
     }

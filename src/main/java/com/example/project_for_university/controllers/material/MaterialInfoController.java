@@ -1,18 +1,15 @@
 package com.example.project_for_university.controllers.material;
 
 import com.example.project_for_university.dto.AllValues;
-import com.example.project_for_university.dto.forBackend.MaterialInfoDto;
-import com.example.project_for_university.dto.forBackend.calculate.CalculateEstimationDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateHomeostasisFunctionDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateReliabilityFunctionDto;
 import com.example.project_for_university.dto.forBackend.calculate.CalculateWaterproofFunctionDto;
-import com.example.project_for_university.dto.forBackend.create.CreateConditionDto;
 import com.example.project_for_university.dto.forBackend.create.CreateMaterialDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.MaterialService;
 import com.example.project_for_university.service.models.material.CreateMaterialRequestDto;
-import com.example.project_for_university.service.models.material.CreateMaterialResponse;
+import com.example.project_for_university.service.models.CreateMaterialResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.application.Platform;
@@ -22,7 +19,6 @@ import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
@@ -59,7 +55,7 @@ public class MaterialInfoController implements DataProvider {
 
         allValues.getCreateMaterialDto().getMaterial().setName(null);
         allValues.getCreateMaterialDto().getMaterial().setDescription(null);
-        allValues.getCreateMaterialDto().setImages(new File[] {});
+        allValues.getCreateMaterialDto().setImages(new File[]{});
 
         fillMaterialInfo();
 
@@ -127,15 +123,17 @@ public class MaterialInfoController implements DataProvider {
         CreateMaterialRequestDto requestDto = new CreateMaterialRequestDto();
 
         //set files
-        if(materialDto.getImages() != null) {
-            if(materialDto.getImages().length > 0) {
+        if (materialDto.getImages() != null) {
+            if (materialDto.getImages().length > 0) {
                 requestDto.setImages(materialDto.getImages());
             }
         } else {
-            requestDto.setImages(new File[] {});
+            requestDto.setImages(new File[]{});
         }
 
         //set material
+        materialDto.getMaterial().setName(materialDto.getMaterial().getName().trim());
+        materialDto.getMaterial().setDescription(materialDto.getMaterial().getDescription().trim());
         requestDto.setMaterial(materialDto.getMaterial());
 
         //set condition values
@@ -152,17 +150,17 @@ public class MaterialInfoController implements DataProvider {
         requestDto.getCondition().getWashing().setDuration(materialDto.getCondition().getWashing().getDuration());
         requestDto.getCondition().getWashing().setPress(materialDto.getCondition().getWashing().isPress());
         requestDto.getCondition().getWashing().setCyclesCnt(materialDto.getCondition().getWashing().getCyclesCnt());
-        if(materialDto.getCondition().getWashing().getWashingType_id() == 0) {
+        if (materialDto.getCondition().getWashing().getWashingType_id() == 0) {
             requestDto.getCondition().getWashing().setWashingType_id(null);
         } else {
             requestDto.getCondition().getWashing().setWashingType_id(materialDto.getCondition().getWashing().getWashingType_id());
         }
-        if(materialDto.getCondition().getAbrasionType_id() == 0) {
+        if (materialDto.getCondition().getAbrasionType_id() == 0) {
             requestDto.getCondition().setAbrasionType_id(null);
         } else {
             requestDto.getCondition().setAbrasionType_id(materialDto.getCondition().getAbrasionType_id());
         }
-        if(materialDto.getCondition().getBendingType_id() == 0) {
+        if (materialDto.getCondition().getBendingType_id() == 0) {
             requestDto.getCondition().setBendingType_id(null);
         } else {
             requestDto.getCondition().setBendingType_id(materialDto.getCondition().getBendingType_id());
@@ -171,15 +169,15 @@ public class MaterialInfoController implements DataProvider {
 
         //waterproof table
         CalculateWaterproofFunctionDto waterproofFunctionDto = negativeValueToZero(materialDto.getWaterproofFunction());
-        waterproofFunctionDto.setEquipment(materialDto.getWaterproofFunction().getEquipment());
+        waterproofFunctionDto.setEquipment(materialDto.getWaterproofFunction().getEquipment().trim());
         requestDto.setWaterproofFunction(waterproofFunctionDto);
 
         CalculateHomeostasisFunctionDto homeostasisFunctionDto = negativeValueToZero(materialDto.getHomeostasisFunction());
-        homeostasisFunctionDto.setEquipment(materialDto.getHomeostasisFunction().getEquipment());
+        homeostasisFunctionDto.setEquipment(materialDto.getHomeostasisFunction().getEquipment().trim());
         requestDto.setHomeostasisFunction(homeostasisFunctionDto);
 
         CalculateReliabilityFunctionDto reliabilityFunctionDto = negativeValueToZero(materialDto.getReliabilityFunction());
-        reliabilityFunctionDto.setEquipment(materialDto.getReliabilityFunction().getEquipment());
+        reliabilityFunctionDto.setEquipment(materialDto.getReliabilityFunction().getEquipment().trim());
         requestDto.setReliabilityFunction(reliabilityFunctionDto);
 
         requestDto.setEstimation(materialDto.getEstimation());
@@ -210,7 +208,7 @@ public class MaterialInfoController implements DataProvider {
 
             return updatedObj;
         } catch (InstantiationException | IllegalAccessException e) {
-            return obj; // Возвращаем исходный объект в случае ошибки
+            return obj;
         }
     }
 
@@ -219,9 +217,9 @@ public class MaterialInfoController implements DataProvider {
     void next_btn_clicked(MouseEvent event) {
         if (validateAndSetData()) {
             CreateMaterialRequestDto createMaterialRequestDto = createMaterialDtoToCreateMaterialRequestDto(allValues.getCreateMaterialDto());
-            CreateMaterialResponse createMaterialResponse = MaterialService.materialService.create(createMaterialRequestDto, allValues.getUser().getEmail(), allValues.getUser().getPassword());
-            if(createMaterialResponse.isError()) {
-                AlertUtil.show("Ошибка при создании материала", createMaterialResponse.getErrorMessage(), allValues.getRootStage());
+            CreateMaterialResponse createMaterialResponse = MaterialService.INSTANCE.create(createMaterialRequestDto, allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if (createMaterialResponse.isError()) {
+                AlertUtil.show("Ошибка при создании материала", createMaterialResponse.getMessage(), allValues.getRootStage());
             } else {
                 allValues.setCreateMaterialDto(new CreateMaterialDto());
                 allValues.setLastCreateMaterialComponent(null);
@@ -248,12 +246,14 @@ public class MaterialInfoController implements DataProvider {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.tif"));
         List<File> selectedFiles = fileChooser.showOpenMultipleDialog(stage); // stage - текущее окно приложения
-        if (selectedFiles.size() > 5) {
-            AlertUtil.show("Превышен лимит", "Максимальное количетсов фотографий - 5", allValues.getRootStage());
-        } else {
-            images.addAll(selectedFiles);
-            allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
+        if (selectedFiles != null) {
+            if (selectedFiles.size() > 5) {
+                AlertUtil.show("Превышен лимит", "Максимальное количетсов фотографий - 5", allValues.getRootStage());
+            } else {
+                images.addAll(selectedFiles);
+            }
         }
+        allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
     }
 
     @FXML

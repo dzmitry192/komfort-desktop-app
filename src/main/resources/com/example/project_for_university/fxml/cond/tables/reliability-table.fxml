@@ -149,7 +149,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Рпо - относительное давление промокания после нагрузок" wrappingWidth="264.6005554199219" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Рпо - относительное давление промокания после нагрузок, кПа" wrappingWidth="264.6005554199219" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -161,7 +161,7 @@
                            <children>
                               <TextFlow>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Во – относительная водонепроницаемость после нагрузок" wrappingWidth="267.7100830078125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Во – относительная водонепроницаемость после нагрузок, кПа" wrappingWidth="267.7100830078125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -173,7 +173,7 @@
                            <children>
                               <TextFlow>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="tпо – относительное время промокания материала после нагрузок" wrappingWidth="264.6312561035156" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="tпо – относительное время промокания материала после нагрузок, мин" wrappingWidth="264.6312561035156" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -197,7 +197,7 @@
                            <children>
                               <TextFlow>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Рес – ресурс водозащитной функции материала" wrappingWidth="250.1806640625" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Рес – ресурс водозащитной функции материала, ч" wrappingWidth="250.1806640625" />
                                  </children>
                               </TextFlow>
                            </children>

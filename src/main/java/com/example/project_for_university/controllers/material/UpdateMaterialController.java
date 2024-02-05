@@ -1,16 +1,13 @@
 package com.example.project_for_university.controllers.material;
 
-import com.example.project_for_university.controllers.user.admin.models.AbstractType;
-import com.example.project_for_university.controllers.user.admin.models.AdminPanelInfo;
-import com.example.project_for_university.controllers.user.admin.models.PhType;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
-import com.example.project_for_university.enums.ActionType;
-import com.example.project_for_university.enums.AdminPanelType;
-import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.dto.forBackend.update.UpdateMaterialDto;
 import com.example.project_for_university.factory.ServiceFactory;
 import com.example.project_for_university.providers.DataProvider;
-import com.example.project_for_university.service.ReturnAllTypesService;
+import com.example.project_for_university.service.AllTypesService;
+import com.example.project_for_university.service.MaterialService;
+import com.example.project_for_university.service.models.UpdateMaterialResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
@@ -20,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import lombok.Setter;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
@@ -31,7 +27,7 @@ public class UpdateMaterialController implements DataProvider {
 
     private PartialMaterialEntity partialMaterialEntity;
     private final ServiceFactory serviceFactory = new ServiceFactory();
-    private final ReturnAllTypesService returnAllTypesService = new ReturnAllTypesService();
+    private final AllTypesService allTypesService = new AllTypesService();
 
     @FXML
     private Text typeName_text;
@@ -82,9 +78,12 @@ public class UpdateMaterialController implements DataProvider {
                     || !partialMaterialEntity.getDescription().equals(description_textArea.getText())
                     || !partialMaterialEntity.getManufacturer().equals(manufacturer_field.getText())
             ) {
-                //запрос на обновление материала + обновление this.partialMaterialEntity измененным материалом
-//                this.partialMaterialEntity =
-                System.out.println("-----server_update");
+                UpdateMaterialResponse updateMaterialResponse = MaterialService.INSTANCE.update(new UpdateMaterialDto(name_field.getText().trim(), description_textArea.getText().trim(), manufacturer_field.getText().trim()), partialMaterialEntity.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                if(updateMaterialResponse.isError()) {
+                    AlertUtil.show("Ошибка изменения материала", updateMaterialResponse.getMessage(), allValues.getRootStage());
+                } else {
+                    this.partialMaterialEntity = updateMaterialResponse.getMaterial();
+                }
             }
 
             ComponentUtil.mountMaterialDetails(allValues.getContentPanes().getLoggedInStackPane(), allValues, partialMaterialEntity);

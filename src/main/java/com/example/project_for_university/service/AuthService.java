@@ -4,9 +4,12 @@ import com.example.project_for_university.Main;
 import com.example.project_for_university.dto.forBackend.LoginDto;
 import com.example.project_for_university.dto.forBackend.create.CreateUserDto;
 import com.example.project_for_university.dto.forBackend.entity.UserEntity;
+import com.example.project_for_university.enums.ErrorMessage;
+import com.example.project_for_university.enums.ServiceEnum;
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
-import com.example.project_for_university.service.models.UserModel;
+import com.example.project_for_university.service.models.AuthResponse;
+import com.example.project_for_university.utils.ExceptionMessageUtil;
 import com.google.gson.JsonObject;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -18,16 +21,17 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @Data
 public class AuthService {
 
-    private UserModel user = new UserModel();
+    private AuthResponse user = new AuthResponse();
 
-    public UserModel loginThread(LoginDto loginDto) throws ExecutionException, InterruptedException {
-        CompletableFuture<UserModel> futureUserModel = new CompletableFuture<>();
+    public AuthResponse loginThread(LoginDto loginDto) throws ExecutionException, InterruptedException {
+        CompletableFuture<AuthResponse> futureUserModel = new CompletableFuture<>();
 
         Runnable runnable = new Runnable() {
             @SneakyThrows
@@ -43,15 +47,14 @@ public class AuthService {
                     HttpUriRequest httpPost = RequestBuilder.post()
                             .setUri(Main.host.getValue() + UrlRoutes.AUTH_LOGIN.getName())
                             .setHeader("Content-Type", "application/json")
-                            .setEntity(new StringEntity(jsonObject.toString()))
+                            .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                             .build();
 
                     response = httpClient.execute(httpPost);
                 }
                 if (response.getStatusLine().getStatusCode() != 201) {
                     user.setError(true);
-                    user.setErrorType(response.getStatusLine().getStatusCode());
-                    user.setErrorMessage(getLoginErrorMessage(response.getStatusLine()));
+                    user.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.AUTH_LOGIN, response.getStatusLine().getStatusCode(), null));
                 } else {
                     user.setError(false);
                     UserEntity userEntity = JsonToClass.parseToObject(UserEntity.class, response);
@@ -68,8 +71,8 @@ public class AuthService {
         return futureUserModel.get();
     }
 
-    public UserModel signupThread(CreateUserDto userDto) throws ExecutionException, InterruptedException {
-        CompletableFuture<UserModel> futureUserModel = new CompletableFuture<>();
+    public AuthResponse signupThread(CreateUserDto userDto) throws ExecutionException, InterruptedException {
+        CompletableFuture<AuthResponse> futureUserModel = new CompletableFuture<>();
 
         Runnable runnable = new Runnable() {
             @SneakyThrows
@@ -85,14 +88,13 @@ public class AuthService {
                 HttpUriRequest httpPost = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.AUTH_SIGNUP.getName())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 CloseableHttpResponse response = httpClient.execute(httpPost);
                 if (response.getStatusLine().getStatusCode() != 201) {
                     user.setError(true);
-                    user.setErrorType(response.getStatusLine().getStatusCode());
-                    user.setErrorMessage(getSignupErrorMessage(response.getStatusLine()));
+                    user.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.AUTH_SIGNUP, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
                 } else {
                     user.setError(false);
                     UserEntity userEntity = JsonToClass.parseToObject(UserEntity.class, response);
@@ -107,31 +109,5 @@ public class AuthService {
         signupThread.start();
 
         return futureUserModel.get();
-    }
-
-    public String getLoginErrorMessage(StatusLine status) {
-        switch (status.getStatusCode()) {
-            case 400:
-                return "Некорректный email";
-            case 401:
-                return "Неверный пароаль";
-            case 404:
-                return "Пользователь с таким email не найден";
-            default:
-                return "Непредвиденная ошибка";
-        }
-    }
-
-    public String getSignupErrorMessage(StatusLine status) {
-        switch (status.getStatusCode()) {
-            case 400:
-                return "Некорректный email";
-            case 401:
-                return "Пользователь с таким email уже существует";
-            case 404:
-                return "Пользователь с таким email не найден";
-            default:
-                return "Непредвиденная ошибка";
-        }
     }
 }

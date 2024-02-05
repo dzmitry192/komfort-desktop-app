@@ -5,8 +5,12 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.entity.ConditionEntity;
 import com.example.project_for_university.dto.forBackend.entity.LayerEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
+import com.example.project_for_university.dto.forBackend.update.UpdateMaterialDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.MaterialService;
+import com.example.project_for_university.service.models.AbstractResponse;
+import com.example.project_for_university.service.models.UpdateMaterialResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.animation.TranslateTransition;
@@ -207,9 +211,7 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
-            System.out.println("Selected file: " + file.getAbsolutePath());
-        } else {
-            System.out.println("Operation canceled");
+            MaterialService.INSTANCE.getMaterialReport(partialMaterialEntity.getId(), file.getAbsolutePath(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
         }
         stage.show();
     }
@@ -219,9 +221,12 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         boolean isToDelete = AlertUtil.showConfirmation("Навсегда удалить этот артикул?", "Данные об этом артикуле будут безвозвратно удалены", allValues.getRootStage());
 
         if (isToDelete) {
-            //запрос на удаление артикула
-
-            ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+            AbstractResponse response = MaterialService.INSTANCE.delete(partialMaterialEntity.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if(response.isError()) {
+                AlertUtil.show("Ошибка удаления материала", response.getMessage(), allValues.getRootStage());
+            } else {
+                ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+            }
         }
     }
 

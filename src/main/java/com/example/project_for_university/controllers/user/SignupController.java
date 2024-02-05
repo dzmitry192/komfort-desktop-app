@@ -2,11 +2,10 @@ package com.example.project_for_university.controllers.user;
 
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.create.CreateUserDto;
-import com.example.project_for_university.dto.forBackend.entity.UserEntity;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.AuthService;
-import com.example.project_for_university.service.models.UserModel;
+import com.example.project_for_university.service.models.AuthResponse;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.NodeUtils;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -81,12 +80,12 @@ public class SignupController implements DataProvider, Initializable {
         status_lbl.setTextFill(Color.RED);
         if(fio.isEmpty() || email.isEmpty() || password.isEmpty()) {
             status_lbl.setText("Ошибка! Вы не заполнили все поля");
-        } else if(password.length() < 4) {
-            status_lbl.setText("Минимальная длина пароля 6 символов");
+        } else if(password.length() < 8) {
+            status_lbl.setText("Минимальная длина пароля 8 символов");
         } else {
-            UserModel userModel = authService.signupThread(new CreateUserDto(fio, email, password));
+            AuthResponse userModel = authService.signupThread(new CreateUserDto(fio, email, password));
             if(userModel.isError()) {
-                status_lbl.setText(userModel.getErrorMessage());
+                status_lbl.setText(userModel.getMessage());
             } else {
                 allValues.setUser(userModel.getUser());
                 status_lbl.setTextFill(Color.GREEN);
