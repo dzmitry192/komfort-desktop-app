@@ -143,7 +143,6 @@ public class LoggedInPageController implements Initializable, DataProvider {
         cleanAllValues.setContentPanes(allValues.getContentPanes());
         allValues = null;
 
-        System.out.println(allValues);
         ComponentUtil.mount(Component.LOGIN, cleanAllValues.getContentPanes().getMainContentPane(), cleanAllValues);
     }
 

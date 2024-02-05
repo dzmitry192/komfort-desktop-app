@@ -80,8 +80,8 @@ public class SignupController implements DataProvider, Initializable {
         status_lbl.setTextFill(Color.RED);
         if(fio.isEmpty() || email.isEmpty() || password.isEmpty()) {
             status_lbl.setText("Ошибка! Вы не заполнили все поля");
-        } else if(password.length() < 4) {
-            status_lbl.setText("Минимальная длина пароля 6 символов");
+        } else if(password.length() < 8) {
+            status_lbl.setText("Минимальная длина пароля 8 символов");
         } else {
             AuthResponse userModel = authService.signupThread(new CreateUserDto(fio, email, password));
             if(userModel.isError()) {

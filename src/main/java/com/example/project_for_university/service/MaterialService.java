@@ -1,18 +1,27 @@
 package com.example.project_for_university.service;
 
 import com.example.project_for_university.Main;
+import com.example.project_for_university.controllers.user.admin.models.AbstractType;
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.MaterialFilterDto;
 import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
+import com.example.project_for_university.dto.forBackend.update.UpdateMaterialDto;
 import com.example.project_for_university.enums.ServiceEnum;
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
+import com.example.project_for_university.service.models.AbstractResponse;
+import com.example.project_for_university.service.models.GetMaterialReportResponse;
+import com.example.project_for_university.service.models.UpdateMaterialResponse;
 import com.example.project_for_university.service.models.material.CreateMaterialRequestDto;
 import com.example.project_for_university.service.models.CreateMaterialResponse;
 import com.example.project_for_university.service.models.get.GetMaterialsResponse;
 import com.example.project_for_university.utils.AuthUtils;
 import com.example.project_for_university.utils.ExceptionMessageUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import javafx.stage.DirectoryChooser;
 import lombok.SneakyThrows;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -20,14 +29,18 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -36,7 +49,11 @@ public class MaterialService {
 
     public static final MaterialService INSTANCE = new MaterialService();
 
+    private final UpdateMaterialResponse updateMaterialResponse = new UpdateMaterialResponse();
+    private final AbstractResponse deleteResponse = new AbstractResponse();
+
     private final GetMaterialsResponse getMaterialsResponse = new GetMaterialsResponse();
+    private final GetMaterialReportResponse getMaterialReportResponse = new GetMaterialReportResponse();
     private final CreateMaterialResponse createMaterialResponse = new CreateMaterialResponse();
 
     @SneakyThrows
@@ -139,6 +156,45 @@ public class MaterialService {
     }
 
     @SneakyThrows
+    public AbstractType getMaterialReport(int materialId, String filePath, String email, String password) {
+        CompletableFuture<AbstractType> completableFuture = new CompletableFuture<>();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                String fileURL =  Main.host.getValue() + "/material/" + materialId + "/report"; // Замените на URL вашего файла
+
+                try {
+                    URL url = new URL(fileURL);
+                    URLConnection connection = url.openConnection();
+
+                    connection.setRequestProperty(AuthUtils.header, AuthUtils.getAuth(email, password));
+                    try (InputStream in = new BufferedInputStream(connection.getInputStream());
+                         FileOutputStream fileOutputStream = new FileOutputStream(filePath)) {
+
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        while ((bytesRead = in.read(buffer)) != -1) {
+                            fileOutputStream.write(buffer, 0, bytesRead);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                completableFuture.complete(new AbstractType());
+            }
+        };
+
+        Thread createMaterialThread = new Thread(runnable);
+        createMaterialThread.start();
+
+        return completableFuture.get();
+    }
+
+    @SneakyThrows
     public CreateMaterialResponse create(CreateMaterialRequestDto createMaterialRequestDto, String email, String password) {
         CompletableFuture<CreateMaterialResponse> completableFuture = new CompletableFuture<>();
 
@@ -173,12 +229,92 @@ public class MaterialService {
                         if(response.getStatusLine().getStatusCode() == 201) {
                             createMaterialResponse.setMaterial(JsonToClass.parseToObject(PartialMaterialEntity.class, response));
                             createMaterialResponse.setError(false);
-                            completableFuture.complete(createMaterialResponse);
                         } else {
                             createMaterialResponse.setError(true);
                             createMaterialResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
-                            completableFuture.complete(createMaterialResponse);
                         }
+                        completableFuture.complete(createMaterialResponse);
+                    } catch (IOException e) {
+                        throw new IOException(e);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        Thread createMaterialThread = new Thread(runnable);
+        createMaterialThread.start();
+
+        return completableFuture.get();
+    }
+
+    @SneakyThrows
+    public UpdateMaterialResponse update(UpdateMaterialDto updateMaterialDto, int materialId, String email, String password) {
+        CompletableFuture<UpdateMaterialResponse> completableFuture = new CompletableFuture<>();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("name", updateMaterialDto.getName());
+                    jsonObject.addProperty("manufacturer", updateMaterialDto.getManufacturer());
+                    jsonObject.addProperty("description", updateMaterialDto.getDescription());
+
+                    HttpUriRequest httpPatch = RequestBuilder.patch()
+                            .setUri(Main.host.getValue() + UrlRoutes.PATCH_MATERIAL.getName() + materialId)
+                            .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                            .setHeader("Content-Type", "application/json")
+                            .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
+                            .build();
+
+                    try (CloseableHttpResponse response = httpClient.execute(httpPatch)) {
+                        if(response.getStatusLine().getStatusCode() == 200) {
+                            updateMaterialResponse.setError(false);
+                            updateMaterialResponse.setMaterial(JsonToClass.parseToObject(PartialMaterialEntity.class, response));
+                        } else {
+                            updateMaterialResponse.setError(true);
+                            updateMaterialResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
+                        }
+                        completableFuture.complete(updateMaterialResponse);
+                    } catch (IOException e) {
+                        throw new IOException(e);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        Thread createMaterialThread = new Thread(runnable);
+        createMaterialThread.start();
+
+        return completableFuture.get();
+    }
+
+    @SneakyThrows
+    public AbstractResponse delete(int materialId, String email, String password) {
+        CompletableFuture<AbstractResponse> completableFuture = new CompletableFuture<>();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+                    HttpUriRequest httpDelete = RequestBuilder.delete()
+                            .setUri(Main.host.getValue() + UrlRoutes.DELETE_MATERIAL_BY_ID.getName() + materialId)
+                            .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                            .build();
+
+                    try (CloseableHttpResponse response = httpClient.execute(httpDelete)) {
+                        if(response.getStatusLine().getStatusCode() == 200) {
+                            deleteResponse.setError(false);
+                        } else {
+                            deleteResponse.setError(true);
+                            deleteResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
+                        }
+                        completableFuture.complete(createMaterialResponse);
                     } catch (IOException e) {
                         throw new IOException(e);
                     }

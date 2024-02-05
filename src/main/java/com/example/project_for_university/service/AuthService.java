@@ -21,6 +21,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -46,7 +47,7 @@ public class AuthService {
                     HttpUriRequest httpPost = RequestBuilder.post()
                             .setUri(Main.host.getValue() + UrlRoutes.AUTH_LOGIN.getName())
                             .setHeader("Content-Type", "application/json")
-                            .setEntity(new StringEntity(jsonObject.toString()))
+                            .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                             .build();
 
                     response = httpClient.execute(httpPost);
@@ -87,13 +88,13 @@ public class AuthService {
                 HttpUriRequest httpPost = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.AUTH_SIGNUP.getName())
                         .setHeader("Content-Type", "application/json")
-                        .setEntity(new StringEntity(jsonObject.toString()))
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
                 CloseableHttpResponse response = httpClient.execute(httpPost);
                 if (response.getStatusLine().getStatusCode() != 201) {
                     user.setError(true);
-                    user.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.AUTH_SIGNUP, response.getStatusLine().getStatusCode(), null));
+                    user.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.AUTH_SIGNUP, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
                 } else {
                     user.setError(false);
                     UserEntity userEntity = JsonToClass.parseToObject(UserEntity.class, response);
