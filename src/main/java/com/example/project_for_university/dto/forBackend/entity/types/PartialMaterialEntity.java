@@ -16,7 +16,7 @@ public class PartialMaterialEntity {
     private String name;
     private String description;
     private String manufacturer; //табл 2
-    private int depth; //табл 2
+    private double depth; //табл 2
     private ConditionEntity condition; //табл 3 - параметры, табл 4 - перечисления типов условий
     private LayerEntity[] layers; //табл 1
     private String[] images;
