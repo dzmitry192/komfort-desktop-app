@@ -223,7 +223,7 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         if (isToDelete) {
             AbstractResponse response = MaterialService.INSTANCE.delete(partialMaterialEntity.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
             if(response.isError()) {
-                AlertUtil.show("Ошибка удаления материала", response.getMessage(), allValues.getRootStage());
+                AlertUtil.show("Ошибка удаления артикула", response.getMessage(), allValues.getRootStage());
                 ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
             } else {
                 ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
