@@ -54,9 +54,11 @@ public class AuthService {
                 }
                 if (response.getStatusLine().getStatusCode() != 201) {
                     user.setError(true);
+                    user.setStatusCode(response.getStatusLine().getStatusCode());
                     user.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.AUTH_LOGIN, response.getStatusLine().getStatusCode(), null));
                 } else {
                     user.setError(false);
+                    user.setStatusCode(response.getStatusLine().getStatusCode());
                     UserEntity userEntity = JsonToClass.parseToObject(UserEntity.class, response);
                     userEntity.setPassword(loginDto.getPassword());
                     user.setUser(userEntity);

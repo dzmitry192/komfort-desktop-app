@@ -5,16 +5,12 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.entity.ConditionEntity;
 import com.example.project_for_university.dto.forBackend.entity.LayerEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
-import com.example.project_for_university.dto.forBackend.update.UpdateMaterialDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.MaterialService;
 import com.example.project_for_university.service.models.AbstractResponse;
-import com.example.project_for_university.service.models.UpdateMaterialResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
-import javafx.animation.TranslateTransition;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,12 +21,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import lombok.SneakyThrows;
 
 import java.io.File;
@@ -200,6 +194,7 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
+    @SneakyThrows
     @FXML
     void download_report_btn_clicked(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -211,9 +206,14 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
-            MaterialService.INSTANCE.getMaterialReport(partialMaterialEntity.getId(), file.getAbsolutePath(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            AbstractResponse response = MaterialService.INSTANCE.getMaterialReport(partialMaterialEntity.getId(), file.getAbsolutePath(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if (response.isError()){
+                AlertUtil.show("Ошибка при скачивании отчёта", response.getMessage(), allValues.getRootStage());
+                ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+            } else {
+                stage.show();
+            }
         }
-        stage.show();
     }
 
     @FXML

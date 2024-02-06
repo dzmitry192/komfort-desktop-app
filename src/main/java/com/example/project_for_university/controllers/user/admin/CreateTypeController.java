@@ -4,16 +4,20 @@ import com.example.project_for_university.controllers.user.admin.models.Abstract
 import com.example.project_for_university.controllers.user.admin.models.AdminPanelInfo;
 import com.example.project_for_university.controllers.user.admin.models.PhType;
 import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.dto.forBackend.entity.types.PhysicalActivityTypeEntity;
 import com.example.project_for_university.enums.ActionType;
 import com.example.project_for_university.enums.AdminPanelType;
 import com.example.project_for_university.enums.Component;
+import com.example.project_for_university.enums.ServiceEnum;
 import com.example.project_for_university.factory.ServiceFactory;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.AllTypesService;
 import com.example.project_for_university.service.models.TypeResponse;
 import com.example.project_for_university.service.models.TypesResponse;
+import com.example.project_for_university.service.models.get.GetAllTypesResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
+import com.example.project_for_university.utils.ExceptionMessageUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -25,6 +29,8 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
+
+import static com.example.project_for_university.utils.AlertUtil.show;
 
 public class CreateTypeController implements DataProvider {
 
@@ -69,8 +75,9 @@ public class CreateTypeController implements DataProvider {
             actionType_text.setText(ActionType.UPDATE.getName() + " ");
             name_field.setText(typeForUpdate.getName());
 
-            if (typeForUpdate instanceof PhType) {
-                description_textArea.setText(((PhType) typeForUpdate).getDescription());
+            System.out.println("----------CLASS" + typeForUpdate.getClass().getName());
+            if (typeForUpdate instanceof PhysicalActivityTypeEntity) {
+                description_textArea.setText(((PhysicalActivityTypeEntity) typeForUpdate).getDescription());
             }
         }
 
@@ -87,50 +94,51 @@ public class CreateTypeController implements DataProvider {
     void ok_btn_clicked(MouseEvent event) throws IOException {
         if (adminPanelInfo.getCurAdminPanelType().getName().equals("Уровень физической активности")) {
             if (name_field.getText().isEmpty()) {
-                AlertUtil.show("Вы не заполнили название типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+                show("Вы не заполнили название типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
             } else if (description_textArea.getText().isEmpty()) {
-                AlertUtil.show("Вы не заполнили описание типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+                show("Вы не заполнили описание типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
             } else {
-                if(adminPanelInfo.getActionType().name().equals(ActionType.CREATE.name())) {
+                if (adminPanelInfo.getActionType().name().equals(ActionType.CREATE.name())) {
                     TypeResponse<?> response = serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).create(new PhType(0, name_field.getText().trim(), description_textArea.getText().trim()), allValues.getUser().getEmail(), allValues.getUser().getPassword());
                     if(response.isError()) {
-                        AlertUtil.show("Ошибка при создании типа", response.getMessage(), allValues.getRootStage());
+                        show("Ошибка при создании типа", response.getMessage(), allValues.getRootStage());
                     } else {
-                        allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
+                        ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                     }
-                    ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                 } else {
                     TypeResponse<?> response = serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).update(new PhType(typeForUpdate.getId(), name_field.getText().trim(), description_textArea.getText().trim()), allValues.getUser().getEmail(), allValues.getUser().getPassword());
                     if(response.isError()) {
-                        AlertUtil.show("Ошибка при изменении типа", response.getMessage(), allValues.getRootStage());
+                        show("Ошибка при изменении типа", response.getMessage(), allValues.getRootStage());
+                        if (response.getStatusCode() == 404) {
+                            ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+                        }
                     } else {
-                        allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
+                        ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                     }
-                    ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                 }
             }
         } else {
             if (name_field.getText().isEmpty()) {
-                AlertUtil.show("Вы не заполнили название типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
+                show("Вы не заполнили название типа", "Закройте окно и заполните нужное поле", allValues.getRootStage());
             } else {
-                if(adminPanelInfo.getActionType().name().equals(ActionType.CREATE.name())) {
+                if (adminPanelInfo.getActionType().name().equals(ActionType.CREATE.name())) {
                     TypeResponse<?> response = serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).create(new PhType(0, name_field.getText().trim(), ""), allValues.getUser().getEmail(), allValues.getUser().getPassword());
                     if(response.isError()) {
-                        AlertUtil.show("Ошибка при создании типа", response.getMessage(), allValues.getRootStage());
+                        show("Ошибка при создании типа", response.getMessage(), allValues.getRootStage());
                     } else {
-                        allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
+                        ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                     }
-                    ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                 } else {
                     TypeResponse<?> response = serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).update(new PhType(typeForUpdate.getId(), name_field.getText().trim(), ""), allValues.getUser().getEmail(), allValues.getUser().getPassword());
                     if(response.isError()) {
-                        AlertUtil.show("Ошибка при изменении типа", response.getMessage(), allValues.getRootStage());
+                        show("Ошибка при изменении типа", response.getMessage(), allValues.getRootStage());
+                        if (response.getStatusCode() == 404) {
+                            ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+                        }
                     } else {
-                        allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
+                        ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                     }
-                    ComponentUtil.mount(Component.TYPE, allValues.getContentPanes().getLoggedInStackPane(), allValues);
                 }
-                allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
             }
         }
     }

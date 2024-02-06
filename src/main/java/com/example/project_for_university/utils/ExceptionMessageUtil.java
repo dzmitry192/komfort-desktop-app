@@ -8,6 +8,8 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
 
 public class ExceptionMessageUtil {
+
+    public static final String typeTitleErrorMessage = "Ошибка при получении типов";
     public static String getErrorMessage(ServiceEnum serviceEnum, int statusCode, String message) {
         if(serviceEnum.equals(ServiceEnum.AUTH_LOGIN)) {
             return switch (statusCode) {
@@ -27,7 +29,8 @@ public class ExceptionMessageUtil {
             return switch (statusCode) {
                 case 500 -> ErrorMessage.SERVER_ERROR.getMessage();
                 case 403 -> message.contains("You can update") ? ErrorMessage.MATERIAL_PATCH_403.getMessage() : ErrorMessage.MATERIAL_DELETE_403.getMessage();
-                case 404 -> message.contains("No such material") ? ErrorMessage.REPORT_NOT_FOUND.getMessage() : ErrorMessage.ENTITY_NOT_FOUND.getMessage();
+                case 404 -> ErrorMessage.MATERIAL_NOT_FOUND.getMessage();
+                case 400 -> message.contains("file size limit") ? ErrorMessage.MATERIAL_SIZE_LIMIT.getMessage() : ErrorMessage.DEFAULT.getMessage();
                 default -> ErrorMessage.DEFAULT.getMessage();
             };
         } else if(serviceEnum.equals(ServiceEnum.ALL_TYPES)) {
@@ -38,7 +41,7 @@ public class ExceptionMessageUtil {
         } else if(serviceEnum.equals(ServiceEnum.TYPE)) {
             return switch (statusCode) {
                 case 400 -> ErrorMessage.TYPE_400.getMessage();
-                case 404 -> ErrorMessage.ENTITY_NOT_FOUND.getMessage();
+                case 404 -> ErrorMessage.TYPE_404.getMessage();
                 case 500 -> message.contains("Some entities refer") ? ErrorMessage.TYPE_500.getMessage() : ErrorMessage.SERVER_ERROR.getMessage();
                 default -> ErrorMessage.DEFAULT.getMessage();
             };

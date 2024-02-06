@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AbstractResponse {
     private boolean isError;
+    private int statusCode;
     private String message;
 }
