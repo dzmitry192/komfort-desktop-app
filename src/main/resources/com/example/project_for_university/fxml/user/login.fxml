@@ -4,12 +4,15 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <VBox fx:id="main_box" alignment="CENTER" fillWidth="false" styleClass="app-background" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.LoginController">
    <children>
@@ -19,7 +22,19 @@
                <font>
                   <Font name="Arial Bold" size="21.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="18.0" />
+               </VBox.margin>
             </Label>
+            <VBox fx:id="error_section" styleClass="error-section">
+               <children>
+                  <TextFlow>
+                     <children>
+                        <Text fx:id="error_text" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error-text" text="error message" />
+                     </children>
+                  </TextFlow>
+               </children>
+            </VBox>
             <VBox spacing="10.0">
                <children>
                   <VBox spacing="5.0">
@@ -44,15 +59,11 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Label fx:id="status_lbl" styleClass="error-text" stylesheets="@../../styles/shared.css">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Label>
+                  <CheckBox fx:id="rememberEmail_checkbox" mnemonicParsing="false" text="Запомнить email" />
                </children>
-               <padding>
-                  <Insets bottom="18.0" top="35.0" />
-               </padding>
+               <VBox.margin>
+                  <Insets bottom="35.0" top="18.0" />
+               </VBox.margin>
             </VBox>
             <VBox alignment="CENTER" prefWidth="250.0" spacing="10.0">
                <children>

@@ -7,18 +7,17 @@ import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.AuthService;
 import com.example.project_for_university.service.AllTypesService;
 import com.example.project_for_university.service.models.AuthResponse;
+import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.NodeUtils;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import lombok.Data;
 import lombok.SneakyThrows;
 
@@ -60,14 +59,21 @@ public class LoginController implements DataProvider, Initializable {
     private FontAwesomeIconView icon_showPassword;
 
     @FXML
+    private CheckBox rememberEmail_checkbox;
+
+    @FXML
     private Button signup_btn;
 
     @FXML
-    private Label status_lbl;
+    private VBox error_section;
+
+    @FXML
+    private Text error_text;
 
     @Override
     public void setData(AllValues allValues) {
         this.allValues = allValues;
+        NodeUtils.displayNode(error_section, false);
     }
 
     @FXML
@@ -81,15 +87,21 @@ public class LoginController implements DataProvider, Initializable {
         }
 
         if (email.isEmpty() || password.isEmpty()) {
-            status_lbl.setText("Все поля должны быть заполнены");
+            error_text.setText("Все поля должны быть заполнены");
+            NodeUtils.displayNode(error_section, true);
         } else {
             AuthResponse userModel = authService.loginThread(new LoginDto(email, password));
             if (userModel.isError()) {
-                status_lbl.setText(userModel.getMessage());
+                error_text.setText(userModel.getMessage());
+                NodeUtils.displayNode(error_section, true);
             } else {
                 allValues.setUser(userModel.getUser());
                 allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
                 ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
+
+                if (rememberEmail_checkbox.isSelected()) {
+                    System.out.println("Remember Email");
+                }
             }
         }
     }

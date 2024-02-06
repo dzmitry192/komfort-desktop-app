@@ -5,29 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="were added crud operations for MaterialService etc.">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/LoggedInPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/LoggedInPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialDetailsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/user/admin/CreateTypeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/user/admin/CreateTypeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/user/admin/TypeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/user/admin/TypeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/ErrorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/ErrorMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/AllTypesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/AllTypesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/MaterialService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/MaterialService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/AbrasionTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/AbrasionTypeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/BendingTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/BendingTypeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/GlueTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/GlueTypeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/LayerTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/LayerTypeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/MembraneLayerPolymerTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/MembraneLayerPolymerTypeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/PhysicalActivityTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/PhysicalActivityTypeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/ProductionMethodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/ProductionMethodService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/WashingTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/WashingTypeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/AbstractResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/AbstractResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ExceptionMessageUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ExceptionMessageUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/user/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/user/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/user/SignupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/user/SignupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/AlertUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/AlertUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/user/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/user/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/user/signup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/user/signup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/styles/shared.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/styles/shared.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,20 +47,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "hotfix/smallFixes",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;hotfix/smallFixes&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
