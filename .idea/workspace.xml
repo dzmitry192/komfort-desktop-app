@@ -10,9 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="were added crud operations for MaterialService etc.">
-      <change afterPath="$PROJECT_DIR$/komfort.icns" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/makeSetup.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/forBackend/entity/DesktopEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/ApplicationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/models/GetAppLatestVersionResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/ErrorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/ErrorMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/ServiceEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/ServiceEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/UrlRoutes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/enums/UrlRoutes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ExceptionMessageUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ExceptionMessageUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ValidationUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +50,7 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2bwaYsdCMCbg57pHfNcJhiibmuy" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -55,7 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "hotfix/smallFixes",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/daniil/Desktop/project_for_university",
+    "last_opened_file_path": "C:/Users/Dmitry/Desktop/project_for_university",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -138,6 +147,8 @@
       <updated>1707128654329</updated>
       <workItem from="1707128666541" duration="27283000" />
       <workItem from="1707219674785" duration="11915000" />
+      <workItem from="1707337685524" duration="1397000" />
+      <workItem from="1707339506356" duration="4852000" />
     </task>
     <task id="LOCAL-00002" summary="updating services, were added alerts for catching error from response, updated .fxml file etc.">
       <option name="closed" value="true" />

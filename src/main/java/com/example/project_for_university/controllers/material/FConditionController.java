@@ -728,6 +728,7 @@ public class FConditionController implements Initializable, DataProvider {
     @SneakyThrows
     @FXML
     void btn_cond_next_clicked(MouseEvent event) throws IOException {
+        boolean errorFromTable = false;
         if (manufacturer_inp.getText().isEmpty()) {
             isError = true;
         }
@@ -790,10 +791,15 @@ public class FConditionController implements Initializable, DataProvider {
         }
         if (allValues.getCreateMaterialDto().getMaterial().getLayers() == null || allValues.getCreateMaterialDto().getMaterial().getLayers().isEmpty()) {
             isError = true;
+            errorFromTable = true;
         }
         if (isError) {
             allValues.setLastCreateMaterialComponent(Component.CONDITION_1);
-            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
+            if(errorFromTable) {
+                AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и заполните таблицу со слоями", allValues.getRootStage());
+            } else {
+                AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
+            }
             isError = false;
         } else {
             allValues.setLastCreateMaterialComponent(Component.WATERPROOF_TABLE);

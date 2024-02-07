@@ -5,5 +5,6 @@ public enum ServiceEnum {
     AUTH_SIGNUP,
     ALL_TYPES,
     MATERIAL,
-    TYPE
+    TYPE,
+    APPLICATION
 }

@@ -45,6 +45,12 @@ public class ExceptionMessageUtil {
                 case 500 -> message.contains("Some entities refer") ? ErrorMessage.TYPE_500.getMessage() : ErrorMessage.SERVER_ERROR.getMessage();
                 default -> ErrorMessage.DEFAULT.getMessage();
             };
+        } else if(serviceEnum.equals(ServiceEnum.APPLICATION)) {
+            return switch (statusCode) {
+                case 404 -> ErrorMessage.APP_404.getMessage();
+                case 500 -> ErrorMessage.SERVER_ERROR.getMessage();
+                default -> ErrorMessage.DEFAULT.getMessage();
+            };
         }
 
         return ErrorMessage.DEFAULT.getMessage();

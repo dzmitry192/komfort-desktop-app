@@ -52,7 +52,11 @@ public enum UrlRoutes {
     POST_WASHING_TYPE("/washing-type"),
     PATCH_WASHING_TYPE_BY_ID("/washing-type/"),
     DELETE_WASHING_TYPE_BY_ID("/washing-type/"),
-    GET_ALL_TYPES("/all-types");
+    GET_ALL_TYPES("/all-types"),
+    GET_DESKTOP_LATEST_VERSION("/desktop/latestVersion"),
+    GET_DESKTOP_UPDATE("/desktop/update"),
+    GET_DESKTOP("/desktop"),
+    POST_DESKTOP_VERSION("/desktop/");
 
     private final String name;
 

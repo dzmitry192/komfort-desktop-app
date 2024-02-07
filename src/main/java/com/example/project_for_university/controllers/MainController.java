@@ -5,6 +5,9 @@ import com.example.project_for_university.dto.ContentPanes;
 import com.example.project_for_university.dto.forBackend.PaginationDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.ApplicationService;
+import com.example.project_for_university.service.models.GetAppLatestVersionResponse;
+import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import com.example.project_for_university.utils.FileUtil;
 import javafx.application.Platform;
@@ -39,16 +42,28 @@ public class MainController implements Initializable, DataProvider {
             Scene rootScene = mainContentPane.getScene();
             Stage rootStage = (Stage) rootScene.getWindow();
 
+            if(!FileUtil.isExistsData()) {
+                FileUtil.createDataDirectory();
+            }
+
             //запрос на версию приложения, ее установка в allValues.appVersion и запись в файл
-//            String appVersion = "1.5";
-//            allValues.setAppVersion(appVersion);
-//            FileUtil.saveAppVersion(appVersion);
+            GetAppLatestVersionResponse response = ApplicationService.INSTANCE.getApplicationLatestVersionResponse();
+            if(response.isError()) {
+                System.out.println("ОШИБКА ПРИ ПОЛУЧЕНИИ ПОСЛЕДНЕЙ ВЕРСИИ ПРИЛОЖЕНИЯ");
+            } else {
+                String latestAppVersion = response.getDesktop().getVersion();
+                String curAppVersion = FileUtil.getAppVersion();
+                if(!curAppVersion.equals(latestAppVersion)) {
+                    FileUtil.saveAppVersion(latestAppVersion);
+                    allValues.setAppVersion(latestAppVersion);
+                }
+            }
+
 
             //content-panes
             allValues.setContentPanes(contentPanes);
             allValues.setRootStage(rootStage);
 
-            FileUtil.createDataDirectory();
 
             try {
                 ComponentUtil.mount(Component.LOGIN, mainContentPane, allValues);

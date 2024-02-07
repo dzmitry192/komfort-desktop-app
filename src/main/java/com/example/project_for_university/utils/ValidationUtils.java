@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidationUtils {
-    private static final String doubleRegex = "[0-9]{1,13}(\\.[0-9]*)?";
+    private static final String doubleRegex = "[0-9]{1,13}(\\.[0-9]{0,3})?";
 
     public static final UnaryOperator<TextFormatter.Change> doubleFilter = change -> {
         String fullString = change.getControlText() + change.getText();
