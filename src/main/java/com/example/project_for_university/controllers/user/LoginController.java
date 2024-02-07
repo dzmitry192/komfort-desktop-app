@@ -9,6 +9,7 @@ import com.example.project_for_university.service.AllTypesService;
 import com.example.project_for_university.service.models.AuthResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
+import com.example.project_for_university.utils.FileUtil;
 import com.example.project_for_university.utils.NodeUtils;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -33,6 +34,9 @@ public class LoginController implements DataProvider, Initializable {
     private AllTypesService allTypesService = new AllTypesService();
 
     private boolean isPasswordShows = false;
+
+    @FXML
+    private Label appVersion_lbl;
 
     @FXML
     private TextField email_tf;
@@ -74,6 +78,16 @@ public class LoginController implements DataProvider, Initializable {
     public void setData(AllValues allValues) {
         this.allValues = allValues;
         NodeUtils.displayNode(error_section, false);
+
+        appVersion_lbl.setText(allValues.getAppVersion());
+
+        String savedEmail = FileUtil.getSavedEmail();
+        if (savedEmail.isEmpty()) {
+            rememberEmail_checkbox.setSelected(false);
+        } else {
+            email_tf.setText(savedEmail);
+            rememberEmail_checkbox.setSelected(true);
+        }
     }
 
     @FXML
@@ -100,7 +114,10 @@ public class LoginController implements DataProvider, Initializable {
                 ComponentUtil.mount(Component.LOGGED_IN, allValues.getContentPanes().getMainContentPane(), allValues);
 
                 if (rememberEmail_checkbox.isSelected()) {
-                    System.out.println("Remember Email");
+                    FileUtil.saveEmail(email_tf.getText());
+                } else {
+                    FileUtil.clearSavedEmail();
+                    rememberEmail_checkbox.setSelected(false);
                 }
             }
         }

@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.forBackend.PaginationDto;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.utils.ComponentUtil;
+import com.example.project_for_university.utils.FileUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 import lombok.Data;
 import lombok.SneakyThrows;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,9 +39,16 @@ public class MainController implements Initializable, DataProvider {
             Scene rootScene = mainContentPane.getScene();
             Stage rootStage = (Stage) rootScene.getWindow();
 
+            //запрос на версию приложения, ее установка в allValues.appVersion и запись в файл
+//            String appVersion = "1.5";
+//            allValues.setAppVersion(appVersion);
+//            FileUtil.saveAppVersion(appVersion);
+
             //content-panes
             allValues.setContentPanes(contentPanes);
             allValues.setRootStage(rootStage);
+
+            FileUtil.createDataDirectory();
 
             try {
                 ComponentUtil.mount(Component.LOGIN, mainContentPane, allValues);

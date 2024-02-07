@@ -37,6 +37,9 @@ public class SignupController implements DataProvider, Initializable {
     private boolean isPasswordShows = false;
 
     @FXML
+    private Label appVersion_lbl;
+
+    @FXML
     private Button login_btn;
 
     @FXML
@@ -94,6 +97,8 @@ public class SignupController implements DataProvider, Initializable {
         hideStatusSections();
 
         this.allValues = allValues;
+
+        appVersion_lbl.setText(allValues.getAppVersion());
     }
 
     @FXML
@@ -110,7 +115,7 @@ public class SignupController implements DataProvider, Initializable {
         }
 
         if(fio.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            showErrorSection("Ошибка! Вы не заполнили все поля");
+            showErrorSection("Все поля должны быть заполнены");
         } else if(password.length() < 8) {
             showErrorSection("Минимальная длина пароля 8 символов");
         } else {

@@ -16,6 +16,11 @@
   -fx-table-header-color: #686868;
 }
 
+.version-text {
+    -fx-text-fill: #424242;
+    -fx-fill: #424242;
+}
+
 Label, Text {
   -fx-text-fill: black;
   -fx-fill: black;
