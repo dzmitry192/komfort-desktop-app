@@ -13,7 +13,7 @@ set JAVA_VERSION=17
 set MAIN_JAR=komfort-%PROJECT_VERSION%.jar
 
 rem Set desired installer type: "app-image" "msi" "exe".
-set INSTALLER_TYPE=exe
+set INSTALLER_TYPE=msi
 
 rem ------ SETUP DIRECTORIES AND FILES ----------------------------------------
 rem Remove previously generated java runtime and installers. Copy all required
