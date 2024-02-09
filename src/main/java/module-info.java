@@ -1,7 +1,8 @@
 module com.example.project_for_university {
     requires javafx.controls;
     requires javafx.fxml;
-    requires lombok;
+    requires javafx.graphics;
+    requires static lombok;
     requires org.apache.httpcomponents.httpclient;
     requires org.apache.httpcomponents.httpcore;
     requires com.google.gson;
@@ -10,9 +11,6 @@ module com.example.project_for_university {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires org.apache.httpcomponents.httpmime;
-    requires org.apache.poi.poi;
-    requires org.apache.poi.ooxml;
-    requires org.apache.commons.compress;
 
     opens com.example.project_for_university to javafx.fxml;
     exports com.example.project_for_university;
