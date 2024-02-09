@@ -12,7 +12,7 @@ jpackage --input out/artifacts/project_for_university_jar \
   --dest dist \
   --main-jar project_for_university.jar \
   --main-class com.example.project_for_university.Main \
-  --java-options '--enable-preview' \
+  --java-options '--enableт-preview' \
   --type msi \
   --win-shortcut \
   --win-menu \

@@ -796,7 +796,7 @@ public class FConditionController implements Initializable, DataProvider {
         if (isError) {
             allValues.setLastCreateMaterialComponent(Component.CONDITION_1);
             if(errorFromTable) {
-                AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и заполните таблицу со слоями", allValues.getRootStage());
+                AlertUtil.show("Вы не добавили слои", "Закройте это окно и добавьте слои", allValues.getRootStage());
             } else {
                 AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
             }
