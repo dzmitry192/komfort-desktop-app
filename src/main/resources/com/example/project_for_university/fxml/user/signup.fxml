@@ -8,68 +8,108 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <VBox alignment="CENTER" styleClass="app-background" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.user.SignupController">
    <children>
-      <VBox maxWidth="-Infinity" prefWidth="420.0" stylesheets="@../../styles/shared.css">
+      <VBox alignment="CENTER" fillWidth="false" VBox.vgrow="ALWAYS">
          <children>
-            <Label styleClass="bold-text" stylesheets="@../../styles/shared.css" text="Регистрация">
-               <font>
-                  <Font name="Academy Engraved LET Plain:1.0" size="21.0" />
-               </font>
-            </Label>
-            <VBox spacing="10.0">
+            <VBox maxWidth="-Infinity" prefWidth="420.0" stylesheets="@../../styles/shared.css">
                <children>
-                  <VBox spacing="5.0">
+                  <Label styleClass="bold-text" stylesheets="@../../styles/shared.css" text="Регистрация">
+                     <font>
+                        <Font name="Academy Engraved LET Plain:1.0" size="21.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="18.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox fx:id="error_section" styleClass="error-section">
                      <children>
-                        <Label text="ФИО" />
-                        <TextField fx:id="fio_tf" prefHeight="42.0" promptText="Иван Иванович Иванов" />
-                     </children>
-                  </VBox>
-                  <VBox spacing="5.0">
-                     <children>
-                        <Label text="Emaill" />
-                        <TextField fx:id="email_tf" prefHeight="42.0" promptText="example@gmail.com" />
-                     </children>
-                  </VBox>
-                  <VBox spacing="5.0">
-                     <children>
-                        <Label text="Пароль" />
-                        <HBox spacing="5.0">
+                        <TextFlow>
                            <children>
-                              <TextField fx:id="password_tf" prefHeight="42.0" prefWidth="1000.0" promptText="password123" />
-                              <PasswordField fx:id="password_pf" maxHeight="1.7976931348623157E308" prefHeight="42.0" prefWidth="1000.0" promptText="password123" />
-                              <Button fx:id="btn_showPassword" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_showPassword_clicked" styleClass="btn-show-password">
-                                 <graphic>
-                                    <FontAwesomeIconView fx:id="icon_showPassword" glyphName="EYE" size="16" />
-                                 </graphic>
-                              </Button>
+                              <Text fx:id="error_text" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error-text" text="error message" />
                            </children>
-                        </HBox>
+                        </TextFlow>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox fx:id="success_section" styleClass="success-section">
+                     <children>
+                        <TextFlow>
+                           <children>
+                              <Text fx:id="success_text" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="success-text" text="success message" />
+                           </children>
+                        </TextFlow>
                      </children>
                   </VBox>
-                  <Label fx:id="status_lbl" styleClass="error-text" stylesheets="@../../styles/shared.css" />
+                  <VBox spacing="10.0">
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label text="ФИО" />
+                              <TextField fx:id="fio_tf" prefHeight="42.0" promptText="Иван Иванович Иванов" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label text="Emaill" />
+                              <TextField fx:id="email_tf" prefHeight="42.0" promptText="example@gmail.com" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label text="Пароль" />
+                              <HBox spacing="5.0">
+                                 <children>
+                                    <TextField fx:id="password_tf" prefHeight="42.0" prefWidth="1000.0" promptText="password123" />
+                                    <PasswordField fx:id="password_pf" maxHeight="1.7976931348623157E308" prefHeight="42.0" prefWidth="1000.0" promptText="password123" />
+                                    <Button fx:id="btn_showPassword" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_showPassword_clicked" styleClass="btn-show-password">
+                                       <graphic>
+                                          <FontAwesomeIconView fx:id="icon_showPassword" glyphName="EYE" size="16" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="35.0" top="18.0" />
+                     </padding>
+                  </VBox>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Button fx:id="signup_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#signup_btn_clicked" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Зарегистрироваться" />
+                        <Button fx:id="login_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#login_btn_clicked" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Войти в аккаунт" />
+                     </children>
+                  </VBox>
                </children>
                <padding>
-                  <Insets bottom="18.0" top="35.0" />
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
                </padding>
-            </VBox>
-            <VBox spacing="10.0">
-               <children>
-                  <Button fx:id="signup_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#signup_btn_clicked" styleClass="btn-blue-filled" stylesheets="@../../styles/shared.css" text="Зарегистрироваться" />
-                  <Button fx:id="login_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#login_btn_clicked" styleClass="btn-blue-outlined" stylesheets="@../../styles/shared.css" text="Войти в аккаунт" />
-               </children>
+               <styleClass>
+                  <String fx:value="form-wrapper" />
+                  <String fx:value="box-shadow-light" />
+               </styleClass>
             </VBox>
          </children>
-         <padding>
-            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
-         </padding>
-         <styleClass>
-            <String fx:value="form-wrapper" />
-            <String fx:value="box-shadow-light" />
-         </styleClass>
       </VBox>
+      <HBox maxWidth="1.7976931348623157E308">
+         <children>
+            <Label styleClass="version-text" text="v" />
+            <Label fx:id="appVersion_lbl" styleClass="version-text" text="1.0" />
+            <Region HBox.hgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" />
+         </padding>
+      </HBox>
    </children>
 </VBox>

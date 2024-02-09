@@ -1,5 +1,6 @@
 package com.example.project_for_university.service.models;
 
+import com.example.project_for_university.dto.forBackend.entity.DesktopEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,8 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AbstractResponse {
-    private boolean isError;
-    private int statusCode;
-    private String message;
+public class GetAppLatestVersionResponse extends AbstractResponse {
+    private DesktopEntity desktop;
 }

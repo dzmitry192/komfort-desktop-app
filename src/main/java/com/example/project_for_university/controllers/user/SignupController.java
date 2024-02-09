@@ -17,7 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import lombok.Data;
 import org.apache.http.client.methods.CloseableHttpResponse;
 
@@ -33,6 +35,9 @@ public class SignupController implements DataProvider, Initializable {
     private AuthService authService = new AuthService();
 
     private boolean isPasswordShows = false;
+
+    @FXML
+    private Label appVersion_lbl;
 
     @FXML
     private Button login_btn;
@@ -59,15 +64,47 @@ public class SignupController implements DataProvider, Initializable {
     private Button signup_btn;
 
     @FXML
-    private Label status_lbl;
+    private VBox error_section;
+
+    @FXML
+    private Text error_text;
+
+    @FXML
+    private VBox success_section;
+
+    @FXML
+    private Text success_text;
+
+    private void showSuccessSection(String message) {
+        success_text.setText(message);
+        NodeUtils.displayNode(success_section, true);
+        NodeUtils.displayNode(error_section, false);
+    }
+
+    private void showErrorSection(String message) {
+        error_text.setText(message);
+        NodeUtils.displayNode(success_section, false);
+        NodeUtils.displayNode(error_section, true);
+    }
+
+    private void hideStatusSections() {
+        NodeUtils.displayNode(success_section, false);
+        NodeUtils.displayNode(error_section, false);
+    }
 
     @Override
     public void setData(AllValues allValues) {
+        hideStatusSections();
+
         this.allValues = allValues;
+
+        appVersion_lbl.setText(allValues.getAppVersion());
     }
 
     @FXML
     void signup_btn_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
+        hideStatusSections();
+
         String fio = fio_tf.getText();
         String email = email_tf.getText();
         String password;
@@ -77,19 +114,17 @@ public class SignupController implements DataProvider, Initializable {
             password = password_pf.getText();
         }
 
-        status_lbl.setTextFill(Color.RED);
         if(fio.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            status_lbl.setText("Ошибка! Вы не заполнили все поля");
+            showErrorSection("Все поля должны быть заполнены");
         } else if(password.length() < 8) {
-            status_lbl.setText("Минимальная длина пароля 8 символов");
+            showErrorSection("Минимальная длина пароля 8 символов");
         } else {
             AuthResponse userModel = authService.signupThread(new CreateUserDto(fio, email, password));
             if(userModel.isError()) {
-                status_lbl.setText(userModel.getMessage());
+                showErrorSection(userModel.getMessage());
             } else {
                 allValues.setUser(userModel.getUser());
-                status_lbl.setTextFill(Color.GREEN);
-                status_lbl.setText("Регистрация прошла успешно");
+                showSuccessSection("Регистрация завершена успешно");
             }
         }
     }

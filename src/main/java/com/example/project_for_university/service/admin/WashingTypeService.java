@@ -47,9 +47,11 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                 try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
                     if (response.getStatusLine().getStatusCode() == 200) {
                         typesResponse.setError(false);
+                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typesResponse.setTypes(JsonToClass.parseToListObject(WashingTypeEntity.class, response).toArray(WashingTypeEntity[]::new));
                     } else {
                         typesResponse.setError(true);
+                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
@@ -83,9 +85,11 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                 try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
                     if (response.getStatusLine().getStatusCode() == 200) {
                         typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setType(JsonToClass.parseToObject(WashingTypeEntity.class, response));
                     } else {
                         typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
                 }
@@ -123,9 +127,11 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                 try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
                     if (response.getStatusLine().getStatusCode() == 201) {
                         typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setType(JsonToClass.parseToObject(WashingTypeEntity.class, response));
                     } else {
                         typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
                 }
@@ -163,9 +169,11 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                 try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
                     if (response.getStatusLine().getStatusCode() == 200) {
                         typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setType(JsonToClass.parseToObject(WashingTypeEntity.class, response));
                     } else {
                         typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
                 }
@@ -198,9 +206,11 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                 try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
                     if (response.getStatusLine().getStatusCode() == 200) {
                         typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setType(JsonToClass.parseToObject(WashingTypeEntity.class, response));
                     } else {
                         typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),ExceptionMessageUtil.getMessageFromResponse(response)));
                     }
                 }

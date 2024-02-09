@@ -48,8 +48,11 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
                     if (response.getStatusLine().getStatusCode() == 200) {
                         typesResponse.setTypes(JsonToClass.parseToListObject(AbrasionTypeEntity.class, response).toArray(AbrasionTypeEntity[]::new));
                         typesResponse.setError(false);
+                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
+
                     } else {
                         typesResponse.setError(true);
+                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
@@ -84,8 +87,10 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
                     if (response.getStatusLine().getStatusCode() == 200) {
                         typeResponse.setType(JsonToClass.parseToObject(AbrasionTypeEntity.class, response));
                         typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                     } else {
                         typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
@@ -123,9 +128,11 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
                 try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                     if (response.getStatusLine().getStatusCode() == 201) {
                         typeResponse.setType(JsonToClass.parseToObject(AbrasionTypeEntity.class, response));
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setError(false);
                     } else {
                         typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
@@ -163,9 +170,11 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
                 try (CloseableHttpResponse response = httpClient.execute(httpPatch)) {
                     if (response.getStatusLine().getStatusCode() == 200) {
                         typeResponse.setType(JsonToClass.parseToObject(AbrasionTypeEntity.class, response));
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setError(false);
                     } else {
                         typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
@@ -198,9 +207,11 @@ public class AbrasionTypeService implements CrudService<AbrasionTypeEntity> {
                 try (CloseableHttpResponse response = httpClient.execute(httpDelete)) {
                     if (response.getStatusLine().getStatusCode() == 200) {
                         typeResponse.setType(JsonToClass.parseToObject(AbrasionTypeEntity.class, response));
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setError(false);
                     } else {
                         typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
                     }
                 }

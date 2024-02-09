@@ -41,10 +41,12 @@ public class AllTypesService {
                 CloseableHttpResponse response = httpClient.execute(httpGet);
                 if(response.getStatusLine().getStatusCode() != 200) {
                     getAllTypesResponse.setError(true);
+                    getAllTypesResponse.setStatusCode(response.getStatusLine().getStatusCode());
                     getAllTypesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.ALL_TYPES, response.getStatusLine().getStatusCode(), null));
                 } else {
                     getAllTypesResponse.setReturnAllTypesDto(JsonToClass.parseToObject(ReturnAllTypesDto.class, response));
                     getAllTypesResponse.setError(false);
+                    getAllTypesResponse.setStatusCode(response.getStatusLine().getStatusCode());
                 }
                 futureUserModel.complete(getAllTypesResponse);
             }

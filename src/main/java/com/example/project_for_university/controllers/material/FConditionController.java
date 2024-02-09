@@ -251,7 +251,9 @@ public class FConditionController implements Initializable, DataProvider {
         abrasion_type.setItems(abrasionTypes);
 
         ObservableList<String> physicalTypes = FXCollections.observableArrayList("Не выбрано");
-        physicalTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).map(PhysicalActivityTypeEntity::getName).toList());
+        for( PhysicalActivityTypeEntity physicalActivityType : allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()) {
+            physicalTypes.add(physicalActivityType.getName() + " (" + physicalActivityType.getDescription() + ")");
+        }
         lev_phys.setItems(physicalTypes);
 
         time_cond.setItems(FXCollections.observableArrayList("Не выбрано", "2", "4"));
@@ -302,7 +304,8 @@ public class FConditionController implements Initializable, DataProvider {
                 rad_btn_plus.setSelected(true);
             }
             if (conditionDto.getPhysicalActivityType_id() != 0 && Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).anyMatch(type -> type.getId() == conditionDto.getPhysicalActivityType_id())) {
-                lev_phys.setValue(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getId() == conditionDto.getPhysicalActivityType_id()).findFirst().get().getName());
+                PhysicalActivityTypeEntity physicalActivityType = Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getId() == conditionDto.getPhysicalActivityType_id()).findFirst().get();
+                lev_phys.setValue(physicalActivityType.getName() + " (" + physicalActivityType.getDescription() + ")");
             }
             if (conditionDto.getResidenceTime() != 0) {
                 time_cond.setValue(String.valueOf(conditionDto.getResidenceTime()));
@@ -447,6 +450,8 @@ public class FConditionController implements Initializable, DataProvider {
 
         //text fields
         manufacturer_inp.setText("");
+        inp_torsion_angle.setText("");
+        inp_stretching.setText("");
         depth_inp.setText("");
         inp_av_speed.setText("0");
         inp_max_air_one.setText("20");
@@ -454,10 +459,8 @@ public class FConditionController implements Initializable, DataProvider {
         inp_max_air_sec.setText("20");
         inp_min_temp_sec.setText("0");
         inp_min_temp_one.setText("0");
-        inp_stretching.setText("5");
-        inp_temp_washing.setText("30");
-        inp_time_washing.setText("20");
-        inp_torsion_angle.setText("5");
+        inp_temp_washing.setText("");
+        inp_time_washing.setText("");
 
         //table
         layers_table.setItems(FXCollections.observableArrayList());
@@ -560,8 +563,8 @@ public class FConditionController implements Initializable, DataProvider {
             scroll_torsion_angle.setDisable(false);
             inp_torsion_angle.setDisable(false);
 
-            scroll_torsion_angle.setValue(5);
-            inp_torsion_angle.setText("5");
+            scroll_torsion_angle.setValue(20);
+            inp_torsion_angle.setText("20");
             allValues.getCreateMaterialDto().getCondition().setTorsionAngle(5);
         } else {
             scroll_torsion_angle.setDisable(true);
@@ -667,7 +670,8 @@ public class FConditionController implements Initializable, DataProvider {
     @FXML
     void lev_phys_action(ActionEvent event) {
         if (lev_phys.getSelectionModel().getSelectedItem() != null && lev_phys.getSelectionModel().getSelectedIndex() != 0) {
-            allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getName().equals(lev_phys.getSelectionModel().getSelectedItem())).findFirst().get().getId());
+            allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> lev_phys.getSelectionModel().getSelectedItem().contains(type.getName())).findFirst().get().getId());
+//            allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getName().equals(lev_phys.getSelectionModel().getSelectedItem())).findFirst().get().getId());
         } else {
             allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(0);
         }
@@ -724,6 +728,7 @@ public class FConditionController implements Initializable, DataProvider {
     @SneakyThrows
     @FXML
     void btn_cond_next_clicked(MouseEvent event) throws IOException {
+        boolean errorFromTable = false;
         if (manufacturer_inp.getText().isEmpty()) {
             isError = true;
         }
@@ -786,10 +791,15 @@ public class FConditionController implements Initializable, DataProvider {
         }
         if (allValues.getCreateMaterialDto().getMaterial().getLayers() == null || allValues.getCreateMaterialDto().getMaterial().getLayers().isEmpty()) {
             isError = true;
+            errorFromTable = true;
         }
         if (isError) {
             allValues.setLastCreateMaterialComponent(Component.CONDITION_1);
-            AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
+            if(errorFromTable) {
+                AlertUtil.show("Вы не добавили слои", "Закройте это окно и добавьте слои", allValues.getRootStage());
+            } else {
+                AlertUtil.show("Вы не заполнили все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
+            }
             isError = false;
         } else {
             allValues.setLastCreateMaterialComponent(Component.WATERPROOF_TABLE);

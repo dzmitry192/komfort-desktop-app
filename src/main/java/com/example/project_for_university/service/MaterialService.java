@@ -6,6 +6,7 @@ import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.forBackend.MaterialFilterDto;
 import com.example.project_for_university.dto.forBackend.entity.types.PartialMaterialEntity;
 import com.example.project_for_university.dto.forBackend.update.UpdateMaterialDto;
+import com.example.project_for_university.enums.ErrorMessage;
 import com.example.project_for_university.enums.ServiceEnum;
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
@@ -38,6 +39,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -131,6 +133,7 @@ public class MaterialService {
 
                 if (response.getStatusLine().getStatusCode() != 200) {
                     getMaterialsResponse.setError(true);
+                    getMaterialsResponse.setStatusCode(response.getStatusLine().getStatusCode());
                     getMaterialsResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
                 } else {
                     try {
@@ -139,6 +142,7 @@ public class MaterialService {
                         throw new RuntimeException(e);
                     }
                     getMaterialsResponse.setError(false);
+                    getMaterialsResponse.setStatusCode(response.getStatusLine().getStatusCode());
                     getMaterialsResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
                     getMaterialsResponse.setTotalCount(Integer.parseInt(response.getFirstHeader("x-total-count").getValue()));
                 }
@@ -156,8 +160,8 @@ public class MaterialService {
     }
 
     @SneakyThrows
-    public AbstractType getMaterialReport(int materialId, String filePath, String email, String password) {
-        CompletableFuture<AbstractType> completableFuture = new CompletableFuture<>();
+    public AbstractResponse getMaterialReport(int materialId, String filePath, String email, String password) {
+        CompletableFuture<AbstractResponse> completableFuture = new CompletableFuture<>();
 
         Runnable runnable = new Runnable() {
             @Override
@@ -178,13 +182,27 @@ public class MaterialService {
                         while ((bytesRead = in.read(buffer)) != -1) {
                             fileOutputStream.write(buffer, 0, bytesRead);
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+                        AbstractResponse response = new AbstractResponse();
+                        if (connection instanceof HttpURLConnection) {
+                            int statusCode = ((HttpURLConnection) connection).getResponseCode();
+                            if (statusCode >= 400) {
+                                response.setError(true);
+                                response.setMessage(ErrorMessage.MATERIAL_NOT_FOUND.getMessage());
+                            } else {
+                                response.setError(false);
+                            }
+                        }
+                        completableFuture.complete(response);
+                    }catch (Exception e) {
+                        AbstractResponse response = new AbstractResponse();
+                        response.setError(true);
+                        response.setMessage(ErrorMessage.MATERIAL_NOT_FOUND.getMessage());
+                        completableFuture.complete(response);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                completableFuture.complete(new AbstractType());
             }
         };
 
@@ -229,9 +247,11 @@ public class MaterialService {
                         if(response.getStatusLine().getStatusCode() == 201) {
                             createMaterialResponse.setMaterial(JsonToClass.parseToObject(PartialMaterialEntity.class, response));
                             createMaterialResponse.setError(false);
+                            createMaterialResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         } else {
                             createMaterialResponse.setError(true);
-                            createMaterialResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
+                            createMaterialResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                            createMaterialResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
                         }
                         completableFuture.complete(createMaterialResponse);
                     } catch (IOException e) {
@@ -273,9 +293,11 @@ public class MaterialService {
                     try (CloseableHttpResponse response = httpClient.execute(httpPatch)) {
                         if(response.getStatusLine().getStatusCode() == 200) {
                             updateMaterialResponse.setError(false);
+                            updateMaterialResponse.setStatusCode(response.getStatusLine().getStatusCode());
                             updateMaterialResponse.setMaterial(JsonToClass.parseToObject(PartialMaterialEntity.class, response));
                         } else {
                             updateMaterialResponse.setError(true);
+                            updateMaterialResponse.setStatusCode(response.getStatusLine().getStatusCode());
                             updateMaterialResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
                         }
                         completableFuture.complete(updateMaterialResponse);
@@ -310,9 +332,11 @@ public class MaterialService {
                     try (CloseableHttpResponse response = httpClient.execute(httpDelete)) {
                         if(response.getStatusLine().getStatusCode() == 200) {
                             deleteResponse.setError(false);
+                            deleteResponse.setStatusCode(response.getStatusLine().getStatusCode());
                         } else {
                             deleteResponse.setError(true);
-                            deleteResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), null));
+                            deleteResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                            deleteResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.MATERIAL, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
                         }
                         completableFuture.complete(createMaterialResponse);
                     } catch (IOException e) {

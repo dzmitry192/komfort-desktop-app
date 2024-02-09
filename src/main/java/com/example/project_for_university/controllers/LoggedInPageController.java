@@ -93,13 +93,7 @@ public class LoggedInPageController implements Initializable, DataProvider {
     @FXML
     void adminPanel_btn_click(MouseEvent event) {
         toggleActiveButton(adminPanel_btn);
-        GetAllTypesResponse getAllTypesResponse = AllTypesService.INSTANCE.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword());
-        if(getAllTypesResponse.isError()) {
-            AlertUtil.show("Ошибка при получении типов", getAllTypesResponse.getMessage(), allValues.getRootStage());
-        } else {
-            allValues.getAdminPanelInfo().setReturnAllTypesDto(getAllTypesResponse.getReturnAllTypesDto());
-            ComponentUtil.mount(Component.ADMIN_PANEL, loggedInContentPane, allValues);
-        }
+        ComponentUtil.mount(Component.ADMIN_PANEL, loggedInContentPane, allValues);
     }
 
     @SneakyThrows
@@ -121,11 +115,11 @@ public class LoggedInPageController implements Initializable, DataProvider {
         toggleActiveButton(materialList_btn);
 
         TypesResponse<ProductionMethodEntity> prodMethodsResponse = ProductionMethodService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
-        if(prodMethodsResponse.isError()) {
+        if (prodMethodsResponse.isError()) {
             AlertUtil.show("Ошибка при получении типа", prodMethodsResponse.getMessage(), allValues.getRootStage());
         } else {
             TypesResponse<MembraneLayerPolymerTypeEntity> membTypesResponse = MembraneLayerPolymerTypeService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
-            if(membTypesResponse.isError()) {
+            if (membTypesResponse.isError()) {
                 AlertUtil.show("Ошибка при получении типа", membTypesResponse.getMessage(), allValues.getRootStage());
             } else {
                 allValues.getAdminPanelInfo().getReturnAllTypesDto().setMembraneLayerPolymerTypes(membTypesResponse.getTypes());

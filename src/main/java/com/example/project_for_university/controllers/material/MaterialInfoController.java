@@ -219,7 +219,7 @@ public class MaterialInfoController implements DataProvider {
             CreateMaterialRequestDto createMaterialRequestDto = createMaterialDtoToCreateMaterialRequestDto(allValues.getCreateMaterialDto());
             CreateMaterialResponse createMaterialResponse = MaterialService.INSTANCE.create(createMaterialRequestDto, allValues.getUser().getEmail(), allValues.getUser().getPassword());
             if (createMaterialResponse.isError()) {
-                AlertUtil.show("Ошибка при создании материала", createMaterialResponse.getMessage(), allValues.getRootStage());
+                AlertUtil.show("Ошибка при создании артикула", createMaterialResponse.getMessage(), allValues.getRootStage());
             } else {
                 allValues.setCreateMaterialDto(new CreateMaterialDto());
                 allValues.setLastCreateMaterialComponent(null);
@@ -234,6 +234,17 @@ public class MaterialInfoController implements DataProvider {
             }
         } else {
             AlertUtil.show("Заполните все поля", "Закройте это окно и дозаполните всё необходимые поля", allValues.getRootStage());
+        }
+    }
+
+    @FXML
+    void delete_photos_btn_clicked(MouseEvent event) {
+        int selectedPhotoCnt = allValues.getCreateMaterialDto().getImages().length;
+        boolean isDeletePhotos = AlertUtil.showConfirmation("Подтверждение", String.format("Вы хотите удалить выбранные фото (%d)?", selectedPhotoCnt), allValues.getRootStage());
+
+        if (isDeletePhotos) {
+            images.clear();
+            allValues.getCreateMaterialDto().setImages(images.toArray(File[]::new));
         }
     }
 

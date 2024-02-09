@@ -16,6 +16,11 @@
   -fx-table-header-color: #686868;
 }
 
+.version-text {
+    -fx-text-fill: #424242;
+    -fx-fill: #424242;
+}
+
 Label, Text {
   -fx-text-fill: black;
   -fx-fill: black;
@@ -39,6 +44,34 @@ Label, Text {
 
 .page-wrapper {
   -fx-max-width: 1450;
+}
+
+/*----status-sections----*/
+
+.error-section {
+    -fx-background-color: #fdcdcb;
+    -fx-border-color: #f3bdbb;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 10 15
+}
+
+.error-text {
+    -fx-fill: #af5b5b;
+}
+
+.success-section {
+    -fx-background-color: #cffad7;
+    -fx-border-color: #abdbb4;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 10 15
+}
+
+.success-text {
+    -fx-fill: #65966d;
 }
 
 /*------buttons------*/
