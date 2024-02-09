@@ -32,4 +32,8 @@ jobs:
         path: project_for_university/target/installer/*.msi
 
     - name: Send Artifact to Server
-      run: upload_setup_win.bat project_for_university/target/installer/win_msi_file.msi
+      run: |
+        curl -X POST ^
+          -H "Authorization: Bearer 123" ^
+          -F "file=@project_for_university/target/installer/*.msi" ^
+          http://localhost/desktop/win/1.0
