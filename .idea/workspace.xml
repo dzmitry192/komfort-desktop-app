@@ -10,14 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="some fixes">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/project_for_university_jar2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build_app_windows.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/logo/komfort-icon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/project_for_university_jar.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_app_mac.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komfort.icns" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/logo/komfort-icon.icns" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build_app_windows.bat" beforeDir="false" afterPath="$PROJECT_DIR$/build_app_windows.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +59,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "feature/installer",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Dmitry/Desktop/project_for_university/src/main/logo",
+    "last_opened_file_path": "/Users/daniil/Desktop/project_for_university",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -75,9 +72,9 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\Dmitry\Desktop\project_for_university\src\main\logo" />
       <recent name="C:\Users\Dmitry\Desktop\project_for_university" />
-      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Dmitry\Desktop\project_for_university\src\main\logo" />

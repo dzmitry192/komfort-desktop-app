@@ -10,7 +10,7 @@ rem PROJECT_VERSION: version used in pom.xml, e.g. 1.0-SNAPSHOT
 rem APP_VERSION: the application version, e.g. 1.0.0, shown in "about" dialog
 
 set JAVA_VERSION=17
-set MAIN_JAR=main-ui-%PROJECT_VERSION%.jar
+set MAIN_JAR=komfort-%PROJECT_VERSION%.jar
 
 rem Set desired installer type: "app-image" "msi" "exe".
 set INSTALLER_TYPE=exe
@@ -32,7 +32,8 @@ rem application.
 
 echo detecting required modules
 
-"%JAVA_HOME%\bin\jdeps" ^
+@REM "%JAVA_HOME%\bin\jdeps" ^
+jdeps ^
   -q ^
   --multi-release %JAVA_VERSION% ^
   --ignore-missing-deps ^
@@ -66,7 +67,8 @@ rem works with dependencies that are not fully modularized, yet.
 
 echo creating java runtime image
 
-call "%JAVA_HOME%\bin\jlink" ^
+@REM call "%JAVA_HOME%\bin\jlink" ^
+call jlink ^
   --strip-native-commands ^
   --no-header-files ^
   --no-man-pages ^
@@ -80,19 +82,20 @@ call "%JAVA_HOME%\bin\jlink" ^
 rem ------ PACKAGING ----------------------------------------------------------
 rem In the end we will find the package inside the target/installer directory.
 
-call "%JAVA_HOME%\bin\jpackage" ^
+@REM call "%JAVA_HOME%\bin\jpackage" ^
+call jpackage ^
   --type %INSTALLER_TYPE% ^
   --dest target/installer ^
   --input target/installer/input/libs ^
-  --name JPackageScriptFX ^
+  --name KOMFORT ^
   --main-class com.example.project_for_university.Main ^
   --main-jar %MAIN_JAR% ^
   --java-options -Xmx2048m ^
   --runtime-image target/java-runtime ^
   --icon src/main/logo/komfort-icon.ico ^
   --app-version %APP_VERSION% ^
-  --vendor "ACME Inc." ^
-  --copyright "Copyright © 2019-21 ACME Inc." ^
+  --vendor "KOMFORT Inc." ^
+  --copyright "Copyright © 2019-21 KOMFORT Inc." ^
   --win-dir-chooser ^
   --win-shortcut ^
   --win-per-user-install ^
