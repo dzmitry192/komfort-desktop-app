@@ -32,4 +32,4 @@ jobs:
         path: project_for_university/target/installer/*.msi
 
     - name: Send Artifact to Server
-        upload_setup_win.bat project_for_university/target/installer/win_msi_file.msi
+      run: upload_setup_win.bat project_for_university/target/installer/win_msi_file.msi
