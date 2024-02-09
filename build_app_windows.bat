@@ -32,8 +32,8 @@ rem application.
 
 echo detecting required modules
 
-@REM "%JAVA_HOME%\bin\jdeps" ^
-jdeps ^
+@REM jdeps ^
+"%JAVA_HOME%\bin\jdeps" ^
   -q ^
   --multi-release %JAVA_VERSION% ^
   --ignore-missing-deps ^
@@ -67,8 +67,8 @@ rem works with dependencies that are not fully modularized, yet.
 
 echo creating java runtime image
 
-@REM call "%JAVA_HOME%\bin\jlink" ^
-call jlink ^
+@REM call jlink ^
+call "%JAVA_HOME%\bin\jlink" ^
   --strip-native-commands ^
   --no-header-files ^
   --no-man-pages ^
@@ -82,8 +82,8 @@ call jlink ^
 rem ------ PACKAGING ----------------------------------------------------------
 rem In the end we will find the package inside the target/installer directory.
 
-@REM call "%JAVA_HOME%\bin\jpackage" ^
-call jpackage ^
+@REM call jpackage ^
+call "%JAVA_HOME%\bin\jpackage" ^
   --type %INSTALLER_TYPE% ^
   --dest target/installer ^
   --input target/installer/input/libs ^
