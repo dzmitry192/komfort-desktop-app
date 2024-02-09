@@ -2,6 +2,9 @@ module com.example.project_for_university {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+
+
+
     requires static lombok;
     requires org.apache.httpcomponents.httpclient;
     requires org.apache.httpcomponents.httpcore;
@@ -12,7 +15,6 @@ module com.example.project_for_university {
     requires com.fasterxml.jackson.databind;
     requires org.apache.httpcomponents.httpmime;
 
-    opens com.example.project_for_university to javafx.fxml;
     exports com.example.project_for_university;
     exports com.example.project_for_university.controllers;
     opens com.example.project_for_university.controllers to javafx.fxml;
@@ -46,4 +48,6 @@ module com.example.project_for_university {
     opens com.example.project_for_university.service.models to com.fasterxml.jackson.databind;
     exports com.example.project_for_university.service.models.get to com.fasterxml.jackson.databind;
     opens com.example.project_for_university.service.models.get to com.fasterxml.jackson.databind;
+
+    opens com.example.project_for_university;
 }

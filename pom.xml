@@ -3,14 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
     <artifactId>komfort</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
-    <name>project_for_university</name>
 
-
+    <groupId>com.example.project_for_university</groupId>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -126,6 +123,13 @@
             <artifactId>javafx-maven-plugin</artifactId>
             <version>0.0.8</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -161,6 +165,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -177,58 +182,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            <plugin>
-                <!-- Build an executable JAR -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.example.project_for_university.Main</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>org.panteleyev</groupId>-->
-<!--                <artifactId>jpackage-maven-plugin</artifactId>-->
-<!--                <version>1.6.0</version>-->
-<!--                <configuration>-->
-<!--                    <name>KomfortApp</name>-->
-<!--                    <appVersion>1.0.0</appVersion>-->
-<!--                    <vendor>com.example</vendor>-->
-<!--                    <destination>target/dist</destination>-->
-<!--                    <winDirChooser>true</winDirChooser>-->
-<!--                    <module>com.example.project_for_university.Main</module>-->
-<!--                    <runtimeImage>target/app-image</runtimeImage>-->
-<!--                    <javaOptions>-->
-<!--                        <option>-Dfile.encoding=UTF-8</option>-->
-<!--                    </javaOptions>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.openjfx</groupId>-->
-<!--                    <artifactId>javafx-maven-plugin</artifactId>-->
-<!--                <version>0.0.8</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        &lt;!&ndash; Default configuration for running with: mvn clean javafx:run &ndash;&gt;-->
-<!--                        <id>default-cli</id>-->
-<!--                        <configuration>-->
-<!--                            <compress>2</compress>-->
-<!--                            <mainClass>com.example.project_for_university.Main</mainClass>-->
-<!--                            <launcher>app-image-launcher</launcher>-->
-<!--                            <jlinkZipName>app-image-zip</jlinkZipName>-->
-<!--                            <jlinkImageName>app-image</jlinkImageName>-->
-<!--                            <noManPages>true</noManPages>-->
-<!--                            <stripDebug>true</stripDebug>-->
-<!--                            <noHeaderFiles>true</noHeaderFiles>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
         </plugins>
     </build>
 
@@ -272,83 +226,82 @@
             </build>
         </profile>
 
-<!--        <profile>-->
-<!--            <id>build-linux</id>-->
+        <profile>
+            <id>build-linux</id>
 
-<!--            <activation>-->
-<!--                <os><family>linux</family></os>-->
-<!--            </activation>-->
+            <activation>
+                <os><family>linux</family></os>
+            </activation>
 
-<!--            <build>-->
-<!--                <plugins>-->
-<!--                    <plugin>-->
-<!--                        <artifactId>exec-maven-plugin</artifactId>-->
-<!--                        <groupId>org.codehaus.mojo</groupId>-->
-<!--                        <version>${exec.maven.plugin.version}</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <id>Build Native Linux App</id>-->
-<!--                                <phase>install</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>exec</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                        <configuration>-->
-<!--                            <workingDirectory>${project.basedir}</workingDirectory>-->
-<!--                            <executable>./build_app_linux.sh</executable>-->
-<!--                            <environmentVariables>-->
-<!--                                <APP_VERSION>-->
-<!--                                    ${client.version}-->
-<!--                                </APP_VERSION>-->
-<!--                                <PROJECT_VERSION>-->
-<!--                                    ${project.version}-->
-<!--                                </PROJECT_VERSION>-->
-<!--                            </environmentVariables>-->
-<!--                        </configuration>-->
-<!--                    </plugin>-->
-<!--                </plugins>-->
-<!--            </build>-->
-<!--        </profile>-->
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <version>${exec.maven.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>Build Native Linux App</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <executable>./build_app_linux.sh</executable>
+                            <environmentVariables>
+                                <APP_VERSION>
+                                    ${client.version}
+                                </APP_VERSION>
+                                <PROJECT_VERSION>
+                                    ${project.version}
+                                </PROJECT_VERSION>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-<!--        <profile>-->
-<!--            <id>build-windows</id>-->
+        <profile>
+            <id>build-windows</id>
 
-<!--            <activation>-->
-<!--                <os><family>windows</family></os>-->
-<!--            </activation>-->
+            <activation>
+                <os><family>windows</family></os>
+            </activation>
 
-<!--            <build>-->
-<!--                <plugins>-->
-<!--                    <plugin>-->
-<!--                        <artifactId>exec-maven-plugin</artifactId>-->
-<!--                        <groupId>org.codehaus.mojo</groupId>-->
-<!--                        <version>${exec.maven.plugin.version}</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <id>Build Native Windows App</id>-->
-<!--                                <phase>install</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>exec</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                        <configuration>-->
-<!--                            <workingDirectory>${project.basedir}</workingDirectory>-->
-<!--                            <executable>build_app_windows.bat</executable>-->
-<!--                            <environmentVariables>-->
-<!--                                <APP_VERSION>-->
-<!--                                    ${client.version}-->
-<!--                                </APP_VERSION>-->
-<!--                                <PROJECT_VERSION>-->
-<!--                                    ${project.version}-->
-<!--                                </PROJECT_VERSION>-->
-<!--                            </environmentVariables>-->
-<!--                        </configuration>-->
-<!--                    </plugin>-->
-<!--                </plugins>-->
-<!--            </build>-->
-<!--        </profile>-->
-
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <version>${exec.maven.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>Build Native Windows App</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <executable>build_app_windows.bat</executable>
+                            <environmentVariables>
+                                <APP_VERSION>
+                                    ${client.version}
+                                </APP_VERSION>
+                                <PROJECT_VERSION>
+                                    ${project.version}
+                                </PROJECT_VERSION>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
