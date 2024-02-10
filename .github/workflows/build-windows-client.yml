@@ -5,8 +5,7 @@ name: Windows Client
 
 on:
   push:
-#    branches: [ master ]
-    branches: [ feature/installer ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -25,15 +24,18 @@ jobs:
     - name: Build with Maven
       run: mvn -B install --file pom.xml
 
-    - name: Upload MSI
-      uses: actions/upload-artifact@v2
-      with:
-        name: win_msi_file
-        path: project_for_university/target/installer/*.msi
-
     - name: Send Artifact to Server
       run: |
-        curl -X POST ^
-          -H "Authorization: Bearer 123" ^
-          -F "file=@project_for_university/target/installer/*.msi" ^
-          http://localhost/desktop/win/1.0
+        $installer_paths = Get-ChildItem -Path "target\installer" -Filter "*.msi"
+        
+        foreach ($file in $installer_paths) {
+           $singleFilePath = $installer_paths.FullName
+        
+            $Headers = @{
+                "Authorization" = "Basic ${{ secrets.AUTH_TOKEN }}"
+            }
+            $Body = @{
+              setup = Get-Item -Path $singleFilePath
+            }
+            Invoke-RestMethod -Uri "${{ secrets.SERVER_URL }}/desktop/win/1.0" -Method Post -Headers $Headers -Form $Body
+        }

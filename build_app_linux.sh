@@ -12,8 +12,8 @@
 JAVA_VERSION=17
 MAIN_JAR="komfort-$PROJECT_VERSION.jar"
 
-# Set desired installer type: "dmg", "pkg".
-INSTALLER_TYPE=pkg
+# Set desired installer type: "app-image", "rpm" or "deb".
+INSTALLER_TYPE=rpm
 
 echo "java home: $JAVA_HOME"
 echo "project version: $PROJECT_VERSION"
@@ -38,9 +38,7 @@ cp target/${MAIN_JAR} target/installer/input/libs/
 # application.
 
 echo "detecting required modules"
-#detected_modules=`$JAVA_HOME/bin/jdeps \
-# shellcheck disable=SC2006
-detected_modules=`jdeps \
+detected_modules=`$JAVA_HOME/bin/jdeps \
   -q \
   --multi-release ${JAVA_VERSION} \
   --ignore-missing-deps \
@@ -48,7 +46,6 @@ detected_modules=`jdeps \
   --class-path "target/installer/input/libs/*" \
     target/classes/com/example/project_for_university/Main.class`
 echo "detected modules: ${detected_modules}"
-
 
 
 # ------ MANUAL MODULES -----------------------------------------------------
@@ -73,8 +70,7 @@ echo "manual modules: ${manual_modules}"
 # works with dependencies that are not fully modularized, yet.
 
 echo "creating java runtime image"
-#$JAVA_HOME/bin/jlink \
-jlink \
+$JAVA_HOME/bin/jlink \
   --strip-native-commands \
   --no-header-files \
   --no-man-pages  \
@@ -89,8 +85,7 @@ jlink \
 
 echo "Creating installer of type $INSTALLER_TYPE"
 
-#$JAVA_HOME/bin/jpackage \
-jpackage \
+$JAVA_HOME/bin/jpackage \
 --type $INSTALLER_TYPE \
 --dest target/installer \
 --input target/installer/input/libs \
@@ -99,9 +94,7 @@ jpackage \
 --main-jar ${MAIN_JAR} \
 --java-options -Xmx2048m \
 --runtime-image target/java-runtime \
---icon src/main/logo/komfort-icon.icns \
+--icon src/main/logo/komfort-icon.png \
 --app-version ${APP_VERSION} \
 --vendor "KOMFORT Inc." \
---copyright "Copyright © 2019-21 KOMFORT Inc." \
---mac-package-identifier com.acme.app \
---mac-package-name ACME
+--copyright "Copyright © 2019-21 ACME Inc."

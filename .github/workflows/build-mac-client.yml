@@ -14,20 +14,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
         java-version: '17'
         distribution: 'adopt'
+
     - name: Build with Maven
       run: mvn -B install --file pom.xml
-    - name: Upload DMG
-      uses: actions/upload-artifact@v2
-      with:
-        name: DMG file
-        path: jpackagefx-main/target/installer/*.dmg
-    - name: Upload PKG
-      uses: actions/upload-artifact@v2
-      with:
-        name: PKG file
-        path: jpackagefx-main/target/installer/*.pkg
+
+    - name: Send Artifact to Server
+      env:
+        SERVER_URL: ${{ secrets.SERVER_URL }}
+        AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+      run: |
+        installer_path=$(find target/installer/*.pkg)
+        curl -X POST \
+          -H "Authorization: Basic $AUTH_TOKEN" \
+          -F "setup=@$installer_path" \
+          "$SERVER_URL/desktop/mac/1.0"
