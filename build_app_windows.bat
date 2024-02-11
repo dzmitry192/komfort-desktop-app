@@ -10,7 +10,7 @@ rem PROJECT_VERSION: version used in pom.xml, e.g. 1.0-SNAPSHOT
 rem APP_VERSION: the application version, e.g. 1.0.0, shown in "about" dialog
 
 set JAVA_VERSION=17
-set MAIN_JAR=komfort-%PROJECT_VERSION%.jar
+set MAIN_JAR=project_for_university-%PROJECT_VERSION%.jar
 
 rem Set desired installer type: "app-image" "msi" "exe".
 set INSTALLER_TYPE=msi
@@ -32,7 +32,6 @@ rem application.
 
 echo detecting required modules
 
-@REM jdeps ^
 "%JAVA_HOME%\bin\jdeps" ^
   -q ^
   --multi-release %JAVA_VERSION% ^

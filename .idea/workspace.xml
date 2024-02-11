@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="project_for_university:jar2" />
+      <artifact name="project_for_university" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,7 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="some fixes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/MainLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/project_for_university_jar2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/project_for_university_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build_app_windows.bat" beforeDir="false" afterPath="$PROJECT_DIR$/build_app_windows.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,18 +54,26 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JAR Application.komfort-1.0.jar.executor": "Run",
+    "JAR Application.shaded.executor": "Run",
+    "Maven.komfort [clean].executor": "Run",
+    "Maven.komfort [compile].executor": "Run",
+    "Maven.komfort [org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile].executor": "Run",
+    "Maven.komfort [org.apache.maven.plugins:maven-dependency-plugin:3.4.0:copy-dependencies].executor": "Run",
+    "Maven.komfort [org.apache.maven.plugins:maven-jar-plugin:3.3.0:jar].executor": "Run",
+    "Maven.komfort [validate].executor": "Run",
     "Maven.project_for_university [clean].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "feature/installer",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/daniil/Desktop/project_for_university",
+    "last_opened_file_path": "C:/Users/Dmitry/Desktop/project_for_university/target/komfort-1.0-shaded.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.26666668",
     "vue.rearranger.settings.migration": "true"
@@ -74,11 +87,12 @@
       <recent name="C:\Users\Dmitry\Desktop\project_for_university" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dmitry\Desktop\project_for_university\target\classes\com\example\project_for_university" />
       <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\Dmitry\Desktop\project_for_university\src\main\logo" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
       <option name="appServicePlanName" />
@@ -110,12 +124,37 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.example.project_for_university.Main" />
       <module name="project_for_university" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="komfort-1.0.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/komfort-1.0.jar" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Dmitry\Desktop\project_for_university\target\libs&quot; --add-modules *" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
+    <configuration name="shaded" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/komfort-1.0-shaded.jar" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;${project.build.directory}\libs&quot; --add-modules javafx-controls-21-ea+24.jar,javafx.fxml" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\Dmitry\Desktop\project_for_university" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JAR Application.shaded" />
+      <item itemvalue="JAR Application.komfort-1.0.jar" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JAR Application.komfort-1.0.jar" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -145,6 +184,7 @@
       <workItem from="1707337685524" duration="1397000" />
       <workItem from="1707339506356" duration="4852000" />
       <workItem from="1707472619558" duration="3586000" />
+      <workItem from="1707684962457" duration="6480000" />
     </task>
     <task id="LOCAL-00002" summary="updating services, were added alerts for catching error from response, updated .fxml file etc.">
       <option name="closed" value="true" />
