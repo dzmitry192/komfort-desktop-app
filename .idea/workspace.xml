@@ -9,10 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="some fixes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/MainLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/project_for_university_jar2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/project_for_university_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="was fixes creating .jar file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build_app_windows.bat" beforeDir="false" afterPath="$PROJECT_DIR$/build_app_windows.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
@@ -92,7 +89,7 @@
       <recent name="C:\Users\Dmitry\Desktop\project_for_university\src\main\logo" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JAR Application.komfort-1.0-jar-with-dependencies.jar">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
       <option name="appServicePlanName" />
@@ -132,6 +129,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="komfort-1.0-jar-with-dependencies.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/komfort-1.0-jar-with-dependencies.jar" />
+      <method v="2" />
+    </configuration>
     <configuration name="komfort-1.0.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/komfort-1.0.jar" />
       <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Dmitry\Desktop\project_for_university\target\libs&quot; --add-modules *" />
@@ -148,10 +149,12 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="JAR Application.shaded" />
+      <item itemvalue="JAR Application.komfort-1.0-jar-with-dependencies.jar" />
       <item itemvalue="JAR Application.komfort-1.0.jar" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JAR Application.komfort-1.0-jar-with-dependencies.jar" />
         <item itemvalue="JAR Application.komfort-1.0.jar" />
       </list>
     </recent_temporary>
@@ -184,7 +187,7 @@
       <workItem from="1707337685524" duration="1397000" />
       <workItem from="1707339506356" duration="4852000" />
       <workItem from="1707472619558" duration="3586000" />
-      <workItem from="1707684962457" duration="6480000" />
+      <workItem from="1707684962457" duration="7474000" />
     </task>
     <task id="LOCAL-00002" summary="updating services, were added alerts for catching error from response, updated .fxml file etc.">
       <option name="closed" value="true" />
@@ -202,7 +205,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707161628848</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="was fixes creating .jar file">
+      <option name="closed" value="true" />
+      <created>1707691670989</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1707691670990</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,6 +240,7 @@
     <MESSAGE value="updating services, were added alerts for catching error from response, updated .fxml file etc." />
     <MESSAGE value="were added crud operations for MaterialService etc." />
     <MESSAGE value="some fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="some fixes" />
+    <MESSAGE value="was fixes creating .jar file" />
+    <option name="LAST_COMMIT_MESSAGE" value="was fixes creating .jar file" />
   </component>
 </project>
