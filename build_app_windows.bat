@@ -10,7 +10,7 @@ rem PROJECT_VERSION: version used in pom.xml, e.g. 1.0-SNAPSHOT
 rem APP_VERSION: the application version, e.g. 1.0.0, shown in "about" dialog
 
 set JAVA_VERSION=17
-set MAIN_JAR=komfort-%PROJECT_VERSION%.jar
+set MAIN_JAR=komfort-%PROJECT_VERSION%-jar-with-dependencies.jar
 
 rem Set desired installer type: "app-image" "msi" "exe".
 set INSTALLER_TYPE=msi
@@ -37,7 +37,7 @@ echo detecting required modules
   --multi-release %JAVA_VERSION% ^
   --ignore-missing-deps ^
   --class-path "target\installer\input\libs\*" ^
-  --print-module-deps target\classes\com\example\project_for_university\Main.class > temp.txt
+  --print-module-deps target\classes\com\example\project_for_university\MainLauncher.class > temp.txt
 
 set /p detected_modules=<temp.txt
 
@@ -87,7 +87,7 @@ call "%JAVA_HOME%\bin\jpackage" ^
   --dest target/installer ^
   --input target/installer/input/libs ^
   --name KOMFORT ^
-  --main-class com.example.project_for_university.Main ^
+  --main-class com.example.project_for_university.MainLauncher ^
   --main-jar %MAIN_JAR% ^
   --java-options -Xmx2048m ^
   --runtime-image target/java-runtime ^

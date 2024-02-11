@@ -10,7 +10,7 @@
 # APP_VERSION: the application version, e.g. 1.0.0, shown in "about" dialog
 
 JAVA_VERSION=17
-MAIN_JAR="komfort-$PROJECT_VERSION.jar"
+MAIN_JAR="komfort-$PROJECT_VERSION-jar-with-dependencies.jar"
 
 # Set desired installer type: "dmg", "pkg".
 INSTALLER_TYPE=pkg
@@ -46,7 +46,7 @@ detected_modules=`jdeps \
   --ignore-missing-deps \
   --print-module-deps \
   --class-path "target/installer/input/libs/*" \
-    target/classes/com/example/project_for_university/Main.class`
+    target/classes/com/example/project_for_university/MainLauncher.class`
 echo "detected modules: ${detected_modules}"
 
 
@@ -95,7 +95,7 @@ jpackage \
 --dest target/installer \
 --input target/installer/input/libs \
 --name KOMFORT \
---main-class com.example.project_for_university.Main \
+--main-class com.example.project_for_university.MainLauncher \
 --main-jar ${MAIN_JAR} \
 --java-options -Xmx2048m \
 --runtime-image target/java-runtime \
