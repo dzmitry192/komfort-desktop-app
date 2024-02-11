@@ -5,7 +5,8 @@ name: Linux Client
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build:
@@ -20,6 +21,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
+
     - name: Build with Maven
       run: mvn -B install --file pom.xml
 
@@ -29,7 +31,9 @@ jobs:
         AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
       run: |
         installer_path=$(find target/installer/*.rpm)
+        version="${GITHUB_REF_NAME#v}" 
+        
         curl -X POST \
           -H "Authorization: Basic $AUTH_TOKEN" \
           -F "setup=@$installer_path" \
-          "$SERVER_URL/desktop/linux/1.0"
+          "$SERVER_URL/desktop/linux/$version"

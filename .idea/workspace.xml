@@ -55,7 +55,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "feature/installer",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/daniil/Desktop/project_for_university/.github/workflows",
+    "last_opened_file_path": "/Users/daniil/Desktop/project_for_university",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -68,8 +68,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/.github/workflows" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/.github/workflows" />
       <recent name="C:\Users\Dmitry\Desktop\project_for_university\src\main\logo" />
       <recent name="C:\Users\Dmitry\Desktop\project_for_university" />
     </key>

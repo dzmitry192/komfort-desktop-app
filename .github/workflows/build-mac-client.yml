@@ -5,7 +5,8 @@ name: Mac Client
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build:
@@ -30,7 +31,9 @@ jobs:
         AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
       run: |
         installer_path=$(find target/installer/*.pkg)
+        version="${GITHUB_REF_NAME#v}" 
+        
         curl -X POST \
           -H "Authorization: Basic $AUTH_TOKEN" \
           -F "setup=@$installer_path" \
-          "$SERVER_URL/desktop/mac/1.0"
+          "$SERVER_URL/desktop/mac/$version"

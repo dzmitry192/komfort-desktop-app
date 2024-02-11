@@ -5,7 +5,8 @@ name: Windows Client
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build:
@@ -27,6 +28,8 @@ jobs:
     - name: Send Artifact to Server
       run: |
         $installer_paths = Get-ChildItem -Path "target\installer" -Filter "*.msi"
+        $tag = "${{ github.ref_name }}"
+        $version = $tag.Substring(1)
         
         foreach ($file in $installer_paths) {
            $singleFilePath = $installer_paths.FullName
@@ -37,5 +40,5 @@ jobs:
             $Body = @{
               setup = Get-Item -Path $singleFilePath
             }
-            Invoke-RestMethod -Uri "${{ secrets.SERVER_URL }}/desktop/win/1.0" -Method Post -Headers $Headers -Form $Body
+            Invoke-RestMethod -Uri "${{ secrets.SERVER_URL }}/desktop/win/$version" -Method Post -Headers $Headers -Form $Body
         }
