@@ -51,8 +51,8 @@
                               <Label accessibleRoleDescription="pass" text="Пароль" />
                               <HBox spacing="5.0" VBox.vgrow="NEVER">
                                  <children>
-                                    <TextField fx:id="password_tf" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="1000.0" promptText="password123" text="adminDlyaDimki9182_gay" />
-                                    <PasswordField fx:id="password_pf" maxHeight="1.7976931348623157E308" prefHeight="42.0" prefWidth="1000.0" promptText="password123" text="adminDlyaDimki9182_gay" HBox.hgrow="NEVER" />
+                                    <TextField fx:id="password_tf" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="1000.0" promptText="password123" />
+                                    <PasswordField fx:id="password_pf" maxHeight="1.7976931348623157E308" prefHeight="42.0" prefWidth="1000.0" promptText="password123" HBox.hgrow="NEVER" />
                                     <Button fx:id="btn_showPassword" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#btn_showPassword_clicked" styleClass="btn-show-password">
                                        <graphic>
                                           <FontAwesomeIconView fx:id="icon_showPassword" glyphName="EYE" size="16" />
@@ -85,7 +85,7 @@
       <HBox maxWidth="1.7976931348623157E308">
          <children>
             <Label styleClass="version-text" text="v" />
-            <Label fx:id="appVersion_lbl" styleClass="version-text" text="1.0" />
+            <Label fx:id="appVersion_lbl" styleClass="version-text" text="1.0.0" />
             <Region HBox.hgrow="ALWAYS" />
          </children>
          <padding>

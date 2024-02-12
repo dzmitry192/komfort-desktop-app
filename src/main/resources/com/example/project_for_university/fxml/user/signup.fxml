@@ -59,7 +59,7 @@
                         </VBox>
                         <VBox spacing="5.0">
                            <children>
-                              <Label text="Emaill" />
+                              <Label text="Email" />
                               <TextField fx:id="email_tf" prefHeight="42.0" promptText="example@gmail.com" />
                            </children>
                         </VBox>
@@ -104,7 +104,7 @@
       <HBox maxWidth="1.7976931348623157E308">
          <children>
             <Label styleClass="version-text" text="v" />
-            <Label fx:id="appVersion_lbl" styleClass="version-text" text="1.0" />
+            <Label fx:id="appVersion_lbl" styleClass="version-text" text="1.0.0" />
             <Region HBox.hgrow="ALWAYS" />
          </children>
          <padding>
