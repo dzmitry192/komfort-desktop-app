@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -16,6 +17,8 @@ public class AlertUtil {
         alert.setTitle("Предупреждение");
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
         alert.initOwner(stage);
 
         DialogPane dialogPane = alert.getDialogPane();
@@ -40,6 +43,8 @@ public class AlertUtil {
         alert.setTitle("Подтверждение");
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
         alert.initOwner(stage);
 
 

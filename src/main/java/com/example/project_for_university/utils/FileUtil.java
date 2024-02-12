@@ -17,14 +17,23 @@ import java.util.Set;
 
 public class FileUtil {
 
-    private static String curDataDirectoryName = "data";
-    private static Path dataDirectoryPath = Paths.get(System.getProperty("user.dir") + File.separator + curDataDirectoryName);
+    private static String curDataDirectoryName = "komfort-data";
+    private static Path dataDirectoryPath = getDataDirectoryPath();
 
     private static String emailFileName = "sem.txt";
     private static Path emailFilePath = Paths.get(dataDirectoryPath + File.separator + emailFileName);
 
     public static boolean isExistsData() {
         return Files.exists(dataDirectoryPath) && Files.isDirectory(dataDirectoryPath);
+    }
+
+    private static Path getDataDirectoryPath() {
+        String osName = System.getProperty("os.name");
+        if(osName.startsWith("Windows")) {
+            return Paths.get(System.getProperty("user.dir") + File.separator + curDataDirectoryName);
+        } else {
+            return Paths.get(System.getProperty("user.home") + File.separator + curDataDirectoryName);
+        }
     }
 
     public static void createDataDirectory() {
