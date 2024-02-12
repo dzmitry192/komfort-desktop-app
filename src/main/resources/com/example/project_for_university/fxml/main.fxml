@@ -3,4 +3,4 @@
 <?import javafx.scene.layout.StackPane?>
 
 
-<StackPane fx:id="mainContentPane" stylesheets="@../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.MainController" />
+<StackPane fx:id="mainContentPane" styleClass="app-background" stylesheets="@../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.MainController" />

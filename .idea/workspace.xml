@@ -10,20 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="change path to MainClass">
-      <change afterPath="$PROJECT_DIR$/src/main/logo/komfort-icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build_app_windows.bat" beforeDir="false" afterPath="$PROJECT_DIR$/build_app_windows.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/AllValues.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/AllValues.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/FileUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/user/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/user/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/user/signup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/user/signup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp.txt" beforeDir="false" afterPath="$PROJECT_DIR$/temp.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build_app_mac.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build_app_mac.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

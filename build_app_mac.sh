@@ -104,4 +104,4 @@ jpackage \
 --vendor "KOMFORT Inc." \
 --copyright "Copyright © 2019-21 KOMFORT Inc." \
 --mac-package-identifier com.acme.app \
---mac-package-name ACME
+--mac-package-name KOMFORT
