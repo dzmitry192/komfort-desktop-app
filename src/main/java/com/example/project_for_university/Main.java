@@ -12,13 +12,13 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    public static StringProperty host = new SimpleStringProperty("http://localhost:80");
+    public static StringProperty host = new SimpleStringProperty("http://54.175.158.179");
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(Component.MAIN.getPath()));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Расчет материалов");
+        stage.setTitle("KOMFORT (Комплексная оценка материалов по функционально обоснованному расчету требований)");
         stage.setScene(scene);
         stage.setWidth(1250);
         stage.setMinWidth(1000);

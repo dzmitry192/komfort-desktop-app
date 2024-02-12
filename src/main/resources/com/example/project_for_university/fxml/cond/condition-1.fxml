@@ -18,6 +18,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
+<?import java.lang.String?>
 <VBox stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.material.FConditionController">
    <children>
       <VBox alignment="CENTER" spacing="10.0" styleClass="default-gray-background" VBox.vgrow="NEVER">
@@ -65,11 +66,26 @@
                                  <children>
                                     <TextFlow>
                                        <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Толщина, мм:" />
+                                       </children>
+                                    </TextFlow>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="depth_inp" minWidth="-Infinity" prefHeight="26.0" prefWidth="180.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <TextFlow>
+                                       <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Способ производства:" />
                                        </children>
                                     </TextFlow>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <ComboBox fx:id="production_way_cb" minWidth="-Infinity" onAction="#production_way_cb_action" prefWidth="180.0" promptText="Выберите" />
+                                    <ComboBox fx:id="production_way_cb" minWidth="-Infinity" onAction="#production_way_cb_action" prefWidth="180.0" promptText="Не выбрано">
+                                       <value>
+                                          <String fx:value="Не выбрано" />
+                                       </value>
+                                    </ComboBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
@@ -80,7 +96,11 @@
                                        </children>
                                     </TextFlow>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <ComboBox fx:id="membrane_type_cb" minWidth="-Infinity" onAction="#membrane_type_cb_action" prefWidth="180.0" promptText="Выберите" />
+                                    <ComboBox fx:id="membrane_type_cb" minWidth="-Infinity" onAction="#membrane_type_cb_action" prefWidth="180.0" promptText="Не выбрано">
+                                       <value>
+                                          <String fx:value="Не выбрано" />
+                                       </value>
+                                    </ComboBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
@@ -91,7 +111,11 @@
                                        </children>
                                     </TextFlow>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <ComboBox fx:id="glue_type_cb" minWidth="-Infinity" onAction="#glue_type_cb_action" prefWidth="180.0" promptText="Выберите" />
+                                    <ComboBox fx:id="glue_type_cb" minWidth="-Infinity" onAction="#glue_type_cb_action" prefWidth="180.0" promptText="Не выбрано">
+                                       <value>
+                                          <String fx:value="Не выбрано" />
+                                       </value>
+                                    </ComboBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
@@ -118,7 +142,11 @@
                                        </children>
                                     </TextFlow>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <ComboBox fx:id="lev_phys" minWidth="-Infinity" onAction="#lev_phys_action" prefWidth="180.0" promptText="Выберите" />
+                                    <ComboBox fx:id="lev_phys" minWidth="-Infinity" onAction="#lev_phys_action" prefWidth="180.0" promptText="Не выбрано">
+                                       <value>
+                                          <String fx:value="Не выбрано" />
+                                       </value>
+                                    </ComboBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
@@ -129,7 +157,11 @@
                                        </children>
                                     </TextFlow>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <ComboBox fx:id="time_cond" minWidth="-Infinity" onAction="#time_cond_action" prefWidth="180.0" promptText="Выберите" />
+                                    <ComboBox fx:id="time_cond" minWidth="-Infinity" onAction="#time_cond_action" prefWidth="180.0" promptText="Не выбрано">
+                                       <value>
+                                          <String fx:value="Не выбрано" />
+                                       </value>
+                                    </ComboBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="20.0">
@@ -142,8 +174,8 @@
                                     <Region HBox.hgrow="ALWAYS" />
                                     <HBox spacing="10.0">
                                        <children>
-                                          <Slider fx:id="scroll_av_speed" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" minorTickCount="1" showTickLabels="true" />
-                                          <TextField fx:id="inp_av_speed" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                          <Slider fx:id="scroll_av_speed" value="0" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" minorTickCount="1" showTickLabels="true" />
+                                          <TextField fx:id="inp_av_speed" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0"/>
                                        </children>
                                     </HBox>
                                  </children>
@@ -168,8 +200,8 @@
                                                 <Region HBox.hgrow="ALWAYS" />
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                    <children>
-                                                      <Slider fx:id="scroll_min_temp_one" blockIncrement="1.0" majorTickUnit="10.0" max="30.0" min="-30.0" minorTickCount="1" showTickLabels="true" />
-                                                      <TextField fx:id="inp_min_temp_one" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                                      <Slider fx:id="scroll_min_temp_one" value="0" blockIncrement="1.0" majorTickUnit="10.0" max="30.0" min="-30.0" minorTickCount="1" showTickLabels="true" />
+                                                      <TextField fx:id="inp_min_temp_one" text="0" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -184,8 +216,8 @@
                                                 <Region HBox.hgrow="ALWAYS" />
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                    <children>
-                                                      <Slider fx:id="scroll_min_temp_sec" blockIncrement="1.0" majorTickUnit="5.0" max="30.0" min="-30.0" minorTickCount="1" showTickLabels="true" />
-                                                      <TextField fx:id="inp_min_temp_sec" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                                      <Slider fx:id="scroll_min_temp_sec" value="0" blockIncrement="1.0" majorTickUnit="5.0" max="30.0" min="-30.0" minorTickCount="1" showTickLabels="true" />
+                                                      <TextField fx:id="inp_min_temp_sec" text="0" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -217,8 +249,8 @@
                                                 <Region HBox.hgrow="ALWAYS" />
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                    <children>
-                                                      <Slider fx:id="scroll_max_air_one" blockIncrement="1.0" majorTickUnit="20.0" max="99.0" min="20.0" minorTickCount="1" showTickLabels="true" />
-                                                      <TextField fx:id="inp_max_air_one" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                                      <Slider fx:id="scroll_max_air_one" value="20" blockIncrement="1.0" majorTickUnit="20.0" max="99.0" min="20.0" minorTickCount="1" showTickLabels="true" />
+                                                      <TextField fx:id="inp_max_air_one" text="20" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -233,8 +265,8 @@
                                                 <Region HBox.hgrow="ALWAYS" />
                                                 <HBox spacing="10.0">
                                                    <children>
-                                                      <Slider fx:id="scroll_max_air_sec" blockIncrement="1.0" majorTickUnit="10.0" max="99.0" min="20.0" minorTickCount="1" showTickLabels="true" />
-                                                      <TextField fx:id="inp_max_air_sec" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
+                                                      <Slider fx:id="scroll_max_air_sec" value="20" blockIncrement="1.0" majorTickUnit="10.0" max="99.0" min="20.0" minorTickCount="1" showTickLabels="true" />
+                                                      <TextField fx:id="inp_max_air_sec" text="20" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -279,7 +311,11 @@
                                              </children>
                                           </TextFlow>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="bend_type" disable="true" minWidth="-Infinity" onAction="#bend_type_action" prefWidth="180.0" promptText="Выберите" />
+                                          <ComboBox fx:id="bend_type" disable="true" minWidth="-Infinity" onAction="#bend_type_action" prefWidth="180.0" promptText="Не выбрано">
+                                             <value>
+                                                <String fx:value="Не выбрано" />
+                                             </value>
+                                          </ComboBox>
                                        </children>
                                        <VBox.margin>
                                           <Insets left="50.0" />
@@ -303,7 +339,11 @@
                                              </children>
                                           </TextFlow>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="abrasion_type" disable="true" minWidth="-Infinity" onAction="#abrasion_type_action" prefWidth="180.0" promptText="Выберите" />
+                                          <ComboBox fx:id="abrasion_type" disable="true" minWidth="-Infinity" onAction="#abrasion_type_action" prefWidth="180.0" promptText="Не выбрано">
+                                             <value>
+                                                <String fx:value="Не выбрано" />
+                                             </value>
+                                          </ComboBox>
                                        </children>
                                        <VBox.margin>
                                           <Insets left="50.0" />
@@ -321,7 +361,7 @@
                                     </VBox>
                                     <HBox alignment="CENTER_LEFT" spacing="20.0">
                                        <children>
-                                          <Slider fx:id="scroll_stretching" blockIncrement="5.0" disable="true" majorTickUnit="20.0" min="5.0" minorTickCount="5" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="5.0" />
+                                          <Slider fx:id="scroll_stretching" blockIncrement="5.0" disable="true" majorTickUnit="20.0" min="5.0" minorTickCount="5" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" />
                                           <TextField fx:id="inp_stretching" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                        </children>
                                        <VBox.margin>
@@ -344,7 +384,7 @@
                                     </VBox>
                                     <HBox alignment="CENTER_LEFT" spacing="20.0">
                                        <children>
-                                          <Slider fx:id="scroll_torsion_angle" disable="true" majorTickUnit="40.0" max="180.0" min="20.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="5.0" />
+                                          <Slider fx:id="scroll_torsion_angle" disable="true" majorTickUnit="40.0" max="180.0" min="20.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" />
                                           <TextField fx:id="inp_torsion_angle" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                        </children>
                                        <VBox.margin>
@@ -369,7 +409,11 @@
                                              </children>
                                           </TextFlow>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="wash_type" disable="true" minWidth="-Infinity" onAction="#wash_type_action" prefWidth="180.0" promptText="Выберите" />
+                                          <ComboBox fx:id="wash_type" disable="true" minWidth="-Infinity" onAction="#wash_type_action" prefWidth="180.0" promptText="Не выбрано">
+                                             <value>
+                                                <String fx:value="Не выбрано" />
+                                             </value>
+                                          </ComboBox>
                                        </children>
                                        <VBox.margin>
                                           <Insets left="50.0" />
@@ -385,7 +429,7 @@
                                           <Region HBox.hgrow="ALWAYS" />
                                           <HBox spacing="10.0">
                                              <children>
-                                                <Slider fx:id="scroll_temp_washing" disable="true" majorTickUnit="10.0" max="60.0" min="30.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
+                                                <Slider fx:id="scroll_temp_washing"  disable="true" majorTickUnit="10.0" max="60.0" min="30.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" />
                                                 <TextField fx:id="inp_temp_washing" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                              </children>
                                           </HBox>
@@ -404,7 +448,7 @@
                                           <Region HBox.hgrow="ALWAYS" />
                                           <HBox spacing="10.0">
                                              <children>
-                                                <Slider fx:id="scroll_time_washing" disable="true" majorTickUnit="10.0" max="60.0" min="20.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" value="10.0" />
+                                                <Slider fx:id="scroll_time_washing" disable="true" majorTickUnit="10.0" max="60.0" min="20.0" minorTickCount="10" prefHeight="33.0" prefWidth="150.0" showTickLabels="true" />
                                                 <TextField fx:id="inp_time_washing" disable="true" editable="false" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" />
                                              </children>
                                           </HBox>
@@ -478,7 +522,11 @@
                                        <children>
                                           <VBox spacing="10.0">
                                              <children>
-                                                <ComboBox fx:id="choose_layer_cb" maxWidth="1.7976931348623157E308" promptText="Выберите слой" />
+                                                <ComboBox fx:id="choose_layer_cb" maxWidth="1.7976931348623157E308" promptText="Не выбрано">
+                                                   <value>
+                                                      <String fx:value="Не выбрано" />
+                                                   </value>
+                                                </ComboBox>
                                                 <HBox spacing="10.0">
                                                    <children>
                                                       <HBox fx:id="btn_add_layer" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#btn_add_layer_clicked" prefWidth="1000.0" spacing="5.0" styleClass="btn-blue-filled">

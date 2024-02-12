@@ -17,6 +17,7 @@ public enum Component {
     FILTER ("/com/example/project_for_university/fxml/filter/filter.fxml"),
     MATERIAL_ITEM ("/com/example/project_for_university/fxml/filter/material_item/filter-material.fxml"),
     MATERIAL_DETAILS ("/com/example/project_for_university/fxml/filter/material_details/filter-material-details.fxml"),
+    UPDATE_MATERIAL("/com/example/project_for_university/fxml/filter/material_details/update-material.fxml"),
 
     ADMIN_PANEL ("/com/example/project_for_university/fxml/user/admin/admin.fxml"),
     TYPE ("/com/example/project_for_university/fxml/user/admin/type.fxml"),

@@ -8,13 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserModel {
+public class AuthResponse extends AbstractResponse {
     private UserEntity user;
-    private String errorMessage;
-    private int errorType;
-    private boolean isError;
-
-    public UserModel(UserEntity user) {
-        this.user = user;
-    }
 }

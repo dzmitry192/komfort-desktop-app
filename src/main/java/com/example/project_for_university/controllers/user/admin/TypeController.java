@@ -4,13 +4,19 @@ import com.example.project_for_university.controllers.user.admin.models.Abstract
 import com.example.project_for_university.controllers.user.admin.models.AdminPanelInfo;
 import com.example.project_for_university.controllers.user.admin.models.PhType;
 import com.example.project_for_university.dto.AllValues;
+import com.example.project_for_university.dto.forBackend.entity.ProductionMethodEntity;
+import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.ActionType;
 import com.example.project_for_university.enums.AdminPanelType;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.factory.ServiceFactory;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.admin.*;
+import com.example.project_for_university.service.models.TypeResponse;
+import com.example.project_for_university.service.models.TypesResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
+import com.example.project_for_university.utils.ExceptionMessageUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,6 +33,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static com.example.project_for_university.utils.AlertUtil.*;
+import static com.example.project_for_university.utils.ExceptionMessageUtil.*;
 
 public class TypeController implements DataProvider, Initializable {
 
@@ -88,25 +97,73 @@ public class TypeController implements DataProvider, Initializable {
     }
 
     private ObservableList<AbstractType> getTypesList() {
-        return switch (allValues.getAdminPanelInfo().getCurAdminPanelType().getName()) {
-            case "Тип клея" ->
-                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getGlueTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
-            case "Тип слоя" ->
-                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getLayerTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
-            case "Тип стирки" ->
-                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getWashingTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
-            case "Тип изгиба" ->
-                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getBendingTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
-            case "Тип истирания" ->
-                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getAbrasionTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
-            case "Способ производства" ->
-                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
-            case "Тип полимера мембранного слоя" ->
-                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(type -> new PhType(type.getId(), type.getName(), "")).toList());
-            case "Уровень физической активности" ->
-                    FXCollections.observableArrayList(java.util.Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).map(type -> new PhType(type.getId(), type.getName(), type.getDescription())).toList());
-            default -> null;
-        };
+        switch (allValues.getAdminPanelInfo().getCurAdminPanelType()) {
+            case GLUE: {
+                TypesResponse<GlueTypeEntity> typesResponse = GlueTypeService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                if (typesResponse.isError()) {
+                    show(typeTitleErrorMessage, typesResponse.getMessage(), allValues.getRootStage());
+                } else {
+                    return FXCollections.observableArrayList(typesResponse.getTypes());
+                }
+            }
+            case LAYER: {
+                TypesResponse<LayerTypeEntity> typesResponse = LayerTypeService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                if (typesResponse.isError()) {
+                    show(typeTitleErrorMessage, typesResponse.getMessage(), allValues.getRootStage());
+                } else {
+                    return FXCollections.observableArrayList(typesResponse.getTypes());
+                }
+            }
+            case WASHING: {
+                TypesResponse<WashingTypeEntity> typesResponse = WashingTypeService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                if (typesResponse.isError()) {
+                    show(typeTitleErrorMessage, typesResponse.getMessage(), allValues.getRootStage());
+                } else {
+                    return FXCollections.observableArrayList(typesResponse.getTypes());
+                }
+            }
+            case BENDING: {
+                TypesResponse<BendingTypeEntity> typesResponse = BendingTypeService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                if (typesResponse.isError()) {
+                    show(typeTitleErrorMessage, typesResponse.getMessage(), allValues.getRootStage());
+                } else {
+                    return FXCollections.observableArrayList(typesResponse.getTypes());
+                }
+            }
+            case ABRASION: {
+                TypesResponse<AbrasionTypeEntity> typesResponse = AbrasionTypeService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                if (typesResponse.isError()) {
+                    show(typeTitleErrorMessage, typesResponse.getMessage(), allValues.getRootStage());
+                } else {
+                    return FXCollections.observableArrayList(typesResponse.getTypes());
+                }
+            }
+            case PRODUCTION_METHOD: {
+                TypesResponse<ProductionMethodEntity> typesResponse = ProductionMethodService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                if (typesResponse.isError()) {
+                    show(typeTitleErrorMessage, typesResponse.getMessage(), allValues.getRootStage());
+                } else {
+                    return FXCollections.observableArrayList(typesResponse.getTypes());
+                }
+            }
+            case MEMBRANE_LAYER_POLYMER: {
+                TypesResponse<MembraneLayerPolymerTypeEntity> typesResponse = MembraneLayerPolymerTypeService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                if (typesResponse.isError()) {
+                    show(typeTitleErrorMessage, typesResponse.getMessage(), allValues.getRootStage());
+                } else {
+                    return FXCollections.observableArrayList(typesResponse.getTypes());
+                }
+            }
+            case PHYSICAL_ACTIVITY: {
+                TypesResponse<PhysicalActivityTypeEntity> typesResponse = PhysicalActivityTypeService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+                if (typesResponse.isError()) {
+                    show(typeTitleErrorMessage, typesResponse.getMessage(), allValues.getRootStage());
+                } else {
+                    return FXCollections.observableArrayList(typesResponse.getTypes());
+                }
+            }
+        }
+        return FXCollections.observableArrayList();
     }
 
     @SneakyThrows
@@ -132,7 +189,7 @@ public class TypeController implements DataProvider, Initializable {
     @SneakyThrows
     void btn_change_clicked(MouseEvent event) {
         if (selectedItem == null) {
-            AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте изменить", allValues.getRootStage());
+            show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте изменить", allValues.getRootStage());
         } else {
             adminPanelInfo.setActionType(ActionType.UPDATE);
             allValues.setAdminPanelInfo(adminPanelInfo);
@@ -143,14 +200,16 @@ public class TypeController implements DataProvider, Initializable {
     @FXML
     void btn_delete_clicked(MouseEvent event) {
         if (selectedItem == null) {
-            AlertUtil.show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте удалить", allValues.getRootStage());
+            show("Выберете элемент", "Выберете элемент из таблицы, затем попробуйте удалить", allValues.getRootStage());
         } else {
-            AbstractType abstractType = (AbstractType) serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).delete(selectedItem.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
-            if(Objects.nonNull(abstractType)) {
-                List<AbstractType> types = table_types.getItems();
-                types.remove(selectedItem);
-                table_types.setItems(FXCollections.observableArrayList(types));
+            TypeResponse<AbstractType> typeResponse = serviceFactory.createService(adminPanelInfo.getCurAdminPanelType()).delete(selectedItem.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if (typeResponse.isError()) {
+                show("Ошибка при удалении элемента", typeResponse.getMessage(), allValues.getRootStage());
             }
+
+            List<AbstractType> types = table_types.getItems();
+            types.remove(selectedItem);
+            table_types.setItems(FXCollections.observableArrayList(types));
         }
     }
 

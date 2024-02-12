@@ -13,7 +13,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
+<?import java.lang.String?>
 <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" stylesheets="@../../styles/shared.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_for_university.controllers.filter.FilterController">
    <children>
       <HBox alignment="TOP_RIGHT" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
@@ -22,11 +25,32 @@
                <children>
                   <VBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="materialList_scrollPane" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
+                        <ScrollPane fx:id="materialList_scrollPane" fitToHeight="true" fitToWidth="true" styleClass="white-scroll-pane" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox alignment="TOP_CENTER">
                                  <children>
+                                    <Region fx:id="noResultsRegion" VBox.vgrow="ALWAYS" />
+                                    <VBox fx:id="noResultsPanel" VBox.vgrow="NEVER">
+                                       <children>
+                                          <VBox alignment="CENTER" spacing="15.0">
+                                             <children>
+                                                <FontAwesomeIconView glyphName="SEARCH" size="40" />
+                                                <TextFlow textAlignment="CENTER" VBox.vgrow="NEVER">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bold-text" text="Результатов не найдено" textAlignment="CENTER" />
+                                                   </children>
+                                                </TextFlow>
+                                                <TextFlow textAlignment="CENTER">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Поищите по другому названию или уберите примененные фильтры" textAlignment="CENTER" />
+                                                   </children>
+                                                </TextFlow>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
                                     <VBox fx:id="list_materials" spacing="15.0" style="-fx-background-color: white;" />
+                                    <Region VBox.vgrow="ALWAYS" />
                                     <VBox alignment="CENTER" fillWidth="false">
                                        <children>
                                           <StackPane fx:id="loader_contentPane" VBox.vgrow="NEVER" />
@@ -35,7 +59,10 @@
                                              <children>
                                                 <HBox fx:id="firstPage_btn" alignment="CENTER" onMouseClicked="#firstPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
                                                    <children>
-                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_LEFT" />
+                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_LEFT" selectionStart="1" size="20">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font></FontAwesomeIconView>
                                                    </children>
                                                    <padding>
                                                       <Insets left="15.0" right="15.0" />
@@ -43,7 +70,10 @@
                                                 </HBox>
                                                 <HBox fx:id="prevPage_btn" alignment="CENTER" onMouseClicked="#prevPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
                                                    <children>
-                                                      <FontAwesomeIconView glyphName="ANGLE_LEFT" />
+                                                      <FontAwesomeIconView glyphName="ANGLE_LEFT" selectionStart="1" size="20">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font></FontAwesomeIconView>
                                                    </children>
                                                    <padding>
                                                       <Insets left="15.0" right="15.0" />
@@ -91,7 +121,10 @@
                                                 </HBox>
                                                 <HBox fx:id="nextPage_btn" alignment="CENTER" onMouseClicked="#nextPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
                                                    <children>
-                                                      <FontAwesomeIconView glyphName="ANGLE_RIGHT" />
+                                                      <FontAwesomeIconView glyphName="ANGLE_RIGHT" selectionStart="1" size="20">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font></FontAwesomeIconView>
                                                    </children>
                                                    <padding>
                                                       <Insets left="15.0" right="15.0" />
@@ -99,7 +132,10 @@
                                                 </HBox>
                                                 <HBox fx:id="lastPage_btn" alignment="CENTER" onMouseClicked="#lastPage_btn_clicked" spacing="5.0" styleClass="btn-blue-filled">
                                                    <children>
-                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_RIGHT" />
+                                                      <FontAwesomeIconView glyphName="ANGLE_DOUBLE_RIGHT" selectionStart="1" size="20">
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font></FontAwesomeIconView>
                                                    </children>
                                                    <padding>
                                                       <Insets left="15.0" right="15.0" />
@@ -124,7 +160,7 @@
                      </HBox.margin>
                   </VBox>
                   <Separator orientation="VERTICAL" />
-                  <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="330.0" HBox.hgrow="ALWAYS">
+                  <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="355.0" HBox.hgrow="ALWAYS">
                      <children>
                         <VBox alignment="CENTER" spacing="10.0" styleClass="default-gray-background">
                            <children>
@@ -167,7 +203,10 @@
                                           <VBox spacing="5.0">
                                              <children>
                                                 <Label text="Тип мембраны" />
-                                                <ComboBox fx:id="typeMemb_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Выберите">
+                                                <ComboBox fx:id="typeMemb_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Не выбрано">
+                                                   <value>
+                                                      <String fx:value="Не выбрано" />
+                                                   </value>
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -177,7 +216,10 @@
                                           <VBox spacing="5.0">
                                              <children>
                                                 <Label text="Способ производства" />
-                                                <ComboBox fx:id="way_prod_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Выберите">
+                                                <ComboBox fx:id="way_prod_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Не выбрано">
+                                                   <value>
+                                                      <String fx:value="Не выбрано" />
+                                                   </value>
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -187,7 +229,10 @@
                                           <VBox spacing="5.0">
                                              <children>
                                                 <Label text="Количество слоев" />
-                                                <ComboBox fx:id="num_layers_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Выберите">
+                                                <ComboBox fx:id="num_layers_cb" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="243.0" promptText="Не выбрано">
+                                                   <value>
+                                                      <String fx:value="Не выбрано" />
+                                                   </value>
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -196,7 +241,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_depth" mnemonicParsing="false" onMouseClicked="#check_depth_clicked" text="Толщина">
+                                                <CheckBox fx:id="check_depth" mnemonicParsing="false" onMouseClicked="#check_depth_clicked" text="Толщина, мм">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -216,7 +261,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_blotting_pressure" mnemonicParsing="false" onMouseClicked="#check_blotting_pressure_clicked" text="Давление промокания">
+                                                <CheckBox fx:id="check_blotting_pressure" mnemonicParsing="false" onMouseClicked="#check_blotting_pressure_clicked" text="Давление промокания, кПа">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -232,7 +277,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_time" mnemonicParsing="false" onMouseClicked="#check_time_clicked" text="Время промокания">
+                                                <CheckBox fx:id="check_time" mnemonicParsing="false" onMouseClicked="#check_time_clicked" text="Время промокания, мин">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -248,7 +293,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_water_vapor_perm" mnemonicParsing="false" onMouseClicked="#check_water_vapor_perm_clicked" text="Водопаропроницаемость">
+                                                <CheckBox fx:id="check_water_vapor_perm" mnemonicParsing="false" onMouseClicked="#check_water_vapor_perm_clicked" text="Водопаропроницаемость, г/(м²∙24ч)">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -264,7 +309,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_resistance" mnemonicParsing="false" onMouseClicked="#check_resistance_clicked" text="Тепловое сопротивление">
+                                                <CheckBox fx:id="check_resistance" mnemonicParsing="false" onMouseClicked="#check_resistance_clicked" text="Тепловое сопротивление, (м²∙°С)/Вт">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -280,7 +325,7 @@
                                           </VBox>
                                           <VBox spacing="5.0">
                                              <children>
-                                                <CheckBox fx:id="check_relative_pressure" mnemonicParsing="false" onMouseClicked="#check_relative_pressure_clicked" text="Относительное давление промокания">
+                                                <CheckBox fx:id="check_relative_pressure" mnemonicParsing="false" onMouseClicked="#check_relative_pressure_clicked" text="Относительное давление промокания, кПа">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>

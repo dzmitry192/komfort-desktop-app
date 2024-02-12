@@ -2,12 +2,19 @@ package com.example.project_for_university.controllers;
 
 import com.example.project_for_university.dto.AllValues;
 import com.example.project_for_university.dto.ContentPanes;
+import com.example.project_for_university.dto.forBackend.ReturnAllTypesDto;
+import com.example.project_for_university.dto.forBackend.entity.ProductionMethodEntity;
 import com.example.project_for_university.dto.forBackend.entity.UserEntity;
+import com.example.project_for_university.dto.forBackend.entity.types.MembraneLayerPolymerTypeEntity;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
-import com.example.project_for_university.service.FilterService;
-import com.example.project_for_university.service.ReturnAllTypesService;
-import com.example.project_for_university.service.models.FilterServiceModel;
+import com.example.project_for_university.service.AllTypesService;
+import com.example.project_for_university.service.admin.MembraneLayerPolymerTypeService;
+import com.example.project_for_university.service.admin.ProductionMethodService;
+import com.example.project_for_university.service.models.TypeResponse;
+import com.example.project_for_university.service.models.TypesResponse;
+import com.example.project_for_university.service.models.get.GetAllTypesResponse;
+import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,8 +34,7 @@ import java.util.ResourceBundle;
 public class LoggedInPageController implements Initializable, DataProvider {
 
     private AllValues allValues;
-    private FilterService filterService = new FilterService();
-    private ReturnAllTypesService returnAllTypesService = new ReturnAllTypesService();
+    private AllTypesService allTypesService = new AllTypesService();
 
     @FXML
     private Text userName_text;
@@ -87,7 +93,6 @@ public class LoggedInPageController implements Initializable, DataProvider {
     @FXML
     void adminPanel_btn_click(MouseEvent event) {
         toggleActiveButton(adminPanel_btn);
-        allValues.getAdminPanelInfo().setReturnAllTypesDto(returnAllTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
         ComponentUtil.mount(Component.ADMIN_PANEL, loggedInContentPane, allValues);
     }
 
@@ -96,7 +101,7 @@ public class LoggedInPageController implements Initializable, DataProvider {
     void createMaterial_btn_click(MouseEvent event) {
         toggleActiveButton(createMaterial_btn);
 
-        allValues.getAdminPanelInfo().setReturnAllTypesDto(returnAllTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
+        allValues.getAdminPanelInfo().setReturnAllTypesDto(allTypesService.getAllTypesThread(allValues.getUser().getEmail(), allValues.getUser().getPassword()).getReturnAllTypesDto());
         if (allValues.getLastCreateMaterialComponent() != null) {
             ComponentUtil.mount(allValues.getLastCreateMaterialComponent(), loggedInContentPane, allValues);
         } else {
@@ -108,10 +113,20 @@ public class LoggedInPageController implements Initializable, DataProvider {
     @FXML
     void materialList_btn_click(MouseEvent event) {
         toggleActiveButton(materialList_btn);
-        FilterServiceModel filterServiceModel = filterService.filterThread(allValues.getUser().getEmail(), allValues.getUser().getPassword());
-        allValues.getAdminPanelInfo().getReturnAllTypesDto().setProductionMethods(filterServiceModel.getProductionMethods());
-        allValues.getAdminPanelInfo().getReturnAllTypesDto().setMembraneLayerPolymerTypes(filterServiceModel.getMembraneLayerPolymerTypes());
-        ComponentUtil.mount(Component.FILTER, loggedInContentPane, allValues);
+
+        TypesResponse<ProductionMethodEntity> prodMethodsResponse = ProductionMethodService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+        if (prodMethodsResponse.isError()) {
+            AlertUtil.show("Ошибка при получении типа", prodMethodsResponse.getMessage(), allValues.getRootStage());
+        } else {
+            TypesResponse<MembraneLayerPolymerTypeEntity> membTypesResponse = MembraneLayerPolymerTypeService.INSTANCE.getAll(allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if (membTypesResponse.isError()) {
+                AlertUtil.show("Ошибка при получении типа", membTypesResponse.getMessage(), allValues.getRootStage());
+            } else {
+                allValues.getAdminPanelInfo().getReturnAllTypesDto().setMembraneLayerPolymerTypes(membTypesResponse.getTypes());
+                allValues.getAdminPanelInfo().getReturnAllTypesDto().setProductionMethods(prodMethodsResponse.getTypes());
+                ComponentUtil.mount(Component.FILTER, loggedInContentPane, allValues);
+            }
+        }
     }
 
     @SneakyThrows
@@ -122,7 +137,6 @@ public class LoggedInPageController implements Initializable, DataProvider {
         cleanAllValues.setContentPanes(allValues.getContentPanes());
         allValues = null;
 
-        System.out.println(allValues);
         ComponentUtil.mount(Component.LOGIN, cleanAllValues.getContentPanes().getMainContentPane(), cleanAllValues);
     }
 

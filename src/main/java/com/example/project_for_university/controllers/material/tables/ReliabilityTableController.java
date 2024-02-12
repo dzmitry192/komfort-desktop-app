@@ -113,7 +113,6 @@ public class ReliabilityTableController implements DataProvider, Initializable {
 
         for (var button : allValues.getSideBarButtons()) {
             EventHandler<MouseEvent> clickHandler = event -> {
-                System.out.println("reliability sideBartBtn");
                 saveDataFromInputs();
             };
             button.addEventHandler(MouseEvent.MOUSE_CLICKED, clickHandler);
@@ -319,7 +318,7 @@ public class ReliabilityTableController implements DataProvider, Initializable {
         }
 
         //equipment
-        if(equipment.getText() != null) {
+        if(!equipment.getText().isBlank()) {
             allValues.getCreateMaterialDto().getReliabilityFunction().setEquipment(equipment.getText());
         } else {
             allValues.getCreateMaterialDto().getReliabilityFunction().setEquipment(null);
@@ -457,7 +456,7 @@ public class ReliabilityTableController implements DataProvider, Initializable {
             }
 
             //проверка оборудования
-            if(equipment.getText().isEmpty()) {
+            if(equipment.getText().isBlank()) {
                 throw new CustomException(ExceptionMessage.INVALID_EQUIPMENT.getMessage(), ExceptionType.INVALID_EQUIPMENT_TYPE.getType());
             } else {
                 relFuncDto.setEquipment(equipment.getText());
@@ -488,11 +487,35 @@ public class ReliabilityTableController implements DataProvider, Initializable {
         return false;
     }
 
+    private void clearFields() {
+        equipment.setText("");
+        impactCyclesCnt.setText("");
+        maxWaterResistanceLvl.setText("");
+        relativeBlottingPressureAfterLoad_base.setText("");
+        relativeBlottingPressureAfterLoad_calculated.setText("");
+        relativeBlottingPressureAfterLoad_experimental_1.setText("");
+        relativeBlottingPressureAfterLoad_weight.setText("");
+        relativeBlottingTimeAfterLoad_base.setText("");
+        relativeBlottingTimeAfterLoad_calculated.setText("");
+        relativeBlottingTimeAfterLoad_experimental_1.setText("");
+        relativeBlottingTimeAfterLoad_weight.setText("");
+        relativeWaterResistanceAfterLoad_base.setText("");
+        relativeWaterResistanceAfterLoad_calculated.setText("");
+        relativeWaterResistanceAfterLoad_experimental_1.setText("");
+        relativeWaterResistanceAfterLoad_weight.setText("");
+        waterproofFunctionResource_base.setText("");
+        waterproofFunctionResource_weight.setText("");
+        waterproofRealizationCriteriaAfterLoad_experimental_1.setText("");
+        waterproofRealizationCriteriaAfterLoad_experimental_2.setText("");
+        waterproofRealizationCriteriaAfterLoad_weight.setText("");
+    }
+
     @FXML
     void btn_clearFields_clicked(MouseEvent event) {
         boolean isTrue = AlertUtil.showConfirmation("Очистить все поля на этой стадии?", "Все поля в этой стадии создания будут полностью очищены", allValues.getRootStage());
         if (isTrue) {
-            allValues.getCreateMaterialDto().setReliabilityFunction(null);
+            clearFields();
+            allValues.getCreateMaterialDto().setReliabilityFunction(new CalculateReliabilityFunctionDto());
         }
     }
 

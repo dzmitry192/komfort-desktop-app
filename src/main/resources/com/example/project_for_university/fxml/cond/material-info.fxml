@@ -38,6 +38,14 @@
                               <Insets left="15.0" right="15.0" />
                            </padding>
                         </HBox>
+                        <HBox fx:id="delete_photos_btn" alignment="CENTER" onMouseClicked="#delete_photos_btn_clicked" spacing="5.0" styleClass="btn-red-filled">
+                           <children>
+                              <FontAwesomeIconView glyphName="CLOSE" />
+                           </children>
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </HBox>
                </children>

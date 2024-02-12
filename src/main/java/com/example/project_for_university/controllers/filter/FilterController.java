@@ -8,8 +8,9 @@ import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
 import com.example.project_for_university.service.MaterialService;
-import com.example.project_for_university.service.models.FilterMaterialsModel;
+import com.example.project_for_university.service.models.get.GetMaterialsResponse;
 import com.example.project_for_university.utils.AlertUtil;
+import com.example.project_for_university.utils.NodeUtils;
 import com.example.project_for_university.utils.ValidationUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -17,10 +18,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -40,6 +41,12 @@ public class FilterController implements Initializable, DataProvider {
 
     @FXML
     private StackPane loader_contentPane;
+
+    @FXML
+    private VBox noResultsPanel;
+
+    @FXML
+    private Region noResultsRegion;
 
     @FXML
     private HBox firstPage_btn;
@@ -380,9 +387,8 @@ public class FilterController implements Initializable, DataProvider {
         } else {
             curFilterDto.setName("");
         }
-
         if (typeMemb_cb.getSelectionModel().getSelectedItem() != null) {
-            if(!typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+            if(typeMemb_cb.getSelectionModel().getSelectedIndex() != 0) {
                 curFilterDto.setMembraneLayerPolymerType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).filter(type -> type.getName().equals(typeMemb_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
             } else {
                 curFilterDto.setMembraneLayerPolymerType_id(0);
@@ -391,7 +397,7 @@ public class FilterController implements Initializable, DataProvider {
             curFilterDto.setMembraneLayerPolymerType_id(0);
         }
         if (way_prod_cb.getSelectionModel().getSelectedItem() != null) {
-            if(!typeMemb_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+            if(way_prod_cb.getSelectionModel().getSelectedIndex() != 0) {
                 curFilterDto.setProductionMethod_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getProductionMethods()).filter(method -> method.getName().equals(way_prod_cb.getSelectionModel().getSelectedItem())).findFirst().get().getId());
             } else {
                 curFilterDto.setProductionMethod_id(0);
@@ -400,7 +406,7 @@ public class FilterController implements Initializable, DataProvider {
             curFilterDto.setProductionMethod_id(0);
         }
         if (num_layers_cb.getSelectionModel().getSelectedItem() != null) {
-            if(!num_layers_cb.getSelectionModel().getSelectedItem().equals("Не выбрано")) {
+            if(num_layers_cb.getSelectionModel().getSelectedIndex() != 0) {
                 curFilterDto.setLayersCnt(Integer.parseInt(num_layers_cb.getSelectionModel().getSelectedItem()));
             } else {
                 curFilterDto.setLayersCnt(0);
@@ -482,9 +488,9 @@ public class FilterController implements Initializable, DataProvider {
     }
 
     @FXML
-    void btn_reset_filters_clicked(MouseEvent event) {
+    void btn_reset_filters_clicked(MouseEvent event) throws ExecutionException, InterruptedException {
         allValues.getPaginationDto().setPage(1);
-        allValues.setMaterialFilterDto(null);
+        allValues.setMaterialFilterDto(new MaterialFilterDto());
 
         check_own_materials.setSelected(false);
         check_time.setSelected(false);
@@ -524,6 +530,8 @@ public class FilterController implements Initializable, DataProvider {
         depth_inp_2.setDisable(true);
         blotting_pressure_inp_1.setDisable(true);
         blotting_pressure_inp_2.setDisable(true);
+
+        mountMaterials(getMaterials());
     }
 
     @FXML
@@ -590,47 +598,42 @@ public class FilterController implements Initializable, DataProvider {
 
         return lastPage;
     }
-
-    private void displayNode(Node node, boolean isDisplay) {
-        node.setVisible(isDisplay);
-        node.setManaged(isDisplay);
-    }
-
+    
     private void setPagination() {
         int page = allValues.getPaginationDto().getPage();
 
         if (page < 2) {
-            displayNode(firstPage_btn, false);
-            displayNode(prevPage_btn, false);
-            displayNode(page1_btn, false);
-            displayNode(page2_btn, false);
+            NodeUtils.displayNode(firstPage_btn, false);
+            NodeUtils.displayNode(prevPage_btn, false);
+            NodeUtils.displayNode(page1_btn, false);
+            NodeUtils.displayNode(page2_btn, false);
         } else if (page == 2) {
-            displayNode(firstPage_btn, true);
-            displayNode(prevPage_btn, true);
-            displayNode(page1_btn, false);
-            displayNode(page2_btn, true);
+            NodeUtils.displayNode(firstPage_btn, true);
+            NodeUtils.displayNode(prevPage_btn, true);
+            NodeUtils.displayNode(page1_btn, false);
+            NodeUtils.displayNode(page2_btn, true);
         } else {
-            displayNode(firstPage_btn, true);
-            displayNode(prevPage_btn, true);
-            displayNode(page1_btn, true);
-            displayNode(page2_btn, true);
+            NodeUtils.displayNode(firstPage_btn, true);
+            NodeUtils.displayNode(prevPage_btn, true);
+            NodeUtils.displayNode(page1_btn, true);
+            NodeUtils.displayNode(page2_btn, true);
         }
 
         if (page >= lastPage) {
-            displayNode(lastPage_btn, false);
-            displayNode(nextPage_btn, false);
-            displayNode(page4_btn, false);
-            displayNode(page5_btn, false);
+            NodeUtils.displayNode(lastPage_btn, false);
+            NodeUtils.displayNode(nextPage_btn, false);
+            NodeUtils.displayNode(page4_btn, false);
+            NodeUtils.displayNode(page5_btn, false);
         } else if (page == lastPage - 1) {
-            displayNode(lastPage_btn, true);
-            displayNode(nextPage_btn, true);
-            displayNode(page4_btn, true);
-            displayNode(page5_btn, false);
+            NodeUtils.displayNode(lastPage_btn, true);
+            NodeUtils.displayNode(nextPage_btn, true);
+            NodeUtils.displayNode(page4_btn, true);
+            NodeUtils.displayNode(page5_btn, false);
         } else {
-            displayNode(lastPage_btn, true);
-            displayNode(nextPage_btn, true);
-            displayNode(page4_btn, true);
-            displayNode(page5_btn, true);
+            NodeUtils.displayNode(lastPage_btn, true);
+            NodeUtils.displayNode(nextPage_btn, true);
+            NodeUtils.displayNode(page4_btn, true);
+            NodeUtils.displayNode(page5_btn, true);
         }
 
         page1_btnText.setText(String.valueOf(page - 2));
@@ -640,6 +643,16 @@ public class FilterController implements Initializable, DataProvider {
         page5_btnText.setText(String.valueOf(page + 2));
     }
 
+    public void showNoResultsPanel() {
+        NodeUtils.displayNode(noResultsRegion, true);
+        NodeUtils.displayNode(noResultsPanel, true);
+    }
+
+    public void hideNoResultsPanel() {
+        NodeUtils.displayNode(noResultsRegion, false);
+        NodeUtils.displayNode(noResultsPanel, false);
+    }
+
     private void mountMaterials(ArrayList<PartialMaterialEntity> materials) {
         list_materials.getChildren().clear();
         materialList_scrollPane.setVvalue(0);
@@ -647,29 +660,33 @@ public class FilterController implements Initializable, DataProvider {
         calcLastPage();
         setPagination();
 
-        Platform.runLater(() -> {
-            for (int i = 0; i < materials.size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource(Component.MATERIAL_ITEM.getPath()));
+        if (materials.size() == 0) {
+            showNoResultsPanel();
+        } else {
+            hideNoResultsPanel();
 
-                try {
-                    HBox materialItem = fxmlLoader.load();
-                    MaterialController materialController = fxmlLoader.getController();
+            Platform.runLater(() -> {
+                for (int i = 0; i < materials.size(); i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource(Component.MATERIAL_ITEM.getPath()));
 
-                    materialController.setMaterial(materials.get(i));
-                    materialController.setData(allValues);
+                    try {
+                        HBox materialItem = fxmlLoader.load();
+                        MaterialController materialController = fxmlLoader.getController();
 
-                    list_materials.getChildren().removeAll();
-                    list_materials.getChildren().add(materialItem);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                        materialController.setMaterial(materials.get(i));
+                        materialController.setData(allValues);
+
+                        list_materials.getChildren().removeAll();
+                        list_materials.getChildren().add(materialItem);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
-
-    //тут будет делаться запрос на сервер на получение материалов с фильтрами и page, perPage
     private ArrayList<PartialMaterialEntity> getMaterials() throws ExecutionException, InterruptedException {
         if (allValues.getLoadedMaterials() == null) {
             allValues.setLoadedMaterials(new ArrayList<>());
@@ -677,10 +694,10 @@ public class FilterController implements Initializable, DataProvider {
 
         ArrayList<PartialMaterialEntity> materials = new ArrayList<>();
 
-        FilterMaterialsModel filterMaterialsModel = materialService.getFilterMaterialsThread(allValues);
-        if (!filterMaterialsModel.isError()) {
-            allValues.setTotalMaterialsCnt(filterMaterialsModel.getTotalCount());
-            materials.addAll(Arrays.asList(filterMaterialsModel.getPartialMaterials()));
+        GetMaterialsResponse getMaterialsResponse = materialService.getFilterMaterialsThread(allValues);
+        if (!getMaterialsResponse.isError()) {
+            allValues.setTotalMaterialsCnt(getMaterialsResponse.getTotalCount());
+            materials.addAll(Arrays.asList(getMaterialsResponse.getPartialMaterials()));
         } else {
             AlertUtil.show("Ошибка получения данных с сервера", "Сервер временно недоступен, повторите попытку позже", allValues.getRootStage());
         }
@@ -711,7 +728,5 @@ public class FilterController implements Initializable, DataProvider {
 
         relative_pressure_inp_1.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
         relative_pressure_inp_2.setTextFormatter(new TextFormatter<>(ValidationUtils.doubleFilter));
-
-
     }
 }

@@ -2,11 +2,16 @@ package com.example.project_for_university.service.admin;
 
 import com.example.project_for_university.Main;
 import com.example.project_for_university.controllers.user.admin.models.PhType;
+import com.example.project_for_university.dto.forBackend.entity.types.GlueTypeEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.LayerTypeEntity;
+import com.example.project_for_university.enums.ServiceEnum;
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.service.models.TypeResponse;
+import com.example.project_for_university.service.models.TypesResponse;
 import com.example.project_for_university.utils.AuthUtils;
+import com.example.project_for_university.utils.ExceptionMessageUtil;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -22,10 +27,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
+    public static final LayerTypeService INSTANCE = new LayerTypeService();
+
     @SneakyThrows
     @Override
-    public LayerTypeEntity[] getAll(String email, String password) {
-        CompletableFuture<LayerTypeEntity[]> futureTypeList = new CompletableFuture<>();
+    public TypesResponse<LayerTypeEntity> getAll(String email, String password) {
+        CompletableFuture<TypesResponse<LayerTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -36,15 +43,19 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    LayerTypeEntity[] layerTypeEntities;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        layerTypeEntities = JsonToClass.parseToListObject(LayerTypeEntity.class, response).toArray(LayerTypeEntity[]::new);
+                TypesResponse<LayerTypeEntity> typesResponse = new TypesResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typesResponse.setError(false);
+                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typesResponse.setTypes(JsonToClass.parseToListObject(LayerTypeEntity.class, response).toArray(LayerTypeEntity[]::new));
+                    } else {
+                        typesResponse.setError(true);
+                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
-                    futureTypeList.complete(layerTypeEntities);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typesResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -58,8 +69,8 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
     @SneakyThrows
     @Override
-    public LayerTypeEntity getById(int id, String email, String password) {
-        CompletableFuture<LayerTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<LayerTypeEntity> getById(int id, String email, String password) {
+        CompletableFuture<TypeResponse<LayerTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -70,15 +81,19 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    LayerTypeEntity layerTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        layerTypeEntity = JsonToClass.parseToObject(LayerTypeEntity.class, response);
+                TypeResponse<LayerTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setType(JsonToClass.parseToObject(LayerTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(layerTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -92,8 +107,8 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
     @SneakyThrows
     @Override
-    public LayerTypeEntity create(PhType phType, String email, String password) {
-        CompletableFuture<LayerTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<LayerTypeEntity> create(PhType phType, String email, String password) {
+        CompletableFuture<TypeResponse<LayerTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -101,22 +116,26 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.post()
+                HttpUriRequest httpPost = RequestBuilder.post()
                         .setUri(Main.host.getValue() + UrlRoutes.POST_LAYER_TYPE.getName())
                         .setHeader("Content-Type", "application/json")
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
-                try {
-                    LayerTypeEntity layerTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        layerTypeEntity = JsonToClass.parseToObject(LayerTypeEntity.class, response);
+                TypeResponse<LayerTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+                    if (response.getStatusLine().getStatusCode() == 201) {
+                        typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setType(JsonToClass.parseToObject(LayerTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(layerTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -130,8 +149,8 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
     @SneakyThrows
     @Override
-    public LayerTypeEntity update(PhType phType, String email, String password) {
-        CompletableFuture<LayerTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<LayerTypeEntity> update(PhType phType, String email, String password) {
+        CompletableFuture<TypeResponse<LayerTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -139,22 +158,26 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("name", phType.getName());
 
-                HttpUriRequest httpGet = RequestBuilder.patch()
+                HttpUriRequest httpPatch = RequestBuilder.patch()
                         .setUri(Main.host.getValue() + UrlRoutes.PATCH_LAYER_TYPE_BY_ID.getName() + phType.getId())
                         .setHeader("Content-Type", "application/json")
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
-                try {
-                    LayerTypeEntity layerTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        layerTypeEntity = JsonToClass.parseToObject(LayerTypeEntity.class, response);
+                TypeResponse<LayerTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpPatch)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setType(JsonToClass.parseToObject(LayerTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(layerTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -168,26 +191,30 @@ public class LayerTypeService implements CrudService<LayerTypeEntity> {
 
     @SneakyThrows
     @Override
-    public LayerTypeEntity delete(int id, String email, String password) {
-        CompletableFuture<LayerTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<LayerTypeEntity> delete(int id, String email, String password) {
+        CompletableFuture<TypeResponse<LayerTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpUriRequest httpGet = RequestBuilder.delete()
+                HttpUriRequest httpDelete = RequestBuilder.delete()
                         .setUri(Main.host.getValue() + UrlRoutes.DELETE_LAYER_TYPE_BY_ID.getName() + id)
                         .setHeader("Content-Type", "application/json")
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    LayerTypeEntity layerTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        layerTypeEntity = JsonToClass.parseToObject(LayerTypeEntity.class, response);
+                TypeResponse<LayerTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpDelete)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setType(JsonToClass.parseToObject(LayerTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),ExceptionMessageUtil.getMessageFromResponse(response)));
                     }
-                    futureTypeList.complete(layerTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

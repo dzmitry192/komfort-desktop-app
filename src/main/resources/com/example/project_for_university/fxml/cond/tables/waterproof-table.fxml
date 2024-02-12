@@ -91,7 +91,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Рп – давление промокания материалов" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Рп – давление промокания материалов, кПа" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -107,7 +107,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="В– водонепроницаемость" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="В– водонепроницаемость, кПа" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -123,7 +123,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="tп – время промокания материала" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="tп – время промокания материала, мин" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -202,7 +202,7 @@
                               <Label />
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="tп – время промокания материала" wrappingWidth="241.191650390625" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="гидростатическое давление, кПа" wrappingWidth="241.191650390625" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -214,7 +214,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="время защиты от воды" wrappingWidth="241.191650390625" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="время защиты от воды, мин" wrappingWidth="241.191650390625" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -226,7 +226,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="скорость увеличения гидростатического давления" wrappingWidth="241.191650390625" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="скорость увеличения гидростатического давления, кПа/мин" wrappingWidth="241.191650390625" />
                                  </children>
                               </TextFlow>
                            </children>

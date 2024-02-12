@@ -15,7 +15,7 @@ public class MaterialInfoDto {
     private String name;
     private String manufacturer;
     private String description;
-    private int depth;
+    private double depth;
     private int productionMethod_id;
     private int membraneLayerPolymerType_id;
     private int glueType_id;

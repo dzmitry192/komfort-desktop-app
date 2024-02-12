@@ -85,7 +85,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WVPc – водопаропроницаемость" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WVPc – водопаропроницаемость, г/(м²∙24ч)" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -147,7 +147,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rсум – сумм. тепловое сопротивление" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rсум – сумм. тепловое сопротивление, (м²∙°С)/Вт" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -179,7 +179,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Комфортная темепература внутри одежды" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Комфортная темепература внутри одежды, °С" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -203,7 +203,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Комфортная влажность внутри одежды" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Комфортная влажность внутри одежды, %" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -240,7 +240,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная влажность наружной среды" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная влажность наружной среды, %" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -252,7 +252,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная температура наружной среды" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Минимальная температура наружной среды, °С" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -264,7 +264,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная температура наружной среды" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная температура наружной среды, °С" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -306,7 +306,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная влажность наружной среды" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Максимальная влажность наружной среды, %" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -318,7 +318,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Средняя скорость движения наружного воздуха" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Средняя скорость движения наружного воздуха, м/с" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>
@@ -350,7 +350,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Площадь поверхности пробы" wrappingWidth="249.87969970703125" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Площадь поверхности пробы, м²" wrappingWidth="249.87969970703125" />
                                  </children>
                               </TextFlow>
                            </children>

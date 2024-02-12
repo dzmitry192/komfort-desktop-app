@@ -2,9 +2,10 @@ package com.example.project_for_university.utils;
 
 import javafx.event.Event;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.util.Optional;
@@ -17,7 +18,6 @@ public class AlertUtil {
         alert.setContentText(contentText);
         alert.initOwner(stage);
 
-
         DialogPane dialogPane = alert.getDialogPane();
 
         ButtonType btn_ok = new ButtonType("Ок");
@@ -29,7 +29,7 @@ public class AlertUtil {
         dialogPane.getStyleClass().add("alert-dialog");
 
         dialogPane.getStylesheets().add(AlertUtil.class.getResource("/com/example/project_for_university/styles/shared.css").toExternalForm());
-
+        alert.getDialogPane().lookup(".content.label").setStyle("-fx-wrap-text: true;");
 
         alert.showAndWait();
         stage.show();
@@ -56,7 +56,7 @@ public class AlertUtil {
         dialogPane.getStyleClass().add("alert-dialog");
 
         dialogPane.getStylesheets().add(AlertUtil.class.getResource("/com/example/project_for_university/styles/shared.css").toExternalForm());
-
+        alert.getDialogPane().lookup(".content.label").setStyle("-fx-wrap-text: true;");
 
         Optional<ButtonType> result = alert.showAndWait();
         stage.show();

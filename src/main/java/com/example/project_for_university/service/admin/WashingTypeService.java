@@ -2,11 +2,16 @@ package com.example.project_for_university.service.admin;
 
 import com.example.project_for_university.Main;
 import com.example.project_for_university.controllers.user.admin.models.PhType;
+import com.example.project_for_university.dto.forBackend.entity.ProductionMethodEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.WashingTypeEntity;
+import com.example.project_for_university.enums.ServiceEnum;
 import com.example.project_for_university.enums.UrlRoutes;
 import com.example.project_for_university.http.JsonToClass;
 import com.example.project_for_university.interfaces.CrudService;
+import com.example.project_for_university.service.models.TypeResponse;
+import com.example.project_for_university.service.models.TypesResponse;
 import com.example.project_for_university.utils.AuthUtils;
+import com.example.project_for_university.utils.ExceptionMessageUtil;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -22,10 +27,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class WashingTypeService implements CrudService<WashingTypeEntity> {
 
+    public static final WashingTypeService INSTANCE = new WashingTypeService();
+
     @SneakyThrows
     @Override
-    public WashingTypeEntity[] getAll(String email, String password) {
-        CompletableFuture<WashingTypeEntity[]> futureTypeList = new CompletableFuture<>();
+    public TypesResponse<WashingTypeEntity> getAll(String email, String password) {
+        CompletableFuture<TypesResponse<WashingTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -36,15 +43,19 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    WashingTypeEntity[] washingTypeEntities;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        washingTypeEntities = JsonToClass.parseToListObject(WashingTypeEntity.class, response).toArray(WashingTypeEntity[]::new);
+                TypesResponse<WashingTypeEntity> typesResponse = new TypesResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typesResponse.setError(false);
+                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typesResponse.setTypes(JsonToClass.parseToListObject(WashingTypeEntity.class, response).toArray(WashingTypeEntity[]::new));
+                    } else {
+                        typesResponse.setError(true);
+                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
-                    futureTypeList.complete(washingTypeEntities);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typesResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -58,8 +69,8 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
 
     @SneakyThrows
     @Override
-    public WashingTypeEntity getById(int id, String email, String password) {
-        CompletableFuture<WashingTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<WashingTypeEntity> getById(int id, String email, String password) {
+        CompletableFuture<TypeResponse<WashingTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -70,15 +81,19 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    WashingTypeEntity washingTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        washingTypeEntity = JsonToClass.parseToObject(WashingTypeEntity.class, response);
+                TypeResponse<WashingTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setType(JsonToClass.parseToObject(WashingTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(washingTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -92,8 +107,8 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
 
     @SneakyThrows
     @Override
-    public WashingTypeEntity create(PhType phType, String email, String password) {
-        CompletableFuture<WashingTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<WashingTypeEntity> create(PhType phType, String email, String password) {
+        CompletableFuture<TypeResponse<WashingTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -108,15 +123,19 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                         .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
-                try {
-                    WashingTypeEntity washingTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        washingTypeEntity = JsonToClass.parseToObject(WashingTypeEntity.class, response);
+                TypeResponse<WashingTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 201) {
+                        typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setType(JsonToClass.parseToObject(WashingTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(washingTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -130,8 +149,8 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
 
     @SneakyThrows
     @Override
-    public WashingTypeEntity update(PhType phType, String email, String password) {
-        CompletableFuture<WashingTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<WashingTypeEntity> update(PhType phType, String email, String password) {
+        CompletableFuture<TypeResponse<WashingTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -146,15 +165,19 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                         .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
                         .build();
 
-                try {
-                    WashingTypeEntity washingTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        washingTypeEntity = JsonToClass.parseToObject(WashingTypeEntity.class, response);
+                TypeResponse<WashingTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setType(JsonToClass.parseToObject(WashingTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
                     }
-                    futureTypeList.complete(washingTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -168,8 +191,8 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
 
     @SneakyThrows
     @Override
-    public WashingTypeEntity delete(int id, String email, String password) {
-        CompletableFuture<WashingTypeEntity> futureTypeList = new CompletableFuture<>();
+    public TypeResponse<WashingTypeEntity> delete(int id, String email, String password) {
+        CompletableFuture<TypeResponse<WashingTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -179,15 +202,19 @@ public class WashingTypeService implements CrudService<WashingTypeEntity> {
                         .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
                         .build();
 
-                try {
-                    WashingTypeEntity washingTypeEntity;
-                    try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                        washingTypeEntity = JsonToClass.parseToObject(WashingTypeEntity.class, response);
+                TypeResponse<WashingTypeEntity> typeResponse = new TypeResponse<>();
+                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        typeResponse.setError(false);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setType(JsonToClass.parseToObject(WashingTypeEntity.class, response));
+                    } else {
+                        typeResponse.setError(true);
+                        typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),ExceptionMessageUtil.getMessageFromResponse(response)));
                     }
-                    futureTypeList.complete(washingTypeEntity);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+                futureTypeList.complete(typeResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -6,10 +6,12 @@ import lombok.Getter;
 public enum UrlRoutes {
     AUTH_SIGNUP("/auth/signup"),
     AUTH_LOGIN("/auth/login"),
+    GET_MATERIAL_REPORT("/material"),
     GET_MATERIALS("/material"),
     GET_MATERIAL_BY_ID("/material/"),
-    DELETE_MATERIAL_BY_ID("/material/"),
     POST_MATERIAL("/material"),
+    PATCH_MATERIAL("/material/"),
+    DELETE_MATERIAL_BY_ID("/material/"),
     GET_GLUE_TYPES("/glue-type"),
     GET_GLUE_TYPE_BY_ID("/glue-type/"),
     POST_GLUE_TYPE("/glue-type"),
@@ -50,7 +52,11 @@ public enum UrlRoutes {
     POST_WASHING_TYPE("/washing-type"),
     PATCH_WASHING_TYPE_BY_ID("/washing-type/"),
     DELETE_WASHING_TYPE_BY_ID("/washing-type/"),
-    GET_ALL_TYPES("/all-types");
+    GET_ALL_TYPES("/all-types"),
+    GET_DESKTOP_LATEST_VERSION("/desktop/latestVersion"),
+    GET_DESKTOP_UPDATE("/desktop/update"),
+    GET_DESKTOP("/desktop"),
+    POST_DESKTOP_VERSION("/desktop/");
 
     private final String name;
 

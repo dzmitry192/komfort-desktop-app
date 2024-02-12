@@ -7,10 +7,10 @@ import com.example.project_for_university.dto.forBackend.entity.LayerEntity;
 import com.example.project_for_university.dto.forBackend.entity.types.*;
 import com.example.project_for_university.enums.Component;
 import com.example.project_for_university.providers.DataProvider;
+import com.example.project_for_university.service.MaterialService;
+import com.example.project_for_university.service.models.AbstractResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
-import javafx.animation.TranslateTransition;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,17 +21,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import lombok.SneakyThrows;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class MaterialDetailsController implements Initializable, DataProvider {
@@ -55,6 +55,9 @@ public class MaterialDetailsController implements Initializable, DataProvider {
 
     @FXML
     private HBox deleteMaterial_btn;
+
+    @FXML
+    private HBox updateMaterial_btn;
 
     @FXML
     private Hyperlink email_lbl;
@@ -125,6 +128,8 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         if (partialMaterialEntity.getUser().getId() != allValues.getUser().getId()) {
             deleteMaterial_btn.setVisible(false);
             deleteMaterial_btn.setManaged(false);
+            updateMaterial_btn.setVisible(false);
+            updateMaterial_btn.setManaged(false);
         }
 
         Arrays.stream(partialMaterialEntity.getImages()).forEach(image -> images.add(new Image(image)));
@@ -189,6 +194,7 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
     }
 
+    @SneakyThrows
     @FXML
     void download_report_btn_clicked(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -200,20 +206,34 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
-            System.out.println("Selected file: " + file.getAbsolutePath());
-        } else {
-            System.out.println("Operation canceled");
+            AbstractResponse response = MaterialService.INSTANCE.getMaterialReport(partialMaterialEntity.getId(), file.getAbsolutePath(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if (response.isError()){
+                AlertUtil.show("Ошибка при скачивании отчёта", response.getMessage(), allValues.getRootStage());
+                ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+            } else {
+                stage.show();
+            }
         }
-        stage.show();
     }
 
     @FXML
-    void deleteMaterial_btn_clicked(MouseEvent event) {
+    void deleteMaterial_btn_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
         boolean isToDelete = AlertUtil.showConfirmation("Навсегда удалить этот артикул?", "Данные об этом артикуле будут безвозвратно удалены", allValues.getRootStage());
 
         if (isToDelete) {
-            //запрос на удаление артикула
+            AbstractResponse response = MaterialService.INSTANCE.delete(partialMaterialEntity.getId(), allValues.getUser().getEmail(), allValues.getUser().getPassword());
+            if(response.isError()) {
+                AlertUtil.show("Ошибка удаления артикула", response.getMessage(), allValues.getRootStage());
+                ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+            } else {
+                ComponentUtil.mount(Component.FILTER, allValues.getContentPanes().getLoggedInStackPane(), allValues);
+            }
         }
+    }
+
+    @FXML
+    void updateMaterial_btn_clicked(MouseEvent event) throws IOException, ExecutionException, InterruptedException {
+        ComponentUtil.mountUpdateMaterial(allValues.getContentPanes().getLoggedInStackPane(), allValues, partialMaterialEntity);
     }
 
     @FXML
