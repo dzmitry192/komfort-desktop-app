@@ -9,10 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="was fixes creating .jar file">
+    <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="change path to MainClass">
+      <change afterPath="$PROJECT_DIR$/src/main/logo/komfort-icon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build_app_windows.bat" beforeDir="false" afterPath="$PROJECT_DIR$/build_app_windows.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp.txt" beforeDir="false" afterPath="$PROJECT_DIR$/temp.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,39 +51,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "JAR Application.komfort-1.0.jar.executor": "Run",
-    "JAR Application.shaded.executor": "Run",
-    "Maven.komfort [clean].executor": "Run",
-    "Maven.komfort [compile].executor": "Run",
-    "Maven.komfort [org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile].executor": "Run",
-    "Maven.komfort [org.apache.maven.plugins:maven-dependency-plugin:3.4.0:copy-dependencies].executor": "Run",
-    "Maven.komfort [org.apache.maven.plugins:maven-jar-plugin:3.3.0:jar].executor": "Run",
-    "Maven.komfort [validate].executor": "Run",
-    "Maven.project_for_university [clean].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "feature/installer",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Dmitry/Desktop/project_for_university/target/komfort-1.0-shaded.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.26666668",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.komfort-1.0-jar-with-dependencies.jar.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.komfort-1.0.jar.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.shaded.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [org.apache.maven.plugins:maven-dependency-plugin:3.4.0:copy-dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [org.apache.maven.plugins:maven-jar-plugin:3.3.0:jar].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.project_for_university [clean].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/installer&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dmitry/Desktop/project_for_university/src/main/logo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.26666668&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Dmitry\Desktop\project_for_university\src\main\logo" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/.github/workflows" />
-      <recent name="C:\Users\Dmitry\Desktop\project_for_university\src\main\logo" />
       <recent name="C:\Users\Dmitry\Desktop\project_for_university" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -187,7 +191,9 @@
       <workItem from="1707337685524" duration="1397000" />
       <workItem from="1707339506356" duration="4852000" />
       <workItem from="1707472619558" duration="3586000" />
-      <workItem from="1707684962457" duration="7474000" />
+      <workItem from="1707684962457" duration="7846000" />
+      <workItem from="1707721313680" duration="2852000" />
+      <workItem from="1707724382044" duration="631000" />
     </task>
     <task id="LOCAL-00002" summary="updating services, were added alerts for catching error from response, updated .fxml file etc.">
       <option name="closed" value="true" />
@@ -213,7 +219,23 @@
       <option name="project" value="LOCAL" />
       <updated>1707691670990</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="some additional fixes">
+      <option name="closed" value="true" />
+      <created>1707692520635</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1707692520636</updated>
+    </task>
+    <task id="LOCAL-00006" summary="change path to MainClass">
+      <option name="closed" value="true" />
+      <created>1707692754333</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1707692754333</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,6 +263,8 @@
     <MESSAGE value="were added crud operations for MaterialService etc." />
     <MESSAGE value="some fixes" />
     <MESSAGE value="was fixes creating .jar file" />
-    <option name="LAST_COMMIT_MESSAGE" value="was fixes creating .jar file" />
+    <MESSAGE value="some additional fixes" />
+    <MESSAGE value="change path to MainClass" />
+    <option name="LAST_COMMIT_MESSAGE" value="change path to MainClass" />
   </component>
 </project>

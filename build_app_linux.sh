@@ -44,7 +44,7 @@ detected_modules=`$JAVA_HOME/bin/jdeps \
   --ignore-missing-deps \
   --print-module-deps \
   --class-path "target/installer/input/libs/*" \
-    target/classes/com/example/project_for_university/MainLauncher.class`
+    target/classes/com/example/project_for_university/Main.class`
 echo "detected modules: ${detected_modules}"
 
 

@@ -37,7 +37,7 @@ echo detecting required modules
   --multi-release %JAVA_VERSION% ^
   --ignore-missing-deps ^
   --class-path "target\installer\input\libs\*" ^
-  --print-module-deps target\classes\com\example\project_for_university\MainLauncher.class > temp.txt
+  --print-module-deps target\classes\com\example\project_for_university\Main.class > temp.txt
 
 set /p detected_modules=<temp.txt
 
@@ -66,7 +66,6 @@ rem works with dependencies that are not fully modularized, yet.
 
 echo creating java runtime image
 
-@REM call jlink ^
 call "%JAVA_HOME%\bin\jlink" ^
   --strip-native-commands ^
   --no-header-files ^
@@ -81,7 +80,6 @@ call "%JAVA_HOME%\bin\jlink" ^
 rem ------ PACKAGING ----------------------------------------------------------
 rem In the end we will find the package inside the target/installer directory.
 
-@REM call jpackage ^
 call "%JAVA_HOME%\bin\jpackage" ^
   --type %INSTALLER_TYPE% ^
   --dest target/installer ^
