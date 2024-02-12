@@ -23,9 +23,6 @@ public class FileUtil {
     private static String emailFileName = "sem.txt";
     private static Path emailFilePath = Paths.get(dataDirectoryPath + File.separator + emailFileName);
 
-    private static String appVersionFileName = "vers.txt";
-    private static Path appVersionFilePath = Paths.get(dataDirectoryPath + File.separator + appVersionFileName);
-
     public static boolean isExistsData() {
         return Files.exists(dataDirectoryPath) && Files.isDirectory(dataDirectoryPath);
     }
@@ -73,24 +70,5 @@ public class FileUtil {
         String decodedEmail = new String(decodedEmailBytes);
 
         return decodedEmail;
-    }
-
-    public static void saveAppVersion(String version) {
-        try {
-            Files.write(appVersionFilePath, version.getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static final String getAppVersion() {
-        String appVersion = "";
-        try {
-            appVersion = Arrays.toString(Files.readAllBytes(appVersionFilePath));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return appVersion;
     }
 }

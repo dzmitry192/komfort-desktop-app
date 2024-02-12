@@ -46,20 +46,6 @@ public class MainController implements Initializable, DataProvider {
                 FileUtil.createDataDirectory();
             }
 
-            //запрос на версию приложения, ее установка в allValues.appVersion и запись в файл
-            GetAppLatestVersionResponse response = ApplicationService.INSTANCE.getApplicationLatestVersionResponse();
-            if(response.isError()) {
-                System.out.println("ОШИБКА ПРИ ПОЛУЧЕНИИ ПОСЛЕДНЕЙ ВЕРСИИ ПРИЛОЖЕНИЯ");
-            } else {
-                String latestAppVersion = response.getDesktop().getVersion();
-                String curAppVersion = FileUtil.getAppVersion();
-                if(!curAppVersion.equals(latestAppVersion)) {
-                    FileUtil.saveAppVersion(latestAppVersion);
-                    allValues.setAppVersion(latestAppVersion);
-                }
-            }
-
-
             //content-panes
             allValues.setContentPanes(contentPanes);
             allValues.setRootStage(rootStage);
