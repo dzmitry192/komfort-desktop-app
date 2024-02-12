@@ -32,7 +32,6 @@ public class AlertUtil {
         dialogPane.getStyleClass().add("alert-dialog");
 
         dialogPane.getStylesheets().add(AlertUtil.class.getResource("/com/example/project_for_university/styles/shared.css").toExternalForm());
-        alert.getDialogPane().lookup(".content.label").setStyle("-fx-wrap-text: true;");
 
         alert.showAndWait();
         stage.show();

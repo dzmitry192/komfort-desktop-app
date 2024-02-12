@@ -28,9 +28,9 @@ public class ExceptionMessageUtil {
         } else if(serviceEnum.equals(ServiceEnum.MATERIAL)) {
             return switch (statusCode) {
                 case 500 -> ErrorMessage.SERVER_ERROR.getMessage();
+                case 422 -> ErrorMessage.MATERIAL_SIZE_LIMIT.getMessage();
                 case 403 -> message.contains("You can update") ? ErrorMessage.MATERIAL_PATCH_403.getMessage() : ErrorMessage.MATERIAL_DELETE_403.getMessage();
                 case 404 -> ErrorMessage.MATERIAL_NOT_FOUND.getMessage();
-                case 400 -> message.contains("file size limit") ? ErrorMessage.MATERIAL_SIZE_LIMIT.getMessage() : ErrorMessage.DEFAULT.getMessage();
                 default -> ErrorMessage.DEFAULT.getMessage();
             };
         } else if(serviceEnum.equals(ServiceEnum.ALL_TYPES)) {
