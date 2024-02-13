@@ -122,6 +122,8 @@ public class MaterialInfoController implements DataProvider {
     private CreateMaterialRequestDto createMaterialDtoToCreateMaterialRequestDto(CreateMaterialDto materialDto) {
         CreateMaterialRequestDto requestDto = new CreateMaterialRequestDto();
 
+        System.out.println("VALUES BEFORE ->" + materialDto);
+
         //set files
         if (materialDto.getImages() != null) {
             if (materialDto.getImages().length > 0) {
@@ -151,9 +153,7 @@ public class MaterialInfoController implements DataProvider {
         requestDto.getCondition().getWashing().setPress(materialDto.getCondition().getWashing().isPress());
         requestDto.getCondition().getWashing().setCyclesCnt(materialDto.getCondition().getWashing().getCyclesCnt());
         if (materialDto.getCondition().getWashing().getWashingType_id() == 0) {
-            requestDto.getCondition().getWashing().setWashingType_id(null);
-        } else {
-            requestDto.getCondition().getWashing().setWashingType_id(materialDto.getCondition().getWashing().getWashingType_id());
+            requestDto.getCondition().setWashing(null);
         }
         if (materialDto.getCondition().getAbrasionType_id() == 0) {
             requestDto.getCondition().setAbrasionType_id(null);
@@ -181,6 +181,8 @@ public class MaterialInfoController implements DataProvider {
         requestDto.setReliabilityFunction(reliabilityFunctionDto);
 
         requestDto.setEstimation(materialDto.getEstimation());
+
+        System.out.println("VALUES AFTER-> " + requestDto);
 
         return requestDto;
     }
@@ -255,7 +257,7 @@ public class MaterialInfoController implements DataProvider {
         fileChooser.setTitle("Выберите файлы");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home"))); // начальная директория
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.tif"));
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.tif", "*.jpeg"));
         List<File> selectedFiles = fileChooser.showOpenMultipleDialog(stage); // stage - текущее окно приложения
         if (selectedFiles != null) {
             if (selectedFiles.size() > 5) {

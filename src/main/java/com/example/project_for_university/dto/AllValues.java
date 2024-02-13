@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AllValues {
-    private String appVersion = "1.0.0";
+    private String appVersion = "1.0.2";
     private AdminPanelInfo adminPanelInfo = new AdminPanelInfo();
     private Stage rootStage;
     private Stage loaderStage;
