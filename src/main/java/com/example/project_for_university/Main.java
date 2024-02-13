@@ -12,8 +12,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-//    public static StringProperty host = new SimpleStringProperty("http://54.175.158.179");
-    public static StringProperty host = new SimpleStringProperty("http://localhost:80");
+    public static StringProperty host = new SimpleStringProperty("https://komfort.isit.my.to");
 
     @Override
     public void start(Stage stage) throws IOException {
