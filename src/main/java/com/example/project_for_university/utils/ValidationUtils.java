@@ -1,16 +1,18 @@
 package com.example.project_for_university.utils;
 
-import javafx.beans.Observable;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidationUtils {
-    private static final String doubleRegex = "[0-9]{1,13}(\\.[0-9]{0,3})?";
+    private static final String doubleRegex = "[0-9]{1,13}(\\.[0-9]{0,10})?";
+    private static final DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
+    public static final DecimalFormat df = new DecimalFormat("#.##########", dfs);
 
     public static final UnaryOperator<TextFormatter.Change> doubleFilter = change -> {
         String fullString = change.getControlText() + change.getText();

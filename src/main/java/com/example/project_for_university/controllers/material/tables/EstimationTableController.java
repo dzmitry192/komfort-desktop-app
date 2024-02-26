@@ -72,13 +72,13 @@ public class EstimationTableController implements DataProvider, Initializable {
 
         if (estimationDto != null) {
             if (estimationDto.getWaterproofFunction_weight() != -1) {
-                waterproofFunction_weight.setText(String.valueOf(estimationDto.getWaterproofFunction_weight()));
+                waterproofFunction_weight.setText(ValidationUtils.df.format(estimationDto.getWaterproofFunction_weight()));
             }
             if (estimationDto.getHomeostasisFunction_weight() != -1) {
-                homeostasisFunction_weight.setText(String.valueOf(estimationDto.getHomeostasisFunction_weight()));
+                homeostasisFunction_weight.setText(ValidationUtils.df.format(estimationDto.getHomeostasisFunction_weight()));
             }
             if (estimationDto.getReliabilityFunction_weight() != -1) {
-                reliabilityFunction_weight.setText(String.valueOf(estimationDto.getReliabilityFunction_weight()));
+                reliabilityFunction_weight.setText(ValidationUtils.df.format(estimationDto.getReliabilityFunction_weight()));
             }
         }
     }

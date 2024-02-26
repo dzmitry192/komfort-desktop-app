@@ -219,10 +219,10 @@ public class FilterController implements Initializable, DataProvider {
                 depth_inp_2.setDisable(false);
             }
             if (allValues.getMaterialFilterDto().getDepth_min() != 0) {
-                depth_inp_1.setText(String.valueOf(allValues.getMaterialFilterDto().getDepth_min()));
+                depth_inp_1.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getDepth_min()));
             }
             if (allValues.getMaterialFilterDto().getDepth_max() != 0) {
-                depth_inp_2.setText(String.valueOf(allValues.getMaterialFilterDto().getDepth_max()));
+                depth_inp_2.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getDepth_max()));
             }
 
             if (allValues.getMaterialFilterDto().getMaterialBlottingPressure_calculated_min() != 0 || allValues.getMaterialFilterDto().getMaterialBlottingPressure_calculated_max() != 0) {
@@ -231,10 +231,10 @@ public class FilterController implements Initializable, DataProvider {
                 blotting_pressure_inp_2.setDisable(false);
             }
             if (allValues.getMaterialFilterDto().getMaterialBlottingPressure_calculated_min() != 0) {
-                blotting_pressure_inp_1.setText(String.valueOf(allValues.getMaterialFilterDto().getMaterialBlottingPressure_calculated_min()));
+                blotting_pressure_inp_1.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getMaterialBlottingPressure_calculated_min()));
             }
             if (allValues.getMaterialFilterDto().getMaterialBlottingPressure_calculated_max() != 0) {
-                blotting_pressure_inp_2.setText(String.valueOf(allValues.getMaterialFilterDto().getMaterialBlottingPressure_calculated_max()));
+                blotting_pressure_inp_2.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getMaterialBlottingPressure_calculated_max()));
             }
 
             if (allValues.getMaterialFilterDto().getMaterialBlottingTime_calculated_min() != 0 || allValues.getMaterialFilterDto().getMaterialBlottingTime_calculated_max() != 0) {
@@ -243,10 +243,10 @@ public class FilterController implements Initializable, DataProvider {
                 time_inp_2.setDisable(false);
             }
             if (allValues.getMaterialFilterDto().getMaterialBlottingTime_calculated_min() != 0) {
-                time_inp_1.setText(String.valueOf(allValues.getMaterialFilterDto().getMaterialBlottingTime_calculated_min()));
+                time_inp_1.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getMaterialBlottingTime_calculated_min()));
             }
             if (allValues.getMaterialFilterDto().getMaterialBlottingTime_calculated_max() != 0) {
-                time_inp_2.setText(String.valueOf(allValues.getMaterialFilterDto().getMaterialBlottingTime_calculated_max()));
+                time_inp_2.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getMaterialBlottingTime_calculated_max()));
             }
 
             if (allValues.getMaterialFilterDto().getWaterPermeability_calculated_min() != 0 || allValues.getMaterialFilterDto().getWaterPermeability_calculated_max() != 0) {
@@ -255,10 +255,10 @@ public class FilterController implements Initializable, DataProvider {
                 water_vapor_perm_inp_2.setDisable(false);
             }
             if (allValues.getMaterialFilterDto().getWaterPermeability_calculated_min() != 0) {
-                water_vapor_perm_inp_1.setText(String.valueOf(allValues.getMaterialFilterDto().getWaterPermeability_calculated_min()));
+                water_vapor_perm_inp_1.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getWaterPermeability_calculated_min()));
             }
             if (allValues.getMaterialFilterDto().getWaterPermeability_calculated_max() != 0) {
-                water_vapor_perm_inp_2.setText(String.valueOf(allValues.getMaterialFilterDto().getWaterPermeability_calculated_max()));
+                water_vapor_perm_inp_2.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getWaterPermeability_calculated_max()));
             }
 
             if (allValues.getMaterialFilterDto().getTotalThermalResistance_calculated_min() != 0 || allValues.getMaterialFilterDto().getTotalThermalResistance_calculated_max() != 0) {
@@ -267,10 +267,10 @@ public class FilterController implements Initializable, DataProvider {
                 resistance_inp_2.setDisable(false);
             }
             if (allValues.getMaterialFilterDto().getTotalThermalResistance_calculated_min() != 0) {
-                resistance_inp_1.setText(String.valueOf(allValues.getMaterialFilterDto().getTotalThermalResistance_calculated_min()));
+                resistance_inp_1.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getTotalThermalResistance_calculated_min()));
             }
             if (allValues.getMaterialFilterDto().getTotalThermalResistance_calculated_max() != 0) {
-                resistance_inp_2.setText(String.valueOf(allValues.getMaterialFilterDto().getTotalThermalResistance_calculated_max()));
+                resistance_inp_2.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getTotalThermalResistance_calculated_max()));
             }
 
             if (allValues.getMaterialFilterDto().getRelativeBlottingPressureAfterLoad_relativeValuation_min() != 0 || allValues.getMaterialFilterDto().getRelativeBlottingPressureAfterLoad_relativeValuation_max() != 0) {
@@ -279,10 +279,10 @@ public class FilterController implements Initializable, DataProvider {
                 relative_pressure_inp_2.setDisable(false);
             }
             if (allValues.getMaterialFilterDto().getRelativeBlottingPressureAfterLoad_relativeValuation_min() != 0) {
-                relative_pressure_inp_1.setText(String.valueOf(allValues.getMaterialFilterDto().getRelativeBlottingPressureAfterLoad_relativeValuation_min()));
+                relative_pressure_inp_1.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getRelativeBlottingPressureAfterLoad_relativeValuation_min()));
             }
             if (allValues.getMaterialFilterDto().getRelativeBlottingPressureAfterLoad_relativeValuation_max() != 0) {
-                relative_pressure_inp_2.setText(String.valueOf(allValues.getMaterialFilterDto().getRelativeBlottingPressureAfterLoad_relativeValuation_max()));
+                relative_pressure_inp_2.setText(ValidationUtils.df.format(allValues.getMaterialFilterDto().getRelativeBlottingPressureAfterLoad_relativeValuation_max()));
             }
 
         }

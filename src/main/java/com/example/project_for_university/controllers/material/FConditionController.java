@@ -230,7 +230,7 @@ public class FConditionController implements Initializable, DataProvider {
         membraneTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getMembraneLayerPolymerTypes()).map(MembraneLayerPolymerTypeEntity::getName).toList());
         membrane_type_cb.setItems(membraneTypes);
 
-        ObservableList<String> glueTypes = FXCollections.observableArrayList("Не выбрано", "нет");
+        ObservableList<String> glueTypes = FXCollections.observableArrayList("Не выбрано");
         glueTypes.addAll(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getGlueTypes()).map(GlueTypeEntity::getName).toList());
         glue_type_cb.setItems(glueTypes);
 
@@ -396,7 +396,7 @@ public class FConditionController implements Initializable, DataProvider {
             }
             if (materialInfo.getDepth() != 0) {
                 allValues.getCreateMaterialDto().getMaterial().setDepth(materialInfo.getDepth());
-                depth_inp.setText(String.valueOf(materialInfo.getDepth()));
+                depth_inp.setText(ValidationUtils.df.format(materialInfo.getDepth()));
             }
             if (materialInfo.getLayers() != null && !materialInfo.getLayers().isEmpty()) {
                 layers_table.setItems(FXCollections.observableList(materialInfo.getLayers().stream().map(layer -> new TableType(String.valueOf(layer.getIndexNum()), Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getLayerTypes()).filter(layerType -> layerType.getId() == layer.getLayerType_id()).findFirst().get().getName())).toList()));
@@ -671,7 +671,6 @@ public class FConditionController implements Initializable, DataProvider {
     void lev_phys_action(ActionEvent event) {
         if (lev_phys.getSelectionModel().getSelectedItem() != null && lev_phys.getSelectionModel().getSelectedIndex() != 0) {
             allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> lev_phys.getSelectionModel().getSelectedItem().contains(type.getName())).findFirst().get().getId());
-//            allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(Arrays.stream(allValues.getAdminPanelInfo().getReturnAllTypesDto().getPhysicalActivityTypes()).filter(type -> type.getName().equals(lev_phys.getSelectionModel().getSelectedItem())).findFirst().get().getId());
         } else {
             allValues.getCreateMaterialDto().getCondition().setPhysicalActivityType_id(0);
         }

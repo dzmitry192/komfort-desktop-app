@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
+import static com.example.project_for_university.Main.httpClient;
+
 public class ProductionMethodService implements CrudService<ProductionMethodEntity> {
 
     public static final ProductionMethodService INSTANCE = new ProductionMethodService();
@@ -35,30 +37,27 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
         CompletableFuture<TypesResponse<ProductionMethodEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
-            try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpUriRequest httpGet = RequestBuilder.get()
+                    .setUri(Main.host.getValue() + UrlRoutes.GET_PRODUCTION_METHODS.getName())
+                    .setHeader("Content-Type", "application/json")
+                    .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                    .build();
 
-                HttpUriRequest httpGet = RequestBuilder.get()
-                        .setUri(Main.host.getValue() + UrlRoutes.GET_PRODUCTION_METHODS.getName())
-                        .setHeader("Content-Type", "application/json")
-                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
-                        .build();
-
-                TypesResponse<ProductionMethodEntity> typesResponse = new TypesResponse<>();
-                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                    if (response.getStatusLine().getStatusCode() == 200) {
-                        typesResponse.setError(false);
-                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typesResponse.setTypes(JsonToClass.parseToListObject(ProductionMethodEntity.class, response).toArray(ProductionMethodEntity[]::new));
-                    } else {
-                        typesResponse.setError(true);
-                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
-                    }
+            TypesResponse<ProductionMethodEntity> typesResponse = new TypesResponse<>();
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    typesResponse.setError(false);
+                    typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                    typesResponse.setTypes(JsonToClass.parseToListObject(ProductionMethodEntity.class, response).toArray(ProductionMethodEntity[]::new));
+                } else {
+                    typesResponse.setError(true);
+                    typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                    typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                 }
-                futureTypeList.complete(typesResponse);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("FFFFFFFFFFFFFFF");
             }
+            futureTypeList.complete(typesResponse);
         };
 
         Thread getProductionMethodsThread = new Thread(runnable);
@@ -90,7 +89,7 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
                     } else {
                         typeResponse.setError(true);
                         typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
                 futureTypeList.complete(typeResponse);
@@ -132,7 +131,7 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
                     } else {
                         typeResponse.setError(true);
                         typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
                 futureTypeList.complete(typeResponse);
@@ -174,7 +173,7 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
                     } else {
                         typeResponse.setError(true);
                         typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
                 futureTypeList.complete(typeResponse);
@@ -211,7 +210,7 @@ public class ProductionMethodService implements CrudService<ProductionMethodEnti
                     } else {
                         typeResponse.setError(true);
                         typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),ExceptionMessageUtil.getMessageFromResponse(response)));
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
                     }
                 }
                 futureTypeList.complete(typeResponse);

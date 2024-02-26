@@ -147,85 +147,85 @@ public class WaterproofTableController implements DataProvider, Initializable {
         if (waterproofFunctionDto != null) {
             //1 column
             if (waterproofFunctionDto.getMaterialBlottingPressure_experimental_1() != -1) {
-                materialBlottingPressure_experimental_1.setText(String.valueOf(waterproofFunctionDto.getMaterialBlottingPressure_experimental_1()));
+                materialBlottingPressure_experimental_1.setText(ValidationUtils.df.format(waterproofFunctionDto.getMaterialBlottingPressure_experimental_1()));
             }
             if (waterproofFunctionDto.getWaterproof_experimental_1() != -1) {
-                waterproof_experimental_1.setText(String.valueOf(waterproofFunctionDto.getWaterproof_experimental_1()));
+                waterproof_experimental_1.setText(ValidationUtils.df.format(waterproofFunctionDto.getWaterproof_experimental_1()));
             }
             if (waterproofFunctionDto.getMaterialBlottingTime_experimental_1() != -1) {
-                materialBlottingTime_experimental_1.setText(String.valueOf(waterproofFunctionDto.getMaterialBlottingTime_experimental_1()));
+                materialBlottingTime_experimental_1.setText(ValidationUtils.df.format(waterproofFunctionDto.getMaterialBlottingTime_experimental_1()));
             }
             if (waterproofFunctionDto.getWaterproofRealizationCriteria_experimental_1() != -1) {
-                waterproofRealizationCriteria_experimental_1.setText(String.valueOf(waterproofFunctionDto.getWaterproofRealizationCriteria_experimental_1()));
+                waterproofRealizationCriteria_experimental_1.setText(ValidationUtils.df.format(waterproofFunctionDto.getWaterproofRealizationCriteria_experimental_1()));
             }
             if (waterproofFunctionDto.getWaterproofRealizationCriteria_experimental_2() != -1) {
-                waterproofRealizationCriteria_experimental_2.setText(String.valueOf(waterproofFunctionDto.getWaterproofRealizationCriteria_experimental_2()));
+                waterproofRealizationCriteria_experimental_2.setText(ValidationUtils.df.format(waterproofFunctionDto.getWaterproofRealizationCriteria_experimental_2()));
             }
             if (waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_1() != -1) {
-                dynamicWaterproofCriteria_experimental_1.setText(String.valueOf(waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_1()));
+                dynamicWaterproofCriteria_experimental_1.setText(ValidationUtils.df.format(waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_1()));
             }
             if (waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_2() != -1) {
-                dynamicWaterproofCriteria_experimental_2.setText(String.valueOf(waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_2()));
+                dynamicWaterproofCriteria_experimental_2.setText(ValidationUtils.df.format(waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_2()));
             }
             if (waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_3() != -1) {
-                dynamicWaterproofCriteria_experimental_3.setText(String.valueOf(waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_3()));
+                dynamicWaterproofCriteria_experimental_3.setText(ValidationUtils.df.format(waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_3()));
             }
             if (waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_4() != -1) {
-                dynamicWaterproofCriteria_experimental_4.setText(String.valueOf(waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_4()));
+                dynamicWaterproofCriteria_experimental_4.setText(ValidationUtils.df.format(waterproofFunctionDto.getDynamicWaterproofCriteria_experimental_4()));
             }
             if (waterproofFunctionDto.getHydrostaticPressureIncreaseSpeed() != -1) {
-                hydrostaticPressureIncreaseSpeed.setText(String.valueOf(waterproofFunctionDto.getHydrostaticPressureIncreaseSpeed()));
+                hydrostaticPressureIncreaseSpeed.setText(ValidationUtils.df.format(waterproofFunctionDto.getHydrostaticPressureIncreaseSpeed()));
             }
             if (waterproofFunctionDto.getHydrostaticPressure() != -1) {
-                hydrostaticPressure.setText(String.valueOf(waterproofFunctionDto.getHydrostaticPressure()));
+                hydrostaticPressure.setText(ValidationUtils.df.format(waterproofFunctionDto.getHydrostaticPressure()));
             }
             if (waterproofFunctionDto.getWaterproofTime() != -1) {
-                waterproofTime.setText(String.valueOf(waterproofFunctionDto.getWaterproofTime()));
+                waterproofTime.setText(ValidationUtils.df.format(waterproofFunctionDto.getWaterproofTime()));
             }
 
             //2 column
             if (waterproofFunctionDto.getMaterialBlottingPressure_calculated() != -1) {
-                materialBlottingPressure_calculated.setText(String.valueOf(waterproofFunctionDto.getMaterialBlottingPressure_calculated()));
+                materialBlottingPressure_calculated.setText(ValidationUtils.df.format(waterproofFunctionDto.getMaterialBlottingPressure_calculated()));
             }
             if (waterproofFunctionDto.getWaterproof_calculated() != -1) {
-                waterproof_calculated.setText(String.valueOf(waterproofFunctionDto.getWaterproof_calculated()));
+                waterproof_calculated.setText(ValidationUtils.df.format(waterproofFunctionDto.getWaterproof_calculated()));
             }
             if (waterproofFunctionDto.getMaterialBlottingTime_calculated() != -1) {
-                materialBlottingTime_calculated.setText(String.valueOf(waterproofFunctionDto.getMaterialBlottingTime_calculated()));
+                materialBlottingTime_calculated.setText(ValidationUtils.df.format(waterproofFunctionDto.getMaterialBlottingTime_calculated()));
             }
 
             //3 column
             if (waterproofFunctionDto.getMaterialBlottingPressure_base() != -1) {
-                materialBlottingPressure_base.setText(String.valueOf(waterproofFunctionDto.getMaterialBlottingPressure_base()));
+                materialBlottingPressure_base.setText(ValidationUtils.df.format(waterproofFunctionDto.getMaterialBlottingPressure_base()));
             }
             if (waterproofFunctionDto.getWaterproof_base() != -1) {
-                waterproof_base.setText(String.valueOf(waterproofFunctionDto.getWaterproof_base()));
+                waterproof_base.setText(ValidationUtils.df.format(waterproofFunctionDto.getWaterproof_base()));
             }
             if (waterproofFunctionDto.getMaterialBlottingTime_base() != -1) {
-                materialBlottingTime_base.setText(String.valueOf(waterproofFunctionDto.getMaterialBlottingTime_base()));
+                materialBlottingTime_base.setText(ValidationUtils.df.format(waterproofFunctionDto.getMaterialBlottingTime_base()));
             }
             if (waterproofFunctionDto.getWaterproofRealizationCriteria_base() != -1) {
-                waterproofRealizationCriteria_base.setText(String.valueOf(waterproofFunctionDto.getWaterproofRealizationCriteria_base()));
+                waterproofRealizationCriteria_base.setText(ValidationUtils.df.format(waterproofFunctionDto.getWaterproofRealizationCriteria_base()));
             }
             if (waterproofFunctionDto.getDynamicWaterproofCriteria_base() != -1) {
-                dynamicWaterproofCriteria_base.setText(String.valueOf(waterproofFunctionDto.getDynamicWaterproofCriteria_base()));
+                dynamicWaterproofCriteria_base.setText(ValidationUtils.df.format(waterproofFunctionDto.getDynamicWaterproofCriteria_base()));
             }
 
             //4 column
             if (waterproofFunctionDto.getMaterialBlottingPressure_weight() != -1) {
-                materialBlottingPressure_weight.setText(String.valueOf(waterproofFunctionDto.getMaterialBlottingPressure_weight()));
+                materialBlottingPressure_weight.setText(ValidationUtils.df.format(waterproofFunctionDto.getMaterialBlottingPressure_weight()));
             }
             if (waterproofFunctionDto.getWaterproof_weight() != -1) {
-                waterproof_weight.setText(String.valueOf(waterproofFunctionDto.getWaterproof_weight()));
+                waterproof_weight.setText(ValidationUtils.df.format(waterproofFunctionDto.getWaterproof_weight()));
             }
             if (waterproofFunctionDto.getMaterialBlottingTime_weight() != -1) {
-                materialBlottingTime_weight.setText(String.valueOf(waterproofFunctionDto.getMaterialBlottingTime_weight()));
+                materialBlottingTime_weight.setText(ValidationUtils.df.format(waterproofFunctionDto.getMaterialBlottingTime_weight()));
             }
             if (waterproofFunctionDto.getWaterproofRealizationCriteria_weight() != -1) {
-                waterproofRealizationCriteria_weight.setText(String.valueOf(waterproofFunctionDto.getWaterproofRealizationCriteria_weight()));
+                waterproofRealizationCriteria_weight.setText(ValidationUtils.df.format(waterproofFunctionDto.getWaterproofRealizationCriteria_weight()));
             }
             if (waterproofFunctionDto.getDynamicWaterproofCriteria_weight() != -1) {
-                dynamicWaterproofCriteria_weight.setText(String.valueOf(waterproofFunctionDto.getDynamicWaterproofCriteria_weight()));
+                dynamicWaterproofCriteria_weight.setText(ValidationUtils.df.format(waterproofFunctionDto.getDynamicWaterproofCriteria_weight()));
             }
 
             //equipment
@@ -464,7 +464,7 @@ public class WaterproofTableController implements DataProvider, Initializable {
                 waterFuncDto.setMaterialBlottingTime_base(-1);
                 waterFuncDto.setMaterialBlottingTime_weight(-1);
             } else {
-                if ((sStr.stream().anyMatch(String::isEmpty) && !materialBlottingTime_experimental_1.getText().isEmpty()) || (tStr.stream().anyMatch(el -> !el.isEmpty()) && materialBlottingTime_experimental_1.getText().isEmpty())) {
+                if ((tStr.stream().anyMatch(String::isEmpty) && !materialBlottingTime_experimental_1.getText().isEmpty()) || (tStr.stream().anyMatch(el -> !el.isEmpty()) && materialBlottingTime_experimental_1.getText().isEmpty())) {
                     throw new CustomException(ExceptionMessage.INVALID_INPUT.getMessage() + " в строке - 3", ExceptionType.INVALID_INPUT_TYPE.getType());
                 } else if (tStr.stream().anyMatch(el -> !ValidationUtils.isValid(el)) || !ValidationUtils.isValid(materialBlottingTime_experimental_1.getText())) {
                     throw new CustomException(ExceptionMessage.INVALID_VALUE.getMessage() + " в строке - 3", ExceptionType.INVALID_VALUE_TYPE.getType());

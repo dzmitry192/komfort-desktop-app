@@ -126,67 +126,67 @@ public class ReliabilityTableController implements DataProvider, Initializable {
         if (reliabilityFunctionDto != null) {
             //col 1
             if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_experimental_1() != -1) {
-                relativeBlottingPressureAfterLoad_experimental_1.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_experimental_1()));
+                relativeBlottingPressureAfterLoad_experimental_1.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_experimental_1()));
             }
             if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_experimental_1() != -1) {
-                relativeWaterResistanceAfterLoad_experimental_1.setText(String.valueOf(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_experimental_1()));
+                relativeWaterResistanceAfterLoad_experimental_1.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_experimental_1()));
             }
             if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_experimental_1() != -1) {
-                relativeBlottingTimeAfterLoad_experimental_1.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_experimental_1()));
+                relativeBlottingTimeAfterLoad_experimental_1.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_experimental_1()));
             }
             if (reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_1() != -1) {
-                waterproofRealizationCriteriaAfterLoad_experimental_1.setText(String.valueOf(reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_1()));
+                waterproofRealizationCriteriaAfterLoad_experimental_1.setText(ValidationUtils.df.format(reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_1()));
             }
             if (reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_2() != -1) {
-                waterproofRealizationCriteriaAfterLoad_experimental_2.setText(String.valueOf(reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_2()));
+                waterproofRealizationCriteriaAfterLoad_experimental_2.setText(ValidationUtils.df.format(reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_experimental_2()));
             }
             if (reliabilityFunctionDto.getMaxWaterResistanceLvl() != -1) {
-                maxWaterResistanceLvl.setText(String.valueOf(reliabilityFunctionDto.getMaxWaterResistanceLvl()));
+                maxWaterResistanceLvl.setText(ValidationUtils.df.format(reliabilityFunctionDto.getMaxWaterResistanceLvl()));
             }
             if (reliabilityFunctionDto.getImpactCyclesCnt() != -1) {
-                impactCyclesCnt.setText(String.valueOf(reliabilityFunctionDto.getImpactCyclesCnt()));
+                impactCyclesCnt.setText(ValidationUtils.df.format(reliabilityFunctionDto.getImpactCyclesCnt()));
             }
 
             //col 2
             if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_calculated() != -1) {
-                relativeBlottingPressureAfterLoad_calculated.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_calculated()));
+                relativeBlottingPressureAfterLoad_calculated.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_calculated()));
             }
             if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_calculated() != -1) {
-                relativeWaterResistanceAfterLoad_calculated.setText(String.valueOf(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_calculated()));
+                relativeWaterResistanceAfterLoad_calculated.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_calculated()));
             }
             if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_calculated() != -1) {
-                relativeBlottingTimeAfterLoad_calculated.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_calculated()));
+                relativeBlottingTimeAfterLoad_calculated.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_calculated()));
             }
 
             //col 3
             if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_base() != -1) {
-                relativeBlottingPressureAfterLoad_base.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_base()));
+                relativeBlottingPressureAfterLoad_base.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_base()));
             }
             if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_base() != -1) {
-                relativeWaterResistanceAfterLoad_base.setText(String.valueOf(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_base()));
+                relativeWaterResistanceAfterLoad_base.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_base()));
             }
             if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_base() != -1) {
-                relativeBlottingTimeAfterLoad_base.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_base()));
+                relativeBlottingTimeAfterLoad_base.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_base()));
             }
             if (reliabilityFunctionDto.getWaterproofFunctionResource_base() != -1) {
-                waterproofFunctionResource_base.setText(String.valueOf(reliabilityFunctionDto.getWaterproofFunctionResource_base()));
+                waterproofFunctionResource_base.setText(ValidationUtils.df.format(reliabilityFunctionDto.getWaterproofFunctionResource_base()));
             }
 
             //col 4
             if (reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_weight() != -1) {
-                relativeBlottingPressureAfterLoad_weight.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_weight()));
+                relativeBlottingPressureAfterLoad_weight.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeBlottingPressureAfterLoad_weight()));
             }
             if (reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_weight() != -1) {
-                relativeWaterResistanceAfterLoad_weight.setText(String.valueOf(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_weight()));
+                relativeWaterResistanceAfterLoad_weight.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeWaterResistanceAfterLoad_weight()));
             }
             if (reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_weight() != -1) {
-                relativeBlottingTimeAfterLoad_weight.setText(String.valueOf(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_weight()));
+                relativeBlottingTimeAfterLoad_weight.setText(ValidationUtils.df.format(reliabilityFunctionDto.getRelativeBlottingTimeAfterLoad_weight()));
             }
             if (reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_weight() != -1) {
-                waterproofRealizationCriteriaAfterLoad_weight.setText(String.valueOf(reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_weight()));
+                waterproofRealizationCriteriaAfterLoad_weight.setText(ValidationUtils.df.format(reliabilityFunctionDto.getWaterproofRealizationCriteriaAfterLoad_weight()));
             }
             if (reliabilityFunctionDto.getWaterproofFunctionResource_weight() != -1) {
-                waterproofFunctionResource_weight.setText(String.valueOf(reliabilityFunctionDto.getWaterproofFunctionResource_weight()));
+                waterproofFunctionResource_weight.setText(ValidationUtils.df.format(reliabilityFunctionDto.getWaterproofFunctionResource_weight()));
             }
 
             //equipment

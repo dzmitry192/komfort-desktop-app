@@ -152,89 +152,89 @@ public class HomeostasisTableController implements DataProvider, Initializable {
         if (homeostasisFunctionDto != null) {
             //col 1
             if (homeostasisFunctionDto.getM1s() != -1) {
-                m1s.setText(String.valueOf(homeostasisFunctionDto.getM1s()));
+                m1s.setText(ValidationUtils.df.format(homeostasisFunctionDto.getM1s()));
             }
             if (homeostasisFunctionDto.getM2s() != -1) {
-                m2s.setText(String.valueOf(homeostasisFunctionDto.getM2s()));
+                m2s.setText(ValidationUtils.df.format(homeostasisFunctionDto.getM2s()));
             }
             if (homeostasisFunctionDto.getS0_1() != -1) {
-                s0_1.setText(String.valueOf(homeostasisFunctionDto.getS0_1()));
+                s0_1.setText(ValidationUtils.df.format(homeostasisFunctionDto.getS0_1()));
             }
             if (homeostasisFunctionDto.getT_1() != -1) {
-                t_1.setText(String.valueOf(homeostasisFunctionDto.getT_1()));
+                t_1.setText(ValidationUtils.df.format(homeostasisFunctionDto.getT_1()));
             }
             if (homeostasisFunctionDto.getM1min() != -1) {
-                m1min.setText(String.valueOf(homeostasisFunctionDto.getM1min()));
+                m1min.setText(ValidationUtils.df.format(homeostasisFunctionDto.getM1min()));
             }
             if (homeostasisFunctionDto.getM2min() != -1) {
-                m2min.setText(String.valueOf(homeostasisFunctionDto.getM2min()));
+                m2min.setText(ValidationUtils.df.format(homeostasisFunctionDto.getM2min()));
             }
             if (homeostasisFunctionDto.getM1max() != -1) {
-                m1max.setText(String.valueOf(homeostasisFunctionDto.getM1max()));
+                m1max.setText(ValidationUtils.df.format(homeostasisFunctionDto.getM1max()));
             }
             if (homeostasisFunctionDto.getM2max() != -1) {
-                m2max.setText(String.valueOf(homeostasisFunctionDto.getM2max()));
+                m2max.setText(ValidationUtils.df.format(homeostasisFunctionDto.getM2max()));
             }
             if (homeostasisFunctionDto.getS0_2() != -1) {
-                s0_2.setText(String.valueOf(homeostasisFunctionDto.getS0_2()));
+                s0_2.setText(ValidationUtils.df.format(homeostasisFunctionDto.getS0_2()));
             }
             if (homeostasisFunctionDto.getT_2() != -1) {
-                t_2.setText(String.valueOf(homeostasisFunctionDto.getT_2()));
+                t_2.setText(ValidationUtils.df.format(homeostasisFunctionDto.getT_2()));
             }
             if (homeostasisFunctionDto.getTos() != -1) {
-                tos.setText(String.valueOf(homeostasisFunctionDto.getTos()));
+                tos.setText(ValidationUtils.df.format(homeostasisFunctionDto.getTos()));
             }
             if (homeostasisFunctionDto.getS() != -1) {
-                s.setText(String.valueOf(homeostasisFunctionDto.getS()));
+                s.setText(ValidationUtils.df.format(homeostasisFunctionDto.getS()));
             }
             if (homeostasisFunctionDto.getM() != -1) {
-                m.setText(String.valueOf(homeostasisFunctionDto.getM()));
+                m.setText(ValidationUtils.df.format(homeostasisFunctionDto.getM()));
             }
             if (homeostasisFunctionDto.getComfTempInsideClothes() != -1) {
-                comfTempInsideClothes.setText(String.valueOf(homeostasisFunctionDto.getComfTempInsideClothes()));
+                comfTempInsideClothes.setText(ValidationUtils.df.format(homeostasisFunctionDto.getComfTempInsideClothes()));
             }
             if (homeostasisFunctionDto.getComfHumidityInsideClothes() != -1) {
-                comfHumidityInsideClothes.setText(String.valueOf(homeostasisFunctionDto.getComfHumidityInsideClothes()));
+                comfHumidityInsideClothes.setText(ValidationUtils.df.format(homeostasisFunctionDto.getComfHumidityInsideClothes()));
             }
             if (homeostasisFunctionDto.getMinOutdoorHumidity() != -1) {
-                minOutdoorHumidity.setText(String.valueOf(homeostasisFunctionDto.getMinOutdoorHumidity()));
+                minOutdoorHumidity.setText(ValidationUtils.df.format(homeostasisFunctionDto.getMinOutdoorHumidity()));
             }
             if (homeostasisFunctionDto.getMinOutdoorTemp() != -1) {
-                minOutdoorTemp.setText(String.valueOf(homeostasisFunctionDto.getMinOutdoorTemp()));
+                minOutdoorTemp.setText(ValidationUtils.df.format(homeostasisFunctionDto.getMinOutdoorTemp()));
             }
             if (homeostasisFunctionDto.getMaxOutdoorTemp() != -1) {
-                maxOutdoorTemp.setText(String.valueOf(homeostasisFunctionDto.getMaxOutdoorTemp()));
+                maxOutdoorTemp.setText(ValidationUtils.df.format(homeostasisFunctionDto.getMaxOutdoorTemp()));
             }
             if (homeostasisFunctionDto.getMaxOutdoorHumidity() != -1) {
-                maxOutdoorHumidity.setText(String.valueOf(homeostasisFunctionDto.getMaxOutdoorHumidity()));
+                maxOutdoorHumidity.setText(ValidationUtils.df.format(homeostasisFunctionDto.getMaxOutdoorHumidity()));
             }
             if (homeostasisFunctionDto.getAvgOutdoorAirSpeed() != -1) {
-                avgOutdoorAirSpeed.setText(String.valueOf(homeostasisFunctionDto.getAvgOutdoorAirSpeed()));
+                avgOutdoorAirSpeed.setText(ValidationUtils.df.format(homeostasisFunctionDto.getAvgOutdoorAirSpeed()));
             }
             if (homeostasisFunctionDto.getSampleSurfaceArea() != -1) {
-                sampleSurfaceArea.setText(String.valueOf(homeostasisFunctionDto.getSampleSurfaceArea()));
+                sampleSurfaceArea.setText(ValidationUtils.df.format(homeostasisFunctionDto.getSampleSurfaceArea()));
             }
 
             //col 2
             if (homeostasisFunctionDto.getWaterPermeability_base() != -1) {
-                waterPermeability_base.setText(String.valueOf(homeostasisFunctionDto.getWaterPermeability_base()));
+                waterPermeability_base.setText(ValidationUtils.df.format(homeostasisFunctionDto.getWaterPermeability_base()));
             }
             if (homeostasisFunctionDto.getWaterPermeabilityDynamicCriteria_base() != -1) {
-                waterPermeabilityDynamicCriteria_base.setText(String.valueOf(homeostasisFunctionDto.getWaterPermeabilityDynamicCriteria_base()));
+                waterPermeabilityDynamicCriteria_base.setText(ValidationUtils.df.format(homeostasisFunctionDto.getWaterPermeabilityDynamicCriteria_base()));
             }
             if (homeostasisFunctionDto.getTotalThermalResistance_base() != -1) {
-                totalThermalResistance_base.setText(String.valueOf(homeostasisFunctionDto.getTotalThermalResistance_base()));
+                totalThermalResistance_base.setText(ValidationUtils.df.format(homeostasisFunctionDto.getTotalThermalResistance_base()));
             }
 
             //col 3
             if (homeostasisFunctionDto.getWaterPermeability_weight() != -1) {
-                waterPermeability_weight.setText(String.valueOf(homeostasisFunctionDto.getWaterPermeability_weight()));
+                waterPermeability_weight.setText(ValidationUtils.df.format(homeostasisFunctionDto.getWaterPermeability_weight()));
             }
             if (homeostasisFunctionDto.getWaterPermeabilityDynamicCriteria_weight() != -1) {
-                waterPermeabilityDynamicCriteria_weight.setText(String.valueOf(homeostasisFunctionDto.getWaterPermeabilityDynamicCriteria_weight()));
+                waterPermeabilityDynamicCriteria_weight.setText(ValidationUtils.df.format(homeostasisFunctionDto.getWaterPermeabilityDynamicCriteria_weight()));
             }
             if (homeostasisFunctionDto.getTotalThermalResistance_weight() != -1) {
-                totalThermalResistance_weight.setText(String.valueOf(homeostasisFunctionDto.getTotalThermalResistance_weight()));
+                totalThermalResistance_weight.setText(ValidationUtils.df.format(homeostasisFunctionDto.getTotalThermalResistance_weight()));
             }
 
             //equipment

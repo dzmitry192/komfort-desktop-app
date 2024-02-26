@@ -11,6 +11,7 @@ import com.example.project_for_university.service.MaterialService;
 import com.example.project_for_university.service.models.AbstractResponse;
 import com.example.project_for_university.utils.AlertUtil;
 import com.example.project_for_university.utils.ComponentUtil;
+import com.example.project_for_university.utils.ValidationUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -154,7 +155,7 @@ public class MaterialDetailsController implements Initializable, DataProvider {
         layers_table.setItems(layerEntities);
 
         material_details_table.setItems(FXCollections.observableArrayList(
-                new TableType("Толщина", partialMaterialEntity.getDepth() + " мм"),
+                new TableType("Толщина", ValidationUtils.df.format(partialMaterialEntity.getDepth()) + " мм"),
                 new TableType("Производитель", partialMaterialEntity.getManufacturer()),
                 new TableType("Способ производства", partialMaterialEntity.getProductionMethod().getName()),
                 new TableType("Тип полимера мембранного слоя", partialMaterialEntity.getMembraneLayerPolymerType().getName()),

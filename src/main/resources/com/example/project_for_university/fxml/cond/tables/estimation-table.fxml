@@ -65,7 +65,7 @@
                            <children>
                               <TextFlow HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Функция водозащиты" wrappingWidth="264.1226501464844" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Функция гомеостаза" wrappingWidth="264.1226501464844" />
                                  </children>
                               </TextFlow>
                            </children>

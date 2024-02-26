@@ -35,30 +35,28 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
         CompletableFuture<TypesResponse<MembraneLayerPolymerTypeEntity>> futureTypeList = new CompletableFuture<>();
 
         Runnable runnable = () -> {
-            try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
-                HttpUriRequest httpGet = RequestBuilder.get()
-                        .setUri(Main.host.getValue() + UrlRoutes.GET_MEMBRANE_LAYER_POLYMER_TYPES.getName())
-                        .setHeader("Content-Type", "application/json")
-                        .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
-                        .build();
+            HttpUriRequest httpGet = RequestBuilder.get()
+                    .setUri(Main.host.getValue() + UrlRoutes.GET_MEMBRANE_LAYER_POLYMER_TYPES.getName())
+                    .setHeader("Content-Type", "application/json")
+                    .setHeader(AuthUtils.header, AuthUtils.getAuth(email, password))
+                    .build();
 
-                TypesResponse<MembraneLayerPolymerTypeEntity> typesResponse = new TypesResponse<>();
-                try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                    if (response.getStatusLine().getStatusCode() == 200) {
-                        typesResponse.setError(false);
-                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typesResponse.setTypes(JsonToClass.parseToListObject(MembraneLayerPolymerTypeEntity.class, response).toArray(MembraneLayerPolymerTypeEntity[]::new));
-                    } else {
-                        typesResponse.setError(true);
-                        typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
-                    }
+            TypesResponse<MembraneLayerPolymerTypeEntity> typesResponse = new TypesResponse<>();
+            try (CloseableHttpResponse response = Main.httpClient.execute(httpGet)) {
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    typesResponse.setError(false);
+                    typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                    typesResponse.setTypes(JsonToClass.parseToListObject(MembraneLayerPolymerTypeEntity.class, response).toArray(MembraneLayerPolymerTypeEntity[]::new));
+                } else {
+                    typesResponse.setError(true);
+                    typesResponse.setStatusCode(response.getStatusLine().getStatusCode());
+                    typesResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                 }
-                futureTypeList.complete(typesResponse);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("FFFFFFFFFFFFFFF");
             }
+            futureTypeList.complete(typesResponse);
         };
 
         Thread getMembranePolymerTypesThread = new Thread(runnable);
@@ -90,7 +88,7 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
                     } else {
                         typeResponse.setError(true);
                         typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
                 futureTypeList.complete(typeResponse);
@@ -132,7 +130,7 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
                     } else {
                         typeResponse.setError(true);
                         typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
                 futureTypeList.complete(typeResponse);
@@ -174,7 +172,7 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
                     } else {
                         typeResponse.setError(true);
                         typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),null));
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), null));
                     }
                 }
                 futureTypeList.complete(typeResponse);
@@ -211,7 +209,7 @@ public class MembraneLayerPolymerTypeService implements CrudService<MembraneLaye
                     } else {
                         typeResponse.setError(true);
                         typeResponse.setStatusCode(response.getStatusLine().getStatusCode());
-                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(),ExceptionMessageUtil.getMessageFromResponse(response)));
+                        typeResponse.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.TYPE, response.getStatusLine().getStatusCode(), ExceptionMessageUtil.getMessageFromResponse(response)));
                     }
                 }
                 futureTypeList.complete(typeResponse);

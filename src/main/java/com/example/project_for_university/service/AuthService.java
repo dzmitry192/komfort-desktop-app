@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import lombok.Data;
 import lombok.SneakyThrows;
 import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
@@ -21,6 +22,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -37,31 +39,30 @@ public class AuthService {
             @SneakyThrows
             @Override
             public void run() {
-                CloseableHttpResponse response;
-                try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("email", loginDto.getEmail());
+                jsonObject.addProperty("password", loginDto.getPassword());
 
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("email", loginDto.getEmail());
-                    jsonObject.addProperty("password", loginDto.getPassword());
+                HttpUriRequest httpPost = RequestBuilder.post()
+                        .setUri(Main.host.getValue() + UrlRoutes.AUTH_LOGIN.getName())
+                        .setHeader("Content-Type", "application/json")
+                        .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
+                        .build();
 
-                    HttpUriRequest httpPost = RequestBuilder.post()
-                            .setUri(Main.host.getValue() + UrlRoutes.AUTH_LOGIN.getName())
-                            .setHeader("Content-Type", "application/json")
-                            .setEntity(new StringEntity(jsonObject.toString(), StandardCharsets.UTF_8))
-                            .build();
-
-                    response = httpClient.execute(httpPost);
-                }
-                if (response.getStatusLine().getStatusCode() != 201) {
-                    user.setError(true);
-                    user.setStatusCode(response.getStatusLine().getStatusCode());
-                    user.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.AUTH_LOGIN, response.getStatusLine().getStatusCode(), null));
-                } else {
-                    user.setError(false);
-                    user.setStatusCode(response.getStatusLine().getStatusCode());
-                    UserEntity userEntity = JsonToClass.parseToObject(UserEntity.class, response);
-                    userEntity.setPassword(loginDto.getPassword());
-                    user.setUser(userEntity);
+                try (CloseableHttpResponse response = Main.httpClient.execute(httpPost)) {
+                    if (response.getStatusLine().getStatusCode() != 201) {
+                        user.setError(true);
+                        user.setStatusCode(response.getStatusLine().getStatusCode());
+                        user.setMessage(ExceptionMessageUtil.getErrorMessage(ServiceEnum.AUTH_LOGIN, response.getStatusLine().getStatusCode(), null));
+                    } else {
+                        user.setError(false);
+                        user.setStatusCode(response.getStatusLine().getStatusCode());
+                        UserEntity userEntity = JsonToClass.parseToObject(UserEntity.class, response);
+                        userEntity.setPassword(loginDto.getPassword());
+                        user.setUser(userEntity);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
                 futureUserModel.complete(user);
             }

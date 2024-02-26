@@ -9,12 +9,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="change path to MainClass">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9dfd70c7-cc47-401e-a0df-a0dc4306d764" name="Changes" comment="some changes">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_02_2024_18_22_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_02_2024_18_22__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_02_2024_21_58_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_02_2024_21_58__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_02_2024_20_56_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_02_2024_20_56__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_02_2024_20_06_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_02_2024_20_06__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/AllValues.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/dto/AllValues.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/filter/FilterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/filter/FilterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/FConditionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/MaterialDetailsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/EstimationTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/EstimationTableController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/HomeostasisTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/HomeostasisTableController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/ReliabilityTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/ReliabilityTableController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/WaterproofTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/controllers/material/tables/WaterproofTableController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/MembraneLayerPolymerTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/MembraneLayerPolymerTypeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/ProductionMethodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/service/admin/ProductionMethodService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/project_for_university/utils/ValidationUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/tables/estimation-table.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/project_for_university/fxml/cond/tables/estimation-table.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +56,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -50,35 +74,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "JAR Application.komfort-1.0-jar-with-dependencies.jar.executor": "Run",
-    "JAR Application.komfort-1.0.jar.executor": "Run",
-    "JAR Application.shaded.executor": "Run",
-    "Maven.komfort [clean].executor": "Run",
-    "Maven.komfort [compile].executor": "Run",
-    "Maven.komfort [org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile].executor": "Run",
-    "Maven.komfort [org.apache.maven.plugins:maven-dependency-plugin:3.4.0:copy-dependencies].executor": "Run",
-    "Maven.komfort [org.apache.maven.plugins:maven-jar-plugin:3.3.0:jar].executor": "Run",
-    "Maven.komfort [validate].executor": "Run",
-    "Maven.project_for_university [clean].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Dmitry/Desktop/project_for_university/src/main/logo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.26666668",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.komfort-1.0-jar-with-dependencies.jar.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.komfort-1.0.jar.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.shaded.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [org.apache.maven.plugins:maven-dependency-plugin:3.4.0:copy-dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [org.apache.maven.plugins:maven-jar-plugin:3.3.0:jar].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.komfort [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.project_for_university [clean].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dmitry/Desktop/project_for_university/src/main/logo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.26666668&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Dmitry\Desktop\project_for_university\src\main\logo" />
@@ -127,7 +151,7 @@
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.example.project_for_university.Main" />
-      <module name="project_for_university" />
+      <module name="komfort" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -180,7 +204,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.9-corretto-17.0.9-f644763e9732-ebaef533" />
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
       </set>
     </attachedChunks>
   </component>
@@ -208,6 +232,17 @@
       <workItem from="1707684962457" duration="7846000" />
       <workItem from="1707721313680" duration="2852000" />
       <workItem from="1707724382044" duration="631000" />
+      <workItem from="1707850812537" duration="1431000" />
+      <workItem from="1708028476545" duration="134000" />
+      <workItem from="1708066874233" duration="6000" />
+      <workItem from="1708362719198" duration="2964000" />
+      <workItem from="1708367074331" duration="183000" />
+      <workItem from="1708367662352" duration="237000" />
+      <workItem from="1708368931409" duration="519000" />
+      <workItem from="1708419998568" duration="842000" />
+      <workItem from="1708676933357" duration="909000" />
+      <workItem from="1708678479735" duration="5131000" />
+      <workItem from="1708934960301" duration="1194000" />
     </task>
     <task id="LOCAL-00002" summary="updating services, were added alerts for catching error from response, updated .fxml file etc.">
       <option name="closed" value="true" />
@@ -249,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707692754333</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="some changes">
+      <option name="closed" value="true" />
+      <created>1707849123002</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1707849123003</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +322,7 @@
     <MESSAGE value="was fixes creating .jar file" />
     <MESSAGE value="some additional fixes" />
     <MESSAGE value="change path to MainClass" />
-    <option name="LAST_COMMIT_MESSAGE" value="change path to MainClass" />
+    <MESSAGE value="some changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some changes" />
   </component>
 </project>
